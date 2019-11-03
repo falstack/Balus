@@ -40,6 +40,7 @@
     "@tarojs/taro-swan": "1.3.22",
     "@tarojs/taro-tt": "1.3.22",
     "@tarojs/taro-weapp": "1.3.22",
+    "flyio": "^0.6.14",
     "nerv-devtools": "^1.5.0",
     "nervjs": "^1.5.0",
     "taro-ui": "^2.2.4"

@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
+import toast from '~/utils/toast'
 import './index.scss'
 
 export default class Index extends Component {
@@ -19,11 +20,15 @@ export default class Index extends Component {
 
   componentDidHide () { }
 
+  handleClick() {
+    toast.info('hello')
+  }
+
   render () {
     return (
       <View className='index'>
         <Text>Hello world!</Text>
-        <AtButton type='primary'>Hello Taro-UI</AtButton>
+        <AtButton type='primary' onClick={this.handleClick}>Hello Taro-UI</AtButton>
       </View>
     )
   }
