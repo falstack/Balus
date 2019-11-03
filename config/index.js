@@ -1,3 +1,5 @@
+const path = require('path')
+
 const config = {
   projectName: 'Balus',
   date: '2019-11-3',
@@ -23,6 +25,9 @@ const config = {
         'transform-object-rest-spread'
       ]
     }
+  },
+  alias: {
+    '~': path.resolve(__dirname, '..', 'src/')
   },
   defineConstants: {
   },
@@ -70,6 +75,7 @@ const config = {
   h5: {
     publicPath: '/',
     staticDirectory: 'static',
+    esnextModules: ['taro-ui'],
     module: {
       postcss: {
         autoprefixer: {
