@@ -26,6 +26,39 @@ class App extends Component {
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      color: '#333333',
+      selectedColor: '#fb7299',
+      backgroundColor: '#ffffff',
+      borderStyle: 'white',
+      position: 'bottom',
+      list: [
+        {
+          pagePath: 'pages/index/index',
+          text: '偶像',
+          iconPath: 'images/icon_home_default.png',
+          selectedIconPath: 'images/icon_home_active.png'
+        },
+        {
+          pagePath: 'pages/bangumi/list/index',
+          text: '番剧',
+          iconPath: 'images/icon_home_default.png',
+          selectedIconPath: 'images/icon_home_active.png'
+        },
+        {
+          pagePath: 'pages/user/list/index',
+          text: '厨力',
+          iconPath: 'images/icon_home_default.png',
+          selectedIconPath: 'images/icon_home_active.png'
+        },
+        {
+          pagePath: 'pages/user/home/index',
+          text: '我的',
+          iconPath: 'images/icon_mine_default.png',
+          selectedIconPath: 'images/icon_mine_active.png'
+        }
+      ]
     }
   }
 

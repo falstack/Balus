@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import toast from '~/utils/toast'
-import { AtTabs, AtTabsPane, AtTabBar, AtSearchBar } from 'taro-ui'
+import { AtTabs, AtTabsPane, AtSearchBar } from 'taro-ui'
 import './index.scss'
 
 export default class Index extends Component {
@@ -22,10 +22,6 @@ export default class Index extends Component {
       current: value
     })
     toast.info(value)
-  }
-
-  navigateSwitch (value) {
-    console.log(value)
   }
 
   handleSearch () {
@@ -59,8 +55,10 @@ export default class Index extends Component {
           onActionClick={this.handleSearch.bind(this)}
         />
         <AtTabs current={this.state.current} tabList={tabList} onClick={this.TabSwitch.bind(this)}>
-          <AtTabsPane current={this.state.current} index={0} >
-            <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;' >标签页一的内容</View>
+          <AtTabsPane current={this.state.current} index={0}>
+            <View>start</View>
+            <View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View><View>动态</View>
+            <View>end</View>
           </AtTabsPane>
           <AtTabsPane current={this.state.current} index={1}>
             <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页二的内容</View>
@@ -69,17 +67,6 @@ export default class Index extends Component {
             <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页三的内容</View>
           </AtTabsPane>
         </AtTabs>
-        <AtTabBar
-          fixed
-          tabList={[
-            { title: '榜单', iconType: 'clock', text: 'new' },
-            { title: '番剧', iconType: 'camera', dot: true },
-            { title: '名厨', iconType: 'link', text: '100', max: 99 },
-            { title: '我的', iconType: 'home', text: '100', max: 99 }
-          ]}
-          onClick={this.navigateSwitch}
-          current={0}
-        />
       </View>
     )
   }
