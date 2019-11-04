@@ -5,7 +5,6 @@ import './index.scss'
 export default class extends Component {
   constructor (props) {
     super(props)
-    this.state = {}
   }
 
   componentWillMount () { }
@@ -21,7 +20,7 @@ export default class extends Component {
   render () {
     return (
       <View>
-        <Text>bangumi list</Text>
+        <Text>只保留评分排行榜</Text>
       </View>
     )
   }

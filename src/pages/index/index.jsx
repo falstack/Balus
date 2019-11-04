@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import toast from '~/utils/toast'
 import { AtTabs, AtTabsPane, AtSearchBar } from 'taro-ui'
 import './index.scss'
 
@@ -13,15 +12,10 @@ export default class Index extends Component {
     }
   }
 
-  config = {
-    navigationBarTitleText: '首页'
-  }
-
   TabSwitch (value) {
     this.setState({
       current: value
     })
-    toast.info(value)
   }
 
   handleSearch () {

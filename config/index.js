@@ -26,6 +26,18 @@ const config = {
       ]
     }
   },
+  sass: {
+    importer: function(url) {
+      if (url === 'global.scss') {
+        return {
+          file: path.resolve(__dirname, '..', 'src/style/global.scss')
+        }
+      }
+      return {
+        file: url
+      }
+    }
+  },
   alias: {
     '~': path.resolve(__dirname, '..', 'src/')
   },
