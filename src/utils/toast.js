@@ -4,7 +4,7 @@ export default {
   info(tips) {
     this.stop()
     Taro.showToast({
-      title: tips,
+      title: tips.toString(),
       icon: 'none',
       duration: 2000
     })
@@ -13,7 +13,7 @@ export default {
   success(tips) {
     this.stop()
     Taro.showToast({
-      title: tips,
+      title: tips.toString(),
       icon: 'success',
       duration: 2000
     })
@@ -22,7 +22,7 @@ export default {
   loading(tips = '加载中…') {
     this.stop()
     Taro.showLoading({
-      title: tips
+      title: tips.toString()
     })
   },
 
