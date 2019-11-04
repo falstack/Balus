@@ -2,7 +2,7 @@
 	"miniprogramRoot": "dist/",
 	"projectname": "Balus",
 	"description": "",
-	"appid": "touristappid",
+	"appid": "wxe8be0b7f5a099a1c",
 	"setting": {
 		"urlCheck": true,
 		"es6": false,
@@ -11,5 +11,8 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"libVersion": "2.9.1",
 	"condition": {}
 }
