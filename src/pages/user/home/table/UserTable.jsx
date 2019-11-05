@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Button } from '@tarojs/components'
 import { AtList, AtListItem } from 'taro-ui'
 import './index.scss'
 
@@ -22,7 +22,7 @@ export default class UserTable extends Component {
     return (
       <View className='user-panel'>
         <AtList hasBorder={false}>
-          <button open-type='feedback' class='feedback' hover-class='none'>
+          <Button open-type='feedback' class='feedback' hover-class='none'>
             <AtListItem
               title='意见反馈'
               arrow='right'
@@ -33,7 +33,7 @@ export default class UserTable extends Component {
                 value: 'phone'
               }}
             />
-          </button>
+          </Button>
         </AtList>
       </View>
     )
