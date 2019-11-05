@@ -22,6 +22,8 @@ class App extends Component {
       'pages/user/list/index',
       'pages/bangumi/show/index',
       'pages/bangumi/list/index',
+      'pages/search/index',
+      'pages/webview/index',
     ],
     window: {
       backgroundTextStyle: 'light',

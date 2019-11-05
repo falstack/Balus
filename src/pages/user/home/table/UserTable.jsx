@@ -22,6 +22,37 @@ export default class UserTable extends Component {
     return (
       <View className='user-panel'>
         <AtList hasBorder={false}>
+          <AtListItem
+            title='交易记录'
+            arrow='right'
+            hasBorder={false}
+            iconInfo={{
+              size: 20,
+              color: '#657786',
+              value: 'shopping-bag'
+            }}
+          />
+          <AtListItem
+            title='我的邀请码'
+            arrow='right'
+            hasBorder={false}
+            extraText='邀请送团子'
+            iconInfo={{
+              size: 20,
+              color: '#657786',
+              value: 'sketch'
+            }}
+          />
+          <AtListItem
+            title='帮助手册'
+            arrow='right'
+            hasBorder={false}
+            iconInfo={{
+              size: 20,
+              color: '#657786',
+              value: 'help'
+            }}
+          />
           <Button open-type='feedback' class='feedback' hover-class='none'>
             <AtListItem
               title='意见反馈'

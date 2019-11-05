@@ -3,64 +3,53 @@ import { View, Text } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtSearchBar } from 'taro-ui'
 import './index.scss'
 
-export default class Index extends Component {
+export default class extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      tabActiveIndex: 0,
-      searchKeyword: ''
+      current: 0,
+      value: ''
     }
   }
 
-  TabSwitch (tabActiveIndex) {
+  TabSwitch (value) {
     this.setState({
-      tabActiveIndex
+      current: value
     })
   }
 
-  handleSearchAction () {
-    if (!this.state.searchKeyword) {
-      return
-    }
-    Taro.navigateTo({
-      url: `/pages/search/index?q=${this.state.searchKeyword}`
-    })
+  handleSearchAction() {
+
   }
 
-  handleSearchInput (searchKeyword) {
+  handleSearchInput (value) {
     this.setState({
-      searchKeyword
+      value
     })
   }
-
-  componentWillMount () { }
-
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
 
   render () {
-    const tabList = [{ title: '动态' }, { title: '连载榜' }, { title: '总榜单' }]
+    const tabList = [{ title: '综合' }, { title: '偶像' }, { title: '番剧' }, { title: '用户' }]
     return (
       <View>
         <AtSearchBar
+          fixed
           placeholder='搜一下'
-          value={this.state.searchKeyword}
+          value={this.state.value}
           onChange={this.handleSearchInput.bind(this)}
           onActionClick={this.handleSearchAction.bind(this)}
         />
-        <AtTabs current={this.state.tabActiveIndex} tabList={tabList} onClick={this.TabSwitch.bind(this)}>
-          <AtTabsPane current={this.state.tabActiveIndex} index={0}>
+        <AtTabs current={this.state.current} tabList={tabList} onClick={this.TabSwitch.bind(this)}>
+          <AtTabsPane current={this.state.current} index={0}>
             <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页一的内容</View>
           </AtTabsPane>
-          <AtTabsPane current={this.state.tabActiveIndex} index={1}>
+          <AtTabsPane current={this.state.current} index={1}>
             <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页二的内容</View>
           </AtTabsPane>
-          <AtTabsPane current={this.state.tabActiveIndex} index={2}>
+          <AtTabsPane current={this.state.current} index={2}>
+            <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页三的内容</View>
+          </AtTabsPane>
+          <AtTabsPane current={this.state.current} index={3}>
             <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页三的内容</View>
           </AtTabsPane>
         </AtTabs>
