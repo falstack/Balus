@@ -2,13 +2,22 @@
 	"miniprogramRoot": "dist/",
 	"projectname": "Balus",
 	"description": "",
-	"appid": "wxe8be0b7f5a099a1c",
+	"appid": "wx456b13e2d94efba4",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": false,
 		"postcss": false,
 		"minified": false,
-		"newFeature": true
+		"newFeature": true,
+		"autoAudits": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"compileType": "miniprogram",
 	"simulatorType": "wechat",

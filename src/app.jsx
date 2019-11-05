@@ -1,4 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
+import http from '~/utils/http'
+import cache from '~/utils/cache'
 import Index from './pages/index'
 
 import './app.scss'
@@ -62,13 +64,27 @@ class App extends Component {
     }
   }
 
-  componentDidMount () {}
+  componentDidMount() {
+    this.getCurrentUser()
+  }
 
-  componentDidShow () {}
-
-  componentDidHide () {}
-
-  componentDidCatchError () {}
+  getCurrentUser() {
+    const token = cache.get('JWT-TOKEN')
+    if (!token) {
+      return
+    }
+    http
+      .post('door/get_user_info')
+      .then(data => {
+        cache.set('USER', data)
+      })
+      .catch(err => {
+        cache.remove('USER')
+        if (err.code === 401) {
+          cache.remove('JWT-TOKEN')
+        }
+      })
+  }
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数

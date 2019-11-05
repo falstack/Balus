@@ -70,8 +70,7 @@ export default class extends Component {
     const { access, secret } = this.state
     if (
       !access ||
-      !access.length === 11 ||
-      !/^(0|86|17951)?(1)[0-9]{10}$/.test(access)
+      !access.length === 11
     ) {
       return toast.info('请输入正确的手机号')
     }

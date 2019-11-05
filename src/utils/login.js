@@ -70,7 +70,7 @@ const step_1_get_wx_code = () => {
 const step_2_get_token_or_user_by_code = code => {
   return new Promise((resolve, reject) => {
     http
-      .post('door/wechat_mini_app_get_token', { code, id: 1 })
+      .post('door/wechat_mini_app_get_token', { code, app_name: 'moe_idol' })
       .then(key => {
         resolve(key)
       })
@@ -107,7 +107,7 @@ const step_5_get_current_user = token => {
   cache.set('JWT-TOKEN', token)
   return new Promise((resolve, reject) => {
     http
-      .post('door/current_user')
+      .post('door/get_user_info')
       .then(user => {
         cache.set('USER', user)
         event.emit('update-user')

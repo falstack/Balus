@@ -8,10 +8,6 @@ export default class extends Component {
     this.state = {}
   }
 
-  config = {
-    navigationStyle: 'custom'
-  }
-
   componentWillMount () { }
 
   componentDidMount () { }

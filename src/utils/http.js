@@ -7,8 +7,8 @@ const isProd = process.env.NODE_ENV === 'production'
 
 fly.interceptors.request.use(request => {
   request.baseURL = isProd
-    ? 'https://api.calibur.tv/'
-    : 'http://localhost:3099/'
+    ? 'https://api.calibur.tv/v1/'
+    : 'http://localhost:5200/v1/'
   request.headers['Accept'] = 'application/x.api.latest+json'
   request.headers['Authorization'] = `Bearer ${cache.get('JWT-TOKEN')}`
   request.timeout = 10000
@@ -16,13 +16,7 @@ fly.interceptors.request.use(request => {
 })
 
 fly.interceptors.response.use(
-  res => {
-    if (res.request.url === 'door/refresh_token') {
-      const token = res.headers.authorization[0].split(' ')[1]
-      cache.set('JWT-TOKEN', token)
-    }
-    return res.data.data
-  },
+  res => res.data.data,
   err => {
     const code = err.status
     const resp = {

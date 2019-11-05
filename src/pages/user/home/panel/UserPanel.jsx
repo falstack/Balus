@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Navigator } from '@tarojs/components'
 import helper from '~/utils/helper'
 import { AtAvatar, AtIcon, AtButton } from 'taro-ui'
 import http from '~/utils/http'
@@ -72,15 +72,9 @@ export default class UserPanel extends Component {
             <View className='text'>
               <View className='nickname-wrap'>
                 <Text className='nickname'>{user.nickname}</Text>
-                <Text className='level'>
-                  LV
-                  {user.exp.level}
-                </Text>
+                <Text className='level'>LV{user.level}</Text>
               </View>
-              <Text className='invite'>
-                邀请码：
-                {user.id}
-              </Text>
+              <Text className='invite'>cc号：{user.slug}</Text>
             </View>
             <View className='arrow'>
               <AtIcon value='chevron-right' size='20' color='#657786' />
@@ -90,18 +84,18 @@ export default class UserPanel extends Component {
         <View className='control'>
           <View className='metas'>
             <View className='meta'>
-              <View className='count'>{user.power}</View>
+              <View className='count'>{user.stat_activity + user.stat_exposure}</View>
               <View className='name'>战斗力</View>
             </View>
             <View className='meta'>
               <View className='count'>
-                {parseFloat(user.balance.coin_count).toFixed(2)}
+                {parseFloat(user.wallet_coin).toFixed(2)}
               </View>
               <View className='name'>团子</View>
             </View>
             <View className='meta'>
               <View className='count'>
-                {parseFloat(user.balance.light_count).toFixed(2)}
+                {parseFloat(user.wallet_money).toFixed(2)}
               </View>
               <View className='name'>光玉</View>
             </View>
@@ -124,6 +118,6 @@ export default class UserPanel extends Component {
 
 UserPanel.defaultProps = {
   user: {
-    balance: {}
+    providers: {}
   }
 }
