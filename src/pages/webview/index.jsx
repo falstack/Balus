@@ -1,27 +1,16 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { WebView } from '@tarojs/components'
+import helper from '~/utils/helper'
 
 export default class extends Component {
   constructor (props) {
     super(props)
-    this.state = {}
   }
 
-  componentWillMount () { }
-
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
-
   render () {
+    // TODO 支持 navbar 的隐藏
     return (
-      <View>
-        <Text>text</Text>
-      </View>
+      <WebView src={helper.webview(decodeURIComponent(this.$router.params.url))} />
     )
   }
 }

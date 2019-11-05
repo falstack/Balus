@@ -23,7 +23,12 @@ export default class Index extends Component {
       return
     }
     Taro.navigateTo({
-      url: `/pages/search/index?q=${this.state.searchKeyword}`
+      url: `/pages/search/index?q=${this.state.searchKeyword}`,
+      success: () => {
+        this.setState({
+          searchKeyword: ''
+        })
+      }
     })
   }
 

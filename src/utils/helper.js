@@ -42,13 +42,10 @@ export default {
     const user = cache.get('USER', null)
     const token = !user ? '' : cache.get('JWT-TOKEN', '')
     const link = /\?/.test(url) ? '&' : '?'
-    result = `${url}${link}token=${token}&from=wxapp`
-    const isProd = process.env.NODE_ENV === 'production'
+    result = `${url}${link}token=${token}`
 
     if (!/^http/.test(url)) {
-      result = `${
-        isProd ? 'https://m.calibur.tv' : 'http://localhost:3001'
-        }/${result}`
+      result = `${process.env.NODE_ENV === 'production' ? 'https://m.calibur.tv' : 'http://localhost:3000'}/${result}`
     }
 
     return result

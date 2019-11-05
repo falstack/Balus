@@ -8,7 +8,7 @@ export default class extends Component {
     super(props)
     this.state = {
       current: 0,
-      value: ''
+      value: this.$router.params.q
     }
   }
 
@@ -33,7 +33,6 @@ export default class extends Component {
     return (
       <View>
         <AtSearchBar
-          fixed
           placeholder='搜一下'
           value={this.state.value}
           onChange={this.handleSearchInput.bind(this)}
