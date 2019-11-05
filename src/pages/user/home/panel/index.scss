@@ -1,0 +1,101 @@
+.user-panel {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 128px;
+
+  .intro {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 30px;
+    @extend %clearfix;
+
+    .avatar {
+      float: left;
+      margin-right: 28px;
+    }
+
+    .text {
+      flex-grow: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+      .nickname-wrap {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+
+        .nickname {
+          font-size: 46px;
+          color: $color-text-normal;
+          font-weight: 500;
+          margin-right: 12px;
+          @extend %oneline;
+        }
+
+        .level {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          background-color: $color-yellow;
+          color: #fff;
+          font-size: 22px;
+          height: 36px;
+          padding: 0 16px;
+          border-radius: 18px;
+        }
+      }
+
+      .invite {
+        font-size: 26px;
+        color: $color-text-light;
+      }
+    }
+
+    .arrow {
+      float: right;
+      margin-left: 20px;
+    }
+  }
+
+  .control {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .metas {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+      .meta {
+        width: 170px;
+      }
+
+      .name {
+        color: $color-text-light;
+        font-size: 26px;
+      }
+
+      .count {
+        color: $color-text-normal;
+        font-size: 36px;
+        font-weight: 500;
+      }
+    }
+
+    .day-sign {
+      width: 312px;
+    }
+  }
+}

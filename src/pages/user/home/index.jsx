@@ -1,31 +1,73 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View } from '@tarojs/components'
+import cache from '~/utils/cache'
+import event from '~/utils/event'
+import http from '~/utils/http'
+import { AtButton } from 'taro-ui'
+import UserSign from './sign/UserSign'
+import UserPanel from './panel/UserPanel'
+import UserTable from './table/UserTable'
 import './index.scss'
 
 export default class extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
-
   config = {
     navigationStyle: 'custom'
   }
 
-  componentWillMount () { }
+  constructor(props) {
+    super(props)
+    this.state = {
+      user: cache.get('USER', null)
+    }
+  }
 
-  componentDidMount () { }
+  componentWillMount() {}
 
-  componentWillUnmount () { }
+  componentDidMount() {
+    event.on('update-user', () => {
+      this.refreshUser()
+    })
+  }
 
-  componentDidShow () { }
+  componentWillUnmount() {
+    event.off('update-user')
+  }
 
-  componentDidHide () { }
+  componentDidShow() {
+    this.refreshUser()
+  }
 
-  render () {
+  componentDidHide() {}
+
+  refreshUser() {
+    this.setState({
+      user: cache.get('USER', null)
+    })
+  }
+
+  userLogout() {
+    http.post('door/logout')
+    cache.remove('JWT-TOKEN')
+    cache.remove('USER')
+    this.refreshUser()
+  }
+
+  render() {
+    const { user } = this.state
+    if (user === null) {
+      return <UserSign />
+    }
+
     return (
-      <View>
-        <Text>user home</Text>
+      <View className='user-home'>
+        <UserPanel user={user} />
+        <View className='hr' />
+        <UserTable user={user} />
+        <View className='logout'>
+          <AtButton type='primary' onClick={this.userLogout}>
+            退出登录
+          </AtButton>
+        </View>
       </View>
     )
   }

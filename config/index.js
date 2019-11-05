@@ -24,18 +24,12 @@ const config = {
         'transform-class-properties',
         'transform-object-rest-spread'
       ]
-    }
-  },
-  sass: {
-    importer: function(url) {
-      if (url === 'global.scss') {
-        return {
-          file: path.resolve(__dirname, '..', 'src/style/global.scss')
-        }
-      }
-      return {
-        file: url
-      }
+    },
+    sass: {
+      resource: [
+        path.resolve(__dirname, '..', 'src/style/var.scss'),
+        path.resolve(__dirname, '..', 'src/style/mixin.scss')
+      ]
     }
   },
   alias: {
