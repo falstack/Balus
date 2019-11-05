@@ -10,7 +10,7 @@ export default {
       return url
     }
 
-    const link = /^http/.test(url) ? url : `https://image.calibur.tv/${url}`
+    const link = /^http/.test(url) ? url : `https://m1.calibur.tv/${url}`
 
     const format = '/format/png'
     const mode = options.mode === undefined ? 1 : options.mode
