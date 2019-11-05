@@ -88,15 +88,11 @@ export default class UserPanel extends Component {
               <View className='name'>战斗力</View>
             </View>
             <View className='meta'>
-              <View className='count'>
-                {parseFloat(user.wallet_coin).toFixed(2)}
-              </View>
+              <View className='count'>{user.wallet_coin}</View>
               <View className='name'>团子</View>
             </View>
             <View className='meta'>
-              <View className='count'>
-                {parseFloat(user.wallet_money).toFixed(2)}
-              </View>
+              <View className='count'>{user.wallet_money}</View>
               <View className='name'>光玉</View>
             </View>
           </View>
