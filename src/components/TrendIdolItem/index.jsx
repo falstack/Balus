@@ -1,28 +1,17 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text, Image, Navigator } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import './index.scss'
 
 export default class TrendIdolItem extends Component {
   constructor (props) {
     super(props)
-    this.state = {}
   }
-
-  componentWillMount () { }
-
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
 
   render () {
     const { idol, index } = this.props
     return (
-      <View className='trend-idol'>
+      <Navigator hover-class='none' url={`/pages/idol/show/index?slug=${idol.slug}`} className='trend-idol'>
         <Image className='trend-idol__avatar' src={idol.avatar} mode='aspectFit'></Image>
         {
           index ?
@@ -42,7 +31,7 @@ export default class TrendIdolItem extends Component {
             <Text className='trend-idol__fans'>{idol.fans_count}人入股</Text>
           </View>
         </View>
-      </View>
+      </Navigator>
     )
   }
 }

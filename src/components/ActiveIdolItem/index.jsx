@@ -1,27 +1,16 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text, Image, Navigator } from '@tarojs/components'
 import './index.scss'
 
 export default class ActiveIdolItem extends Component {
   constructor (props) {
     super(props)
-    this.state = {}
   }
-
-  componentWillMount () { }
-
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
 
   render () {
     const { idol, index } = this.props
     return (
-      <View className={`active-idol__wrap ${index % 2 ? 'is-odd' : ''} ${index < 2 ? 'is-first' : ''}`}>
+      <Navigator hover-class='none' url={`/pages/idol/show/index?slug=${idol.slug}`} className={`active-idol__wrap ${index % 2 ? 'is-odd' : ''} ${index < 2 ? 'is-first' : ''}`}>
         <View className='active-idol'>
           <View className='active-idol__avatar__wrap'>
             <Image className='active-idol__avatar' src={idol.avatar} mode='aspectFit'></Image>
@@ -35,7 +24,7 @@ export default class ActiveIdolItem extends Component {
             </View>
           </View>
         </View>
-      </View>
+      </Navigator>
     )
   }
 }

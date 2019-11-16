@@ -52,7 +52,7 @@ class App extends Component {
         },
         {
           pagePath: 'pages/user/list/index',
-          text: '名人堂',
+          text: '大佬',
           iconPath: 'images/icon_home_default.png',
           selectedIconPath: 'images/icon_home_active.png'
         },
