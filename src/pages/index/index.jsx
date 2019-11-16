@@ -3,6 +3,7 @@ import { View, Text } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtSearchBar, AtLoadMore } from 'taro-ui'
 import http from '~/utils/http'
 import ActiveIdolItem from '~/components/ActiveIdolItem/index'
+import TrendIdolItem from '~/components/TrendIdolItem/index'
 import './index.scss'
 
 export default class Index extends Component {
@@ -84,7 +85,8 @@ export default class Index extends Component {
           loading: true,
           nothing: false,
           noMore: false,
-          total: data.total
+          total: data.total,
+          page: 1
         },
         [field]: []
       })
@@ -100,7 +102,7 @@ export default class Index extends Component {
       .get('idol/list', {
         sort,
         take: 10,
-        page: data.page
+        page: refresh ? 1 : data.page
       })
       .then(res => {
         this.setState({
@@ -163,6 +165,22 @@ export default class Index extends Component {
         idol={idol}
       />
     ))
+    const list_1_data = list_1.map((idol, index) => (
+      <TrendIdolItem
+        key={idol.slug}
+        taroKey={idol.slug}
+        index={index}
+        idol={idol}
+      />
+    ))
+    const list_2_data = list_2.map((idol, index) => (
+      <TrendIdolItem
+        key={idol.slug}
+        taroKey={idol.slug}
+        index={index}
+        idol={idol}
+      />
+    ))
     return (
       <View>
         <AtSearchBar
@@ -185,7 +203,7 @@ export default class Index extends Component {
             />
           </AtTabsPane>
           <AtTabsPane current={this.state.tabActiveIndex} index={1}>
-            <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页二的内容</View>
+            {list_1_data}
             <AtLoadMore
               status={
                 release.loading
@@ -197,6 +215,7 @@ export default class Index extends Component {
             />
           </AtTabsPane>
           <AtTabsPane current={this.state.tabActiveIndex} index={2}>
+            {list_2_data}
             <AtLoadMore
               status={
                 hottest.loading

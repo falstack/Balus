@@ -29,8 +29,10 @@ export default class ActiveIdolItem extends Component {
           <View className='active-idol__panel'>
             <Text className='active-idol__title'>{idol.bangumi.name}</Text>
             <Text className='active-idol__title'>{idol.name}</Text>
-            <Text className='active-idol__price'>￥{idol.market_price}</Text>
-            <Text className='active-idol__fans'>{idol.fans_count}人入股</Text>
+            <View className='active-idol__footer'>
+              <Text className='active-idol__price'>￥{idol.market_price}</Text>
+              <Text className='active-idol__fans'>{idol.fans_count}人入股</Text>
+            </View>
           </View>
         </View>
       </View>

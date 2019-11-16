@@ -1,0 +1,80 @@
+.trend-idol {
+  position: relative;
+  padding: 20px 20px 30px 0;
+
+  &__avatar {
+    width: 220px;
+    height: 220px;
+    padding-right: 20px;
+    float: left;
+  }
+
+  &__icon,
+  &__order {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    border-radius: 0 10px 10px 0;
+    width: 50px;
+    height: 50px;
+  }
+
+  &__icon {
+    padding: 5px;
+    background-color: goldenrod;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__order {
+    background-color: #2C405A;
+    color: #fff;
+    font-size: 24px;
+    line-height: 50px;
+    text-align: center;
+  }
+
+  &__content {
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+  }
+
+  &__title {
+    font-size: 30px;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    @include mutiline(40px);
+  }
+
+  &__intro {
+    font-size: 26px;
+    color: $color-gray;
+    margin-bottom: 10px;
+    @include mutiline(35px);
+  }
+
+  &__footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__price {
+    font-size: 30px;
+    color: $color-red;
+  }
+
+  &__fans {
+    font-size: 26px;
+    color: $color-gray;
+  }
+}
