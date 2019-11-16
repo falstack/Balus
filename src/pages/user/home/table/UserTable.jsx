@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
+import { View, Button, Navigator } from '@tarojs/components'
 import { AtList, AtListItem } from 'taro-ui'
 import './index.scss'
 
@@ -22,16 +22,18 @@ export default class UserTable extends Component {
     return (
       <View className='user-panel'>
         <AtList hasBorder={false}>
-          <AtListItem
-            title='交易记录'
-            arrow='right'
-            hasBorder={false}
-            iconInfo={{
-              size: 20,
-              color: '#657786',
-              value: 'shopping-bag'
-            }}
-          />
+          <Navigator url={`/pages/webview/index?url=${encodeURIComponent('https://www.calibur.tv')}`}>
+            <AtListItem
+              title='交易记录'
+              arrow='right'
+              hasBorder={false}
+              iconInfo={{
+                size: 20,
+                color: '#657786',
+                value: 'shopping-bag'
+              }}
+            />
+          </Navigator>
           <AtListItem
             title='我的邀请码'
             arrow='right'

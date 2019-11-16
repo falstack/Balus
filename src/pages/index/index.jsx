@@ -49,7 +49,7 @@ export default class Index extends Component {
   componentDidHide () { }
 
   render () {
-    const tabList = [{ title: '动态' }, { title: '连载榜' }, { title: '总榜单' }]
+    const tabList = [{ title: '动态' }, { title: '连载榜' }, { title: '总榜' }]
     return (
       <View>
         <AtSearchBar
