@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtSearchBar, AtLoadMore } from 'taro-ui'
 import http from '~/utils/http'
 import ActiveIdolItem from '~/components/ActiveIdolItem/index'
@@ -105,9 +105,6 @@ export default class Index extends Component {
         page: refresh ? 1 : data.page
       })
       .then(res => {
-        this.setState({
-          [field]: this.state[field].concat(res.list)
-        })
         this.setState({
           [sort]: {
             loading: false,
