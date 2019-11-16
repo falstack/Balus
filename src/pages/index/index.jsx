@@ -155,10 +155,11 @@ export default class Index extends Component {
   render () {
     const tabList = [{ title: '动态' }, { title: '连载榜' }, { title: '总榜' }]
     const { active, release, hottest, list_0, list_1, list_2 } = this.state
-    const list_0_data = list_0.map(idol => (
+    const list_0_data = list_0.map((idol, index) => (
       <ActiveIdolItem
         key={idol.slug}
         taroKey={idol.slug}
+        index={index}
         idol={idol}
       />
     ))

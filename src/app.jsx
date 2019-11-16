@@ -26,7 +26,7 @@ class App extends Component {
       'pages/webview/index',
     ],
     window: {
-      backgroundTextStyle: 'light',
+      backgroundTextStyle: 'dark',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: '萌市',
       navigationBarTextStyle: 'black'
