@@ -1,7 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import { AtTabs, AtTabsPane, AtSearchBar } from 'taro-ui'
+import { AtTabs, AtTabsPane, AtSearchBar, AtLoadMore } from 'taro-ui'
 import http from '~/utils/http'
+import ActiveIdolItem from '~/components/ActiveIdolItem/index'
 import './index.scss'
 
 export default class Index extends Component {
@@ -35,6 +36,10 @@ export default class Index extends Component {
       list_1: [],
       list_2: [],
     }
+  }
+
+  config = {
+    enablePullDownRefresh: true
   }
 
   TabSwitch (tabActiveIndex) {
@@ -149,6 +154,14 @@ export default class Index extends Component {
 
   render () {
     const tabList = [{ title: '动态' }, { title: '连载榜' }, { title: '总榜' }]
+    const { active, release, hottest, list_0, list_1, list_2 } = this.state
+    const list_0_data = list_0.map(idol => (
+      <ActiveIdolItem
+        key={idol.slug}
+        taroKey={idol.slug}
+        idol={idol}
+      />
+    ))
     return (
       <View>
         <AtSearchBar
@@ -159,13 +172,39 @@ export default class Index extends Component {
         />
         <AtTabs current={this.state.tabActiveIndex} tabList={tabList} onClick={this.TabSwitch.bind(this)}>
           <AtTabsPane current={this.state.tabActiveIndex} index={0}>
-            <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页一的内容</View>
+            {list_0_data}
+            <AtLoadMore
+              status={
+                active.loading
+                  ? 'loading'
+                  : active.noMore
+                  ? 'noMore'
+                  : 'more'
+              }
+            />
           </AtTabsPane>
           <AtTabsPane current={this.state.tabActiveIndex} index={1}>
             <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页二的内容</View>
+            <AtLoadMore
+              status={
+                release.loading
+                  ? 'loading'
+                  : release.noMore
+                  ? 'noMore'
+                  : 'more'
+              }
+            />
           </AtTabsPane>
           <AtTabsPane current={this.state.tabActiveIndex} index={2}>
-            <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页三的内容</View>
+            <AtLoadMore
+              status={
+                hottest.loading
+                  ? 'loading'
+                  : hottest.noMore
+                  ? 'noMore'
+                  : 'more'
+              }
+            />
           </AtTabsPane>
         </AtTabs>
       </View>
