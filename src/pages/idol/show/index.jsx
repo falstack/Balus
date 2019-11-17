@@ -41,8 +41,15 @@ export default class extends Component {
   render () {
     const { idol } = this.state
     return (
-      <View>
+      <View className='idol-show'>
         <IdolPanel idol={idol} />
+        {
+          idol.intro ?
+            <View className='intro'>
+              <Text className='intro__title'>角色详情</Text>
+              <Text className='intro__text'>{idol.intro}</Text>
+            </View> : ''
+        }
         <IdolBottom idol={idol} />
       </View>
     )
