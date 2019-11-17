@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import http from '~/utils/http'
+import IdolPanel from './panel/IdolPanel'
 import './index.scss'
 
 export default class extends Component {
@@ -16,7 +17,8 @@ export default class extends Component {
   }
 
   config = {
-    navigationBarTitleText: ''
+    navigationBarTitleText: '',
+    navigationStyle: 'custom'
   }
 
   getIdolData() {
@@ -25,9 +27,6 @@ export default class extends Component {
     })
       .then(idol => {
         this.setState({ idol })
-        Taro.setNavigationBarTitle({
-          title: idol.name
-        })
       })
       .catch(err => {
         console.log(err)
@@ -39,9 +38,10 @@ export default class extends Component {
   }
 
   render () {
+    const { idol } = this.state
     return (
       <View>
-        <Text>idol show</Text>
+        <IdolPanel idol={idol} />
       </View>
     )
   }

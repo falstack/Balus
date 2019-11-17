@@ -58,7 +58,7 @@ export default class Index extends Component {
   }
 
   onPullDownRefresh() {
-    this.getIdols(this.state.tabActiveIndex)
+    this.getIdols(this.state.tabActiveIndex, true)
   }
 
   onReachBottom() {
