@@ -22,7 +22,8 @@ export default class UserTable extends Component {
     return (
       <View className='user-panel'>
         <AtList hasBorder={false}>
-          <Navigator url={`/pages/webview/index?url=${encodeURIComponent('https://www.calibur.tv')}`}>
+          {/*
+          <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('https://www.calibur.tv')}`}>
             <AtListItem
               title='交易记录'
               arrow='right'
@@ -55,6 +56,7 @@ export default class UserTable extends Component {
               value: 'help'
             }}
           />
+          */}
           <Button open-type='feedback' class='feedback' hover-class='none'>
             <AtListItem
               title='意见反馈'

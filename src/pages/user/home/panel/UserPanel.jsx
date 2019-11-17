@@ -57,7 +57,7 @@ export default class UserPanel extends Component {
 
     return (
       <View className='user-panel'>
-        <Navigator url={`/pages/user/show/index?slug=${user.slug}`}>
+        <Navigator hover-class='none' url={`/pages/user/show/index?slug=${user.slug}`}>
           <View className='intro'>
             <View className='avatar'>
               <AtAvatar

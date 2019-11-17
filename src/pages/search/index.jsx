@@ -1,7 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtTabs, AtTabsPane, AtSearchBar } from 'taro-ui'
+import { AtTabs, AtTabsPane, AtSearchBar, AtLoadMore } from 'taro-ui'
 import http from '~/utils/http'
+import TrendIdolItem from '~/components/TrendIdolItem/index'
 import './index.scss'
 
 export default class extends Component {
@@ -115,8 +116,21 @@ export default class extends Component {
     })
   }
 
+  onReachBottom() {
+    this.loadMore(this.state.current)
+  }
+
   render () {
     const tabList = [{ title: '偶像' }, { title: '番剧' }]
+    const { list_idol } = this.state
+    const list_0_data = list_idol.map(idol => (
+      <TrendIdolItem
+        key={idol.slug}
+        taroKey={idol.slug}
+        index={-1}
+        idol={idol}
+      />
+    ))
     return (
       <View>
         <AtSearchBar
@@ -125,6 +139,8 @@ export default class extends Component {
           onChange={this.handleSearchInput.bind(this)}
           onActionClick={this.handleSearchAction.bind(this)}
         />
+        {list_0_data}
+        {/*
         <AtTabs current={this.state.current} tabList={tabList} onClick={this.TabSwitch.bind(this)}>
           <AtTabsPane current={this.state.current} index={0}>
             <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页一的内容</View>
@@ -133,6 +149,7 @@ export default class extends Component {
             <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页二的内容</View>
           </AtTabsPane>
         </AtTabs>
+        */}
       </View>
     )
   }

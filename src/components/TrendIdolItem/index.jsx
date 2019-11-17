@@ -14,6 +14,7 @@ export default class TrendIdolItem extends Component {
       <Navigator hover-class='none' url={`/pages/idol/show/index?slug=${idol.slug}`} className='trend-idol'>
         <Image className='trend-idol__avatar' src={idol.avatar} mode='aspectFit'></Image>
         {
+          index < 0 ? '' :
           index ?
           <View className='trend-idol__order'>
             {index + 1}

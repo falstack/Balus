@@ -44,6 +44,7 @@ class App extends Component {
           iconPath: 'images/icon_home_default.png',
           selectedIconPath: 'images/icon_home_active.png'
         },
+        /*
         {
           pagePath: 'pages/bangumi/list/index',
           text: '番剧',
@@ -56,6 +57,7 @@ class App extends Component {
           iconPath: 'images/icon_home_default.png',
           selectedIconPath: 'images/icon_home_active.png'
         },
+        */
         {
           pagePath: 'pages/user/home/index',
           text: '我的',
