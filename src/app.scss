@@ -6,12 +6,7 @@ $color-brand-dark: #c95b7a;
 @import "~taro-ui/dist/style/index.scss";
 
 .at-nav-bar {
-  position: absolute;
-  left: 0;
-  top: 0;
   background-color: transparent;
-  padding-top: 38px;
-  z-index: 99;
 
   &__left-view {
     .at-icon {

@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
-import { AtAvatar, AtButton, AtNavBar } from 'taro-ui'
 import helper from '~/utils/helper'
+import PageNav from '~/components/PageNav/index'
 import './index.scss'
 
 export default class IdolPanel extends Component {
@@ -24,15 +24,7 @@ export default class IdolPanel extends Component {
             className='blur-bg'
           />
           <View className='shim' />
-          <AtNavBar
-            color='#fff'
-            leftIconType='chevron-left'
-            leftText={idol.name}
-            border={false}
-            onClickLeftIcon={() => {
-              Taro.navigateBack()
-            }}
-          />
+          <PageNav title={idol.name} />
           <View className='background-content'>
             <Image
               src={helper.resize(idol.avatar, { width: 200 })}
