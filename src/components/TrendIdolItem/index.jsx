@@ -38,9 +38,9 @@ export default class TrendIdolItem extends Component {
 }
 
 TrendIdolItem.defaultProps = {
-  index: 0,
+  index: -1,
   idol: {
     bangumi: {},
-    lover: {}
+    lover: null
   },
 }

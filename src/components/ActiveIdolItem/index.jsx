@@ -33,6 +33,6 @@ ActiveIdolItem.defaultProps = {
   index: 0,
   idol: {
     bangumi: {},
-    lover: {}
+    lover: null
   },
 }

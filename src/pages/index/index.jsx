@@ -108,8 +108,8 @@ export default class Index extends Component {
         this.setState({
           [sort]: {
             loading: false,
-            nothing: false,
-            noMore: res.noMore,
+            nothing: res.total === 0,
+            noMore: res.no_more,
             total: res.total,
             page: data.page + 1
           },

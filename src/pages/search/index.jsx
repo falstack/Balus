@@ -3,6 +3,7 @@ import { View } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtSearchBar, AtLoadMore } from 'taro-ui'
 import http from '~/utils/http'
 import TrendIdolItem from '~/components/TrendIdolItem/index'
+import PageState from '~/components/PageState/index'
 import './index.scss'
 
 export default class extends Component {
@@ -67,8 +68,9 @@ export default class extends Component {
       },
       list_idol: [],
       list_bangumi: []
+    }, () => {
+      this.loadMore(0, true)
     })
-    this.loadMore(0, true)
   }
 
   loadMore (index, refresh = false) {
@@ -100,8 +102,8 @@ export default class extends Component {
         this.setState({
           [stateField]: {
             loading: false,
-            nothing: false,
-            noMore: res.noMore,
+            nothing: res.total === 0,
+            noMore: res.no_more,
             total: res.total,
             page: stateData.page + 1
           },
@@ -122,7 +124,7 @@ export default class extends Component {
 
   render () {
     const tabList = [{ title: '偶像' }, { title: '番剧' }]
-    const { list_idol } = this.state
+    const { list_idol, state_idol } = this.state
     const list_0_data = list_idol.map(idol => (
       <TrendIdolItem
         key={idol.slug}
@@ -140,6 +142,7 @@ export default class extends Component {
           onActionClick={this.handleSearchAction.bind(this)}
         />
         {list_0_data}
+        {state_idol.nothing ? <PageState type='nothing' /> : ''}
         {/*
         <AtTabs current={this.state.current} tabList={tabList} onClick={this.TabSwitch.bind(this)}>
           <AtTabsPane current={this.state.current} index={0}>
