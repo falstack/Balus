@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import http from '~/utils/http'
 import IdolPanel from './panel/IdolPanel'
+import IdolBottom from './bottom/IdolBottom'
 import './index.scss'
 
 export default class extends Component {
@@ -42,6 +43,7 @@ export default class extends Component {
     return (
       <View>
         <IdolPanel idol={idol} />
+        <IdolBottom idol={idol} />
       </View>
     )
   }
