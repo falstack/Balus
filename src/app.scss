@@ -30,3 +30,9 @@ $color-brand-dark: #c95b7a;
 .at-load-more .at-button {
   border-width: 0;
 }
+
+.at-input-number {
+  &__btn {
+    padding: 30px;
+  }
+}

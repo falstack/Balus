@@ -28,10 +28,26 @@ export default class extends Component {
     })
       .then(idol => {
         this.setState({ idol })
+        this.patchIdolData(idol)
       })
       .catch(err => {
         console.log(err)
       })
+  }
+
+  patchIdolData(idol) {
+    http.get('idol/patch', {
+      slug: this.state.slug
+    })
+      .then(data => {
+        this.setState({
+          idol: {
+            ...idol,
+            ...data
+          }
+        })
+      })
+      .catch(() => {})
   }
 
   componentDidMount () {
