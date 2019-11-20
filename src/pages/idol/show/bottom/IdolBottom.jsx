@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
 import { AtModal, AtModalHeader, AtModalContent, AtModalAction, AtInputNumber } from "taro-ui"
+import http from '~/utils/http'
 import './index.scss'
 
 export default class IdolBottom extends Component {
@@ -8,6 +9,7 @@ export default class IdolBottom extends Component {
     super(props)
     this.state = {
       isOpen: false,
+      submitting: false,
       value: 1
     }
   }
@@ -31,7 +33,28 @@ export default class IdolBottom extends Component {
   }
 
   handleConfirm() {
-
+    if (this.state.loading) {
+      return
+    }
+    this.setState({
+      loading: true
+    })
+    http.post('idol/vote', {
+      slug: this.props.idol.slug,
+      coin_amount: this.state.value,
+      stock_count: this.state.value
+    })
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      .finally(() => {
+        this.setState({
+          loading: false
+        })
+      })
   }
 
   handleChange (value) {

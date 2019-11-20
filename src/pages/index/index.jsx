@@ -105,15 +105,12 @@ export default class Index extends Component {
         page: refresh ? 1 : data.page
       })
       .then(res => {
-        this.setState({
-          [sort]: {
-            loading: false,
-            nothing: res.total === 0,
-            noMore: res.no_more,
-            total: res.total,
-            page: data.page + 1
-          },
-          [field]: this.state[field].concat(res.result)
+        this.batchPatch(field, res.result, sort, {
+          loading: false,
+          nothing: res.total === 0,
+          noMore: res.no_more,
+          total: res.total,
+          page: data.page + 1
         })
         if (refresh) {
           Taro.stopPullDownRefresh()
@@ -129,6 +126,29 @@ export default class Index extends Component {
           Taro.stopPullDownRefresh()
         }
       })
+  }
+
+  batchPatch(field, list, sort, meta) {
+    http.get('idol/batch_patch', {
+      slug: list.map(_ => _.slug).join(',')
+    })
+      .then(data => {
+        Object.keys(data).forEach(key => {
+          list.forEach((item, index) => {
+            if (item.slug === key) {
+              list[index] = {
+                ...item,
+                ...data[key]
+              }
+            }
+          })
+        })
+        this.setState({
+          [sort]: meta,
+          [field]: this.state[field].concat(list)
+        })
+      })
+      .catch(() => {})
   }
 
   handleSearchAction () {
