@@ -204,6 +204,7 @@ export default class Index extends Component {
           placeholder='搜一下'
           value={this.state.searchKeyword}
           onChange={this.handleSearchInput.bind(this)}
+          onConfirm={this.handleSearchAction.bind(this)}
           onActionClick={this.handleSearchAction.bind(this)}
         />
         <AtTabs current={this.state.tabActiveIndex} tabList={tabList} onClick={this.TabSwitch.bind(this)}>

@@ -139,6 +139,7 @@ export default class extends Component {
           placeholder='搜一下'
           value={this.state.value}
           onChange={this.handleSearchInput.bind(this)}
+          onConfirm={this.handleSearchAction.bind(this)}
           onActionClick={this.handleSearchAction.bind(this)}
         />
         {list_0_data}
