@@ -1,6 +1,6 @@
 .idol-show {
   .intro {
-    padding: 30px;
+    margin: 30px;
 
     &__title {
       display: block;
@@ -12,6 +12,19 @@
       font-size: 28px;
       line-height: 35px;
       color: $color-gray;
+    }
+  }
+
+  .avatar-list {
+    font-size: 0;
+    padding-left: 10px;
+
+    .avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 5px solid #fff;
+      margin-left: -14px;
     }
   }
 }
