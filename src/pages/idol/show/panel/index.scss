@@ -52,4 +52,14 @@
       }
     }
   }
+
+  &__price {
+    height: 90px;
+    padding: 30px;
+    line-height: 30px;
+    font-size: 34px;
+    box-sizing: border-box;
+    background: linear-gradient(45deg, $color-red, #9198e5);
+    color: #fff;
+  }
 }
