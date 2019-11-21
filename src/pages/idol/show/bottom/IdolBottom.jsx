@@ -3,6 +3,8 @@ import { View, Button, Text } from '@tarojs/components'
 import { AtModal, AtModalHeader, AtModalContent, AtModalAction, AtInputNumber } from "taro-ui"
 import http from '~/utils/http'
 import helper from '~/utils/helper'
+import cache from '~/utils/cache'
+import toast from '~/utils/toast'
 import './index.scss'
 
 export default class IdolBottom extends Component {
@@ -11,11 +13,16 @@ export default class IdolBottom extends Component {
     this.state = {
       isOpen: false,
       submitting: false,
-      value: 1
+      value: 1,
+      user: cache.get('USER', null)
     }
   }
 
   handleClick() {
+    if (!this.state.user) {
+      toast.info('请先登录')
+      return
+    }
     this.setState({
       isOpen: true
     })
@@ -68,28 +75,36 @@ export default class IdolBottom extends Component {
 
   render () {
     const { idol } = this.props
-    const { isOpen } = this.state
+    const { isOpen, user } = this.state
     return (
       <View className='idol-bottom'>
         <View className='idol-bottom__content'>
           <Text className='idol-bottom__price'>￥{idol.stock_price}/股</Text>
-          <Button className='idol-bottom__btn idol-bottom__buy' onClick={this.handleClick.bind(this)}>立即入股</Button>
+          <Button className='idol-bottom__btn idol-bottom__buy' onClick={this.handleClick.bind(this)}>
+            立即入股
+          </Button>
         </View>
         <View className='idol-bottom__shim' />
         <AtModal
           isOpened={isOpen}
           onClose={this.handleClose.bind(this)}
         >
-          <AtModalHeader>标题</AtModalHeader>
+          <AtModalHeader>交易窗口</AtModalHeader>
           <AtModalContent>
             <View className='idol-bottom__dialog'>
-              <AtInputNumber
-                min={1}
-                max={10}
-                step={1}
-                value={this.state.value}
-                onChange={this.handleChange.bind(this)}
-              />
+              <View className='idol-bottom__text'>
+                团子余额：￥{user.wallet_coin}
+              </View>
+              <View className='idol-bottom__text'>
+                入股金额：
+                <AtInputNumber
+                  min={1}
+                  max={user.wallet_coin}
+                  step={1}
+                  value={this.state.value}
+                  onChange={this.handleChange.bind(this)}
+                />
+              </View>
             </View>
           </AtModalContent>
           <AtModalAction>

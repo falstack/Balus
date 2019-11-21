@@ -16,7 +16,7 @@ export default class UserPanel extends Component {
   }
 
   daySignAction() {
-    if (this.props.user.daySign || this.state.signing) {
+    if (this.props.user.daily_signed || this.state.signing) {
       return
     }
     this.setState({
@@ -46,27 +46,31 @@ export default class UserPanel extends Component {
 
     return (
       <View className='user-panel'>
+        {/*
         <Navigator hover-class='none' url={`/pages/user/show/index?slug=${user.slug}`}>
-          <View className='intro'>
-            <View className='avatar'>
-              <AtAvatar
-                circle
-                size='large'
-                image={helper.resize(user.avatar, { width: 200 })}
-              />
-            </View>
-            <View className='text'>
-              <View className='nickname-wrap'>
-                <Text className='nickname'>{user.nickname}</Text>
-                <Text className='level'>LV{user.level}</Text>
-              </View>
-              <Text className='invite'>cc号：{user.slug}</Text>
-            </View>
-            <View className='arrow'>
-              <AtIcon value='chevron-right' size='20' color='#657786' />
-            </View>
-          </View>
         </Navigator>
+        */}
+        <View className='intro'>
+          <View className='avatar'>
+            <AtAvatar
+              circle
+              size='large'
+              image={helper.resize(user.avatar, { width: 200 })}
+            />
+          </View>
+          <View className='text'>
+            <View className='nickname-wrap'>
+              <Text className='nickname'>{user.nickname}</Text>
+              <Text className='level'>LV{user.level}</Text>
+            </View>
+            <Text className='invite'>cc号：{user.slug}</Text>
+          </View>
+          {/*
+          <View className='arrow'>
+            <AtIcon value='chevron-right' size='20' color='#657786' />
+          </View>
+          */}
+        </View>
         <View className='control'>
           <View className='metas'>
             <View className='meta'>
@@ -86,10 +90,10 @@ export default class UserPanel extends Component {
             <AtButton
               loading={this.state.signing}
               circle
-              type={user.daySign ? 'secondary' : 'primary'}
+              type={user.daily_signed ? 'secondary' : 'primary'}
               onClick={this.daySignAction.bind(this)}
             >
-              {user.daySign ? '已签到' : '签到'}
+              {user.daily_signed ? '已签到' : '签到'}
             </AtButton>
           </View>
         </View>
