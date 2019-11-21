@@ -21,8 +21,6 @@ export default class extends Component {
     }
   }
 
-  componentWillMount() {}
-
   componentDidMount() {
     event.on('update-user', () => {
       this.refreshUser()
@@ -37,12 +35,25 @@ export default class extends Component {
     this.refreshUser()
   }
 
-  componentDidHide() {}
-
   refreshUser() {
-    this.setState({
-      user: cache.get('USER', null)
-    })
+    const user = cache.get('USER', null)
+    if (user) {
+      http.get('user/patch', {
+        slug: user.slug
+      })
+        .then(data => {
+          this.setState({
+            user: {
+              ...user,
+              ...data
+            }
+          })
+        })
+    } else {
+      this.setState({
+        user
+      })
+    }
   }
 
   userLogout() {

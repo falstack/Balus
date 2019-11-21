@@ -4,6 +4,7 @@ import helper from '~/utils/helper'
 import { AtAvatar, AtIcon, AtButton } from 'taro-ui'
 import http from '~/utils/http'
 import state from '~/utils/state'
+import toast from '~/utils/toast'
 import './index.scss'
 
 export default class UserPanel extends Component {
@@ -14,16 +15,6 @@ export default class UserPanel extends Component {
     }
   }
 
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
   daySignAction() {
     if (this.props.user.daySign || this.state.signing) {
       return
@@ -32,15 +23,13 @@ export default class UserPanel extends Component {
       signing: true
     })
     http
-      .post('user/daySign')
+      .post('user/daily_sign')
       .then(res => {
         this.setState({
           signing: false
         })
-        state.updateUserExp(res, {
-          daySign: true
-        })
-        state.updateUserPocket(1)
+        toast.info(res.message)
+        state.updateUserPocket(res.add_coin_count)
       })
       .catch(() => {
         this.setState({
@@ -98,7 +87,7 @@ export default class UserPanel extends Component {
               loading={this.state.signing}
               circle
               type={user.daySign ? 'secondary' : 'primary'}
-              onClick={this.daySignAction}
+              onClick={this.daySignAction.bind(this)}
             >
               {user.daySign ? '已签到' : '签到'}
             </AtButton>
