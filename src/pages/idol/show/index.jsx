@@ -70,6 +70,17 @@ export default class extends Component {
       .catch(() => {})
   }
 
+  handleBuyStock({ stock_count }) {
+    const { idol } = this.state
+    this.setState({
+      idol: {
+        ...idol,
+        buy_stock_count: helper.calculate(+idol.buy_stock_count + stock_count),
+        market_price: helper.calculate(+idol.market_price + stock_count)
+      }
+    })
+  }
+
   componentDidMount () {
     this.getIdolData()
     this.getIdolFans()
@@ -102,7 +113,7 @@ export default class extends Component {
               <Text className='intro__text'>{idol.intro}</Text>
             </View> : ''
         }
-        <IdolBottom idol={idol} />
+        <IdolBottom idol={idol} onPayCallback={this.handleBuyStock.bind(this)} />
       </View>
     )
   }

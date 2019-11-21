@@ -75,7 +75,7 @@ export default class extends Component {
         <View className='hr' />
         <UserTable user={user} />
         <View className='logout'>
-          <AtButton type='primary' onClick={this.userLogout}>
+          <AtButton type='primary' onClick={this.userLogout.bind(this)}>
             退出登录
           </AtButton>
         </View>

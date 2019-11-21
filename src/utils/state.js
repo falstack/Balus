@@ -20,7 +20,7 @@ export default new class {
       return
     }
     const value = Number(amount)
-    user.wallet_coin = +user.wallet_coin + value
+    user.wallet_coin = parseFloat(+user.wallet_coin + value).toFixed(2)
     cache.set('USER', user)
     event.emit('update-user')
   }

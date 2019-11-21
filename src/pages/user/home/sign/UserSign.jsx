@@ -18,16 +18,6 @@ export default class extends Component {
     }
   }
 
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
   callWechatSign() {
     if (this.state.loading || this.state.submitting) {
       return

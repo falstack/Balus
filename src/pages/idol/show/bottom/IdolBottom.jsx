@@ -5,6 +5,7 @@ import http from '~/utils/http'
 import helper from '~/utils/helper'
 import cache from '~/utils/cache'
 import toast from '~/utils/toast'
+import state from '~/utils/state'
 import './index.scss'
 
 export default class IdolBottom extends Component {
@@ -13,14 +14,19 @@ export default class IdolBottom extends Component {
     this.state = {
       isOpen: false,
       submitting: false,
-      value: 1,
+      value: 0,
       user: cache.get('USER', null)
     }
   }
 
   handleClick() {
-    if (!this.state.user) {
+    const { user } = this.state
+    if (!user) {
       toast.info('请先登录')
+      return
+    }
+    if (!+user.wallet_coin) {
+      toast.info('木有团子啊')
       return
     }
     this.setState({
@@ -44,21 +50,39 @@ export default class IdolBottom extends Component {
     if (this.state.submitting) {
       return
     }
+    const { value, user } = this.state
+    if (!value) {
+      this.setState({
+        isOpen: false
+      })
+      return
+    }
     this.setState({
       submitting: true
     })
     const { idol } = this.props
-    const { value } = this.state
+    const amount = +helper.calculate(value * idol.stock_price)
     http.post('idol/vote', {
       slug: idol.slug,
-      coin_amount: helper.calculate(value * idol.stock_price),
+      coin_amount: amount,
       stock_count: value
     })
-      .then(data => {
-        console.log(data)
+      .then(() => {
+        state.updateUserPocket(-amount)
+        this.setState({
+          user: {
+            ...user,
+            wallet_coin: +user.wallet_coin - amount
+          },
+          isOpen: false
+        })
+        this.props.onPayCallback({
+          stock_count: value,
+          coin_amount: amount
+        })
       })
       .catch(err => {
-        console.log(err)
+        toast.info(err.message)
       })
       .finally(() => {
         this.setState({
@@ -96,10 +120,10 @@ export default class IdolBottom extends Component {
                 团子余额：￥{user.wallet_coin}
               </View>
               <View className='idol-bottom__text'>
-                入股金额：
+                购入份额：
                 <AtInputNumber
-                  min={1}
-                  max={user.wallet_coin}
+                  min={0}
+                  max={parseInt(user ? user.wallet_coin : 0 / idol.stock_price)}
                   step={1}
                   value={this.state.value}
                   onChange={this.handleChange.bind(this)}
@@ -118,5 +142,6 @@ export default class IdolBottom extends Component {
 }
 
 IdolBottom.defaultProps = {
-  idol: {}
+  idol: {},
+  onPayCallback: () => {}
 }

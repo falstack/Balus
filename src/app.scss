@@ -36,3 +36,28 @@ $color-brand-dark: #c95b7a;
     padding: 25px;
   }
 }
+
+.at-tabs {
+  &__header {
+    justify-content: center;
+  }
+
+  &__item {
+    padding: 20px 25px;
+    font-size: 30px;
+    flex: none;
+    color: $color-text-light;
+
+    &--active {
+      color: $color-text-normal;
+    }
+
+    &-underline {
+      width: 48px;
+      height: 8px;
+      border-radius: 4px;
+      margin-left: -24px;
+      left: 50%;
+    }
+  }
+}
