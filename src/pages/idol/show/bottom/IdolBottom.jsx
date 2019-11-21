@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
 import { AtModal, AtModalHeader, AtModalContent, AtModalAction, AtInputNumber } from "taro-ui"
 import http from '~/utils/http'
+import helper from '~/utils/helper'
 import './index.scss'
 
 export default class IdolBottom extends Component {
@@ -33,16 +34,18 @@ export default class IdolBottom extends Component {
   }
 
   handleConfirm() {
-    if (this.state.loading) {
+    if (this.state.submitting) {
       return
     }
     this.setState({
-      loading: true
+      submitting: true
     })
+    const { idol } = this.props
+    const { value } = this.state
     http.post('idol/vote', {
-      slug: this.props.idol.slug,
-      coin_amount: this.state.value,
-      stock_count: this.state.value
+      slug: idol.slug,
+      coin_amount: helper.calculate(value * idol.stock_price),
+      stock_count: value
     })
       .then(data => {
         console.log(data)
@@ -52,7 +55,7 @@ export default class IdolBottom extends Component {
       })
       .finally(() => {
         this.setState({
-          loading: false
+          submitting: false
         })
       })
   }

@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
+import helper from '~/utils/helper'
 import './index.scss'
 
 export default class ActiveIdolItem extends Component {
@@ -19,7 +20,7 @@ export default class ActiveIdolItem extends Component {
             <Text className='active-idol__title'>{idol.bangumi.name}</Text>
             <Text className='active-idol__title'>{idol.name}</Text>
             <View className='active-idol__footer'>
-              <Text className='active-idol__price'>￥{idol.market_price}</Text>
+              <Text className='active-idol__price'>￥{helper.calculate(idol.market_price)}</Text>
               <Text className='active-idol__fans'>{idol.fans_count}人入股</Text>
             </View>
           </View>

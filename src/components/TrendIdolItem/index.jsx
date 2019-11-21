@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
+import helper from '~/utils/helper'
 import './index.scss'
 
 export default class TrendIdolItem extends Component {
@@ -28,7 +29,7 @@ export default class TrendIdolItem extends Component {
           <Text className='trend-idol__title'>{idol.bangumi.name} {idol.name}</Text>
           <Text className='trend-idol__intro'>{idol.intro}</Text>
           <View className='trend-idol__footer'>
-            <Text className='trend-idol__price'>￥{idol.market_price}</Text>
+            <Text className='trend-idol__price'>￥{helper.calculate(idol.market_price)}</Text>
             <Text className='trend-idol__fans'>{idol.fans_count}人入股</Text>
           </View>
         </View>

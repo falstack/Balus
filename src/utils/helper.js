@@ -49,5 +49,9 @@ export default {
     }
 
     return result
+  },
+
+  calculate(val) {
+    return val ? parseFloat(val).toFixed(2) : '0.00'
   }
 }

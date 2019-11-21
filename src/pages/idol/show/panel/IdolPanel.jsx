@@ -34,7 +34,7 @@ export default class IdolPanel extends Component {
           </View>
         </View>
         <View className='idol-panel__price'>
-          当前市值 ￥{idol.market_price}
+          当前市值 ￥{helper.calculate(idol.market_price)}
         </View>
       </View>
     )
