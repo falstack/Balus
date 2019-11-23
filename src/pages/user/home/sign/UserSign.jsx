@@ -27,19 +27,42 @@ export default class extends Component {
       submitting: true
     })
     toast.loading('登录中')
-    oAuthLogin()
-      .then(() => {
-        this.setState({
-          submitting: false
+    const loginProcess = () => {
+      oAuthLogin()
+        .then(() => {
+          this.setState({
+            submitting: false
+          })
+          toast.stop()
         })
-        toast.stop()
-      })
-      .catch(() => {
-        this.setState({
-          submitting: false
+        .catch(() => {
+          this.setState({
+            submitting: false
+          })
+          toast.stop()
         })
-        toast.stop()
-      })
+    }
+    const self = this
+    Taro.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          Taro.authorize({
+            scope: 'scope.userInfo',
+            success () {
+              loginProcess()
+            },
+            fail () {
+              self.setState({
+                submitting: false
+              })
+              toast.info('请先授权')
+            }
+          })
+        } else {
+          loginProcess()
+        }
+      }
+    })
   }
 
   changeAccess(value) {
