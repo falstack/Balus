@@ -1,10 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Button } from '@tarojs/components'
 import { AtForm, AtInput, AtButton, AtDivider } from 'taro-ui'
-import { wechatLogin, accessLogin } from '~/utils/login'
+import { oAuthLogin, accessLogin } from '~/utils/login'
 import toast from '~/utils/toast'
 import loginBg from '~/images/login_bg.png'
 import wechatIcon from '~/images/login_wechat_icon.png'
+import qqIcon from '~/images/login_qq_icon.png'
 import './index.scss'
 
 export default class extends Component {
@@ -26,7 +27,7 @@ export default class extends Component {
       submitting: true
     })
     toast.loading('登录中')
-    wechatLogin()
+    oAuthLogin()
       .then(() => {
         this.setState({
           submitting: false
@@ -129,7 +130,7 @@ export default class extends Component {
             className='wechat-btn'
             onClick={this.callWechatSign.bind(this)}
           >
-            <Image src={wechatIcon} mode='scaleToFill' />
+            <Image src={process.env.TARO_ENV === 'weapp' ? wechatIcon : qqIcon} mode='scaleToFill' />
           </Button>
         </View>
       </View>

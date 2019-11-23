@@ -2,7 +2,9 @@ import http from '~/utils/http'
 import cache from '~/utils/cache'
 import event from '~/utils/event'
 
-export const wechatLogin = () => {
+const globalEnv = process.env.TARO_ENV === 'weapp' ? wx : qq
+
+export const oAuthLogin = () => {
   return new Promise((resolve, reject) => {
     step_1_get_wx_code()
       .then(code => {
@@ -20,7 +22,8 @@ export const wechatLogin = () => {
                     signature: user.signature,
                     iv: user.iv,
                     encrypted_data: user.encryptedData,
-                    session_key: resp.data
+                    session_key: resp.data,
+                    app_name: 'moe_idol'
                   })
                     .then(token => {
                       step_5_get_current_user(token)
@@ -52,7 +55,7 @@ export const accessLogin = form => {
 
 const step_1_get_wx_code = () => {
   return new Promise((resolve, reject) => {
-    wx.login({
+    globalEnv.login({
       success(data) {
         if (data.code) {
           resolve(data.code)
@@ -69,8 +72,9 @@ const step_1_get_wx_code = () => {
 
 const step_2_get_token_or_user_by_code = code => {
   return new Promise((resolve, reject) => {
+    const url = process.env.TARO_ENV === 'weapp' ? 'door/wechat_mini_app_get_token' : 'door/qq_mini_app_get_token'
     http
-      .post('door/wechat_mini_app_get_token', { code, app_name: 'moe_idol' })
+      .post(url, { code, app_name: 'moe_idol' })
       .then(key => {
         resolve(key)
       })
@@ -80,7 +84,7 @@ const step_2_get_token_or_user_by_code = code => {
 
 const step_3_get_secret_data_from_wechat = () => {
   return new Promise((resolve, reject) => {
-    wx.getUserInfo({
+    globalEnv.getUserInfo({
       withCredentials: true,
       success(data) {
         resolve(data)
@@ -94,8 +98,9 @@ const step_3_get_secret_data_from_wechat = () => {
 
 const step_4_get_user = form => {
   return new Promise((resolve, reject) => {
+    const url = process.env.TARO_ENV === 'weapp' ? 'door/wechat_mini_app_login' : 'door/qq_mini_app_login'
     http
-      .post('door/wechat_mini_app_login', form)
+      .post(url, form)
       .then(data => {
         resolve(data)
       })
