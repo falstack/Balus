@@ -26,6 +26,15 @@ export default class extends Component {
     navigationStyle: 'custom'
   }
 
+  onShareAppMessage() {
+    const { idol } = this.state
+    return {
+      title: idol.name,
+      path: `/pages/idol/show/index?slug=${idol.slug}`,
+      imageUrl: `${idol.avatar}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
+    }
+  }
+
   getIdolData() {
     http.get('idol/show', {
       slug: this.state.slug
