@@ -3,7 +3,7 @@ import { View } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtSearchBar } from 'taro-ui'
 import http from '~/utils/http'
 import TrendIdolItem from '~/components/TrendIdolItem/index'
-import BangumiRankItem from "~/components/BangumiRankItem";
+import BangumiRankItem from "~/components/BangumiRankItem"
 import PageState from '~/components/PageState/index'
 import './index.scss'
 
