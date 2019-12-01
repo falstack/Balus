@@ -44,13 +44,13 @@ class App extends Component {
           iconPath: 'images/icon_home_default.png',
           selectedIconPath: 'images/icon_home_active.png'
         },
-        /*
         {
           pagePath: 'pages/bangumi/list/index',
           text: '番剧',
           iconPath: 'images/icon_home_default.png',
           selectedIconPath: 'images/icon_home_active.png'
         },
+        /*
         {
           pagePath: 'pages/user/list/index',
           text: '大佬',

@@ -45,12 +45,12 @@ export default class extends Component {
   }
 
   handleSearchAction() {
-    const { value, lastQuery } = this.state
+    const { value, lastQuery, current } = this.state
     if (value === lastQuery) {
       return
     }
     this.setState({
-      current: 0,
+      current,
       lastQuery: value,
       state_idol: {
         loading: false,
@@ -69,7 +69,7 @@ export default class extends Component {
       list_idol: [],
       list_bangumi: []
     }, () => {
-      this.loadMore(0, true)
+      this.loadMore(current, true)
     })
   }
 
@@ -124,7 +124,7 @@ export default class extends Component {
 
   render () {
     const tabList = [{ title: '偶像' }, { title: '番剧' }]
-    const { list_idol, state_idol } = this.state
+    const { list_idol, state_idol, list_bangumi } = this.state
     const list_0_data = list_idol.map(idol => (
       <TrendIdolItem
         key={idol.slug}
@@ -142,18 +142,15 @@ export default class extends Component {
           onConfirm={this.handleSearchAction.bind(this)}
           onActionClick={this.handleSearchAction.bind(this)}
         />
-        {list_0_data}
-        {state_idol.nothing ? <PageState type='nothing' /> : ''}
-        {/*
         <AtTabs current={this.state.current} tabList={tabList} onClick={this.TabSwitch.bind(this)}>
           <AtTabsPane current={this.state.current} index={0}>
-            <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页一的内容</View>
+            {list_0_data}
+            {state_idol.nothing ? <PageState type='nothing' /> : ''}
           </AtTabsPane>
           <AtTabsPane current={this.state.current} index={1}>
-            <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页二的内容</View>
+            {list_bangumi}
           </AtTabsPane>
         </AtTabs>
-        */}
       </View>
     )
   }
