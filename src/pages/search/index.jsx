@@ -1,8 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtTabs, AtTabsPane, AtSearchBar, AtLoadMore } from 'taro-ui'
+import { AtTabs, AtTabsPane, AtSearchBar } from 'taro-ui'
 import http from '~/utils/http'
 import TrendIdolItem from '~/components/TrendIdolItem/index'
+import BangumiRankItem from "~/components/BangumiRankItem";
 import PageState from '~/components/PageState/index'
 import './index.scss'
 
@@ -124,13 +125,20 @@ export default class extends Component {
 
   render () {
     const tabList = [{ title: '偶像' }, { title: '番剧' }]
-    const { list_idol, state_idol, list_bangumi } = this.state
+    const { list_idol, state_idol, list_bangumi, state_bangumi } = this.state
     const list_0_data = list_idol.map(idol => (
       <TrendIdolItem
         key={idol.slug}
         taroKey={idol.slug}
         index={-1}
         idol={idol}
+      />
+    ))
+    const list_1_data = list_bangumi.map(bangumi => (
+      <BangumiRankItem
+        key={bangumi.slug}
+        taroKey={bangumi.slug}
+        bangumi={bangumi}
       />
     ))
     return (
@@ -148,7 +156,8 @@ export default class extends Component {
             {state_idol.nothing ? <PageState type='nothing' /> : ''}
           </AtTabsPane>
           <AtTabsPane current={this.state.current} index={1}>
-            {list_bangumi}
+            {list_1_data}
+            {state_bangumi.nothing ? <PageState type='nothing' /> : ''}
           </AtTabsPane>
         </AtTabs>
       </View>
