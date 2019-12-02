@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import http from '~/utils/http'
 import helper from '~/utils/helper'
+import BangumiRankItem from "~/components/BangumiRankItem"
 import IdolPanel from './panel/IdolPanel'
 import IdolBottom from './bottom/IdolBottom'
 import './index.scss'
@@ -118,10 +119,14 @@ export default class extends Component {
         {
           idol.intro ?
             <View className='intro'>
-              <Text className='intro__title'>角色详情</Text>
+              <Text className='intro__title'>角色简介</Text>
               <Text className='intro__text'>{idol.intro}</Text>
             </View> : ''
         }
+        <View className='intro'>
+          <Text className='intro__title'>所属番剧</Text>
+          <BangumiRankItem bangumi={idol.bangumi} />
+        </View>
         <IdolBottom idol={idol} onPayCallback={this.handleBuyStock.bind(this)} />
       </View>
     )

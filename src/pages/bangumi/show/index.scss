@@ -1,0 +1,19 @@
+.bangumi-show {
+  .intro {
+    margin-bottom: 30px;
+
+    &__title {
+      display: block;
+      font-size: 34px;
+      margin: 30px;
+    }
+
+    &__text {
+      display: block;
+      font-size: 28px;
+      line-height: 35px;
+      margin: 0 30px;
+      color: $color-gray;
+    }
+  }
+}

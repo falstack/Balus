@@ -10,7 +10,7 @@ export default class TrendIdolItem extends Component {
   }
 
   render () {
-    const { idol, index } = this.props
+    const { idol, index, inBangumi } = this.props
     return (
       <Navigator hover-class='none' url={`/pages/idol/show/index?slug=${idol.slug}`} className='trend-idol'>
         <Image className='trend-idol__avatar' src={idol.avatar} mode='aspectFit'></Image>
@@ -26,7 +26,7 @@ export default class TrendIdolItem extends Component {
           </View>
         }
         <View className='trend-idol__content'>
-          <Text className='trend-idol__title'>{idol.bangumi.name} {idol.name}</Text>
+          <Text className='trend-idol__title'>{inBangumi ? '' : idol.bangumi.name} {idol.name}</Text>
           <Text className='trend-idol__intro'>{idol.intro}</Text>
           <View className='trend-idol__footer'>
             <Text className='trend-idol__price'>￥{helper.calculate(idol.market_price)}</Text>
@@ -44,4 +44,5 @@ TrendIdolItem.defaultProps = {
     bangumi: {},
     lover: null
   },
+  inBangumi: false
 }
