@@ -8,10 +8,16 @@ export default class BangumiRankItem extends Component {
   }
 
   render () {
-    const { bangumi } = this.props
+    const { bangumi, index } = this.props
     return (
       <Navigator hover-class='none'  url={`/pages/bangumi/show/index?slug=${bangumi.slug}`}className='bangumi-rank'>
         <Image className='bangumi-rank__avatar' src={bangumi.avatar} mode='aspectFill'></Image>
+        {
+          index < 0 ? '' :
+            <View className='bangumi-rank__order'>
+              {index + 1}
+            </View>
+        }
         {
           Number(bangumi.score) ?
             <View className='bangumi-rank__score'>
@@ -28,5 +34,6 @@ export default class BangumiRankItem extends Component {
 }
 
 BangumiRankItem.defaultProps = {
-  bangumi: {}
+  bangumi: {},
+  index: -1
 }

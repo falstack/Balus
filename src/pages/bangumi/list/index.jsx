@@ -63,8 +63,9 @@ export default class extends Component {
 
   render () {
     const { list, loading, noMore } = this.state
-    const data_list = list.map(bangumi => (
+    const data_list = list.map((bangumi, index) => (
       <BangumiRankItem
+        index={index}
         bangumi={bangumi}
         key={bangumi.slug}
         taroKey={bangumi.slug}
