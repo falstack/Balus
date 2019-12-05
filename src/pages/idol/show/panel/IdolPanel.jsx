@@ -37,13 +37,13 @@ export default class IdolPanel extends Component {
           {
             idol.buy_stock_count ?
               <View className='idol-panel__mine'>
-                <View>持有份额</View>
-                <View>{idol.buy_stock_count}股</View>
+                <View>投入份额</View>
+                <View>{idol.buy_stock_count}票</View>
               </View>
               : ''
           }
           <View className='idol-panel__price'>
-            当前市值 ￥{helper.calculate(idol.market_price)}
+            当前票数 {helper.calculate(idol.market_price)}
           </View>
         </View>
       </View>

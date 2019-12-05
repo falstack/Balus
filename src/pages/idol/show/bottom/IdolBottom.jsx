@@ -103,9 +103,9 @@ export default class IdolBottom extends Component {
     return (
       <View className='idol-bottom'>
         <View className='idol-bottom__content'>
-          <Text className='idol-bottom__price'>￥{idol.stock_price}/股</Text>
+          <Text className='idol-bottom__price'>{idol.stock_price}个团子/票</Text>
           <Button className='idol-bottom__btn idol-bottom__buy' onClick={this.handleClick.bind(this)}>
-            立即入股
+            立即投票
           </Button>
         </View>
         <View className='idol-bottom__shim' />
@@ -113,11 +113,11 @@ export default class IdolBottom extends Component {
           isOpened={isOpen}
           onClose={this.handleClose.bind(this)}
         >
-          <AtModalHeader>交易窗口</AtModalHeader>
+          <AtModalHeader>投票窗口</AtModalHeader>
           <AtModalContent>
             <View className='idol-bottom__dialog'>
               <View className='idol-bottom__text'>
-                团子余额：￥{user.wallet_coin}
+                剩余团子：{user.wallet_coin}
               </View>
               <View className='idol-bottom__text'>
                 购入份额：

@@ -29,8 +29,8 @@ export default class TrendIdolItem extends Component {
           <Text className='trend-idol__title'>{inBangumi ? '' : idol.bangumi.name} {idol.name}</Text>
           <Text className='trend-idol__intro'>{idol.intro}</Text>
           <View className='trend-idol__footer'>
-            <Text className='trend-idol__price'>￥{helper.calculate(idol.market_price)}</Text>
-            <Text className='trend-idol__fans'>{idol.fans_count}人入股</Text>
+            <Text className='trend-idol__price'>总分数：{helper.calculate(idol.market_price)}</Text>
+            <Text className='trend-idol__fans'>{idol.fans_count}人投票</Text>
           </View>
         </View>
       </Navigator>
