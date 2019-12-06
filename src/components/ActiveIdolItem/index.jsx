@@ -14,7 +14,7 @@ export default class ActiveIdolItem extends Component {
       <Navigator hover-class='none' url={`/pages/idol/show/index?slug=${idol.slug}`} className={`active-idol__wrap ${index % 2 ? 'is-odd' : ''} ${index < 2 ? 'is-first' : ''}`}>
         <View className='active-idol'>
           <View className='active-idol__avatar__wrap'>
-            <Image className='active-idol__avatar' src={idol.avatar} mode='aspectFit'></Image>
+            <Image className='active-idol__avatar' src={idol.avatar} mode='aspectFill'></Image>
           </View>
           <View className='active-idol__panel'>
             <Text className='active-idol__title'>{idol.bangumi.name}</Text>
