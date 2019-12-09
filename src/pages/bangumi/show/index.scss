@@ -19,6 +19,14 @@
 
   .social-panel {
     margin: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+    .pink-icon {
+      margin-left: 30px;
+    }
   }
 
   .pink-icon {

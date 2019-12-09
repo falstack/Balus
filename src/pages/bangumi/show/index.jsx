@@ -2,6 +2,8 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Navigator } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import http from '~/utils/http'
+import toast from '~/utils/toast'
+import cache from '~/utils/cache'
 import helper from '~/utils/helper'
 import TrendIdolItem from '~/components/TrendIdolItem/index'
 import BangumiPanel from './panel/BangumiPanel'
@@ -13,6 +15,8 @@ export default class extends Component {
     this.state = {
       slug: this.$router.params.slug,
       showEdit: false,
+      showFetch: false,
+      fetching: false,
       bangumi: {},
       state_idol: {
         loading: false,
@@ -92,8 +96,41 @@ export default class extends Component {
     this.getBangumiData()
     this.getBangumiIdols()
     this.setState({
-      showEdit: helper.hasRole('update_bangumi')
+      showEdit: helper.hasRole('update_bangumi'),
+      showFetch: !!(cache.get('USER', {}).is_admin)
     })
+  }
+
+  fetchIdols() {
+    if (this.state.fetching) {
+      return
+    }
+    Taro.showModal({
+      title: '抓取偶像',
+      content: '是否把相关偶像归档到该番剧下',
+    })
+      .then(res => {
+        if (res.cancel) {
+          return
+        }
+        this.setState({
+          fetching: true
+        })
+        http.post('bangumi/update/fetch_idols', {
+          slug: this.state.slug
+        })
+          .then(() => {
+            toast.success('操作成功')
+          })
+          .catch(err => {
+            toast.error(err.message)
+          })
+          .finally(() => {
+            this.setState({
+              fetching: false
+            })
+          })
+      })
   }
 
   onReachBottom() {
@@ -107,7 +144,7 @@ export default class extends Component {
   componentDidHide () { }
 
   render () {
-    const { bangumi, list_idol, showEdit } = this.state
+    const { bangumi, list_idol, showEdit, showFetch } = this.state
     const idol_data = list_idol.map(idol => (
       <TrendIdolItem
         key={idol.slug}
@@ -121,6 +158,9 @@ export default class extends Component {
       <View className='bangumi-show'>
         <BangumiPanel bangumi={bangumi} />
         <View className='social-panel intro'>
+          {
+            showFetch ? <AtIcon onClick={this.fetchIdols.bind(this)} className='pink-icon' value='streaming' size='15' color='#fff' /> : ''
+          }
           {
             showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/bangumi/edit?slug=' + bangumi.slug)}`}>
               <AtIcon className='pink-icon' value='settings' size='15' color='#fff' />
