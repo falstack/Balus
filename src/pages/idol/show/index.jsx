@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
+import { AtIcon } from 'taro-ui'
 import http from '~/utils/http'
 import helper from '~/utils/helper'
 import BangumiRankItem from "~/components/BangumiRankItem"
@@ -120,9 +121,13 @@ export default class extends Component {
         <View className='intro avatar-list'>
           {avatar}
         </View>
-        {
-          showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/idol/edit?slug=' + idol.slug)}`}>编辑</Navigator> : ''
-        }
+        <View className='intro'>
+          {
+            showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/idol/edit?slug=' + idol.slug)}`}>
+              <AtIcon className='pink-icon' value='settings' size='15' color='#fff' />
+            </Navigator> : ''
+          }
+        </View>
         {
           idol.intro ?
             <View className='intro'>

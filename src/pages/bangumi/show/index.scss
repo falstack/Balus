@@ -16,4 +16,16 @@
       color: $color-gray;
     }
   }
+
+  .pink-icon {
+    box-shadow: 0 4px 4px rgba(255,112,159,.3);
+    background-color: $color-red;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+  }
 }

@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Navigator } from '@tarojs/components'
+import { AtIcon } from 'taro-ui'
 import http from '~/utils/http'
 import helper from '~/utils/helper'
 import TrendIdolItem from '~/components/TrendIdolItem/index'
@@ -126,9 +127,13 @@ export default class extends Component {
               <Text className='intro__text'>{bangumi.intro}</Text>
             </View> : ''
         }
-        {
-          showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/bangumi/edit?slug=' + bangumi.slug)}`}>编辑</Navigator> : ''
-        }
+        <View className='intro'>
+          {
+            showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/bangumi/edit?slug=' + bangumi.slug)}`}>
+              <AtIcon className='pink-icon' value='settings' size='15' color='#fff' />
+            </Navigator> : ''
+          }
+        </View>
         {
           list_idol.length ?
             <View className='intro'>
