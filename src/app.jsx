@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import http from '~/utils/http'
 import cache from '~/utils/cache'
 import Index from './pages/index'
+import { step_6_get_user_roles } from '~/utils/login'
 
 import './app.scss'
 
@@ -81,6 +82,7 @@ class App extends Component {
       .post('door/get_user_info')
       .then(data => {
         cache.set('USER', data)
+        step_6_get_user_roles()
       })
       .catch(err => {
         cache.remove('USER')

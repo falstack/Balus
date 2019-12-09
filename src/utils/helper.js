@@ -45,7 +45,7 @@ export default {
     result = `${url}${link}token=${token}`
 
     if (!/^http/.test(url)) {
-      result = `${process.env.NODE_ENV === 'production' ? 'https://m.calibur.tv' : 'http://localhost:3000'}/${result}`
+      result = `${process.env.NODE_ENV === 'production' ? 'https://www.calibur.tv' : 'http://localhost:3000'}/${result}`
     }
 
     return result
@@ -56,7 +56,7 @@ export default {
   },
 
   hasRole(role) {
-    const user = cache.set('USER')
+    const user = cache.get('USER')
     if (!user) {
       return false
     }

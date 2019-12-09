@@ -136,8 +136,8 @@ const step_0_get_jwt_token_by_access = form => {
   })
 }
 
-const step_6_get_user_roles = () => {
-  http.get('v1/user/roles')
+export const step_6_get_user_roles = () => {
+  http.get('user/roles')
     .then(roles => {
       cache.set('USER_ROLES', roles)
     })

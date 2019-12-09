@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text, Image, Navigator } from '@tarojs/components'
 import http from '~/utils/http'
 import helper from '~/utils/helper'
 import BangumiRankItem from "~/components/BangumiRankItem"
@@ -12,6 +12,7 @@ export default class extends Component {
     super(props)
     this.state = {
       slug: this.$router.params.slug,
+      showEdit: false,
       idol: {
         bangumi: {},
         lover: null
@@ -94,10 +95,13 @@ export default class extends Component {
   componentDidMount () {
     this.getIdolData()
     this.getIdolFans()
+    this.setState({
+      showEdit: helper.hasRole('update_bangumi')
+    })
   }
 
   render () {
-    const { idol, fans_data } = this.state
+    const { idol, fans_data, showEdit } = this.state
     const avatar = fans_data.map(user => (
       <Image
         className='avatar'
@@ -116,6 +120,9 @@ export default class extends Component {
         <View className='intro avatar-list'>
           {avatar}
         </View>
+        {
+          showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/idol/edit?slug=' + idol.slug)}`}>编辑</Navigator> : ''
+        }
         {
           idol.intro ?
             <View className='intro'>
