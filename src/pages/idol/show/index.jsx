@@ -118,15 +118,17 @@ export default class extends Component {
         <View className='intro'>
           <Text className='intro__title'>{idol.bangumi.name} {idol.name}</Text>
         </View>
-        <View className='intro avatar-list'>
-          {avatar}
-        </View>
-        <View className='intro'>
-          {
-            showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/idol/edit?slug=' + idol.slug)}`}>
-              <AtIcon className='pink-icon' value='settings' size='15' color='#fff' />
-            </Navigator> : ''
-          }
+        <View className='social-panel intro'>
+          <View className='avatar-list'>
+            {avatar}
+          </View>
+          <View className='controls'>
+            {
+              showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/idol/edit?slug=' + idol.slug)}`}>
+                <AtIcon className='pink-icon' value='settings' size='15' color='#fff' />
+              </Navigator> : ''
+            }
+          </View>
         </View>
         {
           idol.intro ?
