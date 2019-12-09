@@ -107,7 +107,7 @@ export default class extends Component {
     }
     Taro.showModal({
       title: '抓取偶像',
-      content: '是否把相关偶像归档到该番剧下',
+      content: '是否把相关偶像归档到该番剧',
     })
       .then(res => {
         if (res.cancel) {
