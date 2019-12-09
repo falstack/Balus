@@ -120,6 +120,13 @@ export default class extends Component {
     return (
       <View className='bangumi-show'>
         <BangumiPanel bangumi={bangumi} />
+        <View className='social-panel intro'>
+          {
+            showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/bangumi/edit?slug=' + bangumi.slug)}`}>
+              <AtIcon className='pink-icon' value='settings' size='15' color='#fff' />
+            </Navigator> : ''
+          }
+        </View>
         {
           bangumi.intro ?
             <View className='intro'>
@@ -127,13 +134,6 @@ export default class extends Component {
               <Text className='intro__text'>{bangumi.intro}</Text>
             </View> : ''
         }
-        <View className='intro'>
-          {
-            showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/bangumi/edit?slug=' + bangumi.slug)}`}>
-              <AtIcon className='pink-icon' value='settings' size='15' color='#fff' />
-            </Navigator> : ''
-          }
-        </View>
         {
           list_idol.length ?
             <View className='intro'>

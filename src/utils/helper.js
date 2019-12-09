@@ -45,7 +45,7 @@ export default {
     result = `${url}${link}token=${token}`
 
     if (!/^http/.test(url)) {
-      result = `${process.env.NODE_ENV === 'production' ? 'https://www.calibur.tv' : 'http://localhost:3000'}/${result}`
+      result = `https://www.calibur.tv/${result}`
     }
 
     return result
