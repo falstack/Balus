@@ -53,5 +53,17 @@ export default {
 
   calculate(val) {
     return val ? parseFloat(val).toFixed(2) : '0.00'
+  },
+
+  hasRole(role) {
+    const user = cache.set('USER')
+    if (!user) {
+      return false
+    }
+    if (user.is_admin) {
+      return true
+    }
+    const roles = cache.get('USER_ROLES', [])
+    return ~roles.indexOf(role)
   }
 }

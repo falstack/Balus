@@ -115,6 +115,9 @@ const step_5_get_current_user = token => {
       .post('door/get_user_info')
       .then(user => {
         cache.set('USER', user)
+        if (user && user.title.length) {
+          step_6_get_user_roles()
+        }
         event.emit('update-user')
         resolve(user)
       })
@@ -131,4 +134,12 @@ const step_0_get_jwt_token_by_access = form => {
       })
       .catch(reject)
   })
+}
+
+const step_6_get_user_roles = () => {
+  http.get('v1/user/roles')
+    .then(roles => {
+      cache.set('USER_ROLES', roles)
+    })
+    .catch(() => {})
 }
