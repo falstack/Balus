@@ -1,4 +1,6 @@
 .bangumi-show {
+  position: relative;
+
   .intro {
     margin-bottom: 30px;
 
@@ -17,16 +19,11 @@
     }
   }
 
-  .social-panel {
-    margin: 30px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-
-    .pink-icon {
-      margin-left: 30px;
-    }
+  .edit-btn {
+    position: absolute;
+    right: 30px;
+    top: 330px;
+    z-index: 10;
   }
 
   .pink-icon {

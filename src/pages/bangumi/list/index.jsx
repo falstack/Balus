@@ -37,7 +37,7 @@ export default class extends Component {
         this.setState({
           loading: false,
           list: list.concat(data.result),
-          noMore: data.noMore,
+          noMore: data.no_more,
           total: data.total,
           page: page + 1
         })
