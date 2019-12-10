@@ -46,31 +46,27 @@ export default class UserPanel extends Component {
 
     return (
       <View className='user-panel'>
-        {/*
         <Navigator hover-class='none' url={`/pages/user/show/index?slug=${user.slug}`}>
-        </Navigator>
-        */}
-        <View className='intro'>
-          <View className='avatar'>
-            <AtAvatar
-              circle
-              size='large'
-              image={helper.resize(user.avatar, { width: 200 })}
-            />
-          </View>
-          <View className='text'>
-            <View className='nickname-wrap'>
-              <Text className='nickname'>{user.nickname}</Text>
-              <Text className='level'>LV{user.level}</Text>
+          <View className='intro'>
+            <View className='avatar'>
+              <AtAvatar
+                circle
+                size='large'
+                image={helper.resize(user.avatar, { width: 200 })}
+              />
             </View>
-            <Text className='invite'>cc号：{user.slug}</Text>
+            <View className='text'>
+              <View className='nickname-wrap'>
+                <Text className='nickname'>{user.nickname}</Text>
+                <Text className='level'>LV{user.level2}</Text>
+              </View>
+              <Text className='invite'>cc号：{user.slug}</Text>
+            </View>
+            <View className='arrow'>
+              <AtIcon value='chevron-right' size='20' color='#657786' />
+            </View>
           </View>
-          {/*
-          <View className='arrow'>
-            <AtIcon value='chevron-right' size='20' color='#657786' />
-          </View>
-          */}
-        </View>
+        </Navigator>
         <View className='control'>
           <View className='metas'>
             <View className='meta'>

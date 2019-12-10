@@ -1,27 +1,51 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View } from '@tarojs/components'
+import http from '~/utils/http'
+import UserPanel from './panel/UserPanel'
 import './index.scss'
 
 export default class extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {}
+  config = {
+    navigationStyle: 'custom'
   }
 
-  componentWillMount () { }
+  constructor(props) {
+    super(props)
+    this.state = {
+      slug: this.$router.params.slug,
+      user: null
+    }
+  }
 
-  componentDidMount () { }
+  componentWillMount() {}
 
-  componentWillUnmount () { }
+  componentDidMount() {
+    this.getUser()
+  }
 
-  componentDidShow () { }
+  componentWillUnmount() {}
 
-  componentDidHide () { }
+  componentDidShow() {}
 
-  render () {
+  componentDidHide() {}
+
+  onReachBottom() {}
+
+  onShareAppMessage() {}
+
+  getUser() {
+    http.get(`user/show?slug=${this.state.slug}`)
+      .then(user => {
+        this.setState({ user })
+      })
+      .catch(() => {})
+  }
+
+  render() {
+    const { user } = this.state
     return (
-      <View>
-        <Text>user show</Text>
+      <View className='public-user-home'>
+        <UserPanel user={user} />
       </View>
     )
   }
