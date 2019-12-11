@@ -20,6 +20,19 @@
       height: 100%;
       z-index: 0;
     }
+
+    .edit-profile-btn {
+      position: absolute;
+      right: 30px;
+      bottom: 30px;
+      color: #fff;
+      display: block;
+      padding: 10px 20px;
+      border-radius: 15px;
+      border: 1px solid #fff;
+      font-size: 26px;
+      z-index: 10;
+    }
   }
 
   .profile {

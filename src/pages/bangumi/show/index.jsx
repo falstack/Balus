@@ -2,8 +2,6 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Navigator } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import http from '~/utils/http'
-import toast from '~/utils/toast'
-import cache from '~/utils/cache'
 import helper from '~/utils/helper'
 import TrendIdolItem from '~/components/TrendIdolItem/index'
 import BangumiPanel from './panel/BangumiPanel'
@@ -15,7 +13,6 @@ export default class extends Component {
     this.state = {
       slug: this.$router.params.slug,
       showEdit: false,
-      fetching: false,
       bangumi: {},
       state_idol: {
         loading: false,
@@ -97,38 +94,6 @@ export default class extends Component {
     this.setState({
       showEdit: helper.hasRole('update_bangumi')
     })
-  }
-
-  fetchIdols() {
-    if (this.state.fetching) {
-      return
-    }
-    Taro.showModal({
-      title: '抓取偶像',
-      content: '是否把相关偶像归档到该番剧',
-    })
-      .then(res => {
-        if (res.cancel) {
-          return
-        }
-        this.setState({
-          fetching: true
-        })
-        http.post('bangumi/update/fetch_idols', {
-          slug: this.state.slug
-        })
-          .then(() => {
-            toast.success('操作成功')
-          })
-          .catch(err => {
-            toast.error(err.message)
-          })
-          .finally(() => {
-            this.setState({
-              fetching: false
-            })
-          })
-      })
   }
 
   onReachBottom() {
