@@ -18,8 +18,6 @@ export default class extends Component {
         bangumi: {},
         lover: null
       },
-      fans_total: 0,
-      fans_noMore: false,
       fans_data: []
     }
   }
@@ -74,8 +72,6 @@ export default class extends Component {
     })
       .then(data => {
         this.setState({
-          fans_total: data.total,
-          fans_noMore: data.no_more,
           fans_data: data.result
         })
       })
