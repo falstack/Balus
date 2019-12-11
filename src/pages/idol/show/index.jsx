@@ -115,7 +115,7 @@ export default class extends Component {
           <Text className='intro__title'>{idol.bangumi.name} {idol.name}</Text>
         </View>
         <View className='social-panel intro'>
-          <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/idol/fans?slug=' + idol.slug)}`} className='avatar-list'>
+          <Navigator hover-class='none' url={`/pages/user/list/index?slug=${idol.slug}&type=idol_fans`} className='avatar-list'>
             {avatar}
           </Navigator>
           <View className='controls'>
