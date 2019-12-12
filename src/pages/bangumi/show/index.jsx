@@ -1,8 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Navigator } from '@tarojs/components'
-import { AtIcon } from 'taro-ui'
+import { View, Text } from '@tarojs/components'
 import http from '~/utils/http'
-import helper from '~/utils/helper'
 import TrendIdolItem from '~/components/TrendIdolItem/index'
 import BangumiPanel from './panel/BangumiPanel'
 import './index.scss'
@@ -12,7 +10,6 @@ export default class extends Component {
     super(props)
     this.state = {
       slug: this.$router.params.slug,
-      showEdit: false,
       bangumi: {},
       state_idol: {
         loading: false,
@@ -91,9 +88,6 @@ export default class extends Component {
   componentDidMount () {
     this.getBangumiData()
     this.getBangumiIdols()
-    this.setState({
-      showEdit: helper.hasRole('update_bangumi')
-    })
   }
 
   onReachBottom() {
@@ -107,7 +101,7 @@ export default class extends Component {
   componentDidHide () { }
 
   render () {
-    const { bangumi, list_idol, showEdit } = this.state
+    const { bangumi, list_idol } = this.state
     const idol_data = list_idol.map(idol => (
       <TrendIdolItem
         key={idol.slug}
@@ -120,18 +114,6 @@ export default class extends Component {
     return (
       <View className='bangumi-show'>
         <BangumiPanel bangumi={bangumi} />
-        {
-          showEdit ? <Navigator className='edit-btn' hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/bangumi/edit?slug=' + bangumi.slug)}`}>
-            <AtIcon className='pink-icon' value='settings' size='15' color='#fff' />
-          </Navigator> : ''
-        }
-        {
-          bangumi.intro ?
-            <View className='intro'>
-              <Text className='intro__title'>番剧简介</Text>
-              <Text className='intro__text'>{bangumi.intro}</Text>
-            </View> : ''
-        }
         {
           list_idol.length ?
             <View className='intro'>
