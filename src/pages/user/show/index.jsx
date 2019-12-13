@@ -28,6 +28,15 @@ export default class extends Component {
 
   componentWillMount() {}
 
+  onShareAppMessage() {
+    const { user } = this.state
+    return {
+      title: user.nickname,
+      path: `/pages/user/show/index?slug=${user.slug}`,
+      imageUrl: `${user.avatar}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
+    }
+  }
+
   componentDidMount() {
     this.getUser()
     this.getUserIdols()
@@ -42,8 +51,6 @@ export default class extends Component {
   onReachBottom() {
     this.getUserIdols()
   }
-
-  onShareAppMessage() {}
 
   getUserIdols() {
     const { state_idol } = this.state
