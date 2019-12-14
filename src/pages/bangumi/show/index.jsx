@@ -81,7 +81,18 @@ export default class extends Component {
       })
   }
 
-  patchBangumiData() {}
+  patchBangumiData(bangumi) {
+    http.get('bangumi/patch', {
+      slug: this.state.slug
+    })
+      .then(data => {
+        this.setState({
+          ...bangumi,
+          ...data
+        })
+      })
+      .catch(() => {})
+  }
 
   componentWillMount () { }
 
