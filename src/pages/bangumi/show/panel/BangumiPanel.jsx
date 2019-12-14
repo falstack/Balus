@@ -57,7 +57,9 @@ export default class BangumiPanel extends Component {
               </Navigator>
               {
                 user
-                  ? <Navigator url={`/pages/webview/index?url=${encodeURIComponent('app/bangumi/join?slug=' + bangumi.slug)}`} className='join-btn'>加入圈子</Navigator>
+                  ? bangumi.is_liked
+                    ? ''
+                    : <Navigator url={`/pages/webview/index?url=${encodeURIComponent('app/bangumi/join?slug=' + bangumi.slug)}`} className='join-btn'>加入圈子</Navigator>
                   : <Button className='join-btn' onClick={this.showLogin.bind(this)}>加入圈子</Button>
               }
             </View>
