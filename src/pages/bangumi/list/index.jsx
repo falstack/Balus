@@ -53,13 +53,13 @@ export default class extends Component {
     this.getData()
   }
 
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
+  onShareAppMessage() {
+    return {
+      title: '动漫排行榜',
+      path: '/pages/bangumi/list/index',
+      imageUrl: 'https://m1.calibur.tv/default-poster?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400'
+    }
+  }
 
   render () {
     const { list, loading, noMore } = this.state

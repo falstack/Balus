@@ -35,6 +35,18 @@ export default class extends Component {
     this.refreshUser()
   }
 
+  onShareAppMessage() {
+    const { user } = this.state
+    if (!user) {
+      return null
+    }
+    return {
+      title: user.nickname,
+      path: `/pages/user/show/index?slug=${user.slug}`,
+      imageUrl: `${user.avatar}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
+    }
+  }
+
   refreshUser() {
     const user = cache.get('USER', null)
     if (user) {
