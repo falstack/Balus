@@ -87,8 +87,10 @@ export default class extends Component {
     })
       .then(data => {
         this.setState({
-          ...bangumi,
-          ...data
+          bangumi: {
+            ...bangumi,
+            ...data
+          }
         })
       })
       .catch(() => {})

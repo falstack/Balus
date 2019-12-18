@@ -19,6 +19,7 @@ export default class UserTable extends Component {
   componentDidHide() {}
 
   render() {
+    const { user } = this.props
     return (
       <View className='user-panel'>
         <AtList hasBorder={false}>
@@ -57,6 +58,20 @@ export default class UserTable extends Component {
             }}
           />
           */}
+          {
+            user.is_admin ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/admin')}`}>
+              <AtListItem
+                title='控制台'
+                arrow='right'
+                hasBorder={false}
+                iconInfo={{
+                  size: 20,
+                  color: '#657786',
+                  value: 'settings'
+                }}
+              />
+            </Navigator> : ''
+          }
           <Button open-type='feedback' class='feedback' hover-class='none'>
             <AtListItem
               title='意见反馈'
