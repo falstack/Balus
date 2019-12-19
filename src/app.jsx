@@ -20,7 +20,6 @@ class App extends Component {
       'pages/idol/show/index',
       'pages/user/home/index',
       'pages/user/show/index',
-      'pages/user/list/index',
       'pages/bangumi/show/index',
       'pages/bangumi/list/index',
       'pages/search/index',
