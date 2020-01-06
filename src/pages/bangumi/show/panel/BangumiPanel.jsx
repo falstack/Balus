@@ -98,7 +98,7 @@ export default class BangumiPanel extends Component {
             liker_total ? <Navigator
               hover-class='none'
               className='panel-wrap avatar-panel'
-              url={`/pages/webview/index?url=${encodeURIComponent('app/user/list?type=bangumi_liker&slug=' + bangumi.slug)}`}
+              url={`/pages/webview/index?url=${encodeURIComponent('app/user/list?func=getBangumiLiker&type=page&slug=' + bangumi.slug)}`}
             >
               <View>
                 {like_users}
