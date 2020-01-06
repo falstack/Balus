@@ -1,8 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator, Button } from '@tarojs/components'
+import { AtIcon } from 'taro-ui'
 import helper from '~/utils/helper'
 import cache from '~/utils/cache'
 import toast from '~/utils/toast'
+import http from '~/utils/http'
 import PageNav from '~/components/PageNav/index'
 import './index.scss'
 
@@ -10,7 +12,9 @@ export default class BangumiPanel extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: cache.get('USER', null)
+      user: cache.get('USER', null),
+      liker_list: [],
+      liker_total: 0
     }
   }
 
@@ -18,9 +22,35 @@ export default class BangumiPanel extends Component {
     toast.info('请先登录')
   }
 
+  componentDidMount() {
+    this.getBangumiLiker()
+  }
+
+  getBangumiLiker() {
+    http.get('bangumi/liker', {
+      slug: this.props.slug
+    })
+      .then(data => {
+        this.setState({
+          liker_list: data.result,
+          liker_total: data.total
+        })
+      })
+      .catch(() => {})
+  }
+
   render() {
     const { bangumi } = this.props
-    const { user } = this.state
+    const { user, liker_list, liker_total } = this.state
+    const like_users = liker_list.slice(0, 5).map(item => (
+      <Image
+        className='avatar'
+        src={helper.resize(item.avatar, { width: 140 })}
+        key={item.slug}
+        taroKey={item.slug}
+        mode='aspectFit'
+      />
+    ))
     return (
       <View className='bangumi-panel'>
         <View className='background'>
@@ -64,6 +94,19 @@ export default class BangumiPanel extends Component {
               }
             </View>
           </View>
+          {
+            liker_total ? <Navigator
+              hover-class='none'
+              className='panel-wrap avatar-panel'
+              url={`/pages/webview/index?url=${encodeURIComponent('app/user/list?type=bangumi_liker&slug=' + bangumi.slug)}`}
+            >
+              <View>
+                {like_users}
+                <Text className='avatar-tail text'>等 {liker_total} 个看过的人</Text>
+              </View>
+              <AtIcon size='16' color='#FFF' value='chevron-right' />
+            </Navigator> : ''
+          }
         </View>
       </View>
     )
@@ -71,5 +114,6 @@ export default class BangumiPanel extends Component {
 }
 
 BangumiPanel.defaultProps = {
-  bangumi: {}
+  bangumi: {},
+  slug: ''
 }

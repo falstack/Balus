@@ -114,7 +114,7 @@ export default class extends Component {
   componentDidHide () { }
 
   render () {
-    const { bangumi, list_idol } = this.state
+    const { bangumi, list_idol, slug } = this.state
     const idol_data = list_idol.map(idol => (
       <TrendIdolItem
         key={idol.slug}
@@ -126,7 +126,7 @@ export default class extends Component {
     ))
     return (
       <View className='bangumi-show'>
-        <BangumiPanel bangumi={bangumi} />
+        <BangumiPanel slug={slug} bangumi={bangumi} />
         {
           list_idol.length ?
             <View className='intro'>

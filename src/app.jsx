@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import http from '~/utils/http'
 import cache from '~/utils/cache'
-import Index from './pages/index'
 import { step_6_get_user_roles } from '~/utils/login'
+import Index from './pages/index'
 
 import './app.scss'
 
