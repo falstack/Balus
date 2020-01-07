@@ -1,0 +1,32 @@
+.index-helper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+
+  .helper-item {
+    flex-grow: 1;
+    margin-right: 20px;
+    border: 1px solid $color-text-gray;
+    border-radius: 10px;
+
+    &:first-child {
+      margin-left: 20px;
+    }
+  }
+
+  .title {
+    display: block;
+    font-size: 30px;
+    line-height: 30px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: -5px;
+  }
+
+  .intro {
+    font-size: 26px;
+    margin-left: 10px;
+  }
+}

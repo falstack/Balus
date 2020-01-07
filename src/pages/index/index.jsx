@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtSearchBar, AtLoadMore } from 'taro-ui'
 import http from '~/utils/http'
+import IndexHelper from '~/components/IndexHelper/index'
 import ActiveIdolItem from '~/components/ActiveIdolItem/index'
 import TrendIdolItem from '~/components/TrendIdolItem/index'
 import './index.scss'
@@ -215,6 +216,7 @@ export default class Index extends Component {
           onConfirm={this.handleSearchAction.bind(this)}
           onActionClick={this.handleSearchAction.bind(this)}
         />
+        <IndexHelper />
         <AtTabs current={this.state.tabActiveIndex} tabList={tabList} onClick={this.TabSwitch.bind(this)}>
           <AtTabsPane current={this.state.tabActiveIndex} index={0}>
             {list_0_data}
