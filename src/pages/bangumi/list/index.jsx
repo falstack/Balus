@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { AtLoadMore } from 'taro-ui'
 import BangumiRankItem from "~/components/BangumiRankItem";
 import http from '~/utils/http'
