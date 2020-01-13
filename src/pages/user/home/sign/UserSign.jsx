@@ -135,6 +135,7 @@ export default class extends Component {
                   circle
                   type='primary'
                   formType='submit'
+                  onClick={this.onSubmit.bind(this)}
                 >
                   登录
                 </AtButton>
