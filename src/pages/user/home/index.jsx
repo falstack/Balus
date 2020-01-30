@@ -4,7 +4,6 @@ import cache from '~/utils/cache'
 import event from '~/utils/event'
 import http from '~/utils/http'
 import { AtButton } from 'taro-ui'
-import UserSign from './sign/UserSign'
 import UserPanel from './panel/UserPanel'
 import UserTable from './table/UserTable'
 import './index.scss'
@@ -22,6 +21,12 @@ export default class extends Component {
   }
 
   componentDidMount() {
+    if (!this.state.user) {
+      Taro.redirectTo({
+        url: '/pages/user/login/index'
+      })
+      return
+    }
     event.on('update-user', () => {
       this.refreshUser()
     })
@@ -72,13 +77,15 @@ export default class extends Component {
     http.post('door/logout')
     cache.remove('JWT-TOKEN')
     cache.remove('USER')
-    this.refreshUser()
+    Taro.reLaunch({
+      url: '/pages/index/index'
+    })
   }
 
   render() {
     const { user } = this.state
     if (user === null) {
-      return <UserSign />
+      return
     }
 
     return (

@@ -39,14 +39,13 @@ export default {
 
   webview(url) {
     let result
-    const user = cache.get('USER', null)
-    const token = !user ? '' : cache.get('JWT-TOKEN', '')
+    const token = cache.get('JWT-TOKEN', 'LOGOUT')
     const link = /\?/.test(url) ? '&' : '?'
     result = `${url}${link}token=${token}`
 
     if (!/^http/.test(url)) {
-      result = process.env.NODE_ENV === 'development' ? `http://localhost:3001/${result}` : `https://www.calibur.tv/${result}`
-      // result = `https://www.calibur.tv/${result}`
+      result = process.env.NODE_ENV === 'development' ? `http://localhost:3001/${result}` : `https://app.calibur.tv/${result}`
+      // result = `https://app.calibur.tv/${result}`
     }
 
     return result

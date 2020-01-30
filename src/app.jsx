@@ -20,8 +20,8 @@ class App extends Component {
       'pages/idol/show/index',
       'pages/user/home/index',
       'pages/user/show/index',
+      'pages/user/login/index',
       'pages/bangumi/show/index',
-      'pages/bangumi/list/index',
       'pages/search/index',
       'pages/webview/index',
     ],
@@ -44,20 +44,6 @@ class App extends Component {
           iconPath: 'images/icon_home_default.png',
           selectedIconPath: 'images/icon_home_active.png'
         },
-        {
-          pagePath: 'pages/bangumi/list/index',
-          text: '榜单',
-          iconPath: 'images/icon_home_default.png',
-          selectedIconPath: 'images/icon_home_active.png'
-        },
-        /*
-        {
-          pagePath: 'pages/user/list/index',
-          text: '大佬',
-          iconPath: 'images/icon_home_default.png',
-          selectedIconPath: 'images/icon_home_active.png'
-        },
-        */
         {
           pagePath: 'pages/user/home/index',
           text: '我的',

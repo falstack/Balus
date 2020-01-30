@@ -9,6 +9,10 @@ import qqIcon from '~/images/login_qq_icon.png'
 import './index.scss'
 
 export default class extends Component {
+  config = {
+    navigationStyle: 'custom'
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -19,7 +23,22 @@ export default class extends Component {
     }
   }
 
-  callWechatSign() {
+  redirect() {
+    const from = this.$router.params.from
+    if (from) {
+      Taro.redirectTo({
+        url: `/pages/webview/index?url=${from}`
+      })
+      return
+    }
+    Taro.navigateBack().then(() => {}).catch(() => {
+      Taro.switchTab({
+        url: '/pages/user/home/index'
+      })
+    })
+  }
+
+  callOAuthSign() {
     if (this.state.loading || this.state.submitting) {
       return
     }
@@ -34,6 +53,7 @@ export default class extends Component {
             submitting: false
           })
           toast.stop()
+          this.redirect()
         })
         .catch(() => {
           this.setState({
@@ -95,7 +115,9 @@ export default class extends Component {
       loading: true
     })
     accessLogin({ access, secret })
-      .then(() => {})
+      .then(() => {
+        this.redirect()
+      })
       .catch(() => {
         this.setState({
           loading: false
@@ -152,7 +174,7 @@ export default class extends Component {
           <Button
             open-type='getUserInfo'
             className='wechat-btn'
-            onClick={this.callWechatSign.bind(this)}
+            onClick={this.callOAuthSign.bind(this)}
           >
             <Image src={process.env.TARO_ENV === 'weapp' ? wechatIcon : qqIcon} mode='scaleToFill' />
           </Button>
