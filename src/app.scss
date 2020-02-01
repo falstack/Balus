@@ -40,24 +40,60 @@ $color-brand-dark: #c95b7a;
 .at-tabs {
   &__header {
     justify-content: center;
+    border-bottom: 1px solid #E7E7E7;
   }
 
   &__item {
-    padding: 20px 25px;
-    font-size: 30px;
+    padding: 20px 16px;
+    font-size: 28px;
     flex: none;
-    color: $color-text-light;
+    color: #505050;
 
     &--active {
-      color: $color-text-normal;
+      color: #FB7299;
     }
 
     &-underline {
-      width: 48px;
-      height: 8px;
+      width: calc(100% - 32px);
+      left: 16px;
+      height: 4px;
       border-radius: 4px;
-      margin-left: -24px;
-      left: 50%;
     }
+  }
+}
+
+.scroll-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .flex-shrink-0 {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .flex-grow-1 {
+    position: relative;
+    width: 100%;
+    flex-grow: 1;
+  }
+
+  .scroll-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .scroll-view {
+    width: 100%;
+    height: 100%;
   }
 }

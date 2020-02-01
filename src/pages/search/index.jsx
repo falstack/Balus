@@ -145,6 +145,7 @@ export default class extends Component {
       <View>
         <AtSearchBar
           placeholder='搜一下'
+          focus
           value={this.state.value}
           onChange={this.handleSearchInput.bind(this)}
           onConfirm={this.handleSearchAction.bind(this)}
