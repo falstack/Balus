@@ -1,8 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
+import flowEvent from "../flowEvent"
 import './index.scss'
 
-export default class extends Component {
+@flowEvent
+class ActivityIdol extends Component {
   constructor (props) {
     super(props)
     this.state = {}
@@ -26,3 +28,10 @@ export default class extends Component {
     )
   }
 }
+
+ActivityIdol.defaultProps = {
+  slug: 'idol',
+  autoload: false
+}
+
+export default ActivityIdol

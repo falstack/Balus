@@ -5,6 +5,7 @@ import SearchCustomHeader from '~/components/SearchCustomHeader/index'
 import NewsPin from '~/components/FlowList/NewsPin/index'
 import RecommendedPin from '~/components/FlowList/RecommendedPin/index'
 import ActivityIdol from '~/components/FlowList/ActivityIdol/index'
+import event from '~/utils/event'
 import './index.scss'
 
 export default class extends Component {
@@ -18,18 +19,21 @@ export default class extends Component {
     this.state = {
       current: 1,
       tabs: [
-        { slug: '', title: '新闻' },
-        { slug: '', title: '推荐' },
-        { slug: '', title: '股市' }
+        { slug: 'news', title: '新闻' },
+        { slug: 'recommended', title: '推荐' },
+        { slug: 'idol', title: '股市' }
       ]
     }
   }
 
   handleTabClick(value) {
     const current = typeof value === 'number' ? value : value.detail.current
-    this.setState({
-      current
-    })
+    this.setState({ current })
+    event.emit(`index-flow-scroll-switch-${this.state.tabs[current].slug}`)
+  }
+
+  handleScrollBottom() {
+    event.emit(`index-flow-scroll-bottom-${this.state.tabs[this.state.current].slug}`)
   }
 
   render () {
@@ -42,7 +46,13 @@ export default class extends Component {
             key={title}
             taroKey={title}
           >
-            <ScrollView className='scroll-view' scrollY><NewsPin /></ScrollView>
+            <ScrollView
+              className='scroll-view'
+              scrollY
+              onScrollToLower={this.handleScrollBottom.bind(this)}
+            >
+              <NewsPin />
+            </ScrollView>
           </SwiperItem>
         )
       }
@@ -52,7 +62,13 @@ export default class extends Component {
             key={title}
             taroKey={title}
           >
-            <ScrollView className='scroll-view' scrollY><RecommendedPin /></ScrollView>
+            <ScrollView
+              className='scroll-view'
+              scrollY
+              onScrollToLower={this.handleScrollBottom.bind(this)}
+            >
+              <RecommendedPin />
+            </ScrollView>
           </SwiperItem>
         )
       }
@@ -62,7 +78,11 @@ export default class extends Component {
             key={title}
             taroKey={title}
           >
-            <ScrollView className='scroll-view' scrollY><ActivityIdol /></ScrollView>
+            <ScrollView
+              className='scroll-view'
+              scrollY
+              onScrollToLower={this.handleScrollBottom.bind(this)}
+            ><ActivityIdol /></ScrollView>
           </SwiperItem>
         )
       }
@@ -76,6 +96,7 @@ export default class extends Component {
           <AtTabs
             current={current}
             scroll
+            animated={false}
             tabList={tabs}
             onClick={this.handleTabClick.bind(this)}
           />

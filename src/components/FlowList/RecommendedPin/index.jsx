@@ -1,8 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
+import flowEvent from "../flowEvent"
 import './index.scss'
 
-export default class extends Component {
+@flowEvent
+class RecommendedPin extends Component {
   constructor (props) {
     super(props)
     this.state = {}
@@ -26,3 +28,10 @@ export default class extends Component {
     )
   }
 }
+
+RecommendedPin.defaultProps = {
+  slug: 'recommended',
+  autoload: true
+}
+
+export default RecommendedPin
