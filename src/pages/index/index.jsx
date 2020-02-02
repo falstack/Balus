@@ -5,6 +5,7 @@ import SearchCustomHeader from '~/components/SearchCustomHeader/index'
 import NewsPin from '~/components/FlowList/NewsPin/index'
 import RecommendedPin from '~/components/FlowList/RecommendedPin/index'
 import ActivityIdol from '~/components/FlowList/ActivityIdol/index'
+import BangumiPin from '~/components/FlowList/BangumiPin/index'
 import event from '~/utils/event'
 import './index.scss'
 
