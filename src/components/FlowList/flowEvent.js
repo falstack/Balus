@@ -14,14 +14,6 @@ export default function flowEvent(Comp) {
       }
     }
 
-    initData() {
-      console.log('initData')
-    }
-
-    loadMore() {
-      console.log('loadMore')
-    }
-
     componentWillUnmount() {
       event.off(`index-flow-scroll-switch-${this.props.slug}`)
       event.off(`index-flow-scroll-bottom-${this.props.slug}`)

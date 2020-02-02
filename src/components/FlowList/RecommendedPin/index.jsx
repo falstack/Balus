@@ -1,16 +1,25 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import flowEvent from "../flowEvent"
+import flowEvent from '../flowEvent'
+import flowStore from '../flowStore'
 import './index.scss'
 
+@flowStore
 @flowEvent
 class RecommendedPin extends Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      ...this.state,
+      flowReq: {
+        url: 'bangumi/recommended_pins',
+        type: 'seenIds',
+        query: {}
+      }
+    }
   }
 
-  componentWillMount () { }
+  componentWillMount () {}
 
   componentDidMount () { }
 
