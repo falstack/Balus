@@ -1,0 +1,148 @@
+$image-padding: 2px;
+
+.flow-pin-item {
+  padding: $container-padding;
+  border-bottom: $container-padding / 2 solid $color-background-container;
+
+  .header {
+    margin-bottom: $container-padding;
+
+    .user {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+      .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: $container-padding;
+      }
+    }
+  }
+
+  .body {
+    .title {
+      @extend %oneline;
+    }
+
+    .banner {
+      margin-top: $container-padding;
+      border-radius: 10px;
+      overflow: hidden;
+
+      .image-box {
+        position: relative;
+      }
+
+      image {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      &.banner-0 {
+        display: none;
+      }
+
+      &.banner-1 {
+        height: calc((100vw - 40px) / 2);
+
+        .image-box {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      &.banner-2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: calc((100vw - 44px) / 2);
+
+        .image-box {
+          flex-grow: 1;
+          height: 100%;
+
+          &:first-child {
+            margin-right: $image-padding;
+          }
+
+          &:last-child {
+            margin-left: $image-padding;
+          }
+        }
+      }
+
+      &.banner-3 {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: calc((100vw - 44px) / 3 * 2);
+
+        .image-wrap-1 {
+          position: relative;
+          flex-grow: 1;
+          height: 100%;
+          margin-left: $image-padding;
+          display: flex;
+          flex-direction: column;
+
+          .image-box {
+            flex-grow: 1;
+
+            &:first-child {
+              margin-bottom: $image-padding;
+            }
+
+            &:last-child {
+              margin-top: $image-padding;
+            }
+          }
+        }
+
+        .image-wrap-2 {
+          position: relative;
+          flex-grow: 2;
+          height: 100%;
+          margin-right: $image-padding;
+        }
+      }
+    }
+
+    .intro {
+      margin-top: $container-padding;
+      @include mutiline(40px);
+    }
+  }
+
+  .footer {
+    margin-top: $container-padding;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    color: $color-text-light;
+
+    .state {
+      display: flex;
+      flex-direction: row;
+
+      .state-item {
+        margin-left: $container-padding;
+        min-width: 100px;
+        text-align: center;
+
+        .text {
+          margin-left: $container-padding / 2;
+        }
+      }
+    }
+  }
+}
