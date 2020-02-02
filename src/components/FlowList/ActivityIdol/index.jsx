@@ -12,7 +12,7 @@ class ActivityIdol extends Component {
     this.state = {
       ...this.state,
       flowReq: {
-        url: 'bangumi/pins2',
+        url: 'bangumi/pins',
         type: 'lastId',
         query: {
           slug: '54xzu',

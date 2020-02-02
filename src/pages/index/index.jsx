@@ -22,7 +22,8 @@ export default class extends Component {
       tabs: [
         { slug: 'news', title: '新闻' },
         { slug: 'recommended', title: '推荐' },
-        { slug: 'idol', title: '股市' }
+        { slug: 'idol', title: '股市' },
+        { slug: '54xcl', title: '日常' }
       ]
     }
   }

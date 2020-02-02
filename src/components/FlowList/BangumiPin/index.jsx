@@ -12,9 +12,14 @@ class RecommendedPin extends Component {
     this.state = {
       ...this.state,
       flowReq: {
-        url: 'bangumi/recommended_pins',
+        url: 'bangumi/pins',
         type: 'seenIds',
-        query: {}
+        query: {
+          slug: this.props.slug,
+          sort: 'active',
+          time: 'all',
+          is_up: 0
+        }
       }
     }
   }
