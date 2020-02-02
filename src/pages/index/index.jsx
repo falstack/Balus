@@ -37,57 +37,23 @@ export default class extends Component {
     event.emit(`index-flow-scroll-bottom-${this.state.tabs[this.state.current].slug}`)
   }
 
+  getFlowComponent({ title, slug }) {
+    switch (title) {
+      case '新闻': {
+        return <NewsPin slug={slug} />
+      }
+      case '推荐': {
+        return <RecommendedPin slug={slug} />
+      }
+      case '股市': {
+        return <ActivityIdol slug={slug} />
+      }
+    }
+    return <BangumiPin slug={slug} />
+  }
+
   render () {
     const { current, tabs } = this.state
-    const panels = tabs.map(tab => {
-      const { title } = tab
-      if (title === '新闻') {
-        return (
-          <SwiperItem
-            key={title}
-            taroKey={title}
-          >
-            <ScrollView
-              className='scroll-view'
-              scrollY
-              onScrollToLower={this.handleScrollBottom.bind(this)}
-            >
-              <NewsPin />
-            </ScrollView>
-          </SwiperItem>
-        )
-      }
-      if (title === '推荐') {
-        return (
-          <SwiperItem
-            key={title}
-            taroKey={title}
-          >
-            <ScrollView
-              className='scroll-view'
-              scrollY
-              onScrollToLower={this.handleScrollBottom.bind(this)}
-            >
-              <RecommendedPin />
-            </ScrollView>
-          </SwiperItem>
-        )
-      }
-      if (title === '股市') {
-        return (
-          <SwiperItem
-            key={title}
-            taroKey={title}
-          >
-            <ScrollView
-              className='scroll-view'
-              scrollY
-              onScrollToLower={this.handleScrollBottom.bind(this)}
-            ><ActivityIdol /></ScrollView>
-          </SwiperItem>
-        )
-      }
-    })
     return (
       <View className='homepage scroll-page'>
         <View className='flex-shrink-0'>
@@ -110,7 +76,20 @@ export default class extends Component {
             skipHiddenItemLayout
             onChange={this.handleTabClick.bind(this)}
           >
-            {panels}
+            {tabs.map(tab => (
+              <SwiperItem
+                key={tab.title}
+                taroKey={tab.title}
+              >
+                <ScrollView
+                  className='scroll-view'
+                  scrollY
+                  onScrollToLower={this.handleScrollBottom.bind(this)}
+                >
+                  {this.getFlowComponent(tab)}
+                </ScrollView>
+              </SwiperItem>
+            ))}
           </Swiper>
         </View>
       </View>
