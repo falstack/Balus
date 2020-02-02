@@ -1,5 +1,16 @@
 import cache from '~/utils/cache'
 
+const adjustDate = (time) => {
+  if (/^\d+$/.test(time) && time.toString().length === 10) {
+    return new Date(time * 1000)
+  }
+  let result = new Date(time)
+  if (result.toString() === 'Invalid Date') {
+    result = new Date(time.replace(/-/g, '/'))
+  }
+  return result
+}
+
 export default {
   resize(url, options = {}) {
     if (!url) {
@@ -35,6 +46,26 @@ export default {
 
   number(num) {
     return num > 1000 ? `${Math.floor((num / 1000) * 10) / 10}k` : num
+  },
+
+  timeAgo(time) {
+    const date = adjustDate(time)
+    const delta = Date.now() - date.getTime()
+    const format = [date.getFullYear(), `0${date.getMonth() + 1}`.substr(-2), `0${date.getDate()}`.substr(-2), `0${date.getHours()}`.substr(-2), `0${date.getMinutes()}`.substr(-2)]
+    if (delta > 365 * 86400000 || delta <= 0) {
+      return `${format[0]}-${format[1]}-${format[2]}`
+    }
+    const today = new Date().setHours(0, 0, 0, 0)
+    if (today < date) {
+      return `今天${format[3]}:${format[4]}`
+    }
+    if (today - 86400000 < date) {
+      return `昨天${format[3]}:${format[4]}`
+    }
+    if (today - 172800000 < date) {
+      return `前天${format[3]}:${format[4]}`
+    }
+    return `${format[1]}-${format[2]} ${format[3]}:${format[4]}`
   },
 
   webview(url) {

@@ -11,15 +11,30 @@ export default class FlowPinItem extends Component {
   }
 
   render () {
-    const { item } = this.props
+    const { item, others } = this.props
+    const state = {
+      showUser: true,
+      showBangumi: true,
+      showTime: false,
+      ...others
+    }
     return (
       <View className='flow-pin-item'>
-        <View className='header'>
-          <Navigator className='user' hover-class='none' url={`/pages/user/show/index?slug=${item.author.slug}`}>
-            <Image className='avatar' src={helper.resize(item.author.avatar, { width: 100 })} />
-            <Text>{ item.author.nickname }</Text>
-          </Navigator>
-        </View>
+        {
+          state.showUser ? (
+            <View className='header'>
+              <Navigator className='user' hover-class='none' url={`/pages/user/show/index?slug=${item.author.slug}`}>
+                <Image className='avatar' src={helper.resize(item.author.avatar, { width: 100 })} />
+                <Text>{ item.author.nickname }</Text>
+              </Navigator>
+              {
+                state.showTime ? (
+                  <Text className='time'>{ helper.timeAgo(item.published_at) }</Text>
+                ) : ''
+              }
+            </View>
+          ) : ''
+        }
         <Navigator className='body' hover-class='none' url={`/pages/pin/show/index?slug=${item.slug}`}>
           <View className='title'>{ item.title.text }</View>
           {
@@ -54,7 +69,6 @@ export default class FlowPinItem extends Component {
           }
         </Navigator>
         <View className='footer'>
-          <Navigator hover-class='none' url={`/pages/bangumi/show/index?slug=${item.bangumi.slug}`}>{item.bangumi.name}</Navigator>
           <View className='state'>
             <View className='state-item'>
               <AtIcon value='message' size='15' />
@@ -65,6 +79,11 @@ export default class FlowPinItem extends Component {
               <Text className='text'>{ item.like_count || '点赞' }</Text>
             </View>
           </View>
+          {
+            state.showBangumi ? (
+              <Navigator className='bangumi' hover-class='none' url={`/pages/bangumi/show/index?slug=${item.bangumi.slug}`}>{item.bangumi.name}</Navigator>
+            ) : ''
+          }
         </View>
       </View>
     )
@@ -78,7 +97,5 @@ FlowPinItem.defaultProps = {
     bangumi: {},
     banner: []
   },
-  showUser: true,
-  showBangumi: true,
-  showTime: false
+  others: {}
 }

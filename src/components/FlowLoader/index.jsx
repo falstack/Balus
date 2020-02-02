@@ -14,19 +14,19 @@ export default class FlowLoader extends Component {
     this.state = {}
   }
 
-  getFlowComponent(item, name, index) {
+  getFlowComponent(item, name, others, index) {
     switch (name) {
       case 'flow-pin': {
-        return <FlowPinItem item={item} />
+        return <FlowPinItem item={item} others={others} />
       }
       case 'trend-idol': {
-        return <TrendIdolItem idol={item} index={index} />
+        return <TrendIdolItem idol={item} others={others} index={index} />
       }
     }
   }
 
   render () {
-    const { flow, launch, name } = this.props
+    const { flow, launch, name, others } = this.props
     if (!name) {
       return
     }
@@ -42,7 +42,7 @@ export default class FlowLoader extends Component {
     }
     return (
       <View className='flow-loader'>
-        {flow.flow_result.map((item, index) => (<View key={item.slug} taroKey={item.slug}>{this.getFlowComponent(item, name, index)}</View>))}
+        {flow.flow_result.map((item, index) => (<View key={item.slug} taroKey={item.slug}>{this.getFlowComponent(item, name, others, index)}</View>))}
         {
           flow.flow_loading ? (
             <View>
@@ -82,5 +82,6 @@ FlowLoader.defaultProps = {
     flow_total: 0
   },
   launch: true,
+  others: {},
   name: ''
 }

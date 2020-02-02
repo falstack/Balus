@@ -6,7 +6,7 @@ import './index.scss'
 
 @flowStore
 @flowEvent
-class RecommendedPin extends Component {
+class BangumiPin extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -26,14 +26,14 @@ class RecommendedPin extends Component {
 
   render () {
     return (
-      <FlowLoader flow={this.state} name='flow-pin' />
+      <FlowLoader flow={this.state} name='flow-pin' others={{ showBangumi: false }} />
     )
   }
 }
 
-RecommendedPin.defaultProps = {
+BangumiPin.defaultProps = {
   slug: 'recommended',
   autoload: true
 }
 
-export default RecommendedPin
+export default BangumiPin

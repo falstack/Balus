@@ -5,7 +5,10 @@ $image-padding: 2px;
   border-bottom: $container-padding / 2 solid $color-background-container;
 
   .header {
-    margin-bottom: $container-padding;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
     .user {
       display: flex;
@@ -20,11 +23,19 @@ $image-padding: 2px;
         margin-right: $container-padding;
       }
     }
+
+    .time {
+      font-size: 26px;
+      color: $color-text-light;
+    }
   }
 
   .body {
+    margin-top: $container-padding;
+
     .title {
       @extend %oneline;
+      @extend %breakWord;
     }
 
     .banner {
@@ -117,22 +128,26 @@ $image-padding: 2px;
 
     .intro {
       margin-top: $container-padding;
+      @extend %breakWord;
       @include mutiline(40px);
     }
   }
 
   .footer {
     margin-top: $container-padding;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 24px;
     color: $color-text-light;
+    font-size: 24px;
+    @extend %clearfix;
+
+    .bangumi {
+      @extend %oneline;
+    }
 
     .state {
+      float: right;
       display: flex;
       flex-direction: row;
+      justify-content: flex-end;
 
       .state-item {
         margin-left: $container-padding;
