@@ -4,6 +4,7 @@ import { AtLoadMore } from 'taro-ui'
 import FlowPinItem from '~/components/FlowItem/FlowPinItem/index'
 import Loading from '~/images/loading.gif'
 import Nothing from '~/images/page_nothing.png'
+import Error from '~/images/page_error.png'
 import './index.scss'
 
 export default class FlowLoader extends Component {
@@ -29,7 +30,7 @@ export default class FlowLoader extends Component {
       return (
         <View className='flow-loader'>
           {
-            launch && !flow.flow_fetched ? <Image className='loading-image' src={Loading} /> : <AtLoadMore status='loading' loadingText='' />
+            launch && !flow.flow_fetched ? <Image className='state-image loading' src={Loading} /> : <AtLoadMore status='loading' loadingText='' />
           }
         </View>
       )
@@ -38,9 +39,19 @@ export default class FlowLoader extends Component {
       return (
         <View className='flow-loader'>
           {
-            launch ? <Image className='error-image' src={Nothing} /> : ''
+            launch ? <Image className='state-image nothing' src={Nothing} /> : ''
           }
           <View className='tips'>这里什么都没有</View>
+        </View>
+      )
+    }
+    if (flow.flow_error) {
+      return (
+        <View className='flow-loader'>
+          {
+            launch ? <Image className='state-image error' src={Error} /> : ''
+          }
+          <View className='tips'>{ flow.flow_error.message || '网络错误' }</View>
         </View>
       )
     }
@@ -64,6 +75,6 @@ FlowLoader.defaultProps = {
     flow_page: 0,
     flow_total: 0
   },
-  launch: false,
+  launch: true,
   name: ''
 }

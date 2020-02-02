@@ -1,9 +1,22 @@
 .flow-loader {
-  .loading-image {
+  .state-image {
     display: block;
-    width: 173px;
-    height: 184px;
-    margin: 50px auto;
+    margin: 50px auto 30px;
+
+    &.loading {
+      width: 173px;
+      height: 184px;
+    }
+
+    &.nothing {
+      width: 280px;
+      height: 210px;
+    }
+
+    &.error {
+      width: 280px;
+      height: 240px;
+    }
   }
 
   .tips {
@@ -11,12 +24,5 @@
     height: 80px;
     font-size: 26px;
     color: $color-text-light;
-  }
-
-  .error-image {
-    display: block;
-    width: 280px;
-    height: 210px;
-    margin: 50px auto 30px;
   }
 }

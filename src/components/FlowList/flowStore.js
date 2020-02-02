@@ -102,7 +102,9 @@ export default function flowStore(Comp) {
         .then(data => {
           this._SET_FLOW_DATA(data, params, flowReq)
         })
-        .catch(this._SET_FLOW_ERROR)
+        .catch(err => {
+          this._SET_FLOW_ERROR(err)
+        })
     }
 
     loadMore(force = false) {
@@ -122,7 +124,9 @@ export default function flowStore(Comp) {
         .then(data => {
           this._SET_FLOW_DATA(data, params, flowReq)
         })
-        .catch(this._SET_FLOW_ERROR)
+        .catch(err => {
+          this._SET_FLOW_ERROR(err)
+        })
     }
 
     _SET_FLOW_DATA(data, params, req) {
@@ -153,7 +157,7 @@ export default function flowStore(Comp) {
 
     _SET_FLOW_ERROR(err) {
       this.setState({
-        flow_loading: true,
+        flow_loading: false,
         flow_error: err
       })
     }

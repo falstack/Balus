@@ -1,6 +1,5 @@
 import Fly from 'flyio/dist/npm/wx'
 import cache from '~/utils/cache'
-import toast from '~/utils/toast'
 
 const fly = new Fly()
 const isProd = process.env.NODE_ENV === 'production'
@@ -37,25 +36,8 @@ fly.interceptors.response.use(
         resp.message = message[Object.keys(message)[0]][0]
       }
     }
-    if (
-      err.request.url !== 'door/current_user' &&
-      err.request.url !== 'door/refresh_token'
-    ) {
-      toast.info(resp.message)
-    }
     return Promise.reject(resp)
   }
 )
-
-fly.delay = url => {
-  const timeout = () => new Promise(resolve => setTimeout(resolve, 1000))
-  return new Promise((resolve, reject) => {
-    Promise.all([fly.get(url), timeout()])
-      .then(data => {
-        resolve(data[0])
-      })
-      .catch(reject)
-  })
-}
 
 export default fly

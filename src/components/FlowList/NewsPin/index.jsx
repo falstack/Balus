@@ -26,7 +26,7 @@ class NewsPin extends Component {
 
   render () {
     return (
-      <FlowLoader flow={this.state} name='flow-pin' showBangumi={false} launch />
+      <FlowLoader flow={this.state} name='flow-pin' showBangumi={false} />
     )
   }
 }
