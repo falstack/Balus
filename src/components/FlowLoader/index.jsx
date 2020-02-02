@@ -26,15 +26,6 @@ export default class FlowLoader extends Component {
     if (!name) {
       return
     }
-    if (flow.flow_loading) {
-      return (
-        <View className='flow-loader'>
-          {
-            launch && !flow.flow_fetched ? <Image className='state-image loading' src={Loading} /> : <AtLoadMore status='loading' loadingText='' />
-          }
-        </View>
-      )
-    }
     if (flow.flow_nothing) {
       return (
         <View className='flow-loader'>
@@ -45,19 +36,30 @@ export default class FlowLoader extends Component {
         </View>
       )
     }
-    if (flow.flow_error) {
-      return (
-        <View className='flow-loader'>
-          {
-            launch ? <Image className='state-image error' src={Error} /> : ''
-          }
-          <View className='tips'>{ flow.flow_error.message || '网络错误' }</View>
-        </View>
-      )
-    }
     return (
       <View className='flow-loader'>
         {flow.flow_result.map(item => (<View key={item.slug} taroKey={item.slug}>{this.getFlowComponent(item, name)}</View>))}
+        {
+          flow.flow_loading ? (
+            <View>
+              {
+                launch && !flow.flow_fetched ? <Image className='state-image loading' src={Loading} /> : <AtLoadMore status='loading' loadingText='' />
+              }
+            </View>
+          ) : ''
+        }
+        {
+          flow.flow_error ? (
+            (
+              <View>
+                {
+                  launch && !flow.flow_result.length ? <Image className='state-image error' src={Error} /> : ''
+                }
+                <View className='tips'>{ flow.flow_error.message || '网络错误' }</View>
+              </View>
+            )
+          ) : ''
+        }
       </View>
     )
   }
