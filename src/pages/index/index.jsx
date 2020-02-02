@@ -28,6 +28,14 @@ export default class extends Component {
     }
   }
 
+  onShareAppMessage() {
+    return {
+      title: '萌市，二次元股市',
+      path: '/pages/index/index',
+      imageUrl: 'https://m1.calibur.tv/default-poster?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400'
+    }
+  }
+
   handleTabClick(value) {
     const current = typeof value === 'number' ? value : value.detail.current
     this.setState({ current })

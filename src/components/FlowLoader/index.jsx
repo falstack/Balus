@@ -1,10 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtLoadMore } from 'taro-ui'
-import FlowPinItem from '~/components/FlowItem/FlowPinItem/index'
 import Loading from '~/images/loading.gif'
 import Nothing from '~/images/page_nothing.png'
 import Error from '~/images/page_error.png'
+import FlowPinItem from '~/components/FlowItem/FlowPinItem/index'
+import TrendIdolItem from '~/components/TrendIdolItem/index'
 import './index.scss'
 
 export default class FlowLoader extends Component {
@@ -13,10 +14,13 @@ export default class FlowLoader extends Component {
     this.state = {}
   }
 
-  getFlowComponent(item, name) {
+  getFlowComponent(item, name, index) {
     switch (name) {
       case 'flow-pin': {
         return <FlowPinItem item={item} />
+      }
+      case 'trend-idol': {
+        return <TrendIdolItem idol={item} index={index} />
       }
     }
   }
@@ -38,7 +42,7 @@ export default class FlowLoader extends Component {
     }
     return (
       <View className='flow-loader'>
-        {flow.flow_result.map(item => (<View key={item.slug} taroKey={item.slug}>{this.getFlowComponent(item, name)}</View>))}
+        {flow.flow_result.map((item, index) => (<View key={item.slug} taroKey={item.slug}>{this.getFlowComponent(item, name, index)}</View>))}
         {
           flow.flow_loading ? (
             <View>

@@ -23,6 +23,7 @@ class App extends Component {
       'pages/user/login/index',
       'pages/bangumi/show/index',
       'pages/search/index',
+      'pages/pin/show/index',
       'pages/webview/index',
     ],
     window: {

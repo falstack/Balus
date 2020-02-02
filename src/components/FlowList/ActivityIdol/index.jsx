@@ -12,13 +12,10 @@ class ActivityIdol extends Component {
     this.state = {
       ...this.state,
       flowReq: {
-        url: 'bangumi/pins',
-        type: 'lastId',
+        url: 'idol/list',
+        type: 'page',
         query: {
-          slug: '54xzu',
-          sort: 'newest',
-          time: 'all',
-          is_up: 0
+          sort: 'hottest'
         }
       }
     }
@@ -26,7 +23,7 @@ class ActivityIdol extends Component {
 
   render () {
     return (
-      <FlowLoader flow={this.state} name='flow-pin' showBangumi={false} />
+      <FlowLoader flow={this.state} name='trend-idol' />
     )
   }
 }
