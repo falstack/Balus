@@ -10,16 +10,6 @@ export default class FlowPinItem extends Component {
     this.state = {}
   }
 
-  componentWillMount () { }
-
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
-
   render () {
     const { item } = this.props
     return (
@@ -89,5 +79,6 @@ FlowPinItem.defaultProps = {
     banner: []
   },
   showUser: true,
-  showBangumi: true
+  showBangumi: true,
+  showTime: false
 }

@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
 import flowEvent from '../flowEvent'
 import flowStore from '../flowStore'
+import FlowLoader from '../../FlowLoader/index'
 import './index.scss'
 
 @flowStore
@@ -12,28 +12,21 @@ class NewsPin extends Component {
     this.state = {
       ...this.state,
       flowReq: {
-        url: '',
-        type: '',
-        query: {}
+        url: 'bangumi/pins',
+        type: 'lastId',
+        query: {
+          slug: '54xzu',
+          sort: 'newest',
+          time: 'all',
+          is_up: 0
+        }
       }
     }
   }
 
-  componentWillMount () { }
-
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
-
   render () {
     return (
-      <View>
-        <View>新闻</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>123</View><View>end</View>
-      </View>
+      <FlowLoader flow={this.state} name='flow-pin' showBangumi={false} launch />
     )
   }
 }

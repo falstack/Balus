@@ -1,0 +1,22 @@
+.flow-loader {
+  .loading-image {
+    display: block;
+    width: 173px;
+    height: 184px;
+    margin: 50px auto;
+  }
+
+  .tips {
+    text-align: center;
+    height: 80px;
+    font-size: 26px;
+    color: $color-text-light;
+  }
+
+  .error-image {
+    display: block;
+    width: 280px;
+    height: 210px;
+    margin: 50px auto 30px;
+  }
+}
