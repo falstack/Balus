@@ -6,6 +6,7 @@ import NewsPin from '~/components/FlowList/NewsPin/index'
 import RecommendedPin from '~/components/FlowList/RecommendedPin/index'
 import ActivityIdol from '~/components/FlowList/ActivityIdol/index'
 import BangumiPin from '~/components/FlowList/BangumiPin/index'
+import WriteFlatBtn from '~/components/WriteFlatBtn/index'
 import event from '~/utils/event'
 import './index.scss'
 
@@ -101,6 +102,7 @@ export default class extends Component {
             ))}
           </Swiper>
         </View>
+        <WriteFlatBtn />
       </View>
     )
   }

@@ -1,0 +1,17 @@
+.write-flat-btn {
+  position: fixed;
+  right: $container-padding;
+  bottom: $container-padding;
+  display: block;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  border-radius: 50%;
+  text-align: center;
+  background-color: #FB7299;
+
+  text {
+    margin-left: -4px;
+    margin-top: -4px;
+  }
+}

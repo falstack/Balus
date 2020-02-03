@@ -32,8 +32,8 @@ class BangumiPin extends Component {
 }
 
 BangumiPin.defaultProps = {
-  slug: 'recommended',
-  autoload: true
+  slug: '',
+  autoload: false
 }
 
 export default BangumiPin

@@ -24,7 +24,7 @@ export default class FlowPinItem extends Component {
           state.showUser ? (
             <View className='header'>
               <Navigator className='user' hover-class='none' url={`/pages/user/show/index?slug=${item.author.slug}`}>
-                <Image className='avatar' src={helper.resize(item.author.avatar, { width: 100 })} />
+                <Image lazyLoad className='avatar' src={helper.resize(item.author.avatar, { width: 100 })} />
                 <Text>{ item.author.nickname }</Text>
               </Navigator>
               {
@@ -41,14 +41,14 @@ export default class FlowPinItem extends Component {
             item.banner.length === 3 ? (
               <View className='banner banner-3'>
                 <View className='image-wrap-2'>
-                  <Image src={helper.resize(item.banner[0].url, { width: 600 })} />
+                  <Image lazyLoad src={helper.resize(item.banner[0].url, { width: 600 })} />
                 </View>
                 <View className='image-wrap-1'>
                   <View className='image-box'>
-                    <Image src={helper.resize(item.banner[1].url, { width: 400 })} />
+                    <Image lazyLoad src={helper.resize(item.banner[1].url, { width: 400 })} />
                   </View>
                   <View className='image-box'>
-                    <Image src={helper.resize(item.banner[2].url, { width: 400 })} />
+                    <Image lazyLoad src={helper.resize(item.banner[2].url, { width: 400 })} />
                   </View>
                 </View>
               </View>
@@ -56,7 +56,7 @@ export default class FlowPinItem extends Component {
               <View className={`banner banner-${item.banner.length}`}>
                 {item.banner.map(image =>(
                   <View key={image.url} taroKey={image.url} className='image-box'>
-                    <Image src={helper.resize(image.url, item.banner.length === 2 ? { width: 400 } : { width: 800, height: 400 })} />
+                    <Image lazyLoad src={helper.resize(image.url, item.banner.length === 2 ? { width: 400 } : { width: 800, height: 400 })} />
                   </View>
                 ))}
               </View>

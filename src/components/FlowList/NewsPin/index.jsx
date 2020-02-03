@@ -1,4 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
+import { View } from '@tarojs/components'
 import flowEvent from '../flowEvent'
 import flowStore from '../flowStore'
 import FlowLoader from '../../FlowLoader/index'
@@ -26,7 +27,9 @@ class NewsPin extends Component {
 
   render () {
     return (
-      <FlowLoader flow={this.state} name='flow-pin' others={{ showBangumi: false, showTime: true }} />
+      <View>
+        <FlowLoader flow={this.state} name='flow-pin' others={{ showBangumi: false, showTime: true }} />
+      </View>
     )
   }
 }

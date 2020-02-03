@@ -1,7 +1,7 @@
 .flow-loader {
   .state-image {
     display: block;
-    margin: 50px auto 30px;
+    margin: 50px auto 10px;
 
     &.loading {
       width: 173px;
@@ -22,6 +22,7 @@
   .tips {
     text-align: center;
     height: 80px;
+    line-height: 80px;
     font-size: 26px;
     color: $color-text-light;
   }
