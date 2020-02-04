@@ -1,11 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
-import searchEvent from '../searchEvent'
+import flowEvent from '../flowEvent'
 import flowStore from '../flowStore'
 import FlowLoader from '../../FlowLoader/index'
 import './index.scss'
 
 @flowStore
-@searchEvent
+@flowEvent
 class SearchBangumi extends Component {
   constructor (props) {
     super(props)
@@ -15,7 +15,7 @@ class SearchBangumi extends Component {
         url: 'search/mixin',
         type: 'page',
         query: {
-          type: this.props.type,
+          type: this.props.slug,
           q: this.props.keywords
         }
       }
@@ -30,7 +30,9 @@ class SearchBangumi extends Component {
 }
 
 SearchBangumi.defaultProps = {
-  type: 'idol'
+  slug: 'idol',
+  flowPrefix: 'search',
+  autoload: false
 }
 
 export default SearchBangumi

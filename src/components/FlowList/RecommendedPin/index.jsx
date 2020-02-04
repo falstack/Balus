@@ -28,6 +28,7 @@ class RecommendedPin extends Component {
 
 RecommendedPin.defaultProps = {
   slug: 'recommended',
+  flowPrefix: 'index',
   autoload: true
 }
 

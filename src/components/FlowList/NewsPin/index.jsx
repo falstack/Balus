@@ -36,6 +36,7 @@ class NewsPin extends Component {
 
 NewsPin.defaultProps = {
   slug: 'news',
+  flowPrefix: 'index',
   autoload: false
 }
 

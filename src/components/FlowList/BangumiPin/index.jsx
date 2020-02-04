@@ -33,6 +33,7 @@ class BangumiPin extends Component {
 
 BangumiPin.defaultProps = {
   slug: '',
+  flowPrefix: 'index',
   autoload: false
 }
 

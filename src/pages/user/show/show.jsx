@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
-import { AtTabs, AtSearchBar } from 'taro-ui'
+import { AtTabs } from 'taro-ui'
+import UserPanel from './panel/UserPanel'
 import SearchBangumi from '~/components/FlowList/SearchBangumi/index'
 import SearchIdol from '~/components/FlowList/SearchIdol/index'
 import event from '~/utils/event'
@@ -8,16 +9,18 @@ import './index.scss'
 
 export default class extends Component {
   config = {
+    navigationStyle: 'custom',
     disableScroll: true
   }
 
   constructor (props) {
     super(props)
     this.state = {
-      value: '',
-      lastQuery: '',
+      slug: this.$router.params.slug,
+      user: null,
       current: 0,
       tabs: [
+        { type: 'pin', title: '帖子' },
         { type: 'bangumi', title: '番剧' },
         { type: 'idol', title: '偶像' }
       ]
@@ -25,53 +28,41 @@ export default class extends Component {
   }
 
   onShareAppMessage() {
+    const { user } = this.state
     return {
-      title: '萌市，二次元股市',
-      path: '/pages/index/index',
-      imageUrl: 'https://m1.calibur.tv/default-poster?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400'
+      title: user.nickname,
+      path: `/pages/user/show/index?slug=${user.slug}`,
+      imageUrl: `${user.avatar}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
     }
   }
 
-  handleSearchInput (value) {
-    this.setState({
-      value
-    })
+  componentDidMount() {
+    this.getUser()
   }
 
-  handleSearchAction() {
-    const { value, lastQuery } = this.state
-    if (value === lastQuery) {
-      return
-    }
-    this.setState({
-      lastQuery: value
-    })
-    event.emit('search-go', {
-      slug: this.state.tabs[this.state.current].type,
-      keywords: value
-    })
+  getUser() {
+    http.get(`user/show?slug=${this.state.slug}`)
+      .then(user => {
+        this.setState({ user })
+      })
+      .catch(() => {})
   }
 
   handleTabClick(value) {
     const current = typeof value === 'number' ? value : value.detail.current
     this.setState({ current })
-    const keywords = this.state.lastQuery
-    if (!keywords) {
-      return
-    }
     event.emit(`tab-flow-scroll-switch-${this.state.tabs[current].type}`)
   }
 
   handleScrollBottom() {
-    const keywords = this.state.lastQuery
-    if (!keywords) {
-      return
-    }
     event.emit(`tab-flow-scroll-bottom-${this.state.tabs[this.state.current].type}`)
   }
 
   getFlowComponent({ type }) {
     switch (type) {
+      case 'pin': {
+        return <SearchBangumi slug={type} />
+      }
       case 'bangumi': {
         return <SearchBangumi slug={type} />
       }
@@ -84,16 +75,9 @@ export default class extends Component {
   render () {
     const { current, tabs } = this.state
     return (
-      <View className='search scroll-page'>
+      <View className='user-show scroll-page'>
         <View className='flex-shrink-0'>
-          <AtSearchBar
-            placeholder='搜一下'
-            focus
-            value={this.state.value}
-            onChange={this.handleSearchInput.bind(this)}
-            onConfirm={this.handleSearchAction.bind(this)}
-            onActionClick={this.handleSearchAction.bind(this)}
-          />
+          <UserPanel user={user} />
         </View>
         <View className='flex-shrink-0'>
           <AtTabs

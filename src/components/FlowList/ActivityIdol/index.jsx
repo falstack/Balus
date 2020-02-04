@@ -30,6 +30,7 @@ class ActivityIdol extends Component {
 
 ActivityIdol.defaultProps = {
   slug: 'news',
+  flowPrefix: 'index',
   autoload: false
 }
 
