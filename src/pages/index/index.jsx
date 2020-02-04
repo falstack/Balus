@@ -40,11 +40,11 @@ export default class extends Component {
   handleTabClick(value) {
     const current = typeof value === 'number' ? value : value.detail.current
     this.setState({ current })
-    event.emit(`tab-flow-scroll-switch-${this.state.tabs[current].slug}`)
+    event.emit(`index-flow-switch-${this.state.tabs[current].slug}`)
   }
 
   handleScrollBottom() {
-    event.emit(`tab-flow-scroll-bottom-${this.state.tabs[this.state.current].slug}`)
+    event.emit(`index-flow-bottom-${this.state.tabs[this.state.current].slug}`)
   }
 
   getFlowComponent({ title, slug }) {

@@ -1,43 +1,33 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
-import { AtTabs, AtTabsPane, AtLoadMore } from 'taro-ui'
-import http from '~/utils/http'
-import TrendIdolItem from '~/components/TrendIdolItem/index'
-import BangumiRankItem from "~/components/BangumiRankItem";
+import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
+import { AtTabs } from 'taro-ui'
 import UserPanel from './panel/UserPanel'
+import UserPin from '~/components/FlowList/UserPin/index'
+import UserBangumi from '~/components/FlowList/UserBangumi/index'
+import UserIdol from '~/components/FlowList/UserIdol/index'
+import http from '~/utils/http'
+import event from '~/utils/event'
 import './index.scss'
 
 export default class extends Component {
   config = {
-    navigationStyle: 'custom'
+    navigationStyle: 'custom',
+    disableScroll: true
   }
 
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       slug: this.$router.params.slug,
       user: null,
-      tabActiveIndex: 0,
-      state_idol: {
-        loading: false,
-        nothing: false,
-        noMore: false,
-        total: 0,
-        page: 0
-      },
-      state_bangumi: {
-        loading: false,
-        nothing: false,
-        noMore: false,
-        total: 0,
-        page: 1
-      },
-      list_0: [],
-      list_1: []
+      current: 0,
+      tabs: [
+        { type: 'pin', title: '帖子' },
+        { type: 'bangumi', title: '番剧' },
+        { type: 'idol', title: '偶像' }
+      ]
     }
   }
-
-  componentWillMount() {}
 
   onShareAppMessage() {
     const { user } = this.state
@@ -50,94 +40,6 @@ export default class extends Component {
 
   componentDidMount() {
     this.getUser()
-    this.getUserIdols()
-  }
-
-  TabSwitch (tabActiveIndex) {
-    this.setState({
-      tabActiveIndex
-    })
-    if (this.state[`list_${tabActiveIndex}`].length) {
-      return
-    }
-    if (tabActiveIndex === 0) {
-      this.getUserIdols()
-    } else if (tabActiveIndex === 1) {
-      this.getLikerBangumi()
-    }
-  }
-
-  onReachBottom() {
-    const index = this.state.tabActiveIndex
-    if (index === 0) {
-      this.getUserIdols()
-    } else if (index === 1) {
-      this.getLikerBangumi()
-    }
-  }
-
-  getLikerBangumi() {
-    const { state_bangumi } = this.state
-    if (state_bangumi.loading || state_bangumi.noMore) {
-      return
-    }
-    http.get('user/like_bangumi', {
-      slug: this.state.slug,
-      page: state_bangumi.page
-    })
-      .then(data => {
-        const { list_1 } = this.state
-        this.setState({
-          state_bangumi: {
-            ...state_bangumi,
-            page: state_bangumi.page + 1,
-            loading: false,
-            noMore: data.no_more,
-            total: data.total
-          },
-          list_1: list_1.concat(data.result)
-        })
-      })
-      .catch(() => {
-        this.setState({
-          state_bangumi: {
-            ...state_bangumi,
-            loading: false
-          },
-        })
-      })
-  }
-
-  getUserIdols() {
-    const { state_idol } = this.state
-    if (state_idol.loading || state_idol.noMore) {
-      return
-    }
-    http.get('user/idols', {
-      slug: this.state.slug,
-      page: state_idol.page
-    })
-      .then(data => {
-        const { list_0 } = this.state
-        this.setState({
-          state_idol: {
-            ...state_idol,
-            page: state_idol.page + 1,
-            loading: false,
-            noMore: data.no_more,
-            total: data.total
-          },
-          list_0: list_0.concat(data.result)
-        })
-      })
-      .catch(() => {
-        this.setState({
-          state_idol: {
-            ...state_idol,
-            loading: false
-          },
-        })
-      })
   }
 
   getUser() {
@@ -148,54 +50,70 @@ export default class extends Component {
       .catch(() => {})
   }
 
-  render() {
-    const { user, state_idol, state_bangumi, list_0, list_1 } = this.state
-    const tabList = [{ title: '偶像' }, { title: '番剧' }]
-    const idol_data = list_0.map(idol => (
-      <TrendIdolItem
-        key={idol.slug}
-        taroKey={idol.slug}
-        index={-1}
-        idol={idol}
-        inBangumi
-      />
-    ))
-    const like_bangumi_data = list_1.map(bangumi => (
-      <BangumiRankItem
-        key={bangumi.slug}
-        taroKey={bangumi.slug}
-        bangumi={bangumi}
-      />
-    ))
+  handleTabClick(value) {
+    const current = typeof value === 'number' ? value : value.detail.current
+    this.setState({ current })
+    event.emit(`tab-flow-switch-${this.state.tabs[current].type}`)
+  }
+
+  handleScrollBottom() {
+    event.emit(`tab-flow-bottom-${this.state.tabs[this.state.current].type}`)
+  }
+
+  getFlowComponent({ type }) {
+    const { slug } = this.state
+    switch (type) {
+      case 'pin': {
+        return <UserPin slug={type} userSlug={slug} />
+      }
+      case 'bangumi': {
+        return <UserBangumi slug={type} userSlug={slug} />
+      }
+      case 'idol': {
+        return <UserIdol slug={type} userSlug={slug} />
+      }
+    }
+  }
+
+  render () {
+    const { current, tabs, user } = this.state
     return (
-      <View className='public-user-home'>
-        <UserPanel user={user} />
-        <AtTabs current={this.state.tabActiveIndex} tabList={tabList} onClick={this.TabSwitch.bind(this)}>
-          <AtTabsPane current={this.state.tabActiveIndex} index={0}>
-            {idol_data}
-            <AtLoadMore
-              status={
-                state_idol.loading
-                  ? 'loading'
-                  : state_idol.noMore
-                  ? 'noMore'
-                  : 'more'
-              }
-            />
-          </AtTabsPane>
-          <AtTabsPane current={this.state.tabActiveIndex} index={1}>
-            {like_bangumi_data}
-            <AtLoadMore
-              status={
-                state_bangumi.loading
-                  ? 'loading'
-                  : state_bangumi.noMore
-                  ? 'noMore'
-                  : 'more'
-              }
-            />
-          </AtTabsPane>
-        </AtTabs>
+      <View className='user-show scroll-page'>
+        <View className='flex-shrink-0'>
+          <UserPanel user={user} />
+        </View>
+        <View className='flex-shrink-0'>
+          <AtTabs
+            current={current}
+            animated={false}
+            tabList={tabs}
+            onClick={this.handleTabClick.bind(this)}
+          />
+        </View>
+        <View className='flex-grow-1'>
+          <Swiper
+            className='scroll-wrap'
+            current={current}
+            autoplay={false}
+            skipHiddenItemLayout
+            onChange={this.handleTabClick.bind(this)}
+          >
+            {tabs.map(tab => (
+              <SwiperItem
+                key={tab.type}
+                taroKey={tab.type}
+              >
+                <ScrollView
+                  className='scroll-view'
+                  scrollY
+                  onScrollToLower={this.handleScrollBottom.bind(this)}
+                >
+                  {this.getFlowComponent(tab)}
+                </ScrollView>
+              </SwiperItem>
+            ))}
+          </Swiper>
+        </View>
       </View>
     )
   }

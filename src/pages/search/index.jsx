@@ -59,7 +59,7 @@ export default class extends Component {
     if (!keywords) {
       return
     }
-    event.emit(`tab-flow-scroll-switch-${this.state.tabs[current].type}`)
+    event.emit(`search-flow-switch-${this.state.tabs[current].type}`)
   }
 
   handleScrollBottom() {
@@ -67,7 +67,7 @@ export default class extends Component {
     if (!keywords) {
       return
     }
-    event.emit(`tab-flow-scroll-bottom-${this.state.tabs[this.state.current].type}`)
+    event.emit(`search-flow-bottom-${this.state.tabs[this.state.current].type}`)
   }
 
   getFlowComponent({ type }) {
