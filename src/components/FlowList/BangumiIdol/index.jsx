@@ -6,16 +6,16 @@ import './index.scss'
 
 @flowStore
 @flowEvent
-class UserIdol extends Component {
+class Bangumi extends Component {
   constructor (props) {
     super(props)
     this.state = {
       ...this.state,
       flowReq: {
-        url: 'user/pins',
+        url: 'bangumi/idols',
         type: 'page',
         query: {
-          slug: this.props.userSlug
+          slug: this.props.bangumiSlug
         }
       }
     }
@@ -23,16 +23,16 @@ class UserIdol extends Component {
 
   render () {
     return (
-      <FlowLoader flow={this.state} name='flow-pin' others={{ showUser: false }} />
+      <FlowLoader flow={this.state} name='trend-idol' />
     )
   }
 }
 
-UserIdol.defaultProps = {
-  slug: 'pin',
-  userSlug: '',
-  flowPrefix: 'user',
-  autoload: true
+Bangumi.defaultProps = {
+  slug: 'idol',
+  bangumiSlug: '',
+  flowPrefix: 'bangumi',
+  autoload: false
 }
 
-export default UserIdol
+export default Bangumi

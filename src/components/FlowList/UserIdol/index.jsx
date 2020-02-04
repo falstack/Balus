@@ -31,6 +31,7 @@ class UserIdol extends Component {
 UserIdol.defaultProps = {
   slug: 'idol',
   userSlug: '',
+  flowPrefix: 'user',
   autoload: false
 }
 

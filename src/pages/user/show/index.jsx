@@ -53,11 +53,11 @@ export default class extends Component {
   handleTabClick(value) {
     const current = typeof value === 'number' ? value : value.detail.current
     this.setState({ current })
-    event.emit(`tab-flow-switch-${this.state.tabs[current].type}`)
+    event.emit(`user-flow-switch-${this.state.tabs[current].type}`)
   }
 
   handleScrollBottom() {
-    event.emit(`tab-flow-bottom-${this.state.tabs[this.state.current].type}`)
+    event.emit(`user-flow-bottom-${this.state.tabs[this.state.current].type}`)
   }
 
   getFlowComponent({ type }) {
@@ -77,6 +77,9 @@ export default class extends Component {
 
   render () {
     const { current, tabs, user } = this.state
+    if (!user) {
+      return
+    }
     return (
       <View className='user-show scroll-page'>
         <View className='flex-shrink-0'>

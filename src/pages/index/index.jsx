@@ -5,7 +5,7 @@ import SearchCustomHeader from '~/components/SearchCustomHeader/index'
 import NewsPin from '~/components/FlowList/NewsPin/index'
 import RecommendedPin from '~/components/FlowList/RecommendedPin/index'
 import ActivityIdol from '~/components/FlowList/ActivityIdol/index'
-import BangumiPin from '~/components/FlowList/BangumiPin/index'
+import BangumiActive from '~/components/FlowList/BangumiActive/index'
 import WriteFlatBtn from '~/components/WriteFlatBtn/index'
 import event from '~/utils/event'
 import './index.scss'
@@ -59,7 +59,7 @@ export default class extends Component {
         return <ActivityIdol slug={slug} />
       }
     }
-    return <BangumiPin slug={slug} />
+    return <BangumiActive slug={slug} />
   }
 
   render () {

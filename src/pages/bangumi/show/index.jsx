@@ -1,30 +1,30 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
-import http from '~/utils/http'
-import TrendIdolItem from '~/components/TrendIdolItem/index'
+import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
+import { AtTabs } from 'taro-ui'
 import BangumiPanel from './panel/BangumiPanel'
+import BangumiPin from '~/components/FlowList/BangumiPin/index'
+import BangumiIdol from '~/components/FlowList/BangumiIdol/index'
+import http from '~/utils/http'
+import event from '~/utils/event'
 import './index.scss'
 
 export default class extends Component {
+  config = {
+    navigationStyle: 'custom',
+    disableScroll: true
+  }
+
   constructor (props) {
     super(props)
     this.state = {
       slug: this.$router.params.slug,
-      bangumi: {},
-      state_idol: {
-        loading: false,
-        nothing: false,
-        noMore: false,
-        total: 0,
-        page: 0
-      },
-      list_idol: []
+      bangumi: null,
+      current: 0,
+      tabs: [
+        { type: 'pin', title: '帖子' },
+        { type: 'idol', title: '偶像' }
+      ]
     }
-  }
-
-  config = {
-    navigationBarTitleText: '',
-    navigationStyle: 'custom'
   }
 
   onShareAppMessage() {
@@ -36,7 +36,11 @@ export default class extends Component {
     }
   }
 
-  getBangumiData() {
+  componentDidMount() {
+    this.getBangumi()
+  }
+
+  getBangumi() {
     http.get('bangumi/show', {
       slug: this.state.slug
     })
@@ -46,38 +50,6 @@ export default class extends Component {
       })
       .catch(err => {
         console.log(err)
-      })
-  }
-
-  getBangumiIdols() {
-    const { state_idol } = this.state
-    if (state_idol.loading || state_idol.noMore) {
-      return
-    }
-    http.get('bangumi/idols', {
-      slug: this.state.slug,
-      page: state_idol.page
-    })
-      .then(data => {
-        const { list_idol } = this.state
-        this.setState({
-          state_idol: {
-            ...state_idol,
-            page: state_idol.page + 1,
-            loading: false,
-            noMore: data.no_more,
-            total: data.total
-          },
-          list_idol: list_idol.concat(data.result)
-        })
-      })
-      .catch(() => {
-        this.setState({
-          state_idol: {
-            ...state_idol,
-            loading: false
-          },
-        })
       })
   }
 
@@ -96,44 +68,70 @@ export default class extends Component {
       .catch(() => {})
   }
 
-  componentWillMount () { }
-
-  componentDidMount () {
-    this.getBangumiData()
-    this.getBangumiIdols()
+  handleTabClick(value) {
+    const current = typeof value === 'number' ? value : value.detail.current
+    this.setState({ current })
+    event.emit(`bangumi-flow-switch-${this.state.tabs[current].type}`)
   }
 
-  onReachBottom() {
-    this.getBangumiIdols()
+  handleScrollBottom() {
+    event.emit(`bangumi-flow-bottom-${this.state.tabs[this.state.current].type}`)
   }
 
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
+  getFlowComponent({ type }) {
+    const { slug } = this.state
+    switch (type) {
+      case 'pin': {
+        return <BangumiPin slug={type} bangumiSlug={slug} />
+      }
+      case 'idol': {
+        return <BangumiIdol slug={type} bangumiSlug={slug} />
+      }
+    }
+  }
 
   render () {
-    const { bangumi, list_idol, slug } = this.state
-    const idol_data = list_idol.map(idol => (
-      <TrendIdolItem
-        key={idol.slug}
-        taroKey={idol.slug}
-        index={-1}
-        idol={idol}
-        inBangumi
-      />
-    ))
+    const { current, tabs, slug, bangumi } = this.state
+    if (!bangumi) {
+      return
+    }
     return (
-      <View className='bangumi-show'>
-        <BangumiPanel slug={slug} bangumi={bangumi} />
-        {
-          list_idol.length ?
-            <View className='intro'>
-              <Text className='intro__title'>偶像列表</Text>
-              {idol_data}
-            </View> : ''
-        }
+      <View className='bangumi-show scroll-page'>
+        <View className='flex-shrink-0'>
+          <BangumiPanel slug={slug} bangumi={bangumi} />
+        </View>
+        <View className='flex-shrink-0'>
+          <AtTabs
+            current={current}
+            animated={false}
+            tabList={tabs}
+            onClick={this.handleTabClick.bind(this)}
+          />
+        </View>
+        <View className='flex-grow-1'>
+          <Swiper
+            className='scroll-wrap'
+            current={current}
+            autoplay={false}
+            skipHiddenItemLayout
+            onChange={this.handleTabClick.bind(this)}
+          >
+            {tabs.map(tab => (
+              <SwiperItem
+                key={tab.type}
+                taroKey={tab.type}
+              >
+                <ScrollView
+                  className='scroll-view'
+                  scrollY
+                  onScrollToLower={this.handleScrollBottom.bind(this)}
+                >
+                  {this.getFlowComponent(tab)}
+                </ScrollView>
+              </SwiperItem>
+            ))}
+          </Swiper>
+        </View>
       </View>
     )
   }

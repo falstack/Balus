@@ -6,16 +6,19 @@ import './index.scss'
 
 @flowStore
 @flowEvent
-class UserIdol extends Component {
+class BangumiActive extends Component {
   constructor (props) {
     super(props)
     this.state = {
       ...this.state,
       flowReq: {
-        url: 'user/pins',
-        type: 'page',
+        url: 'bangumi/pins',
+        type: 'seenIds',
         query: {
-          slug: this.props.userSlug
+          slug: this.props.slug,
+          sort: 'active',
+          time: 'all',
+          is_up: 0
         }
       }
     }
@@ -23,16 +26,15 @@ class UserIdol extends Component {
 
   render () {
     return (
-      <FlowLoader flow={this.state} name='flow-pin' others={{ showUser: false }} />
+      <FlowLoader flow={this.state} name='flow-pin' others={{ showBangumi: false }} />
     )
   }
 }
 
-UserIdol.defaultProps = {
-  slug: 'pin',
-  userSlug: '',
-  flowPrefix: 'user',
-  autoload: true
+BangumiActive.defaultProps = {
+  slug: '',
+  flowPrefix: 'index',
+  autoload: false
 }
 
-export default UserIdol
+export default BangumiActive

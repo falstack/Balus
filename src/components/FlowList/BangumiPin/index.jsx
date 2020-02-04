@@ -15,7 +15,7 @@ class BangumiPin extends Component {
         url: 'bangumi/pins',
         type: 'seenIds',
         query: {
-          slug: this.props.slug,
+          slug: this.props.bangumiSlug,
           sort: 'active',
           time: 'all',
           is_up: 0
@@ -33,8 +33,9 @@ class BangumiPin extends Component {
 
 BangumiPin.defaultProps = {
   slug: '',
-  flowPrefix: 'index',
-  autoload: false
+  bangumiSlug: '',
+  flowPrefix: 'bangumi',
+  autoload: true
 }
 
 export default BangumiPin

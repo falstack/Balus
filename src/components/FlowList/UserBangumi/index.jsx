@@ -31,6 +31,7 @@ class UserBangumi extends Component {
 UserBangumi.defaultProps = {
   slug: 'bangumi',
   userSlug: '',
+  flowPrefix: 'user',
   autoload: false
 }
 
