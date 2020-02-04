@@ -1,11 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { AtLoadMore } from 'taro-ui'
 import Loading from '~/images/loading.gif'
 import Nothing from '~/images/page_nothing.png'
 import Error from '~/images/page_error.png'
 import FlowPinItem from '~/components/FlowItem/FlowPinItem/index'
 import TrendIdolItem from '~/components/TrendIdolItem/index'
+import BangumiRankItem from '~/components/BangumiRankItem/index'
 import './index.scss'
 
 export default class FlowLoader extends Component {
@@ -21,6 +22,9 @@ export default class FlowLoader extends Component {
       }
       case 'trend-idol': {
         return <TrendIdolItem idol={item} others={others} index={index} />
+      }
+      case 'bangumi-rank': {
+        return <BangumiRankItem bangumi={item} others={others} index={index} />
       }
     }
   }

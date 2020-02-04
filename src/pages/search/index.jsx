@@ -1,116 +1,35 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
-import { AtTabs, AtTabsPane, AtSearchBar } from 'taro-ui'
-import http from '~/utils/http'
-import TrendIdolItem from '~/components/TrendIdolItem/index'
-import BangumiRankItem from "~/components/BangumiRankItem"
-import PageState from '~/components/PageState/index'
+import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
+import { AtTabs, AtSearchBar } from 'taro-ui'
+import SearchBangumi from '~/components/FlowList/SearchBangumi/index'
+import SearchIdol from '~/components/FlowList/SearchIdol/index'
+import event from '~/utils/event'
 import './index.scss'
 
 export default class extends Component {
+  config = {
+    disableScroll: true
+  }
+
   constructor (props) {
     super(props)
-    const { q } = this.$router.params
     this.state = {
+      value: '',
+      lastQuery: '',
       current: 0,
-      value: q,
-      lastQuery: q,
-      state_idol: {
-        loading: false,
-        nothing: false,
-        noMore: false,
-        total: 0,
-        page: 1
-      },
-      state_bangumi: {
-        loading: false,
-        nothing: false,
-        noMore: false,
-        total: 0,
-        page: 1
-      },
-      list_idol: [],
-      list_bangumi: []
+      tabs: [
+        { type: 'bangumi', title: '番剧' },
+        { type: 'idol', title: '偶像' }
+      ]
     }
   }
 
-  componentDidMount() {
-    this.loadMore(0)
-  }
-
-  TabSwitch (value) {
-    this.setState({
-      current: value
-    })
-    this.loadMore(value)
-  }
-
-  handleSearchAction() {
-    const { value, lastQuery, current } = this.state
-    if (value === lastQuery) {
-      return
+  onShareAppMessage() {
+    return {
+      title: '萌市，二次元股市',
+      path: '/pages/index/index',
+      imageUrl: 'https://m1.calibur.tv/default-poster?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400'
     }
-    this.setState({
-      current,
-      lastQuery: value,
-      state_idol: {
-        loading: false,
-        nothing: false,
-        noMore: false,
-        total: 0,
-        page: 1
-      },
-      state_bangumi: {
-        loading: false,
-        nothing: false,
-        noMore: false,
-        total: 0,
-        page: 1
-      },
-      list_idol: [],
-      list_bangumi: []
-    }, () => {
-      this.loadMore(current, true)
-    })
-  }
-
-  loadMore (index, refresh = false) {
-    let type = 'all'
-    if (index === 0) {
-      type = 'idol'
-    } else if (index === 1) {
-      type = 'bangumi'
-    }
-    const stateField = `state_${type}`
-    const stateData = this.state[stateField]
-    if (stateData.loading || stateData.nothing || stateData.noMore) {
-      return
-    }
-    this.setState({
-      [stateField]: {
-        ...stateData,
-        loading: true
-      }
-    })
-    http
-      .get('search/mixin', {
-        q: this.state.value,
-        type,
-        page: refresh ? 1 : stateData.page
-      })
-      .then(res => {
-        const dataField = `list_${type}`
-        this.setState({
-          [stateField]: {
-            loading: false,
-            nothing: res.total === 0,
-            noMore: res.no_more,
-            total: res.total,
-            page: stateData.page + 1
-          },
-          [dataField]: this.state[dataField].concat(res.result)
-        })
-      })
   }
 
   handleSearchInput (value) {
@@ -119,48 +38,95 @@ export default class extends Component {
     })
   }
 
-  onReachBottom() {
-    this.loadMore(this.state.current)
+  handleSearchAction() {
+    const { value, lastQuery } = this.state
+    if (value === lastQuery) {
+      return
+    }
+    this.setState({
+      lastQuery: value
+    })
+    event.emit('search-go', {
+      type: this.state.tabs[this.state.current].type,
+      keywords: value
+    })
+  }
+
+  handleTabClick(value) {
+    const current = typeof value === 'number' ? value : value.detail.current
+    this.setState({ current })
+    const keywords = this.state.lastQuery
+    if (!keywords) {
+      return
+    }
+    event.emit(`tab-flow-scroll-switch-${this.state.tabs[current].type}`)
+  }
+
+  handleScrollBottom() {
+    const keywords = this.state.lastQuery
+    if (!keywords) {
+      return
+    }
+    event.emit(`tab-flow-scroll-bottom-${this.state.tabs[this.state.current].type}`)
+  }
+
+  getFlowComponent({ type }) {
+    switch (type) {
+      case 'bangumi': {
+        return <SearchBangumi type={type} />
+      }
+      case 'idol': {
+        return <SearchIdol type={type} />
+      }
+    }
   }
 
   render () {
-    const tabList = [{ title: '偶像' }, { title: '番剧' }]
-    const { list_idol, state_idol, list_bangumi, state_bangumi } = this.state
-    const list_0_data = list_idol.map(idol => (
-      <TrendIdolItem
-        key={idol.slug}
-        taroKey={idol.slug}
-        index={-1}
-        idol={idol}
-      />
-    ))
-    const list_1_data = list_bangumi.map(bangumi => (
-      <BangumiRankItem
-        key={bangumi.slug}
-        taroKey={bangumi.slug}
-        bangumi={bangumi}
-      />
-    ))
+    const { current, tabs } = this.state
     return (
-      <View>
-        <AtSearchBar
-          placeholder='搜一下'
-          focus
-          value={this.state.value}
-          onChange={this.handleSearchInput.bind(this)}
-          onConfirm={this.handleSearchAction.bind(this)}
-          onActionClick={this.handleSearchAction.bind(this)}
-        />
-        <AtTabs current={this.state.current} tabList={tabList} onClick={this.TabSwitch.bind(this)}>
-          <AtTabsPane current={this.state.current} index={0}>
-            {list_0_data}
-            {state_idol.nothing ? <PageState type='nothing' /> : ''}
-          </AtTabsPane>
-          <AtTabsPane current={this.state.current} index={1}>
-            {list_1_data}
-            {state_bangumi.nothing ? <PageState type='nothing' /> : ''}
-          </AtTabsPane>
-        </AtTabs>
+      <View className='search scroll-page'>
+        <View className='flex-shrink-0'>
+          <AtSearchBar
+            placeholder='搜一下'
+            focus
+            value={this.state.value}
+            onChange={this.handleSearchInput.bind(this)}
+            onConfirm={this.handleSearchAction.bind(this)}
+            onActionClick={this.handleSearchAction.bind(this)}
+          />
+        </View>
+        <View className='flex-shrink-0'>
+          <AtTabs
+            current={current}
+            animated={false}
+            tabList={tabs}
+            onClick={this.handleTabClick.bind(this)}
+          />
+        </View>
+        <View className='flex-grow-1'>
+          <Swiper
+            className='scroll-wrap'
+            current={current}
+            autoplay={false}
+            skipHiddenItemLayout
+            onChange={this.handleTabClick.bind(this)}
+          >
+            {tabs.map(tab => (
+              <SwiperItem
+                key={tab.type}
+                taroKey={tab.type}
+              >
+                <ScrollView
+                  className='scroll-view'
+                  scrollY
+                  onScrollToLower={this.handleScrollBottom.bind(this)}
+                >
+                  {this.getFlowComponent(tab)}
+                </ScrollView>
+              </SwiperItem>
+            ))}
+          </Swiper>
+        </View>
       </View>
     )
   }

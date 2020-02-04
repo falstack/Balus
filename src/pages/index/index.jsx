@@ -40,11 +40,11 @@ export default class extends Component {
   handleTabClick(value) {
     const current = typeof value === 'number' ? value : value.detail.current
     this.setState({ current })
-    event.emit(`index-flow-scroll-switch-${this.state.tabs[current].slug}`)
+    event.emit(`tab-flow-scroll-switch-${this.state.tabs[current].slug}`)
   }
 
   handleScrollBottom() {
-    event.emit(`index-flow-scroll-bottom-${this.state.tabs[this.state.current].slug}`)
+    event.emit(`tab-flow-scroll-bottom-${this.state.tabs[this.state.current].slug}`)
   }
 
   getFlowComponent({ title, slug }) {
@@ -88,8 +88,8 @@ export default class extends Component {
           >
             {tabs.map(tab => (
               <SwiperItem
-                key={tab.title}
-                taroKey={tab.title}
+                key={tab.slug}
+                taroKey={tab.slug}
               >
                 <ScrollView
                   className='scroll-view'

@@ -1,9 +1,14 @@
 import Taro, { Component } from '@tarojs/taro'
 import { WebView } from '@tarojs/components'
 import http from '~/utils/http'
+import helper from '~/utils/helper'
 import './index.scss'
 
 export default class extends Component {
+  config = {
+    navigationBarTitleText: ''
+  }
+
   constructor (props) {
     super(props)
     this.state = {
@@ -41,7 +46,7 @@ export default class extends Component {
 
   render () {
     return (
-      <WebView src={`https://app.calibur.tv/pin/${this.$router.params.slug}`} />
+      <WebView src={helper.webview(`pin/${this.$router.params.slug}`)} />
     )
   }
 }

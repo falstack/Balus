@@ -71,36 +71,38 @@ const setReactivityField = (oldVal, newVal, type, insertBefore ) => {
   }
 }
 
+const defaultFlowField = {
+  flow_result: [],
+  flow_noMore: false,
+  flow_nothing: false,
+  flow_loading: false,
+  flow_fetched: false,
+  flow_error: null,
+  flow_extra: null,
+  flow_page: 0,
+  flow_total: 0
+}
+
 export default function flowStore(Comp) {
   return class extends Comp {
     constructor(props) {
       super(props)
-      this.state = {
-        flow_result: [],
-        flow_noMore: false,
-        flow_nothing: false,
-        flow_loading: false,
-        flow_fetched: false,
-        flow_error: null,
-        flow_extra: null,
-        flow_page: 0,
-        flow_total: 0
-      }
+      this.state = { ...defaultFlowField }
     }
 
     initData(refresh = false) {
-      if (this.state.flow_error && !refresh) {
+      if ((this.state.flow_fetched || this.state.flow_error) && !refresh) {
         return
       }
-      if (this.state.flow_loading || this.state.flow_fetched) {
+      if (this.state.flow_loading) {
         return
       }
       this._SET_FLOW_LOADING()
       const flowReq = this.state.flowReq
-      const params = generateRequestParams(this.state, flowReq.query, flowReq.type)
+      const params = generateRequestParams(refresh ? defaultFlowField : this.state, flowReq.query, flowReq.type)
       http.get(flowReq.url, params)
         .then(data => {
-          this._SET_FLOW_DATA(data, params, flowReq)
+          this._SET_FLOW_DATA(data, params, flowReq, refresh)
         })
         .catch(err => {
           this._SET_FLOW_ERROR(err)
@@ -129,21 +131,35 @@ export default function flowStore(Comp) {
         })
     }
 
-    _SET_FLOW_DATA(data, params, req) {
+    resetStore() {
+      this.setState({
+        flow_result: [],
+        flow_noMore: false,
+        flow_nothing: false,
+        flow_loading: false,
+        flow_fetched: false,
+        flow_error: null,
+        flow_extra: null,
+        flow_page: 0,
+        flow_total: 0
+      })
+    }
+
+    _SET_FLOW_DATA(data, params, req, refresh = false) {
       const { result, extra } = data
       const state = {
         flow_loading: false,
         flow_total: data.total,
         flow_noMore: req.type === 'jump' ? false : data.no_more,
         flow_page: typeof params.page === 'number' ? params.page : typeof params.page === 'string' ? +params.page : 1,
-        flow_result: setReactivityField(this.state.flow_result, result, req.type, !!req.query.is_up)
+        flow_result: setReactivityField(refresh ? [] : this.state.flow_result, result, req.type, !!req.query.is_up)
       }
-      if (!this.state.flow_fetched) {
+      if (refresh || !this.state.flow_fetched) {
         state.flow_fetched = true
         state.flow_nothing = computeResultLength(result) === 0
       }
       if (extra) {
-        state.flow_extra = setReactivityField(this.state.flow_extra, extra, req.type, !!req.query.is_up)
+        state.flow_extra = setReactivityField(refresh ? null : this.state.flow_extra, extra, req.type, !!req.query.is_up)
       }
       this.setState(state)
     }

@@ -3,10 +3,10 @@ import event from '~/utils/event'
 export default function flowEvent(Comp) {
   return class extends Comp {
     componentDidMount() {
-      event.on(`index-flow-scroll-switch-${this.props.slug}`, () => {
+      event.on(`tab-flow-scroll-switch-${this.props.slug}`, () => {
         this.initData()
       })
-      event.on(`index-flow-scroll-bottom-${this.props.slug}`, () => {
+      event.on(`tab-flow-scroll-bottom-${this.props.slug}`, () => {
         this.loadMore()
       })
       if (this.props.autoload) {
@@ -15,8 +15,8 @@ export default function flowEvent(Comp) {
     }
 
     componentWillUnmount() {
-      event.off(`index-flow-scroll-switch-${this.props.slug}`)
-      event.off(`index-flow-scroll-bottom-${this.props.slug}`)
+      event.off(`tab-flow-scroll-switch-${this.props.slug}`)
+      event.off(`tab-flow-scroll-bottom-${this.props.slug}`)
     }
   }
 }

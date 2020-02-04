@@ -41,7 +41,7 @@ class App extends Component {
       list: [
         {
           pagePath: 'pages/index/index',
-          text: '偶像',
+          text: '首页',
           iconPath: 'images/icon_home_default.png',
           selectedIconPath: 'images/icon_home_active.png'
         },
