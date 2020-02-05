@@ -71,7 +71,7 @@ export default class BangumiPanel extends Component {
               className='avatar'
             />
             <View className='body'>
-              <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/bangumi/edit?slug=' + bangumi.slug)}`}>
+              <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('bangumi/edit?slug=' + bangumi.slug)}`}>
                 {
                   bangumi.rank !== '0' ? <Text className='rank'>动漫排行榜 NO.{bangumi.rank}</Text> : ''
                 }
@@ -89,7 +89,7 @@ export default class BangumiPanel extends Component {
                 user
                   ? bangumi.is_liked
                     ? <Button className='join-btn-empty'>已加入</Button>
-                    : <Navigator url={`/pages/webview/index?url=${encodeURIComponent('app/bangumi/join?slug=' + bangumi.slug)}`} className='join-btn'>加入圈子</Navigator>
+                    : <Navigator url={`/pages/webview/index?url=${encodeURIComponent('bangumi/join?slug=' + bangumi.slug)}`} className='join-btn'>加入圈子</Navigator>
                   : <Button className='join-btn' onClick={this.showLogin.bind(this)}>加入圈子</Button>
               }
             </View>
@@ -98,7 +98,7 @@ export default class BangumiPanel extends Component {
             liker_total ? <Navigator
               hover-class='none'
               className='panel-wrap avatar-panel'
-              url={`/pages/webview/index?url=${encodeURIComponent('app/user/list?func=getBangumiLiker&type=page&slug=' + bangumi.slug)}`}
+              url={`/pages/webview/index?url=${encodeURIComponent('user/list?func=getBangumiLiker&type=page&slug=' + bangumi.slug)}`}
             >
               <View>
                 {like_users}

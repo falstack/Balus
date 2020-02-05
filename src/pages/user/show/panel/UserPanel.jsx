@@ -41,7 +41,7 @@ export default class UserPanel extends Component {
           />
           <PageNav />
           {
-            isMine ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/user/edit?slug=' + user.slug)}`} className='edit-profile-btn'>编辑资料</Navigator> : ''
+            isMine ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('user/edit?slug=' + user.slug)}`} className='edit-profile-btn'>编辑资料</Navigator> : ''
           }
         </View>
         <View className='profile'>

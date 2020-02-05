@@ -115,12 +115,12 @@ export default class extends Component {
           <Text className='intro__title'>{idol.bangumi.name} {idol.name}</Text>
         </View>
         <View className='social-panel intro'>
-          <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/user/list?type=idol_fans&slug=' + idol.slug)}`} className='avatar-list'>
+          <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('user/list?type=idol_fans&slug=' + idol.slug)}`} className='avatar-list'>
             {avatar}
           </Navigator>
           <View className='controls'>
             {
-              showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/idol/edit?slug=' + idol.slug)}`}>
+              showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('idol/edit?slug=' + idol.slug)}`}>
                 <AtIcon className='pink-icon' value='settings' size='15' color='#fff' />
               </Navigator> : ''
             }

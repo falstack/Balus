@@ -59,7 +59,7 @@ export default class UserTable extends Component {
           />
           */}
           {
-            user.is_admin ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('app/admin')}`}>
+            user.is_admin ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('admin')}`}>
               <AtListItem
                 title='控制台'
                 arrow='right'
