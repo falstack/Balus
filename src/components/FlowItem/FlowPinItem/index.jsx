@@ -41,22 +41,22 @@ export default class FlowPinItem extends Component {
             item.banner.length === 3 ? (
               <View className='banner banner-3'>
                 <View className='image-wrap-2'>
-                  <Image lazyLoad src={helper.resize(item.banner[0].url, { width: 600 })} />
+                  <Image lazyLoad src={helper.resize(item.banner[0], { width: 600 })} />
                 </View>
                 <View className='image-wrap-1'>
                   <View className='image-box'>
-                    <Image lazyLoad src={helper.resize(item.banner[1].url, { width: 400 })} />
+                    <Image lazyLoad src={helper.resize(item.banner[1], { width: 400 })} />
                   </View>
                   <View className='image-box'>
-                    <Image lazyLoad src={helper.resize(item.banner[2].url, { width: 400 })} />
+                    <Image lazyLoad src={helper.resize(item.banner[2], { width: 400 })} />
                   </View>
                 </View>
               </View>
             ) : (
               <View className={`banner banner-${item.banner.length}`}>
                 {item.banner.map(image =>(
-                  <View key={image.url} taroKey={image.url} className='image-box'>
-                    <Image lazyLoad src={helper.resize(image.url, item.banner.length === 2 ? { width: 400 } : { width: 800, height: 400 })} />
+                  <View key={image} taroKey={image} className='image-box'>
+                    <Image lazyLoad src={helper.resize(image, item.banner.length === 2 ? { width: 400 } : { width: 800, height: 400 })} />
                   </View>
                 ))}
               </View>
