@@ -118,7 +118,8 @@ export default class extends Component {
       .then(() => {
         this.redirect()
       })
-      .catch(() => {
+      .catch((err) => {
+        toast.info(err.message)
         this.setState({
           loading: false
         })
