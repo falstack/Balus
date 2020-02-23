@@ -58,7 +58,7 @@ export default class UserPanel extends Component {
             <View className='text'>
               <View className='nickname-wrap'>
                 <Text className='nickname'>{user.nickname}</Text>
-                <Text className='level'>LV{user.level2}</Text>
+                <Text className='level'>LV{user.level}</Text>
               </View>
               <Text className='invite'>cc号：{user.slug}</Text>
             </View>

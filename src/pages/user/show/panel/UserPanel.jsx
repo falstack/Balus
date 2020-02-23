@@ -56,7 +56,7 @@ export default class UserPanel extends Component {
             />
             <View className='nickname-wrap'>
               <Text className='nickname'>{user.nickname}</Text>
-              <Text className='level'>LV{user.level2}</Text>
+              <Text className='level'>LV{user.level}</Text>
             </View>
           </View>
           <View className='badges'>{badges}</View>
