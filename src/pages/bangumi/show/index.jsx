@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
 import { AtTabs } from 'taro-ui'
 import BlurHeader from '~/components/BlurHeader/index'
+import BangumiHeader from '~/components/BangumiHeader/index'
 import BangumiPin from '~/components/FlowList/BangumiPin/index'
 import BangumiIdol from '~/components/FlowList/BangumiIdol/index'
 import http from '~/utils/http'
@@ -109,7 +110,9 @@ export default class extends Component {
     return (
       <View className='bangumi-show scroll-page'>
         <View className='flex-shrink-0'>
-          <BlurHeader type='bangumi' slug={slug} item={bangumi} />
+          <BlurHeader background={bangumi.avatar}>
+            <BangumiHeader slug={slug} bangumi={bangumi} />
+          </BlurHeader>
         </View>
         <View className='flex-shrink-0'>
           <AtTabs

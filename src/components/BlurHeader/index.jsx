@@ -1,16 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
-import BangumiHeader from '~/components/BangumiHeader/index'
 import helper from '~/utils/helper'
 import './index.scss'
 
 export default class BlurHeader extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      menuRect: helper.getMenuRect()
-    }
   }
 
   back() {
@@ -22,14 +18,10 @@ export default class BlurHeader extends Component {
   }
 
   render () {
-    const { type, slug, item } = this.props
-    const { menuRect } = this.state
-    if (!type) {
-      return
-    }
+    const menuRect = helper.getMenuRect()
     return (
       <View className='blur-header'>
-        <View className='cover' style={`background-image:url(${item.avatar})`} />
+        <View className='cover' style={`background-image:url(${this.props.background})`} />
         <View className='mask' />
         <View
           className='wrap'
@@ -41,9 +33,7 @@ export default class BlurHeader extends Component {
           >
             <AtIcon value='chevron-left' color='#fff' onClick={this.back} />
           </View>
-          {
-            type === 'bangumi' ? <BangumiHeader slug={slug} bangumi={item} /> : ''
-          }
+          {this.props.children}
         </View>
       </View>
     )
@@ -51,7 +41,5 @@ export default class BlurHeader extends Component {
 }
 
 BlurHeader.defaultProps = {
-  type: '',
-  slug: '',
-  item: {}
+  background: ''
 }

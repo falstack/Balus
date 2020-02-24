@@ -10,7 +10,6 @@ export default class extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      menuRect: helper.getMenuRect(),
       user: cache.get('USER', null)
     }
   }
@@ -47,7 +46,8 @@ export default class extends Component {
   }
 
   render () {
-    const { menuRect, user } = this.state
+    const { user } = this.state
+    const menuRect = helper.getMenuRect()
     return (
       <View
         className='search-header'
