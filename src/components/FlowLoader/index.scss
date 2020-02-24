@@ -1,7 +1,10 @@
 .flow-loader {
   .state-image {
     display: block;
-    margin: 50px auto 10px;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 10px;
+    box-sizing: content-box;
 
     &.loading {
       width: 173px;
