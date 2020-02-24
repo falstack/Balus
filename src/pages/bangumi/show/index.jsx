@@ -7,12 +7,14 @@ import BangumiPin from '~/components/FlowList/BangumiPin/index'
 import BangumiIdol from '~/components/FlowList/BangumiIdol/index'
 import http from '~/utils/http'
 import event from '~/utils/event'
+import helper from '~/utils/helper'
 import './index.scss'
 
 export default class extends Component {
   config = {
     navigationStyle: 'custom',
-    disableScroll: true
+    disableScroll: false,
+    onReachBottomDistance: 0
   }
 
   constructor (props) {
@@ -21,7 +23,7 @@ export default class extends Component {
       slug: this.$router.params.slug,
       bangumi: null,
       current: 0,
-      collapsedHeader: false,
+      isCollapsed: false,
       tabs: [
         { type: 'pin', title: '帖子' },
         { type: 'idol', title: '偶像' }
@@ -40,6 +42,22 @@ export default class extends Component {
 
   componentDidMount() {
     this.getBangumi()
+  }
+
+  onReachBottom() {
+    this.setState({
+      isCollapsed: true
+    })
+  }
+
+  onPageScroll(evt) {
+    const isCollapsed = evt.scrollTop > 100
+    if (isCollapsed || isCollapsed === this.state.isCollapsed) {
+      return
+    }
+    this.setState({
+      isCollapsed: false
+    })
   }
 
   getBangumi() {
@@ -80,16 +98,6 @@ export default class extends Component {
     event.emit(`bangumi-flow-bottom-${this.state.tabs[this.state.current].type}`)
   }
 
-  handleScroll(evt) {
-    const collapsedHeader = evt.detail.scrollTop > 100
-    if (collapsedHeader === this.state.collapsedHeader) {
-      return
-    }
-    this.setState({
-      collapsedHeader
-    })
-  }
-
   getFlowComponent({ type }) {
     const { slug } = this.state
     switch (type) {
@@ -103,14 +111,15 @@ export default class extends Component {
   }
 
   render () {
-    const { current, tabs, slug, bangumi } = this.state
+    const { current, tabs, slug, bangumi, isCollapsed } = this.state
     if (!bangumi) {
       return
     }
+    const menuRect = helper.getMenuRect()
     return (
-      <View className='bangumi-show scroll-page'>
+      <View className='bangumi-show'>
         <View className='flex-shrink-0'>
-          <BlurHeader background={bangumi.avatar}>
+          <BlurHeader background={bangumi.avatar} collapsed={isCollapsed}>
             <BangumiHeader slug={slug} bangumi={bangumi} />
           </BlurHeader>
         </View>
@@ -122,7 +131,8 @@ export default class extends Component {
             onClick={this.handleTabClick.bind(this)}
           />
         </View>
-        <View className='flex-grow-1'>
+        <View className='bangumi-tabs' style={`height:calc(100vh - ${menuRect.top + menuRect.right + menuRect.height + 40}px)`}>
+          <View className={`tabs-shim ${isCollapsed ? 'is-active' : ''}`} />
           <Swiper
             className='scroll-wrap'
             current={current}
@@ -139,7 +149,6 @@ export default class extends Component {
                   className='scroll-view'
                   scrollY
                   onScrollToLower={this.handleScrollBottom.bind(this)}
-                  onScroll={this.handleScroll.bind(this)}
                 >
                   {this.getFlowComponent(tab)}
                 </ScrollView>

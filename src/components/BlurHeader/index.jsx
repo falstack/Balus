@@ -18,10 +18,11 @@ export default class BlurHeader extends Component {
   }
 
   render () {
+    const { background, collapsed } = this.props
     const menuRect = helper.getMenuRect()
     return (
-      <View className='blur-header'>
-        <View className='cover' style={`background-image:url(${this.props.background})`} />
+      <View className={`blur-header ${collapsed ? 'collapsed' : ''}`}>
+        <View className='cover' style={`background-image:url(${background})`} />
         <View className='mask' />
         <View
           className='wrap'
@@ -33,7 +34,9 @@ export default class BlurHeader extends Component {
           >
             <AtIcon value='chevron-left' color='#fff' onClick={this.back} />
           </View>
-          {this.props.children}
+          <View className='main'>
+            {this.props.children}
+          </View>
         </View>
       </View>
     )
@@ -41,5 +44,6 @@ export default class BlurHeader extends Component {
 }
 
 BlurHeader.defaultProps = {
+  collapsed: false,
   background: ''
 }
