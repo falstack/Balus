@@ -1,20 +1,15 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import BangumiHeader from '~/components/BangumiHeader/index'
+import helper from '~/utils/helper'
 import './index.scss'
 
 export default class BlurHeader extends Component {
   constructor (props) {
     super(props)
-    const menuRect = Taro.getMenuButtonBoundingClientRect()
-    Taro.getSystemInfo({
-      success: res => {
-        menuRect.right = res.screenWidth - menuRect.right
-      }
-    })
     this.state = {
-      menuRect
+      menuRect: helper.getMenuRect()
     }
   }
 

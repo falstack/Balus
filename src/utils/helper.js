@@ -1,4 +1,5 @@
 import cache from '~/utils/cache'
+import Taro from '@tarojs/taro'
 
 const adjustDate = (time) => {
   if (/^\d+$/.test(time) && time.toString().length === 10) {
@@ -42,6 +43,21 @@ export default {
     }
 
     return `${link}?imageMogr2/auto-orient/strip|imageView2/${mode}${width}${height}${format}`
+  },
+
+  getMenuRect() {
+    const cacheData = cache.get('MENU-RECT')
+    if (cacheData) {
+      return cacheData
+    }
+    const menuRect = Taro.getMenuButtonBoundingClientRect()
+    Taro.getSystemInfo({
+      success: res => {
+        menuRect.right = res.screenWidth - menuRect.right
+        cache.set('MENU-RECT', menuRect)
+        return menuRect
+      }
+    })
   },
 
   number(num) {

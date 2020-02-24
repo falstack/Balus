@@ -20,6 +20,7 @@ export default class extends Component {
       slug: this.$router.params.slug,
       bangumi: null,
       current: 0,
+      collapsedHeader: false,
       tabs: [
         { type: 'pin', title: '帖子' },
         { type: 'idol', title: '偶像' }
@@ -78,6 +79,16 @@ export default class extends Component {
     event.emit(`bangumi-flow-bottom-${this.state.tabs[this.state.current].type}`)
   }
 
+  handleScroll(evt) {
+    const collapsedHeader = evt.detail.scrollTop > 100
+    if (collapsedHeader === this.state.collapsedHeader) {
+      return
+    }
+    this.setState({
+      collapsedHeader
+    })
+  }
+
   getFlowComponent({ type }) {
     const { slug } = this.state
     switch (type) {
@@ -125,6 +136,7 @@ export default class extends Component {
                   className='scroll-view'
                   scrollY
                   onScrollToLower={this.handleScrollBottom.bind(this)}
+                  onScroll={this.handleScroll.bind(this)}
                 >
                   {this.getFlowComponent(tab)}
                 </ScrollView>

@@ -9,14 +9,8 @@ import './index.scss'
 export default class extends Component {
   constructor (props) {
     super(props)
-    const menuRect = Taro.getMenuButtonBoundingClientRect()
-    Taro.getSystemInfo({
-      success: res => {
-        menuRect.right = res.screenWidth - menuRect.right
-      }
-    })
     this.state = {
-      menuRect,
+      menuRect: helper.getMenuRect(),
       user: cache.get('USER', null)
     }
   }
