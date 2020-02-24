@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
 import { AtTabs } from 'taro-ui'
-import SearchCustomHeader from '~/components/SearchCustomHeader/index'
+import SearchHeader from '~/components/SearchHeader/index'
 import NewsPin from '~/components/FlowList/NewsPin/index'
 import RecommendedPin from '~/components/FlowList/RecommendedPin/index'
 import ActivityIdol from '~/components/FlowList/ActivityIdol/index'
@@ -67,7 +67,7 @@ export default class extends Component {
     return (
       <View className='homepage scroll-page'>
         <View className='flex-shrink-0'>
-          <SearchCustomHeader />
+          <SearchHeader />
         </View>
         <View className='flex-shrink-0'>
           <AtTabs

@@ -56,7 +56,7 @@ export default class extends Component {
     const { menuRect, user } = this.state
     return (
       <View
-        className='search-custom-header'
+        className='search-header'
         style={`margin-top: ${menuRect.top}px;padding-left: ${menuRect.right}px;padding-right: ${menuRect.right * 2 + menuRect.width}px;height:${menuRect.height + menuRect.right}px`}
       >
         <View className='shim' style={`height: ${menuRect.top}px`} />
