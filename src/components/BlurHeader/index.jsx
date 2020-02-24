@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
+import { AtIcon } from 'taro-ui'
 import BangumiHeader from '~/components/BangumiHeader/index'
 import './index.scss'
 
@@ -15,6 +16,14 @@ export default class BlurHeader extends Component {
     this.state = {
       menuRect
     }
+  }
+
+  back() {
+    Taro.navigateBack().then(() => {}).catch(() => {
+      Taro.switchTab({
+        url: '/pages/index/index'
+      })
+    })
   }
 
   render () {
@@ -35,7 +44,7 @@ export default class BlurHeader extends Component {
             className='menu'
             style={`padding-right:${menuRect.right + menuRect.width}px;height:${menuRect.height}px;margin-bottom:${menuRect.right}px`}
           >
-            menu
+            <AtIcon value='chevron-left' color='#fff' onClick={this.back} />
           </View>
           {
             type === 'bangumi' ? <BangumiHeader slug={slug} bangumi={item} /> : ''
