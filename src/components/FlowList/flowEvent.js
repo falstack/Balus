@@ -1,48 +1,33 @@
 import event from '~/utils/event'
+import { flowEventKey } from '~/utils/flow'
 
 export default function flowEvent(Comp) {
   return class extends Comp {
     componentDidMount() {
-      event.on(`${this.props.flowPrefix || 'tab'}-flow-switch-${this.props.slug}`, () => {
+      event.on(this._CREATE_EVENT_KEY('switch'), () => {
         this.initData()
       })
-      event.on(`${this.props.flowPrefix || 'tab'}-flow-bottom-${this.props.slug}`, () => {
+      event.on(this._CREATE_EVENT_KEY('bottom'), () => {
         this.loadMore()
       })
-      event.on('search-go', ({ slug, keywords }) => {
-        if (this.props.flowPrefix !== 'search') {
-          return
-        }
-        const { flowReq } = this.state
-        this.setState({
-          flowReq: {
-            ...flowReq,
-            query: {
-              ...flowReq.query,
-              q: keywords
-            }
-          }
-        }, () => {
-          if (!keywords) {
-            this.resetStore()
-            return
-          }
-          if (slug === this.props.slug) {
-            this.initData(true)
-          } else {
-            this.resetStore()
-          }
+      if (this.props.loadBefore) {
+        event.on(this._CREATE_EVENT_KEY('top'), () => {
+          this.loadBefore()
         })
-      })
+      }
       if (this.props.autoload) {
         this.initData()
       }
     }
 
     componentWillUnmount() {
-      event.off('search-go')
-      event.off(`${this.props.flowPrefix || 'tab'}-flow-switch-${this.props.slug}`)
-      event.off(`${this.props.flowPrefix || 'tab'}-flow-bottom-${this.props.slug}`)
+      event.off(this._CREATE_EVENT_KEY('switch'))
+      event.off(this._CREATE_EVENT_KEY('bottom'))
+      event.off(this._CREATE_EVENT_KEY('top'))
+    }
+
+    _CREATE_EVENT_KEY(type) {
+      return flowEventKey(this.state.flowNamespace, type, this.props.id)
     }
   }
 }
