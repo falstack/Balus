@@ -37,7 +37,7 @@ class ActivityIdol extends Component {
               taroKey={item.slug}
               key={item.slug}
               index={index}
-              item={item}
+              idol={item}
             />
           ))
         }

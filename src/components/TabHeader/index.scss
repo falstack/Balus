@@ -42,7 +42,7 @@
     color: #505050;
 
     &.is-active {
-      color: $color-primary;
+      color: $color-red;
     }
   }
 
@@ -52,7 +52,7 @@
     bottom: 0;
     height: 2PX;
     border-radius: 2PX;
-    background-color: $color-primary;
+    background-color: $color-red;
     transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
     transition-property: width, transform, -webkit-transform;
     transition-duration: 300ms;

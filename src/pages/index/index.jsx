@@ -1,12 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
-import { AtTabs } from 'taro-ui'
 import SearchHeader from '~/components/SearchHeader/index'
 import NewsPin from '~/components/FlowList/NewsPin/index'
 import RecommendedPin from '~/components/FlowList/RecommendedPin/index'
 import ActivityIdol from '~/components/FlowList/ActivityIdol/index'
 import BangumiActive from '~/components/FlowList/BangumiActive/index'
 import WriteFlatBtn from '~/components/WriteFlatBtn/index'
+import TabHeader from '~/components/TabHeader'
 import event from '~/utils/event'
 import { flowEventKey } from '~/utils/flow'
 import './index.scss'
@@ -67,11 +67,10 @@ export default class extends Component {
           <SearchHeader />
         </View>
         <View className='flex-shrink-0'>
-          <AtTabs
-            current={current}
-            scroll
-            animated={false}
-            tabList={tabs}
+          <TabHeader
+            line
+            list={tabs.map(_ => _.title)}
+            active={current}
             onClick={this.handleTabClick.bind(this)}
           />
         </View>
