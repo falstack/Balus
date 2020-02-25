@@ -1,16 +1,18 @@
 import Taro, { Component } from '@tarojs/taro'
-import flowEvent from '../flowEvent'
-import flowStore from '../flowStore'
-import FlowLoader from '../../FlowLoader/index'
+import flowEvent from '~/components/FlowList/flowEvent'
+import flowStore from '~/components/FlowList/flowStore'
+import FlowLoader from '~/components/FlowLoader'
+import FlowPinItem from '~/components/FlowItem/FlowPinItem'
 import './index.scss'
 
 @flowStore
 @flowEvent
-class BangumiPin extends Component {
+class BangumiActive extends Component {
   constructor (props) {
     super(props)
     this.state = {
       ...this.state,
+      flowNamespace: this.props.prefix,
       flowReq: {
         url: 'bangumi/pins',
         type: 'seenIds',
@@ -26,16 +28,34 @@ class BangumiPin extends Component {
 
   render () {
     return (
-      <FlowLoader flow={this.state} name='flow-pin' others={{ showBangumi: false }} />
+      <FlowLoader
+        launch
+        flow={this.state}
+        slug={this.props.slug}
+        scrollY={this.props.scrollY}
+        namespace={this.state.flowNamespace}
+      >
+        {
+          this.state.flow_result.map(item => (
+            <FlowPinItem
+              taroKey={item.slug}
+              key={item.slug}
+              item={item}
+              params={{ showBangumi: false }}
+            />
+          ))
+        }
+      </FlowLoader>
     )
   }
 }
 
-BangumiPin.defaultProps = {
+BangumiActive.defaultProps = {
   slug: '',
+  prefix: '',
   bangumiSlug: '',
-  flowPrefix: 'bangumi',
-  autoload: true
+  autoload: false,
+  scrollY: true
 }
 
-export default BangumiPin
+export default BangumiActive

@@ -4,7 +4,7 @@ import SearchHeader from '~/components/SearchHeader/index'
 import NewsPin from '~/components/FlowList/NewsPin/index'
 import RecommendedPin from '~/components/FlowList/RecommendedPin/index'
 import ActivityIdol from '~/components/FlowList/ActivityIdol/index'
-import BangumiActive from '~/components/FlowList/BangumiActive/index'
+import BangumiPin from '~/components/FlowList/BangumiPin/index'
 import WriteFlatBtn from '~/components/WriteFlatBtn/index'
 import TabHeader from '~/components/TabHeader'
 import event from '~/utils/event'
@@ -59,7 +59,7 @@ export default class extends Component {
         return <ActivityIdol slug={slug} />
       }
     }
-    return <BangumiActive slug={slug} />
+    return <BangumiPin prefix='index' bangumiSlug={slug} slug={slug} />
   }
 
   render () {

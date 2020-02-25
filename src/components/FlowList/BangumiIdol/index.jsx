@@ -1,16 +1,18 @@
 import Taro, { Component } from '@tarojs/taro'
-import flowEvent from '../flowEvent'
-import flowStore from '../flowStore'
-import FlowLoader from '../../FlowLoader/index'
+import flowEvent from '~/components/FlowList/flowEvent'
+import flowStore from '~/components/FlowList/flowStore'
+import FlowLoader from '~/components/FlowLoader'
+import TrendIdolItem from '~/components/TrendIdolItem'
 import './index.scss'
 
 @flowStore
 @flowEvent
-class Bangumi extends Component {
+class BangumiIdol extends Component {
   constructor (props) {
     super(props)
     this.state = {
       ...this.state,
+      flowNamespace: 'bangumi',
       flowReq: {
         url: 'bangumi/idols',
         type: 'page',
@@ -23,16 +25,31 @@ class Bangumi extends Component {
 
   render () {
     return (
-      <FlowLoader flow={this.state} name='trend-idol' />
+      <FlowLoader
+        launch
+        flow={this.state}
+        slug={this.props.slug}
+        namespace={this.state.flowNamespace}
+      >
+        {
+          this.state.flow_result.map((item, index) => (
+            <TrendIdolItem
+              taroKey={item.slug}
+              key={item.slug}
+              idol={item}
+              index={index}
+            />
+          ))
+        }
+      </FlowLoader>
     )
   }
 }
 
-Bangumi.defaultProps = {
-  slug: 'idol',
+BangumiIdol.defaultProps = {
+  slug: '',
   bangumiSlug: '',
-  flowPrefix: 'bangumi',
   autoload: false
 }
 
-export default Bangumi
+export default BangumiIdol

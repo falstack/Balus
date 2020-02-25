@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
-import { AtTabs } from 'taro-ui'
+import { View, Swiper, SwiperItem } from '@tarojs/components'
+import TabHeader from '~/components/TabHeader'
 import BlurHeader from '~/components/BlurHeader/index'
 import BangumiHeader from '~/components/BangumiHeader/index'
 import BangumiPin from '~/components/FlowList/BangumiPin/index'
@@ -8,6 +8,7 @@ import BangumiIdol from '~/components/FlowList/BangumiIdol/index'
 import http from '~/utils/http'
 import event from '~/utils/event'
 import helper from '~/utils/helper'
+import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
 export default class extends Component {
@@ -96,28 +97,33 @@ export default class extends Component {
 
   handleTabClick(value) {
     const current = typeof value === 'number' ? value : value.detail.current
+    if (current === this.state.current) {
+      return
+    }
     this.setState({ current })
-    event.emit(`bangumi-flow-switch-${this.state.tabs[current].type}`)
-  }
-
-  handleScrollBottom() {
-    event.emit(`bangumi-flow-bottom-${this.state.tabs[this.state.current].type}`)
+    event.emit(flowEventKey('bangumi', 'switch', this.state.tabs[current].type))
   }
 
   getFlowComponent({ type }) {
-    const { slug } = this.state
+    const { slug, scrollActive } = this.state
     switch (type) {
       case 'pin': {
-        return <BangumiPin slug={type} bangumiSlug={slug} />
+        return <BangumiPin
+          slug={type}
+          prefix='bangumi'
+          autoload
+          scrollY={scrollActive}
+          bangumiSlug={slug}
+        />
       }
       case 'idol': {
-        return <BangumiIdol slug={type} bangumiSlug={slug} />
+        return <BangumiIdol slug={type} scrollY={scrollActive} bangumiSlug={slug} />
       }
     }
   }
 
   render () {
-    const { current, tabs, slug, bangumi, collapsedHeader, scrollActive } = this.state
+    const { current, tabs, slug, bangumi, collapsedHeader } = this.state
     if (!bangumi) {
       return
     }
@@ -127,10 +133,10 @@ export default class extends Component {
         <BlurHeader background={bangumi.avatar} title={bangumi.name} collapsed={collapsedHeader}>
           <BangumiHeader slug={slug} bangumi={bangumi} />
         </BlurHeader>
-        <AtTabs
-          current={current}
-          animated={false}
-          tabList={tabs}
+        <TabHeader
+          line
+          list={tabs.map(_ => _.title)}
+          active={current}
           onClick={this.handleTabClick.bind(this)}
         />
         <View style={`position:relative;height:calc(100vh - ${menuRect.header + 40}px)`}>
@@ -138,6 +144,7 @@ export default class extends Component {
             className='scroll-wrap'
             current={current}
             autoplay={false}
+            duration={300}
             skipHiddenItemLayout
             onChange={this.handleTabClick.bind(this)}
           >
@@ -146,13 +153,7 @@ export default class extends Component {
                 key={tab.type}
                 taroKey={tab.type}
               >
-                <ScrollView
-                  className='scroll-view'
-                  scrollY={scrollActive}
-                  onScrollToLower={this.handleScrollBottom.bind(this)}
-                >
-                  {this.getFlowComponent(tab)}
-                </ScrollView>
+                {this.getFlowComponent(tab)}
               </SwiperItem>
             ))}
           </Swiper>
