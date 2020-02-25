@@ -124,7 +124,7 @@ export default class extends Component {
     const menuRect = helper.getMenuRect()
     return (
       <View>
-        <BlurHeader background={bangumi.avatar} collapsed={collapsedHeader}>
+        <BlurHeader background={bangumi.avatar} title={bangumi.name} collapsed={collapsedHeader}>
           <BangumiHeader slug={slug} bangumi={bangumi} />
         </BlurHeader>
         <AtTabs
