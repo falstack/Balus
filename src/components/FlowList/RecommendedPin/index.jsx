@@ -1,7 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import flowEvent from '../flowEvent'
-import flowStore from '../flowStore'
-import FlowLoader from '../../FlowLoader/index'
+import flowEvent from '~/components/FlowList/flowEvent'
+import flowStore from '~/components/FlowList/flowStore'
+import FlowLoader from '~/components/FlowLoader'
+import FlowPinItem from '~/components/FlowItem/FlowPinItem'
 import './index.scss'
 
 @flowStore
@@ -11,6 +12,7 @@ class RecommendedPin extends Component {
     super(props)
     this.state = {
       ...this.state,
+      flowNamespace: 'index',
       flowReq: {
         url: 'bangumi/recommended_pins',
         type: 'seenIds',
@@ -21,14 +23,28 @@ class RecommendedPin extends Component {
 
   render () {
     return (
-      <FlowLoader flow={this.state} name='flow-pin' />
+      <FlowLoader
+        launch
+        flow={this.state}
+        slug={this.props.slug}
+        namespace={this.state.flowNamespace}
+      >
+        {
+          this.state.flow_result.map(item => (
+            <FlowPinItem
+              taroKey={item.slug}
+              key={item.slug}
+              item={item}
+            />
+          ))
+        }
+      </FlowLoader>
     )
   }
 }
 
 RecommendedPin.defaultProps = {
   slug: 'recommended',
-  flowPrefix: 'index',
   autoload: true
 }
 

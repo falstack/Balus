@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
-import flowEvent from '../flowEvent'
-import flowStore from '../flowStore'
-import FlowLoader from '../../FlowLoader/index'
+import flowEvent from '~/components/FlowList/flowEvent'
+import flowStore from '~/components/FlowList/flowStore'
+import FlowLoader from '~/components/FlowLoader'
+import FlowPinItem from '~/components/FlowItem/FlowPinItem'
 import './index.scss'
 
 @flowStore
@@ -12,6 +12,7 @@ class NewsPin extends Component {
     super(props)
     this.state = {
       ...this.state,
+      flowNamespace: 'index',
       flowReq: {
         url: 'bangumi/pins',
         type: 'lastId',
@@ -27,16 +28,29 @@ class NewsPin extends Component {
 
   render () {
     return (
-      <View>
-        <FlowLoader flow={this.state} name='flow-pin' others={{ showBangumi: false, showTime: true }} />
-      </View>
+      <FlowLoader
+        launch
+        flow={this.state}
+        slug={this.props.slug}
+        namespace={this.state.flowNamespace}
+      >
+        {
+          this.state.flow_result.map(item => (
+            <FlowPinItem
+              taroKey={item.slug}
+              key={item.slug}
+              item={item}
+              params={{ showBangumi: false, showTime: true }}
+            />
+          ))
+        }
+      </FlowLoader>
     )
   }
 }
 
 NewsPin.defaultProps = {
   slug: 'news',
-  flowPrefix: 'index',
   autoload: false
 }
 

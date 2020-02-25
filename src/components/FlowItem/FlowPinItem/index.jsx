@@ -11,12 +11,12 @@ export default class FlowPinItem extends Component {
   }
 
   render () {
-    const { item, others } = this.props
+    const { item, params } = this.props
     const state = {
       showUser: true,
       showBangumi: true,
       showTime: false,
-      ...others
+      ...params
     }
     return (
       <View className='flow-pin-item'>
@@ -97,5 +97,5 @@ FlowPinItem.defaultProps = {
     bangumi: {},
     banner: []
   },
-  others: {}
+  params: {}
 }

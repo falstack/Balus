@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
+import { View, Swiper, SwiperItem } from '@tarojs/components'
 import { AtTabs } from 'taro-ui'
 import SearchHeader from '~/components/SearchHeader/index'
 import NewsPin from '~/components/FlowList/NewsPin/index'
@@ -8,6 +8,7 @@ import ActivityIdol from '~/components/FlowList/ActivityIdol/index'
 import BangumiActive from '~/components/FlowList/BangumiActive/index'
 import WriteFlatBtn from '~/components/WriteFlatBtn/index'
 import event from '~/utils/event'
+import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
 export default class extends Component {
@@ -40,11 +41,7 @@ export default class extends Component {
   handleTabClick(value) {
     const current = typeof value === 'number' ? value : value.detail.current
     this.setState({ current })
-    event.emit(`index-flow-switch-${this.state.tabs[current].slug}`)
-  }
-
-  handleScrollBottom() {
-    event.emit(`index-flow-bottom-${this.state.tabs[this.state.current].slug}`)
+    event.emit(flowEventKey('index', 'switch', this.state.tabs[current].slug))
   }
 
   getFlowComponent({ title, slug }) {
@@ -91,13 +88,7 @@ export default class extends Component {
                 key={tab.slug}
                 taroKey={tab.slug}
               >
-                <ScrollView
-                  className='scroll-view'
-                  scrollY
-                  onScrollToLower={this.handleScrollBottom.bind(this)}
-                >
-                  {this.getFlowComponent(tab)}
-                </ScrollView>
+                {this.getFlowComponent(tab)}
               </SwiperItem>
             ))}
           </Swiper>

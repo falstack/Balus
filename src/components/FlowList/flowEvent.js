@@ -27,7 +27,7 @@ export default function flowEvent(Comp) {
     }
 
     _CREATE_EVENT_KEY(type) {
-      return flowEventKey(this.state.flowNamespace, type, this.props.id)
+      return flowEventKey(this.state.flowNamespace, type, this.props.slug)
     }
   }
 }

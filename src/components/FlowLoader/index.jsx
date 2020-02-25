@@ -17,11 +17,11 @@ export default class FlowLoader extends Component {
     if (!this.props.before) {
       return
     }
-    event.emit(flowEventKey(this.props.namespace, 'top', this.props.id))
+    event.emit(flowEventKey(this.props.namespace, 'top', this.props.slug))
   }
 
   handleBottom() {
-    event.emit(flowEventKey(this.props.namespace, 'bottom', this.props.id))
+    event.emit(flowEventKey(this.props.namespace, 'bottom', this.props.slug))
   }
 
   render () {
@@ -30,7 +30,7 @@ export default class FlowLoader extends Component {
       return (
         <View className='flow-state'>
           {
-            launch ? <Image className='state-image' src={Nothing} /> : ''
+            launch ? <Image className='state-image nothing' src={Nothing} /> : ''
           }
           <View className='state-tip'>这里什么都没有</View>
         </View>
@@ -39,14 +39,14 @@ export default class FlowLoader extends Component {
     if (flow.flow_loading && launch && !flow.flow_fetched) {
       return (
         <View className='flow-state'>
-          <Image className='state-image' src={Loading} />
+          <Image className='state-image loading' src={Loading} />
         </View>
       )
     }
     if (flow.flow_error && launch && !flow.flow_total) {
       return (
         <View className='flow-state'>
-          <Image className='state-image' src={Error} />
+          <Image className='state-image error' src={Error} />
           <View className='state-tip'>{ flow.flow_error.message || '网络错误' }</View>
         </View>
       )
@@ -73,5 +73,5 @@ FlowLoader.defaultProps = {
   scrollX: false,
   scrollY: true,
   namespace: 'flow',
-  id: 0
+  slug: 0
 }

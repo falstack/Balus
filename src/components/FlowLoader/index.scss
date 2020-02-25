@@ -14,7 +14,6 @@
   .state-image {
     display: block;
     margin: 0 auto;
-    padding-top: 50px;
     padding-bottom: 10px;
     box-sizing: content-box;
 
@@ -35,7 +34,7 @@
   }
 
   .state-tip {
-    font-size: 12px;
+    font-size: 12PX;
     color: $color-text-light;
   }
 }
