@@ -1,7 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import flowEvent from '../flowEvent'
-import flowStore from '../flowStore'
-import FlowLoader from '../../FlowLoader/index'
+import flowEvent from '~/components/FlowList/flowEvent'
+import flowStore from '~/components/FlowList/flowStore'
+import FlowLoader from '~/components/FlowLoader'
+import BangumiRankItem from '~/components/BangumiRankItem'
 import './index.scss'
 
 @flowStore
@@ -11,6 +12,7 @@ class UserBangumi extends Component {
     super(props)
     this.state = {
       ...this.state,
+      flowNamespace: 'user',
       flowReq: {
         url: 'user/like_bangumi',
         type: 'page',
@@ -23,15 +25,29 @@ class UserBangumi extends Component {
 
   render () {
     return (
-      <FlowLoader flow={this.state} name='bangumi-rank' />
+      <FlowLoader
+        launch
+        flow={this.state}
+        slug={this.props.slug}
+        namespace={this.state.flowNamespace}
+      >
+        {
+          this.state.flow_result.map(item => (
+            <BangumiRankItem
+              taroKey={item.slug}
+              key={item.slug}
+              bangumi={item}
+            />
+          ))
+        }
+      </FlowLoader>
     )
   }
 }
 
 UserBangumi.defaultProps = {
-  slug: 'bangumi',
+  slug: '',
   userSlug: '',
-  flowPrefix: 'user',
   autoload: false
 }
 

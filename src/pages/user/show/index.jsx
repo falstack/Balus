@@ -1,12 +1,13 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
-import { AtTabs } from 'taro-ui'
+import { View, Swiper, SwiperItem } from '@tarojs/components'
 import UserPanel from './panel/UserPanel'
 import UserPin from '~/components/FlowList/UserPin/index'
 import UserBangumi from '~/components/FlowList/UserBangumi/index'
 import UserIdol from '~/components/FlowList/UserIdol/index'
+import TabHeader from '~/components/TabHeader'
 import http from '~/utils/http'
 import event from '~/utils/event'
+import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
 export default class extends Component {
@@ -52,12 +53,11 @@ export default class extends Component {
 
   handleTabClick(value) {
     const current = typeof value === 'number' ? value : value.detail.current
+    if (current === this.state.current) {
+      return
+    }
     this.setState({ current })
-    event.emit(`user-flow-switch-${this.state.tabs[current].type}`)
-  }
-
-  handleScrollBottom() {
-    event.emit(`user-flow-bottom-${this.state.tabs[this.state.current].type}`)
+    event.emit(flowEventKey('user', 'switch', this.state.tabs[current].type))
   }
 
   getFlowComponent({ type }) {
@@ -86,10 +86,10 @@ export default class extends Component {
           <UserPanel user={user} />
         </View>
         <View className='flex-shrink-0'>
-          <AtTabs
-            current={current}
-            animated={false}
-            tabList={tabs}
+          <TabHeader
+            line
+            list={tabs.map(_ => _.title)}
+            active={current}
             onClick={this.handleTabClick.bind(this)}
           />
         </View>
@@ -98,6 +98,7 @@ export default class extends Component {
             className='scroll-wrap'
             current={current}
             autoplay={false}
+            duration={300}
             skipHiddenItemLayout
             onChange={this.handleTabClick.bind(this)}
           >
@@ -106,13 +107,7 @@ export default class extends Component {
                 key={tab.type}
                 taroKey={tab.type}
               >
-                <ScrollView
-                  className='scroll-view'
-                  scrollY
-                  onScrollToLower={this.handleScrollBottom.bind(this)}
-                >
-                  {this.getFlowComponent(tab)}
-                </ScrollView>
+                {this.getFlowComponent(tab)}
               </SwiperItem>
             ))}
           </Swiper>

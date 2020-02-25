@@ -56,6 +56,13 @@
 					"pathName": "pages/bangumi/show/index",
 					"query": "slug=2kal7",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "用户详情页",
+					"pathName": "pages/user/show/index",
+					"query": "slug=cc-19f",
+					"scene": null
 				}
 			]
 		}
