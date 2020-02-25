@@ -40,6 +40,9 @@ export default class extends Component {
 
   handleTabClick(value) {
     const current = typeof value === 'number' ? value : value.detail.current
+    if (current === this.state.current) {
+      return
+    }
     this.setState({ current })
     event.emit(flowEventKey('index', 'switch', this.state.tabs[current].slug))
   }
