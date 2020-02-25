@@ -23,7 +23,8 @@ export default class extends Component {
       slug: this.$router.params.slug,
       bangumi: null,
       current: 0,
-      isCollapsed: false,
+      collapsedHeader: false,
+      scrollActive: false,
       tabs: [
         { type: 'pin', title: '帖子' },
         { type: 'idol', title: '偶像' }
@@ -46,18 +47,23 @@ export default class extends Component {
 
   onReachBottom() {
     this.setState({
-      isCollapsed: true
+      scrollActive: true
     })
   }
 
   onPageScroll(evt) {
-    const isCollapsed = evt.scrollTop > 100
-    if (isCollapsed || isCollapsed === this.state.isCollapsed) {
-      return
+    const collapsedHeader = evt.scrollTop > 100
+    if (collapsedHeader !== this.state.collapsedHeader) {
+      this.setState({
+        collapsedHeader
+      })
     }
-    this.setState({
-      isCollapsed: false
-    })
+    const scrollActive = evt.scrollTop > 0
+    if (scrollActive !== this.state.scrollActive) {
+      this.setState({
+        scrollActive
+      })
+    }
   }
 
   getBangumi() {
@@ -111,14 +117,14 @@ export default class extends Component {
   }
 
   render () {
-    const { current, tabs, slug, bangumi, isCollapsed } = this.state
+    const { current, tabs, slug, bangumi, collapsedHeader, scrollActive } = this.state
     if (!bangumi) {
       return
     }
     const menuRect = helper.getMenuRect()
     return (
       <View>
-        <BlurHeader background={bangumi.avatar} collapsed={isCollapsed}>
+        <BlurHeader background={bangumi.avatar} collapsed={collapsedHeader}>
           <BangumiHeader slug={slug} bangumi={bangumi} />
         </BlurHeader>
         <AtTabs
@@ -142,7 +148,7 @@ export default class extends Component {
               >
                 <ScrollView
                   className='scroll-view'
-                  scrollY={isCollapsed}
+                  scrollY={scrollActive}
                   onScrollToLower={this.handleScrollBottom.bind(this)}
                 >
                   {this.getFlowComponent(tab)}

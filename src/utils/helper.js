@@ -46,7 +46,7 @@ export default {
   },
 
   getMenuRect() {
-    const cacheData = cache.get('MENU-RECT')
+    const cacheData = cache.get('MENU-SIZE')
     if (cacheData) {
       return cacheData
     }
@@ -55,7 +55,7 @@ export default {
       success: res => {
         menuRect.right = res.screenWidth - menuRect.right
         menuRect.header = menuRect.top + menuRect.right + menuRect.height
-        cache.set('MENU-RECT', menuRect)
+        cache.set('MENU-SIZE', menuRect)
         return menuRect
       }
     })
