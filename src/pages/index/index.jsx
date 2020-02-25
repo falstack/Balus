@@ -79,6 +79,7 @@ export default class extends Component {
             className='scroll-wrap'
             current={current}
             autoplay={false}
+            duration={300}
             skipHiddenItemLayout
             onChange={this.handleTabClick.bind(this)}
           >
