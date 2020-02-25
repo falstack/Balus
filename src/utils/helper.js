@@ -54,6 +54,7 @@ export default {
     Taro.getSystemInfo({
       success: res => {
         menuRect.right = res.screenWidth - menuRect.right
+        menuRect.header = menuRect.top + menuRect.right + menuRect.height
         cache.set('MENU-RECT', menuRect)
         return menuRect
       }

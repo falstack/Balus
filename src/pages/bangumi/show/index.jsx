@@ -117,22 +117,17 @@ export default class extends Component {
     }
     const menuRect = helper.getMenuRect()
     return (
-      <View className='bangumi-show'>
-        <View className='flex-shrink-0'>
-          <BlurHeader background={bangumi.avatar} collapsed={isCollapsed}>
-            <BangumiHeader slug={slug} bangumi={bangumi} />
-          </BlurHeader>
-        </View>
-        <View className='flex-shrink-0'>
-          <AtTabs
-            current={current}
-            animated={false}
-            tabList={tabs}
-            onClick={this.handleTabClick.bind(this)}
-          />
-        </View>
-        <View className='bangumi-tabs' style={`height:calc(100vh - ${menuRect.top + menuRect.right + menuRect.height + 40}px)`}>
-          <View className={`tabs-shim ${isCollapsed ? 'is-active' : ''}`} />
+      <View>
+        <BlurHeader background={bangumi.avatar} collapsed={isCollapsed}>
+          <BangumiHeader slug={slug} bangumi={bangumi} />
+        </BlurHeader>
+        <AtTabs
+          current={current}
+          animated={false}
+          tabList={tabs}
+          onClick={this.handleTabClick.bind(this)}
+        />
+        <View style={`position:relative;height:calc(100vh - ${menuRect.header + 40}px)`}>
           <Swiper
             className='scroll-wrap'
             current={current}
@@ -147,7 +142,7 @@ export default class extends Component {
               >
                 <ScrollView
                   className='scroll-view'
-                  scrollY
+                  scrollY={isCollapsed}
                   onScrollToLower={this.handleScrollBottom.bind(this)}
                 >
                   {this.getFlowComponent(tab)}
