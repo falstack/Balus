@@ -16,9 +16,9 @@
   }
 
   .price {
-    height: 90px;
-    padding: 30px;
-    line-height: 30px;
+    height: 45PX;
+    padding: 15PX;
+    line-height: 15PX;
     font-size: 34px;
     box-sizing: border-box;
     background: linear-gradient(45deg, $color-red, #9198e5);
@@ -27,15 +27,14 @@
   }
 
   .mine {
-    height: 90px;
-    padding: 10px 30px;
+    height: 45PX;
+    padding: 5PX 30px;
     background-color: rgba($color-red, 0.1);
     float: right;
     text-align: center;
     color: $color-red;
     font-size: 26px;
     font-weight: bold;
-    line-height: 37px;
     box-sizing: border-box;
   }
 }

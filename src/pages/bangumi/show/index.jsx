@@ -29,7 +29,7 @@ class BangumiShow extends Component {
       current: 0,
       tabs: [
         { type: 'pin', title: '帖子' },
-        { type: 'idol', title: '偶像' }
+        { type: 'idol', title: '角色' }
       ]
     }
   }

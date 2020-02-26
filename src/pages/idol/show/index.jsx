@@ -1,31 +1,34 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image, Navigator } from '@tarojs/components'
+import { View, Text, Image, Navigator, ScrollView } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import http from '~/utils/http'
 import helper from '~/utils/helper'
 import BangumiRankItem from "~/components/BangumiRankItem"
+import blurPage from '~/mixins/blurPage'
 import IdolPanel from './panel/IdolPanel'
 import IdolBottom from './bottom/IdolBottom'
 import './index.scss'
 
-export default class extends Component {
+@blurPage
+class IdolShow extends Component {
+  config = {
+    navigationStyle: 'custom',
+    disableScroll: false,
+    onReachBottomDistance: 0
+  }
+
   constructor (props) {
     super(props)
     this.state = {
+      ...this.state,
       slug: this.$router.params.slug,
       showEdit: false,
-      collapsedHeader: false,
       idol: {
         bangumi: {},
         lover: null
       },
       fans_data: []
     }
-  }
-
-  config = {
-    navigationBarTitleText: '',
-    navigationStyle: 'custom'
   }
 
   onShareAppMessage() {
@@ -65,21 +68,6 @@ export default class extends Component {
       .catch(() => {})
   }
 
-  onPageScroll(evt) {
-    const collapsedHeader = evt.scrollTop > 100
-    if (collapsedHeader !== this.state.collapsedHeader) {
-      this.setState({
-        collapsedHeader
-      })
-    }
-    const scrollActive = evt.scrollTop > 0
-    if (scrollActive !== this.state.scrollActive) {
-      this.setState({
-        scrollActive
-      })
-    }
-  }
-
   getIdolFans() {
     http.get('idol/fans', {
       slug: this.state.slug,
@@ -114,7 +102,7 @@ export default class extends Component {
   }
 
   render () {
-    const { idol, fans_data, showEdit, collapsedHeader } = this.state
+    const { idol, fans_data, showEdit, collapsedHeader, scrollActive } = this.state
     const avatar = fans_data.map(user => (
       <Image
         className='avatar'
@@ -124,37 +112,44 @@ export default class extends Component {
         mode='aspectFit'
       />
     ))
+    const menuRect = helper.getMenuRect()
     return (
       <View className='idol-show'>
         <IdolPanel idol={idol} collapsed={collapsedHeader} />
-        <View className='intro'>
-          <Text className='intro__title'>{idol.bangumi.name} {idol.name}</Text>
-        </View>
-        <View className='social-panel intro'>
-          <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('user/list?type=idol_fans&slug=' + idol.slug)}`} className='avatar-list'>
-            {avatar}
-          </Navigator>
-          <View className='controls'>
-            {
-              showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('idol/edit?slug=' + idol.slug)}`}>
-                <AtIcon className='pink-icon' value='settings' size='15' color='#fff' />
-              </Navigator> : ''
-            }
-          </View>
-        </View>
-        {
-          idol.intro ?
+        <View style={`position:relative;height:calc(100vh - ${menuRect.header + 45}px)`}>
+          <ScrollView className='scroll-wrap' scrollY={scrollActive}>
             <View className='intro'>
-              <Text className='intro__title'>角色简介</Text>
-              <Text className='intro__text'>{idol.intro}</Text>
-            </View> : ''
-        }
-        <View className='intro'>
-          <Text className='intro__title'>所属番剧</Text>
-          <BangumiRankItem bangumi={idol.bangumi} />
+              <Text className='intro__title'>{idol.bangumi.name} {idol.name}</Text>
+            </View>
+            <View className='social-panel intro'>
+              <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('user/list?type=idol_fans&slug=' + idol.slug)}`} className='avatar-list'>
+                {avatar}
+              </Navigator>
+              <View className='controls'>
+                {
+                  showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('idol/edit?slug=' + idol.slug)}`}>
+                    <AtIcon className='pink-icon' value='settings' size='15' color='#fff' />
+                  </Navigator> : ''
+                }
+              </View>
+            </View>
+            {
+              idol.intro ?
+                <View className='intro'>
+                  <Text className='intro__title'>角色简介</Text>
+                  <Text className='intro__text'>{idol.intro}</Text>
+                </View> : ''
+            }
+            <View className='intro'>
+              <Text className='intro__title'>所属番剧</Text>
+              <BangumiRankItem bangumi={idol.bangumi} />
+            </View>
+            <IdolBottom idol={idol} onPayCallback={this.handleBuyStock.bind(this)} />
+          </ScrollView>
         </View>
-        <IdolBottom idol={idol} onPayCallback={this.handleBuyStock.bind(this)} />
       </View>
     )
   }
 }
+
+export default IdolShow
