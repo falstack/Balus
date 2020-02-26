@@ -30,6 +30,7 @@ class UserBangumi extends Component {
         flow={this.state}
         slug={this.props.slug}
         namespace={this.state.flowNamespace}
+        scrollY={this.props.scrollY}
       >
         {
           this.state.flow_result.map(item => (
@@ -48,6 +49,7 @@ class UserBangumi extends Component {
 UserBangumi.defaultProps = {
   slug: '',
   userSlug: '',
+  scrollY: true,
   autoload: false
 }
 

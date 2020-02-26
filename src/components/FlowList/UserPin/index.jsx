@@ -30,6 +30,7 @@ class UserIdol extends Component {
         flow={this.state}
         slug={this.props.slug}
         namespace={this.state.flowNamespace}
+        scrollY={this.props.scrollY}
       >
         {
           this.state.flow_result.map(item => (
@@ -49,6 +50,7 @@ class UserIdol extends Component {
 UserIdol.defaultProps = {
   slug: '',
   userSlug: '',
+  scrollY: true,
   autoload: true
 }
 

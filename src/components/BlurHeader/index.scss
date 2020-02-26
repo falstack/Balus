@@ -12,10 +12,8 @@
       visibility: visible;
     }
 
-    &.blur {
-      .cover {
-        @include filter-blur(80);
-      }
+    .cover {
+      @include filter-blur(80);
     }
   }
 
@@ -35,6 +33,12 @@
     background-repeat: no-repeat;
     background-size: 80%;
     z-index: -1;
+    @include filter-blur(0);
+
+    image {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .mask {

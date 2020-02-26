@@ -7,13 +7,18 @@ import UserIdol from '~/components/FlowList/UserIdol/index'
 import TabHeader from '~/components/TabHeader'
 import http from '~/utils/http'
 import event from '~/utils/event'
+import helper from '~/utils/helper'
+import blurPage from '~/mixins/blurPage'
+import BlurHeader from '~/components/BlurHeader/index'
 import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
-export default class extends Component {
+@blurPage
+class UserShow extends Component {
   config = {
     navigationStyle: 'custom',
-    disableScroll: true
+    disableScroll: false,
+    onReachBottomDistance: 0
   }
 
   constructor (props) {
@@ -61,39 +66,38 @@ export default class extends Component {
   }
 
   getFlowComponent({ type }) {
-    const { slug } = this.state
+    const { slug, scrollActive } = this.state
     switch (type) {
       case 'pin': {
-        return <UserPin slug={type} userSlug={slug} />
+        return <UserPin scrollY={scrollActive} slug={type} userSlug={slug} />
       }
       case 'bangumi': {
-        return <UserBangumi slug={type} userSlug={slug} />
+        return <UserBangumi scrollY={scrollActive} slug={type} userSlug={slug} />
       }
       case 'idol': {
-        return <UserIdol slug={type} userSlug={slug} />
+        return <UserIdol scrollY={scrollActive} slug={type} userSlug={slug} />
       }
     }
   }
 
   render () {
-    const { current, tabs, user } = this.state
+    const { current, tabs, user, collapsedHeader } = this.state
     if (!user) {
       return
     }
+    const menuRect = helper.getMenuRect()
     return (
-      <View className='user-show scroll-page'>
-        <View className='flex-shrink-0'>
+      <View className='user-show'>
+        <BlurHeader background={user.banner} title={user.nickname} collapsed={collapsedHeader}>
           <UserPanel user={user} />
-        </View>
-        <View className='flex-shrink-0'>
-          <TabHeader
-            line
-            list={tabs.map(_ => _.title)}
-            active={current}
-            onClick={this.handleTabClick.bind(this)}
-          />
-        </View>
-        <View className='flex-grow-1'>
+        </BlurHeader>
+        <TabHeader
+          line
+          list={tabs.map(_ => _.title)}
+          active={current}
+          onClick={this.handleTabClick.bind(this)}
+        />
+        <View style={`position:relative;height:calc(100vh - ${menuRect.header + 40}px)`}>
           <Swiper
             className='scroll-wrap'
             current={current}
@@ -115,3 +119,5 @@ export default class extends Component {
     )
   }
 }
+
+export default UserShow
