@@ -24,7 +24,7 @@ export default class FlowPinItem extends Component {
           state.showUser ? (
             <View className='header'>
               <Navigator className='user' hover-class='none' url={`/pages/user/show/index?slug=${item.author.slug}`}>
-                <Image lazyLoad className='avatar' src={helper.resize(item.author.avatar, { width: 100 })} />
+                <Image lazyLoad className='avatar' src={helper.resize(item.author.avatar, { width: 50 })} />
                 <Text>{ item.author.nickname }</Text>
               </Navigator>
               {
@@ -41,14 +41,14 @@ export default class FlowPinItem extends Component {
             item.banner.length === 3 ? (
               <View className='banner banner-3'>
                 <View className='image-wrap-2'>
-                  <Image lazyLoad src={helper.resize(item.banner[0], { width: 600 })} />
+                  <Image lazyLoad src={helper.resize(item.banner[0], { width: 250 })} />
                 </View>
                 <View className='image-wrap-1'>
                   <View className='image-box'>
-                    <Image lazyLoad src={helper.resize(item.banner[1], { width: 400 })} />
+                    <Image lazyLoad src={helper.resize(item.banner[1], { width: 125 })} />
                   </View>
                   <View className='image-box'>
-                    <Image lazyLoad src={helper.resize(item.banner[2], { width: 400 })} />
+                    <Image lazyLoad src={helper.resize(item.banner[2], { width: 125 })} />
                   </View>
                 </View>
               </View>
@@ -56,7 +56,7 @@ export default class FlowPinItem extends Component {
               <View className={`banner banner-${item.banner.length}`}>
                 {item.banner.map(image =>(
                   <View key={image} taroKey={image} className='image-box'>
-                    <Image lazyLoad src={helper.resize(image, item.banner.length === 2 ? { width: 400 } : { width: 800, height: 400 })} />
+                    <Image lazyLoad src={helper.resize(image, item.banner.length === 2 ? { width: 200 } : { width: 380, height: 190 })} />
                   </View>
                 ))}
               </View>

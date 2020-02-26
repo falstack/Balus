@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
 import helper from '~/utils/helper'
-import PageNav from '~/components/PageNav/index'
+import BlurHeader from '~/components/BlurHeader'
 import './index.scss'
 
 export default class IdolPanel extends Component {
@@ -14,35 +14,25 @@ export default class IdolPanel extends Component {
     const { idol } = this.props
     return (
       <View className='idol-panel'>
-        <View className='background'>
-          <Image
-            src={helper.resize(idol.avatar, {
-              height: 200,
-              mode: 2
-            })}
-            mode='aspectFill'
-            className='blur-bg'
-          />
-          <View className='shim' />
-          <PageNav title={idol.name} />
-          <View className='background-content'>
+        <BlurHeader blur background={idol.avatar} title={idol.name} collapsed={this.props.collapsed}>
+          <View className='content'>
             <Image
-              src={helper.resize(idol.avatar, { width: 200 })}
+              src={helper.resize(idol.avatar, { width: 170 })}
               mode='aspectFill'
               className='avatar'
             />
           </View>
-        </View>
-        <View className='idol-panel__footer'>
+        </BlurHeader>
+        <View className='footer'>
           {
             idol.buy_stock_count ?
-              <View className='idol-panel__mine'>
+              <View className='mine'>
                 <View>投入份额</View>
                 <View>{idol.buy_stock_count}票</View>
               </View>
               : ''
           }
-          <View className='idol-panel__price'>
+          <View className='price'>
             当前总分 {helper.calculate(idol.market_price)}
           </View>
         </View>
@@ -52,5 +42,6 @@ export default class IdolPanel extends Component {
 }
 
 IdolPanel.defaultProps = {
+  collapsed: false,
   idol: {}
 }

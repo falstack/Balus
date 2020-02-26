@@ -7,13 +7,15 @@
       opacity: 0;
     }
 
-    .mask {
-      background-color: rgba(0, 0, 0, 0.6);
-    }
-
     .head {
       opacity: 1;
       visibility: visible;
+    }
+
+    &.blur {
+      .cover {
+        @include filter-blur(80);
+      }
     }
   }
 
@@ -42,8 +44,28 @@
     width: 100%;
     height: 100%;
     z-index: -1;
-    background-color: rgba(0, 0, 0, 0.3);
-    transition: background-color 400ms ease-out;
+    background-color: #000;
+    opacity: 0.3;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(47,47,47,0) 100%);
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(47,47,47,0) 100%);
+    }
   }
 
   .menu {

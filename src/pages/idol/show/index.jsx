@@ -14,6 +14,7 @@ export default class extends Component {
     this.state = {
       slug: this.$router.params.slug,
       showEdit: false,
+      collapsedHeader: false,
       idol: {
         bangumi: {},
         lover: null
@@ -64,6 +65,21 @@ export default class extends Component {
       .catch(() => {})
   }
 
+  onPageScroll(evt) {
+    const collapsedHeader = evt.scrollTop > 100
+    if (collapsedHeader !== this.state.collapsedHeader) {
+      this.setState({
+        collapsedHeader
+      })
+    }
+    const scrollActive = evt.scrollTop > 0
+    if (scrollActive !== this.state.scrollActive) {
+      this.setState({
+        scrollActive
+      })
+    }
+  }
+
   getIdolFans() {
     http.get('idol/fans', {
       slug: this.state.slug,
@@ -98,11 +114,11 @@ export default class extends Component {
   }
 
   render () {
-    const { idol, fans_data, showEdit } = this.state
+    const { idol, fans_data, showEdit, collapsedHeader } = this.state
     const avatar = fans_data.map(user => (
       <Image
         className='avatar'
-        src={helper.resize(user.avatar, { width: 140 })}
+        src={helper.resize(user.avatar, { width: 70 })}
         key={user.slug}
         taroKey={user.slug}
         mode='aspectFit'
@@ -110,7 +126,7 @@ export default class extends Component {
     ))
     return (
       <View className='idol-show'>
-        <IdolPanel idol={idol} />
+        <IdolPanel idol={idol} collapsed={collapsedHeader} />
         <View className='intro'>
           <Text className='intro__title'>{idol.bangumi.name} {idol.name}</Text>
         </View>
