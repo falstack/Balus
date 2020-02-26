@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import helper from '~/utils/helper'
+import classNames from 'classnames'
 import './index.scss'
 
 export default class BlurHeader extends Component {
@@ -20,8 +21,8 @@ export default class BlurHeader extends Component {
   render () {
     const menuRect = helper.getMenuRect()
     return (
-      <View className={`blur-header ${this.props.collapsed ? 'collapsed' : ''}`}>
-        <View className='cover' style={`background-image:url(${this.props.background})`} />
+      <View className={classNames('blur-header', { 'collapsed': this.props.collapsed }, { 'blur': this.props.blur })}>
+        <View className='cover' style={`background-image:url(${helper.resize(this.props.background, { mode: 0, width: 375 })})`} />
         <View className='mask' />
         <View className='wrap' style={`padding:${menuRect.top}px ${menuRect.right}px ${menuRect.right}px ${menuRect.right}px`}>
           <View
@@ -45,6 +46,7 @@ export default class BlurHeader extends Component {
 }
 
 BlurHeader.defaultProps = {
+  blur: false,
   collapsed: false,
   background: '',
   title: ''

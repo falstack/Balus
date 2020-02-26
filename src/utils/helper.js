@@ -11,6 +11,14 @@ const adjustDate = (time) => {
   }
   return result
 }
+const DPR = (function () {
+  try {
+    const info = Taro.getSystemInfoSync()
+    return info.pixelRatio || 2
+  } catch (e) {
+    return 2
+  }
+})()
 
 export default {
   resize(url, options = {}) {
@@ -35,11 +43,11 @@ export default {
     let height
 
     if (mode === 1) {
-      width = `/w/${options.width}`
-      height = options.height ? `/h/${options.height}` : `/h/${options.width}`
+      width = `/w/${options.width * DPR}`
+      height = options.height ? `/h/${options.height * DPR}` : `/h/${options.width * DPR}`
     } else {
-      width = options.width ? `/w/${options.width}` : ''
-      height = options.height ? `/h/${options.height}` : ''
+      width = options.width ? `/w/${options.width * DPR}` : ''
+      height = options.height ? `/h/${options.height * DPR}` : ''
     }
 
     return `${link}?imageMogr2/auto-orient/strip|imageView2/${mode}${width}${height}${format}`
