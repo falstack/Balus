@@ -12,7 +12,7 @@
       visibility: visible;
     }
 
-    .cover {
+    .cover.cover {
       @include filter-blur(80);
     }
   }
