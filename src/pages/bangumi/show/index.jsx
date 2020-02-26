@@ -9,9 +9,11 @@ import http from '~/utils/http'
 import event from '~/utils/event'
 import helper from '~/utils/helper'
 import { flowEventKey } from '~/utils/flow'
+import blurPage from '~/mixins/blurPage'
 import './index.scss'
 
-export default class extends Component {
+@blurPage
+class BangumiShow extends Component {
   config = {
     navigationStyle: 'custom',
     disableScroll: false,
@@ -21,11 +23,10 @@ export default class extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      ...this.state,
       slug: this.$router.params.slug,
       bangumi: null,
       current: 0,
-      collapsedHeader: false,
-      scrollActive: false,
       tabs: [
         { type: 'pin', title: '帖子' },
         { type: 'idol', title: '偶像' }
@@ -44,27 +45,6 @@ export default class extends Component {
 
   componentDidMount() {
     this.getBangumi()
-  }
-
-  onReachBottom() {
-    this.setState({
-      scrollActive: true
-    })
-  }
-
-  onPageScroll(evt) {
-    const collapsedHeader = evt.scrollTop > 100
-    if (collapsedHeader !== this.state.collapsedHeader) {
-      this.setState({
-        collapsedHeader
-      })
-    }
-    const scrollActive = evt.scrollTop > 0
-    if (scrollActive !== this.state.scrollActive) {
-      this.setState({
-        scrollActive
-      })
-    }
   }
 
   getBangumi() {
@@ -161,3 +141,5 @@ export default class extends Component {
     )
   }
 }
+
+export default BangumiShow

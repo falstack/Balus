@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
-import flowEvent from '../flowEvent'
-import flowStore from '../flowStore'
-import FlowLoader from '../../FlowLoader/index'
+import flowEvent from '~/mixins/flowEvent'
+import flowStore from '~/mixins/flowStore'
+import FlowLoader from '~/components/FlowLoader'
 import './index.scss'
 
 @flowStore

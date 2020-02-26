@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
-import flowEvent from '~/components/FlowList/flowEvent'
-import flowStore from '~/components/FlowList/flowStore'
+import flowEvent from '~/mixins/flowEvent'
+import flowStore from '~/mixins/flowStore'
 import FlowLoader from '~/components/FlowLoader'
 import BangumiRankItem from '~/components/BangumiRankItem'
 import './index.scss'
