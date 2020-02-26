@@ -6,7 +6,8 @@ import './index.scss'
 
 export default class extends Component {
   config = {
-    navigationBarTitleText: ''
+    navigationBarTitleText: '',
+    disableScroll: false,
   }
 
   constructor (props) {
