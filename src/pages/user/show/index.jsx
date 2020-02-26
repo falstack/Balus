@@ -99,7 +99,6 @@ export default class extends Component {
             current={current}
             autoplay={false}
             duration={300}
-            skipHiddenItemLayout
             onChange={this.handleTabClick.bind(this)}
           >
             {tabs.map(tab => (
