@@ -7,13 +7,14 @@ import UserIdol from '~/components/FlowList/UserIdol/index'
 import TabHeader from '~/components/TabHeader'
 import http from '~/utils/http'
 import event from '~/utils/event'
-import utils from '~/utils'
 import blurPage from '~/mixin/blurPage'
+import menuRect from '~/mixin/menuRect'
 import BlurHeader from '~/components/BlurHeader/index'
 import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
 @blurPage
+@menuRect
 class UserShow extends Component {
   config = {
     navigationStyle: 'custom',
@@ -81,11 +82,10 @@ class UserShow extends Component {
   }
 
   render () {
-    const { current, tabs, user, collapsedHeader } = this.state
-    if (!user) {
+    const { current, tabs, user, collapsedHeader, menuRect } = this.state
+    if (!user || !menuRect) {
       return
     }
-    const menuRect = utils.getMenuRect()
     return (
       <View className='user-show'>
         <BlurHeader background={user.banner} title={user.nickname} collapsed={collapsedHeader}>

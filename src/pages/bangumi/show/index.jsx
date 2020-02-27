@@ -7,12 +7,13 @@ import BangumiPin from '~/components/FlowList/BangumiPin/index'
 import BangumiIdol from '~/components/FlowList/BangumiIdol/index'
 import http from '~/utils/http'
 import event from '~/utils/event'
-import utils from '~/utils'
 import { flowEventKey } from '~/utils/flow'
 import blurPage from '~/mixin/blurPage'
+import menuRect from '~/mixin/menuRect'
 import './index.scss'
 
 @blurPage
+@menuRect
 class BangumiShow extends Component {
   config = {
     navigationStyle: 'custom',
@@ -103,11 +104,10 @@ class BangumiShow extends Component {
   }
 
   render () {
-    const { current, tabs, slug, bangumi, collapsedHeader } = this.state
-    if (!bangumi) {
+    const { current, tabs, slug, bangumi, collapsedHeader, menuRect } = this.state
+    if (!bangumi || !menuRect) {
       return
     }
-    const menuRect = utils.getMenuRect()
     return (
       <View>
         <BlurHeader blur background={bangumi.avatar} title={bangumi.name} collapsed={collapsedHeader}>

@@ -54,16 +54,19 @@ export default {
   },
 
   getMenuRect() {
-    const cacheData = cache.get('MENU-SIZE')
+    const cacheData = cache.get('capsule-rect')
     if (cacheData) {
       return cacheData
     }
     const menuRect = Taro.getMenuButtonBoundingClientRect()
+    if (!menuRect.height) {
+      return null
+    }
     Taro.getSystemInfo({
       success: res => {
-        menuRect.right = res.screenWidth - menuRect.right
+        menuRect.right = (res.screenWidth - menuRect.right) || 8
         menuRect.header = menuRect.top + menuRect.right + menuRect.height
-        cache.set('MENU-SIZE', menuRect)
+        cache.set('capsule-rect', menuRect, false)
         return menuRect
       }
     })

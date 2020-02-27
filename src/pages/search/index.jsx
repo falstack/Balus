@@ -5,12 +5,13 @@ import TabHeader from '~/components/TabHeader'
 import SearchBangumi from '~/components/FlowList/SearchBangumi/index'
 import SearchIdol from '~/components/FlowList/SearchIdol/index'
 import event from '~/utils/event'
-import utils from '~/utils'
 import classNames from 'classnames'
+import menuRect from '~/mixin/menuRect'
 import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
-export default class extends Component {
+@menuRect
+class SearchShow extends Component {
   config = {
     navigationStyle: 'custom',
     disableScroll: true
@@ -19,6 +20,7 @@ export default class extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      ...this.state,
       value: '',
       current: 0,
       showHistory: true,
@@ -86,8 +88,10 @@ export default class extends Component {
   }
 
   render () {
-    const { current, tabs, showHistory } = this.state
-    const menuRect = utils.getMenuRect()
+    const { current, tabs, showHistory, menuRect } = this.state
+    if (!menuRect) {
+      return
+    }
     return (
       <View className='search scroll-page'>
         <View
@@ -144,3 +148,5 @@ export default class extends Component {
     )
   }
 }
+
+export default SearchShow

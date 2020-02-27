@@ -4,11 +4,13 @@ import http from '~/utils/http'
 import utils from '~/utils'
 import BangumiRankItem from "~/components/BangumiRankItem"
 import blurPage from '~/mixin/blurPage'
+import menuRect from '~/mixin/menuRect'
 import IdolPanel from './panel/IdolPanel'
 import IdolBottom from './bottom/IdolBottom'
 import './index.scss'
 
 @blurPage
+@menuRect
 class IdolShow extends Component {
   config = {
     navigationStyle: 'custom',
@@ -101,7 +103,10 @@ class IdolShow extends Component {
   }
 
   render () {
-    const { idol, fans_data, showEdit, collapsedHeader, scrollActive } = this.state
+    const { idol, fans_data, showEdit, collapsedHeader, scrollActive, menuRect } = this.state
+    if (!idol || !menuRect) {
+      return
+    }
     const avatar = fans_data.map(user => (
       <Image
         className='avatar'
@@ -111,7 +116,6 @@ class IdolShow extends Component {
         mode='aspectFit'
       />
     ))
-    const menuRect = utils.getMenuRect()
     return (
       <View className='idol-show'>
         <IdolPanel idol={idol} collapsed={collapsedHeader} />

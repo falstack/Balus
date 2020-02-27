@@ -4,12 +4,15 @@ import { AtIcon } from 'taro-ui'
 import cache from '~/utils/cache'
 import event from '~/utils/event'
 import utils from '~/utils'
+import menuRect from '~/mixin/menuRect'
 import './index.scss'
 
-export default class extends Component {
+@menuRect
+class SearchHeader extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      ...this.state,
       user: cache.get('USER', null)
     }
   }
@@ -46,8 +49,10 @@ export default class extends Component {
   }
 
   render () {
-    const { user } = this.state
-    const menuRect = utils.getMenuRect()
+    const { user, menuRect } = this.state
+    if (!menuRect) {
+      return
+    }
     return (
       <View
         className='search-header'
@@ -65,3 +70,5 @@ export default class extends Component {
     )
   }
 }
+
+export default SearchHeader

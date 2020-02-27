@@ -3,11 +3,16 @@ import { View, Image } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import utils from '~/utils'
 import classNames from 'classnames'
+import menuRect from '~/mixin/menuRect'
 import './index.scss'
 
-export default class BlurHeader extends Component {
+@menuRect
+class BlurHeader extends Component {
   constructor (props) {
     super(props)
+    this.state = {
+      ...this.state
+    }
   }
 
   back() {
@@ -19,7 +24,10 @@ export default class BlurHeader extends Component {
   }
 
   render () {
-    const menuRect = utils.getMenuRect()
+    const menuRect = this.state.menuRect
+    if (!menuRect) {
+      return
+    }
     const { blur } = this.props
     const imageSrc = utils.resize(this.props.background, { mode: 0, width: 375 })
     return (
@@ -60,3 +68,5 @@ BlurHeader.defaultProps = {
   background: '',
   title: ''
 }
+
+export default BlurHeader

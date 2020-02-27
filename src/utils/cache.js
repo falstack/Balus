@@ -3,11 +3,13 @@ import Taro from '@tarojs/taro'
 const globalData = {}
 
 export default {
-  set(key, data) {
-    try {
-      Taro.setStorageSync(key, data)
-    } catch (e) {
-      Taro.setStorage({ key, data })
+  set(key, data, stay = true) {
+    if (stay) {
+      try {
+        Taro.setStorageSync(key, data)
+      } catch (e) {
+        Taro.setStorage({ key, data })
+      }
     }
     globalData[key] = data
   },
