@@ -31,7 +31,15 @@ export default class extends Component {
       })
       return
     }
-    Taro.navigateBack().then(() => {}).catch(() => {
+    if (Taro.getCurrentPages().length <= 1) {
+      Taro.switchTab({
+        url: '/pages/user/home/index'
+      })
+      return
+    }
+    Taro.navigateBack({
+      delta: 1
+    }).then(() => {}).catch(() => {
       Taro.switchTab({
         url: '/pages/user/home/index'
       })
