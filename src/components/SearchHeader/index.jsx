@@ -51,11 +51,11 @@ export default class extends Component {
     return (
       <View
         className='search-header'
-        style={`margin-top: ${menuRect.top}px;padding-left: ${menuRect.right}px;padding-right: ${menuRect.right * 2 + menuRect.width}px;height:${menuRect.height + menuRect.right}px`}
+        style={`margin-top: ${menuRect.top}px;padding-left:${menuRect.right * 2}px;padding-right:${menuRect.right * 3 + menuRect.width}px;height:${menuRect.height + menuRect.right}px`}
       >
         <View className='shim' style={`height: ${menuRect.top}px`} />
-        <View className='avatar' style={`width: ${menuRect.height}px;height:${menuRect.height}px;margin-right:${menuRect.right}px`}>
-          <Image onClick={this.handleAvatarClick.bind(this)} src={helper.resize(user ? user.avatar : 'default-poster', { width: menuRect.height * 2 })} />
+        <View className='avatar' style={`width: ${menuRect.height}px;height:${menuRect.height}px;margin-right:${menuRect.right * 2}px`}>
+          <Image onClick={this.handleAvatarClick.bind(this)} src={helper.resize(user ? user.avatar : 'default-poster', { width: menuRect.height })} />
         </View>
         <View onClick={this.handleSearchClick.bind(this)} className='search' style={`border-radius:${menuRect.height / 2}px;height:${menuRect.height}px`}>
           <AtIcon value='search' color='#999999' size='15' />
