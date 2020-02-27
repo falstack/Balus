@@ -42,14 +42,14 @@ class App extends Component {
         {
           pagePath: 'pages/index/index',
           text: '首页',
-          iconPath: 'images/icon_home_default.png',
-          selectedIconPath: 'images/icon_home_active.png'
+          iconPath: 'image/icon_home_default.png',
+          selectedIconPath: 'image/icon_home_active.png'
         },
         {
           pagePath: 'pages/user/home/index',
           text: '我的',
-          iconPath: 'images/icon_mine_default.png',
-          selectedIconPath: 'images/icon_mine_active.png'
+          iconPath: 'image/icon_mine_default.png',
+          selectedIconPath: 'image/icon_mine_active.png'
         }
       ]
     }

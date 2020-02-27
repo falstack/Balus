@@ -13,7 +13,7 @@ export default class TrendIdolItem extends Component {
     const { idol, index, inBangumi } = this.props
     return (
       <Navigator hover-class='none' url={`/pages/idol/show/index?slug=${idol.slug}`} className='trend-idol'>
-        <Image className='trend-idol__avatar' src={idol.avatar} mode='aspectFill'></Image>
+        <Image className='trend-idol__avatar' src={idol.avatar} mode='aspectFill' />
         {
           index < 0 ? '' :
           index ?

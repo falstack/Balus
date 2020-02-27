@@ -3,7 +3,7 @@ import { View, Text, Image, Navigator, ScrollView } from '@tarojs/components'
 import http from '~/utils/http'
 import utils from '~/utils'
 import BangumiRankItem from "~/components/BangumiRankItem"
-import blurPage from '~/mixins/blurPage'
+import blurPage from '~/mixin/blurPage'
 import IdolPanel from './panel/IdolPanel'
 import IdolBottom from './bottom/IdolBottom'
 import './index.scss'

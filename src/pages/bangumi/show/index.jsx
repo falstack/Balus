@@ -9,7 +9,7 @@ import http from '~/utils/http'
 import event from '~/utils/event'
 import utils from '~/utils'
 import { flowEventKey } from '~/utils/flow'
-import blurPage from '~/mixins/blurPage'
+import blurPage from '~/mixin/blurPage'
 import './index.scss'
 
 @blurPage

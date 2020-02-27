@@ -3,9 +3,9 @@ import { View, Image, Button } from '@tarojs/components'
 import { AtForm, AtInput, AtButton, AtDivider } from 'taro-ui'
 import { oAuthLogin, accessLogin } from '~/utils/login'
 import toast from '~/utils/toast'
-import loginBg from '~/images/login_bg.png'
-import wechatIcon from '~/images/login_wechat_icon.png'
-import qqIcon from '~/images/login_qq_icon.png'
+import loginBg from '~/image/login_bg.png'
+import wechatIcon from '~/image/login_wechat_icon.png'
+import qqIcon from '~/image/login_qq_icon.png'
 import './index.scss'
 
 export default class extends Component {

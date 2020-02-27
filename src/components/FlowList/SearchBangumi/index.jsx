@@ -1,7 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
-import flowEvent from '~/mixins/flowEvent'
-import flowStore from '~/mixins/flowStore'
+import flowEvent from '~/mixin/flowEvent'
+import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
+import BangumiRankItem from '~/components/BangumiRankItem'
+import cache from '~/utils/cache'
 import './index.scss'
 
 @flowStore
@@ -11,12 +13,13 @@ class SearchBangumi extends Component {
     super(props)
     this.state = {
       ...this.state,
+      flowNamespace: 'search',
       flowReq: {
         url: 'search/mixin',
         type: 'page',
         query: {
           type: this.props.slug,
-          q: this.props.keywords
+          q: cache.get('search-keyword')
         }
       }
     }
@@ -24,14 +27,29 @@ class SearchBangumi extends Component {
 
   render () {
     return (
-      <FlowLoader flow={this.state} name='bangumi-rank' />
+      <FlowLoader
+        launch
+        flow={this.state}
+        slug={this.props.slug}
+        namespace={this.state.flowNamespace}
+      >
+        {
+          this.state.flow_result.map(item => (
+            <BangumiRankItem
+              taroKey={item.slug}
+              key={item.slug}
+              bangumi={item}
+            />
+          ))
+        }
+      </FlowLoader>
     )
   }
 }
 
 SearchBangumi.defaultProps = {
   slug: 'bangumi',
-  flowPrefix: 'search',
+  clearable: true,
   autoload: false
 }
 

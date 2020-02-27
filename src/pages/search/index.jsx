@@ -5,8 +5,10 @@ import TabHeader from '~/components/TabHeader'
 import SearchBangumi from '~/components/FlowList/SearchBangumi/index'
 import SearchIdol from '~/components/FlowList/SearchIdol/index'
 import event from '~/utils/event'
+import cache from '~/utils/cache'
 import utils from '~/utils'
 import classNames from 'classnames'
+import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
 export default class extends Component {
@@ -38,18 +40,21 @@ export default class extends Component {
   }
 
   handleSearchAction() {
-    const { value, lastQuery } = this.state
+    const { value, lastQuery, tabs, current } = this.state
     if (value === lastQuery) {
       return
     }
     this.setState({
       lastQuery: value,
-      showHistory: false
+      showHistory: !value
     })
-    event.emit('search-go', {
-      slug: this.state.tabs[this.state.current].type,
-      keywords: value
+    tabs.forEach(tab => {
+      event.emit(flowEventKey('search', 'clear', tab.type))
     })
+    if (value) {
+      cache.set('search-keyword', value)
+      event.emit(flowEventKey('search', 'switch', tabs[current].type))
+    }
   }
 
   back() {
@@ -62,12 +67,15 @@ export default class extends Component {
 
   handleTabClick(value) {
     const current = typeof value === 'number' ? value : value.detail.current
+    if (current === this.state.current) {
+      return
+    }
     this.setState({ current })
     const keywords = this.state.lastQuery
     if (!keywords) {
       return
     }
-    event.emit(`search-flow-switch-${this.state.tabs[current].type}`)
+    event.emit(flowEventKey('search', 'switch', this.state.tabs[current].type))
   }
 
   getFlowComponent({ type }) {

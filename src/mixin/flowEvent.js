@@ -15,6 +15,11 @@ export default function flowEvent(Comp) {
           this.loadBefore()
         })
       }
+      if (this.props.clearable) {
+        event.on(this._CREATE_EVENT_KEY('clear'), () => {
+          this.resetStore()
+        })
+      }
       if (this.props.autoload) {
         this.initData()
       }
@@ -23,6 +28,7 @@ export default function flowEvent(Comp) {
     componentWillUnmount() {
       event.off(this._CREATE_EVENT_KEY('switch'))
       event.off(this._CREATE_EVENT_KEY('bottom'))
+      event.off(this._CREATE_EVENT_KEY('clear'))
       event.off(this._CREATE_EVENT_KEY('top'))
     }
 
