@@ -4,8 +4,23 @@ import { flowEventKey } from '~/utils/flow'
 export default function flowEvent(Comp) {
   return class extends Comp {
     componentDidMount() {
-      event.on(this._CREATE_EVENT_KEY('switch'), () => {
-        this.initData()
+      event.on(this._CREATE_EVENT_KEY('switch'), (query) => {
+        if (!query) {
+          this.initData()
+          return
+        }
+        const flowReq = this.state.flowReq
+        this.setState({
+          flowReq: {
+            ...flowReq,
+            query: {
+              ...flowReq.query,
+              ...query
+            }
+          }
+        }, () => {
+          this.initData()
+        })
       })
       event.on(this._CREATE_EVENT_KEY('bottom'), () => {
         this.loadMore()

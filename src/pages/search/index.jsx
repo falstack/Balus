@@ -5,7 +5,6 @@ import TabHeader from '~/components/TabHeader'
 import SearchBangumi from '~/components/FlowList/SearchBangumi/index'
 import SearchIdol from '~/components/FlowList/SearchIdol/index'
 import event from '~/utils/event'
-import cache from '~/utils/cache'
 import utils from '~/utils'
 import classNames from 'classnames'
 import { flowEventKey } from '~/utils/flow'
@@ -21,7 +20,6 @@ export default class extends Component {
     super(props)
     this.state = {
       value: '',
-      lastQuery: '',
       current: 0,
       showHistory: true,
       tabs: [
@@ -39,21 +37,19 @@ export default class extends Component {
     }
   }
 
-  handleSearchAction() {
-    const { value, lastQuery, tabs, current } = this.state
-    if (value === lastQuery) {
-      return
-    }
+  handleSearchAction(evt) {
+    const { value } = evt.detail
+    const { tabs, current } = this.state
     this.setState({
-      lastQuery: value,
       showHistory: !value
     })
     tabs.forEach(tab => {
       event.emit(flowEventKey('search', 'clear', tab.type))
     })
     if (value) {
-      cache.set('search-keyword', value)
-      event.emit(flowEventKey('search', 'switch', tabs[current].type))
+      event.emit(flowEventKey('search', 'switch', tabs[current].type), {
+        q: value
+      })
     }
   }
 
@@ -71,20 +67,20 @@ export default class extends Component {
       return
     }
     this.setState({ current })
-    const keywords = this.state.lastQuery
-    if (!keywords) {
+    if (!this.state.value) {
       return
     }
     event.emit(flowEventKey('search', 'switch', this.state.tabs[current].type))
   }
 
   getFlowComponent({ type }) {
+    const { value } = this.state
     switch (type) {
       case 'bangumi': {
-        return <SearchBangumi slug={type} />
+        return <SearchBangumi slug={type} keyword={value} />
       }
       case 'idol': {
-        return <SearchIdol slug={type} />
+        return <SearchIdol slug={type} keyword={value} />
       }
     }
   }
@@ -103,7 +99,6 @@ export default class extends Component {
             <Input
               className='input-core'
               value={this.state.value}
-              focus
               confirmType='search'
               onChange={e => this.setState({ value: e.target.value })}
               onConfirm={this.handleSearchAction.bind(this)}

@@ -3,7 +3,6 @@ import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
 import BangumiRankItem from '~/components/BangumiRankItem'
-import cache from '~/utils/cache'
 import './index.scss'
 
 @flowStore
@@ -18,8 +17,7 @@ class SearchBangumi extends Component {
         url: 'search/mixin',
         type: 'page',
         query: {
-          type: this.props.slug,
-          q: cache.get('search-keyword')
+          type: this.props.slug
         }
       }
     }
