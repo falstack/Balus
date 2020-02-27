@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { WebView } from '@tarojs/components'
 import http from '~/utils/http'
-import helper from '~/utils/helper'
+import utils from '~/utils'
 import './index.scss'
 
 export default class extends Component {
@@ -47,7 +47,7 @@ export default class extends Component {
 
   render () {
     return (
-      <WebView src={helper.webview(`pin/${this.$router.params.slug}`)} />
+      <WebView src={utils.webview(`pin/${this.$router.params.slug}`)} />
     )
   }
 }

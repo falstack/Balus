@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
-import helper from '~/utils/helper'
+import utils from '~/utils'
 import BlurHeader from '~/components/BlurHeader'
 import './index.scss'
 
@@ -17,7 +17,7 @@ export default class IdolPanel extends Component {
         <BlurHeader blur background={idol.avatar} title={idol.name} collapsed={this.props.collapsed}>
           <View className='content'>
             <Image
-              src={helper.resize(idol.avatar, { width: 170 })}
+              src={utils.resize(idol.avatar, { width: 170 })}
               mode='aspectFill'
               className='avatar'
             />
@@ -33,7 +33,7 @@ export default class IdolPanel extends Component {
               : ''
           }
           <View className='price'>
-            当前总分 {helper.calculate(idol.market_price)}
+            当前总分 {utils.calculate(idol.market_price)}
           </View>
         </View>
       </View>

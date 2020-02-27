@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
 import { AtTag } from 'taro-ui'
-import helper from '~/utils/helper'
+import utils from '~/utils'
 import cache from '~/utils/cache'
 import './index.scss'
 
@@ -31,7 +31,7 @@ export default class UserPanel extends Component {
       <View class='public-user-panel'>
         <View className="avatar-wrap">
           <Image
-            src={helper.resize(user.avatar, {
+            src={utils.resize(user.avatar, {
               height: 160,
               mode: 2
             })}

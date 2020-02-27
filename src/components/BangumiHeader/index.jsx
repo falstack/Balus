@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator, Button } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
-import helper from '~/utils/helper'
+import utils from '~/utils'
 import cache from '~/utils/cache'
 import toast from '~/utils/toast'
 import http from '~/utils/http'
@@ -44,7 +44,7 @@ export default class BangumiHeader extends Component {
     const like_users = liker_list.slice(0, 5).map(item => (
       <Image
         className='avatar'
-        src={helper.resize(item.avatar, { width: 140 })}
+        src={utils.resize(item.avatar, { width: 140 })}
         key={item.slug}
         taroKey={item.slug}
         mode='aspectFit'
@@ -54,7 +54,7 @@ export default class BangumiHeader extends Component {
       <View className='bangumi-header'>
         <View className='content'>
           <Image
-            src={helper.resize(bangumi.avatar, { width: 200 })}
+            src={utils.resize(bangumi.avatar, { width: 200 })}
             mode='aspectFill'
             className='avatar'
           />

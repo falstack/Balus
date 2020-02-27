@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
 import { AtModal, AtModalHeader, AtModalContent, AtModalAction, AtInputNumber } from "taro-ui"
 import http from '~/utils/http'
-import helper from '~/utils/helper'
+import utils from '~/utils'
 import cache from '~/utils/cache'
 import toast from '~/utils/toast'
 import state from '~/utils/state'
@@ -61,7 +61,7 @@ export default class IdolBottom extends Component {
       submitting: true
     })
     const { idol } = this.props
-    const amount = +helper.calculate(value * idol.stock_price)
+    const amount = +utils.calculate(value * idol.stock_price)
     http.post('idol/vote', {
       slug: idol.slug,
       coin_amount: amount,

@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Navigator } from '@tarojs/components'
-import helper from '~/utils/helper'
+import utils from '~/utils'
 import { AtAvatar, AtIcon, AtButton } from 'taro-ui'
 import http from '~/utils/http'
 import state from '~/utils/state'
@@ -52,7 +52,7 @@ export default class UserPanel extends Component {
               <AtAvatar
                 circle
                 size='large'
-                image={helper.resize(user.avatar, { width: 200 })}
+                image={utils.resize(user.avatar, { width: 200 })}
               />
             </View>
             <View className='text'>

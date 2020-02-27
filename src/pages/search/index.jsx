@@ -1,13 +1,17 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
-import { AtTabs, AtSearchBar } from 'taro-ui'
+import { View, Swiper, Input, SwiperItem } from '@tarojs/components'
+import { AtIcon } from 'taro-ui'
+import TabHeader from '~/components/TabHeader'
 import SearchBangumi from '~/components/FlowList/SearchBangumi/index'
 import SearchIdol from '~/components/FlowList/SearchIdol/index'
 import event from '~/utils/event'
+import utils from '~/utils'
+import classNames from 'classnames'
 import './index.scss'
 
 export default class extends Component {
   config = {
+    navigationStyle: 'custom',
     disableScroll: true
   }
 
@@ -17,6 +21,7 @@ export default class extends Component {
       value: '',
       lastQuery: '',
       current: 0,
+      showHistory: true,
       tabs: [
         { type: 'bangumi', title: '番剧' },
         { type: 'idol', title: '偶像' }
@@ -32,23 +37,26 @@ export default class extends Component {
     }
   }
 
-  handleSearchInput (value) {
-    this.setState({
-      value
-    })
-  }
-
   handleSearchAction() {
     const { value, lastQuery } = this.state
     if (value === lastQuery) {
       return
     }
     this.setState({
-      lastQuery: value
+      lastQuery: value,
+      showHistory: false
     })
     event.emit('search-go', {
       slug: this.state.tabs[this.state.current].type,
       keywords: value
+    })
+  }
+
+  back() {
+    Taro.navigateBack().then(() => {}).catch(() => {
+      Taro.switchTab({
+        url: '/pages/index/index'
+      })
     })
   }
 
@@ -60,14 +68,6 @@ export default class extends Component {
       return
     }
     event.emit(`search-flow-switch-${this.state.tabs[current].type}`)
-  }
-
-  handleScrollBottom() {
-    const keywords = this.state.lastQuery
-    if (!keywords) {
-      return
-    }
-    event.emit(`search-flow-bottom-${this.state.tabs[this.state.current].type}`)
   }
 
   getFlowComponent({ type }) {
@@ -82,28 +82,43 @@ export default class extends Component {
   }
 
   render () {
-    const { current, tabs } = this.state
+    const { current, tabs, showHistory } = this.state
+    const menuRect = utils.getMenuRect()
     return (
       <View className='search scroll-page'>
-        <View className='flex-shrink-0'>
-          <AtSearchBar
-            placeholder='搜一下'
-            focus
-            value={this.state.value}
-            onChange={this.handleSearchInput.bind(this)}
-            onConfirm={this.handleSearchAction.bind(this)}
-            onActionClick={this.handleSearchAction.bind(this)}
-          />
+        <View
+          className='flex-shrink-0 input-wrap'
+          style={`height:${menuRect.header}px;padding:${menuRect.top}px ${menuRect.width + menuRect.right * 2}px ${menuRect.right}px ${menuRect.right}px`}
+        >
+          <View class='input-box'>
+            <AtIcon value='search' color='#999999' size='15' />
+            <Input
+              className='input-core'
+              value={this.state.value}
+              focus
+              confirmType='search'
+              onChange={e => this.setState({ value: e.target.value })}
+              onConfirm={this.handleSearchAction.bind(this)}
+            />
+          </View>
+          <Text className='cancel' onClick={this.back}>取消</Text>
         </View>
-        <View className='flex-shrink-0'>
-          <AtTabs
-            current={current}
-            animated={false}
-            tabList={tabs}
+        {
+          showHistory ? <View
+            className='history-wrap'
+            style={`top:${menuRect.header}px`}
+          >
+          </View> : ''
+        }
+        <View className={classNames('flex-shrink-0', { showHistory: 'panel-hidden' })}>
+          <TabHeader
+            line
+            list={tabs.map(_ => _.title)}
+            active={current}
             onClick={this.handleTabClick.bind(this)}
           />
         </View>
-        <View className='flex-grow-1'>
+        <View className={classNames('flex-grow-1', { showHistory: 'panel-hidden' })}>
           <Swiper
             className='scroll-wrap'
             current={current}
@@ -116,13 +131,7 @@ export default class extends Component {
                 key={tab.type}
                 taroKey={tab.type}
               >
-                <ScrollView
-                  className='scroll-view'
-                  scrollY
-                  onScrollToLower={this.handleScrollBottom.bind(this)}
-                >
-                  {this.getFlowComponent(tab)}
-                </ScrollView>
+                {this.getFlowComponent(tab)}
               </SwiperItem>
             ))}
           </Swiper>

@@ -3,7 +3,7 @@ import { View, Text, Image } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import cache from '~/utils/cache'
 import event from '~/utils/event'
-import helper from '~/utils/helper'
+import utils from '~/utils'
 import './index.scss'
 
 export default class extends Component {
@@ -47,7 +47,7 @@ export default class extends Component {
 
   render () {
     const { user } = this.state
-    const menuRect = helper.getMenuRect()
+    const menuRect = utils.getMenuRect()
     return (
       <View
         className='search-header'
@@ -55,7 +55,7 @@ export default class extends Component {
       >
         <View className='shim' style={`height: ${menuRect.top}px`} />
         <View className='avatar' style={`width: ${menuRect.height}px;height:${menuRect.height}px;margin-right:${menuRect.right * 2}px`}>
-          <Image onClick={this.handleAvatarClick.bind(this)} src={helper.resize(user ? user.avatar : 'default-poster', { width: menuRect.height })} />
+          <Image onClick={this.handleAvatarClick.bind(this)} src={utils.resize(user ? user.avatar : 'default-poster', { width: menuRect.height })} />
         </View>
         <View onClick={this.handleSearchClick.bind(this)} className='search' style={`border-radius:${menuRect.height / 2}px;height:${menuRect.height}px`}>
           <AtIcon value='search' color='#999999' size='15' />

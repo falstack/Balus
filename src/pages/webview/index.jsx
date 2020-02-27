@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { WebView } from '@tarojs/components'
-import helper from '~/utils/helper'
+import utils from '~/utils'
 
 export default class extends Component {
   config = {
@@ -14,7 +14,7 @@ export default class extends Component {
 
   render () {
     return (
-      <WebView src={helper.webview(decodeURIComponent(this.$router.params.url))} />
+      <WebView src={utils.webview(decodeURIComponent(this.$router.params.url))} />
     )
   }
 }

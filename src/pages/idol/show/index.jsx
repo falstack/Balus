@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator, ScrollView } from '@tarojs/components'
 import http from '~/utils/http'
-import helper from '~/utils/helper'
+import utils from '~/utils'
 import BangumiRankItem from "~/components/BangumiRankItem"
 import blurPage from '~/mixins/blurPage'
 import IdolPanel from './panel/IdolPanel'
@@ -86,8 +86,8 @@ class IdolShow extends Component {
     this.setState({
       idol: {
         ...idol,
-        buy_stock_count: helper.calculate(+idol.buy_stock_count + stock_count),
-        market_price: helper.calculate(+idol.market_price + stock_count)
+        buy_stock_count: utils.calculate(+idol.buy_stock_count + stock_count),
+        market_price: utils.calculate(+idol.market_price + stock_count)
       }
     })
   }
@@ -96,7 +96,7 @@ class IdolShow extends Component {
     this.getIdolData()
     this.getIdolFans()
     this.setState({
-      showEdit: helper.hasRole('update_bangumi')
+      showEdit: utils.hasRole('update_bangumi')
     })
   }
 
@@ -105,13 +105,13 @@ class IdolShow extends Component {
     const avatar = fans_data.map(user => (
       <Image
         className='avatar'
-        src={helper.resize(user.avatar, { width: 70 })}
+        src={utils.resize(user.avatar, { width: 70 })}
         key={user.slug}
         taroKey={user.slug}
         mode='aspectFit'
       />
     ))
-    const menuRect = helper.getMenuRect()
+    const menuRect = utils.getMenuRect()
     return (
       <View className='idol-show'>
         <IdolPanel idol={idol} collapsed={collapsedHeader} />

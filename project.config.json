@@ -70,6 +70,13 @@
 					"pathName": "pages/idol/show/index",
 					"query": "slug=5m6bb",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "搜索页面",
+					"pathName": "pages/search/index",
+					"query": "slug=5m6bb",
+					"scene": null
 				}
 			]
 		}

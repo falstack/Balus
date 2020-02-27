@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
-import helper from '~/utils/helper'
+import utils from '~/utils'
 import classNames from 'classnames'
 import './index.scss'
 
@@ -19,9 +19,9 @@ export default class BlurHeader extends Component {
   }
 
   render () {
-    const menuRect = helper.getMenuRect()
+    const menuRect = utils.getMenuRect()
     const { blur } = this.props
-    const imageSrc = helper.resize(this.props.background, { mode: 0, width: 375 })
+    const imageSrc = utils.resize(this.props.background, { mode: 0, width: 375 })
     return (
       <View className={classNames('blur-header', { 'collapsed': this.props.collapsed }, { 'blur': blur })}>
         <View className='cover' style={blur ? `background-image:url(${imageSrc})` : ''}>

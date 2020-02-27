@@ -7,7 +7,7 @@ import UserIdol from '~/components/FlowList/UserIdol/index'
 import TabHeader from '~/components/TabHeader'
 import http from '~/utils/http'
 import event from '~/utils/event'
-import helper from '~/utils/helper'
+import utils from '~/utils'
 import blurPage from '~/mixins/blurPage'
 import BlurHeader from '~/components/BlurHeader/index'
 import { flowEventKey } from '~/utils/flow'
@@ -85,7 +85,7 @@ class UserShow extends Component {
     if (!user) {
       return
     }
-    const menuRect = helper.getMenuRect()
+    const menuRect = utils.getMenuRect()
     return (
       <View className='user-show'>
         <BlurHeader background={user.banner} title={user.nickname} collapsed={collapsedHeader}>

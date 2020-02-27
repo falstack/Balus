@@ -7,7 +7,7 @@ import BangumiPin from '~/components/FlowList/BangumiPin/index'
 import BangumiIdol from '~/components/FlowList/BangumiIdol/index'
 import http from '~/utils/http'
 import event from '~/utils/event'
-import helper from '~/utils/helper'
+import utils from '~/utils'
 import { flowEventKey } from '~/utils/flow'
 import blurPage from '~/mixins/blurPage'
 import './index.scss'
@@ -107,7 +107,7 @@ class BangumiShow extends Component {
     if (!bangumi) {
       return
     }
-    const menuRect = helper.getMenuRect()
+    const menuRect = utils.getMenuRect()
     return (
       <View>
         <BlurHeader blur background={bangumi.avatar} title={bangumi.name} collapsed={collapsedHeader}>
