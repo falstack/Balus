@@ -100,6 +100,7 @@ export default class extends Component {
               className='input-core'
               value={this.state.value}
               confirmType='search'
+              focus
               onChange={e => this.setState({ value: e.target.value })}
               onConfirm={this.handleSearchAction.bind(this)}
             />
