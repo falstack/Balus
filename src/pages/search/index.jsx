@@ -80,7 +80,9 @@ class SearchShow extends Component {
     if (!this.state.value) {
       return
     }
-    event.emit(flowEventKey('search', 'switch', this.state.tabs[current].type))
+    event.emit(flowEventKey('search', 'switch', this.state.tabs[current].type), {
+      q: this.state.value
+    })
   }
 
   getFlowComponent({ type }) {
