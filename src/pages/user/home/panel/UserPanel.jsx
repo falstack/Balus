@@ -52,11 +52,13 @@ class UserPanel extends Component {
     }
 
     return (
-      <View
-        className='user-panel'
-        style={`padding:${menuRect.header}px ${menuRect.right * 2}px ${menuRect.right * 2}px`}
-      >
-        <Navigator hover-class='none' url={`/pages/user/show/index?slug=${user.slug}`}>
+      <View className='user-panel'>
+        <View className='shim' style={`padding-top:${menuRect.header}px`}/>
+        <Navigator
+          hover-class='none'
+          url={`/pages/user/show/index?slug=${user.slug}`}
+          style={`padding:0 ${menuRect.right * 2}px`}
+        >
           <View className='intro' style={`margin-bottom:${menuRect.right * 2}px`}>
             <View className='avatar' style={`margin-right:${menuRect.right * 2}px`}>
               <Image className='avatar-src' src={utils.resize(user.avatar, { width: 120 })}/>
@@ -73,7 +75,10 @@ class UserPanel extends Component {
             </View>
           </View>
         </Navigator>
-        <View className='control'>
+        <View
+          className='control'
+          style={`padding:${menuRect.right * 2}px ${menuRect.right * 2}px ${menuRect.right * 2}px`}
+        >
           <View className='metas'>
             <View className='meta'>
               <View className='count'>{user.stat_activity + user.stat_exposure}</View>
