@@ -1,11 +1,20 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
+import menuRect from '~/mixin/menuRect'
 import './index.scss'
 
-export default class extends Component {
+@menuRect
+class BangumiRank extends Component {
+  config = {
+    navigationBarTextStyle: 'white',
+    navigationStyle: 'custom'
+  }
+
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      ...this.state,
+    }
   }
 
   componentWillMount () { }
@@ -19,10 +28,19 @@ export default class extends Component {
   componentDidHide () { }
 
   render () {
+    const { menuRect } = this.state
+    if (!menuRect) {
+      return
+    }
+
     return (
-      <View>
-        <Text>榜单</Text>
+      <View className='bangumi-rank'>
+        <View className="header" style={`height:${menuRect.header}px;padding-top:${menuRect.top}px`}>
+          榜单
+        </View>
       </View>
     )
   }
 }
+
+export default BangumiRank

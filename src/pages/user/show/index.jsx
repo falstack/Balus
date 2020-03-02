@@ -17,6 +17,7 @@ import './index.scss'
 @menuRect
 class UserShow extends Component {
   config = {
+    navigationBarTextStyle: 'white',
     navigationStyle: 'custom',
     disableScroll: false,
     onReachBottomDistance: 0

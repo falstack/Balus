@@ -13,6 +13,7 @@ import './index.scss'
 @menuRect
 class IdolShow extends Component {
   config = {
+    navigationBarTextStyle: 'white',
     navigationStyle: 'custom',
     disableScroll: false,
     onReachBottomDistance: 0

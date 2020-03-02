@@ -82,6 +82,13 @@
 					"id": -1,
 					"name": "我的页面",
 					"pathName": "pages/user/home/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "榜单",
+					"pathName": "pages/bangumi/rank/index",
 					"scene": null
 				}
 			]

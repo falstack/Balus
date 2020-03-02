@@ -13,6 +13,7 @@ import './index.scss'
 
 export default class extends Component {
   config = {
+    navigationBarTextStyle: 'white',
     navigationStyle: 'custom',
     disableScroll: true
   }

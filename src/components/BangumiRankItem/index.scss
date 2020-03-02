@@ -1,9 +1,9 @@
-.bangumi-rank {
+.bangumi-rank-item {
   position: relative;
   padding: 24px;
   border-bottom: 1px solid #E7E7E7;
 
-  &__avatar {
+  .avatar {
     width: 156px;
     height: 208px;
     border-radius: 8px;
@@ -11,7 +11,7 @@
     float: left;
   }
 
-  &__order {
+  .order {
     position: absolute;
     bottom: 24px;
     left: 24px;
@@ -25,30 +25,30 @@
     text-align: center;
   }
 
-  &__score {
+  .score {
     float: right;
     margin-top: -10px;
     margin-left: 10px;
 
-    &__number {
+    .number {
       color: #FFA726;
       font-size: 40px;
       font-weight: bold;
     }
 
-    &__fen {
+    .fen {
       color: #FFA726;
       font-size: 24px;
       margin-left: 2px;
     }
   }
 
-  &__content {
+  .content {
     height: 208px;
     overflow: hidden;
   }
 
-  &__title {
+  .title {
     font-size: 28px;
     color: $color-red;
     overflow: hidden;
