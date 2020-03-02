@@ -1,10 +1,12 @@
 .search-header {
+  background-color: $color-red;
+
   .shim {
     position: fixed;
     left: 0;
     top: 0;
     width: 100%;
-    background-image: linear-gradient(#fff 80%, rgba(#fff, 0.1));
+    background-color: $color-red;
   }
 
   .avatar {
@@ -23,8 +25,8 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    background-color: #F4F4F4;
-    color: #999999;
+    background-color: #c95b7a;
+    color: #fc95b3;
     font-size: 28px;
     padding-left: 30px;
     overflow: hidden;

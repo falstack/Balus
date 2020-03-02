@@ -77,6 +77,12 @@
 					"pathName": "pages/search/index",
 					"query": "slug=5m6bb",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的页面",
+					"pathName": "pages/user/home/index",
+					"scene": null
 				}
 			]
 		}

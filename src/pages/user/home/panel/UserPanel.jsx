@@ -1,16 +1,19 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Navigator } from '@tarojs/components'
+import { View, Text, Image, Navigator } from '@tarojs/components'
 import utils from '~/utils'
-import { AtAvatar, AtIcon, AtButton } from 'taro-ui'
+import { AtIcon, AtButton } from 'taro-ui'
 import http from '~/utils/http'
 import state from '~/utils/state'
 import toast from '~/utils/toast'
+import menuRect from '~/mixin/menuRect'
 import './index.scss'
 
-export default class UserPanel extends Component {
+@menuRect
+class UserPanel extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      ...this.state,
       signing: false
     }
   }
@@ -39,21 +42,24 @@ export default class UserPanel extends Component {
   }
 
   render() {
+    const { menuRect } = this.state
+    if (!menuRect) {
+      return
+    }
     const { user } = this.props
     if (!user) {
       return
     }
 
     return (
-      <View className='user-panel'>
+      <View
+        className='user-panel'
+        style={`padding:${menuRect.header}px ${menuRect.right * 2}px ${menuRect.right * 2}px`}
+      >
         <Navigator hover-class='none' url={`/pages/user/show/index?slug=${user.slug}`}>
-          <View className='intro'>
-            <View className='avatar'>
-              <AtAvatar
-                circle
-                size='large'
-                image={utils.resize(user.avatar, { width: 200 })}
-              />
+          <View className='intro' style={`margin-bottom:${menuRect.right * 2}px`}>
+            <View className='avatar' style={`margin-right:${menuRect.right * 2}px`}>
+              <Image className='avatar-src' src={utils.resize(user.avatar, { width: 120 })}/>
             </View>
             <View className='text'>
               <View className='nickname-wrap'>
@@ -63,7 +69,7 @@ export default class UserPanel extends Component {
               <Text className='invite'>cc号：{user.slug}</Text>
             </View>
             <View className='arrow'>
-              <AtIcon value='chevron-right' size='20' color='#657786' />
+              <AtIcon value='chevron-right' size='20' color='#fff' />
             </View>
           </View>
         </Navigator>
@@ -103,3 +109,5 @@ UserPanel.defaultProps = {
     providers: {}
   }
 }
+
+export default UserPanel

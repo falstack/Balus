@@ -8,7 +8,6 @@ import BangumiPin from '~/components/FlowList/BangumiPin/index'
 import WriteFlatBtn from '~/components/WriteFlatBtn/index'
 import TabHeader from '~/components/TabHeader'
 import event from '~/utils/event'
-import utils from '~/utils'
 import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 

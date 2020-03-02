@@ -1,18 +1,21 @@
 .user-panel {
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-top: 128px;
+  background-color: $color-red;
 
   .intro {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 30px;
     @extend %clearfix;
 
     .avatar {
       float: left;
-      margin-right: 28px;
+
+      .avatar-src {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 3px solid #fff;
+      }
     }
 
     .text {
@@ -31,7 +34,7 @@
 
         .nickname {
           font-size: 46px;
-          color: $color-text-normal;
+          color: #fff;
           font-weight: 500;
           margin-right: 12px;
           @extend %oneline;
@@ -53,7 +56,7 @@
 
       .invite {
         font-size: 26px;
-        color: $color-text-light;
+        color: #fff;
       }
     }
 
@@ -64,13 +67,11 @@
   }
 
   .control {
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-bottom: 30px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    background-color: #fff;
 
     .metas {
       display: flex;

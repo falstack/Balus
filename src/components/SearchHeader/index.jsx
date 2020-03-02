@@ -63,7 +63,7 @@ class SearchHeader extends Component {
           <Image onClick={this.handleAvatarClick.bind(this)} src={utils.resize(user ? user.avatar : 'default-poster', { width: menuRect.height })} />
         </View>
         <View onClick={this.handleSearchClick.bind(this)} className='search' style={`border-radius:${menuRect.height / 2}px;height:${menuRect.height}px`}>
-          <AtIcon value='search' color='#999999' size='15' />
+          <AtIcon value='search' color='#fc95b3' size='15' />
           <Text className='text'>搜索 calibur.tv</Text>
         </View>
       </View>
