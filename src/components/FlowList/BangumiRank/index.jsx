@@ -2,23 +2,20 @@ import Taro, { Component } from '@tarojs/taro'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
-import VideoItem from '~/components/FlowItem/VideoItem'
+import BangumiRankItem from '~/components/BangumiRankItem'
 import './index.scss'
 
 @flowStore
 @flowEvent
-class RecommendedVideos extends Component {
+class BangumiRank extends Component {
   constructor (props) {
     super(props)
     this.state = {
       ...this.state,
-      flowNamespace: 'recommended',
+      flowNamespace: 'rank',
       flowReq: {
-        url: 'getHotRecommendedVideos',
-        type: 'page',
-        query: {
-          count: 10
-        }
+        url: 'bangumi/rank',
+        type: 'page'
       }
     }
   }
@@ -26,14 +23,18 @@ class RecommendedVideos extends Component {
   render () {
     return (
       <FlowLoader
-        flow={this.state}
         launch
-        before
+        flow={this.state}
         namespace={this.state.flowNamespace}
       >
         {
-          this.state.flow_result.map(item => (
-            <VideoItem taroKey={item.aid} key={item.aid} item={item} />
+          this.state.flow_result.map((item, index) => (
+            <BangumiRankItem
+              taroKey={item.slug}
+              key={item.slug}
+              bangumi={item}
+              index={index}
+            />
           ))
         }
       </FlowLoader>
@@ -41,9 +42,8 @@ class RecommendedVideos extends Component {
   }
 }
 
-RecommendedVideos.defaultProps = {
-  loadBefore: true,
+BangumiRank.defaultProps = {
   autoload: true
 }
 
-export default RecommendedVideos
+export default BangumiRank
