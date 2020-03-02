@@ -22,6 +22,7 @@ class App extends Component {
       'pages/user/show/index',
       'pages/user/login/index',
       'pages/bangumi/show/index',
+      'pages/bangumi/rank/index',
       'pages/search/index',
       'pages/pin/show/index',
       'pages/webview/index',
@@ -33,8 +34,8 @@ class App extends Component {
       navigationBarTextStyle: 'black'
     },
     tabBar: {
-      color: '#333333',
-      selectedColor: '#fb7299',
+      color: '#A7BAC7',
+      selectedColor: '#14171A',
       backgroundColor: '#ffffff',
       borderStyle: 'white',
       position: 'bottom',
@@ -42,14 +43,20 @@ class App extends Component {
         {
           pagePath: 'pages/index/index',
           text: '首页',
-          iconPath: 'image/icon_home_default.png',
-          selectedIconPath: 'image/icon_home_active.png'
+          iconPath: 'image/tab_1.png',
+          selectedIconPath: 'image/tab_1_selected.png'
+        },
+        {
+          pagePath: 'pages/bangumi/rank/index',
+          text: '榜单',
+          iconPath: 'image/tab_2.png',
+          selectedIconPath: 'image/tab_2_selected.png'
         },
         {
           pagePath: 'pages/user/home/index',
           text: '我的',
-          iconPath: 'image/icon_mine_default.png',
-          selectedIconPath: 'image/icon_mine_active.png'
+          iconPath: 'image/tab_3.png',
+          selectedIconPath: 'image/tab_3_selected.png'
         }
       ]
     }
