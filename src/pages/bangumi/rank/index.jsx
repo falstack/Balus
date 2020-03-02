@@ -18,15 +18,13 @@ class BangumiRank extends Component {
     }
   }
 
-  componentWillMount () { }
-
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
+  onShareAppMessage() {
+    return {
+      title: '萌市，动漫排行榜',
+      path: '/pages/index/index',
+      imageUrl: 'https://m1.calibur.tv/default-poster?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400'
+    }
+  }
 
   render () {
     const { menuRect } = this.state

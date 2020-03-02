@@ -21,7 +21,8 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		}
+		},
+		"uglifyFileName": true
 	},
 	"compileType": "miniprogram",
 	"simulatorType": "wechat",
