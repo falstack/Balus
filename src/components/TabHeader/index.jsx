@@ -43,12 +43,12 @@ class TabHeader extends Component {
   }
 
   render () {
-    const { list, active, line } = this.props
+    const { list, active, line, pink } = this.props
     const { tabRect } = this.state
     return (
       <ScrollView
         scrollLeft={tabRect && active ? tabRect[active - 1].left : 0}
-        className={classNames('tab-header', `tab-header--${list.length}`, { 'tab-header--line': line })}
+        className={classNames('tab-header', `tab-header--${list.length}`, { 'tab-header--line': line }, { 'tab-header--pink': pink })}
         scrollX
         scrollWithAnimation
       >
@@ -73,6 +73,7 @@ class TabHeader extends Component {
 
 TabHeader.defaultProps = {
   line: false,
+  pink: false,
   list: [],
   active: 0,
   onClick: () => {}

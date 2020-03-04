@@ -73,6 +73,7 @@ export default class extends Component {
         <View className='flex-shrink-0'>
           <TabHeader
             line
+            pink
             list={tabs.map(_ => _.title)}
             active={current}
             onClick={this.handleTabClick.bind(this)}
