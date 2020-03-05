@@ -75,6 +75,7 @@ export const defaultFlowField = {
   flow_noMore: false,
   flow_nothing: false,
   flow_loading: false,
+  flow_refreshing: false,
   flow_fetched: false,
   flow_error: null,
   flow_extra: null,

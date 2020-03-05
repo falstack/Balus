@@ -25,6 +25,7 @@ class RecommendedPin extends Component {
     return (
       <FlowLoader
         launch
+        refresh
         flow={this.state}
         slug={this.props.slug}
         namespace={this.state.flowNamespace}
@@ -45,6 +46,7 @@ class RecommendedPin extends Component {
 
 RecommendedPin.defaultProps = {
   slug: 'recommended',
+  refresh: true,
   autoload: true
 }
 

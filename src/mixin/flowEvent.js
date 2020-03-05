@@ -25,6 +25,11 @@ export default function flowEvent(Comp) {
       event.on(this._CREATE_EVENT_KEY('bottom'), () => {
         this.loadMore()
       })
+      if (this.props.refresh) {
+        event.on(this._CREATE_EVENT_KEY('refresh'), () => {
+          this.initData(true)
+        })
+      }
       if (this.props.loadBefore) {
         event.on(this._CREATE_EVENT_KEY('top'), () => {
           this.loadBefore()
@@ -42,6 +47,7 @@ export default function flowEvent(Comp) {
 
     componentWillUnmount() {
       event.off(this._CREATE_EVENT_KEY('switch'))
+      event.off(this._CREATE_EVENT_KEY('refresh'))
       event.off(this._CREATE_EVENT_KEY('bottom'))
       event.off(this._CREATE_EVENT_KEY('clear'))
       event.off(this._CREATE_EVENT_KEY('top'))

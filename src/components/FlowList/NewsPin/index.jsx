@@ -30,6 +30,7 @@ class NewsPin extends Component {
     return (
       <FlowLoader
         launch
+        refresh
         flow={this.state}
         slug={this.props.slug}
         namespace={this.state.flowNamespace}
@@ -51,6 +52,7 @@ class NewsPin extends Component {
 
 NewsPin.defaultProps = {
   slug: 'news',
+  refresh: true,
   autoload: false
 }
 

@@ -32,6 +32,7 @@ class BangumiActive extends Component {
         launch
         flow={this.state}
         slug={this.props.slug}
+        refresh={this.props.refresh}
         scrollY={this.props.scrollY}
         namespace={this.state.flowNamespace}
       >
@@ -54,6 +55,7 @@ BangumiActive.defaultProps = {
   slug: '',
   prefix: '',
   bangumiSlug: '',
+  refresh: true,
   autoload: false,
   scrollY: true
 }

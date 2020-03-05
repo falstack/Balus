@@ -27,6 +27,7 @@ class ActivityIdol extends Component {
     return (
       <FlowLoader
         launch
+        refresh
         flow={this.state}
         slug={this.props.slug}
         namespace={this.state.flowNamespace}
@@ -48,6 +49,7 @@ class ActivityIdol extends Component {
 
 ActivityIdol.defaultProps = {
   slug: 'idol',
+  refresh: true,
   autoload: false
 }
 

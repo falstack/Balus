@@ -16,7 +16,7 @@ export default function flowStore(Comp) {
       if (this.state.flow_loading) {
         return
       }
-      this._SET_FLOW_LOADING()
+      this._SET_FLOW_LOADING(refresh)
       const flowReq = this.state.flowReq
       const params = generateRequestParams(refresh ? defaultFlowField : this.state, flowReq.query, flowReq.type)
       const request = /\//.test(flowReq.url) ? http.get(flowReq.url, params) : API[flowReq.url](params)
@@ -65,6 +65,7 @@ export default function flowStore(Comp) {
       const { result, extra } = data
       const state = {
         flow_loading: false,
+        flow_refreshing: false,
         flow_total: data.total,
         flow_noMore: req.type === 'jump' ? false : data.no_more,
         flow_page: typeof params.page === 'number' ? params.page : typeof params.page === 'string' ? +params.page : 1,
@@ -80,9 +81,10 @@ export default function flowStore(Comp) {
       this.setState(state)
     }
 
-    _SET_FLOW_LOADING() {
+    _SET_FLOW_LOADING(refresh = false) {
       this.setState({
         flow_loading: true,
+        flow_refreshing: refresh,
         flow_error: null
       })
     }
@@ -90,6 +92,7 @@ export default function flowStore(Comp) {
     _SET_FLOW_ERROR(err) {
       this.setState({
         flow_loading: false,
+        flow_refreshing: false,
         flow_error: err
       })
     }
