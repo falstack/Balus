@@ -109,7 +109,7 @@ class SearchShow extends Component {
           style={`height:${menuRect.header}px;padding:${menuRect.top}px ${menuRect.width + menuRect.right * 2}px ${menuRect.right}px ${menuRect.right}px`}
         >
           <View class='input-box'>
-            <AtIcon value='search' color='#999999' size='15' />
+            <AtIcon value='search' color='#212121' size='15' />
             <Input
               className='input-core'
               value={this.state.value}
@@ -131,6 +131,7 @@ class SearchShow extends Component {
         <View className={classNames('flex-shrink-0', { showHistory: 'panel-hidden' })}>
           <TabHeader
             line
+            pink
             list={tabs.map(_ => _.title)}
             active={current}
             onClick={this.handleTabClick.bind(this)}

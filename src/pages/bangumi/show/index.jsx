@@ -16,7 +16,6 @@ import './index.scss'
 @menuRect
 class BangumiShow extends Component {
   config = {
-    navigationBarTextStyle: 'white',
     navigationStyle: 'custom',
     disableScroll: false,
     onReachBottomDistance: 0

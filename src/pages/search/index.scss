@@ -5,11 +5,12 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    background-color: $color-red;
 
     .input-box {
       flex: 1;
-      background-color: #F4F4F4;
-      color: #999999;
+      background-color: #fff;
+      color: #212121;
       font-size: 28px;
       height: 100%;
       border-radius: 32px;
@@ -35,7 +36,7 @@
     .cancel {
       font-size: 16PX;
       margin-left: 15px;
-      color: #212121;
+      color: #fff;
       white-space: nowrap;
     }
   }

@@ -29,9 +29,9 @@ class App extends Component {
     ],
     window: {
       backgroundTextStyle: 'dark',
-      navigationBarBackgroundColor: '#fff',
+      navigationBarBackgroundColor: '#fb7299',
       navigationBarTitleText: '萌市',
-      navigationBarTextStyle: 'black'
+      navigationBarTextStyle: 'white'
     },
     tabBar: {
       color: '#A7BAC7',
