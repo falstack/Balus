@@ -80,14 +80,14 @@ class UserPanel extends Component {
           style={`padding:${menuRect.right * 2}px ${menuRect.right * 2}px ${menuRect.right * 2}px`}
         >
           <View className='metas'>
-            <View className='meta'>
+            <Navigator className='meta' hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('user/list?type=user_following&slug=' + user.slug)}`}>
               <View className='count'>{user.following_count}</View>
               <View className='name'>关注</View>
-            </View>
-            <View className='meta'>
+            </Navigator>
+            <Navigator className='meta' hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('user/list?type=user_followers&slug=' + user.slug)}`}>
               <View className='count'>{user.followers_count}</View>
               <View className='name'>粉丝</View>
-            </View>
+            </Navigator>
           </View>
           <View className='day-sign'>
             <AtButton
