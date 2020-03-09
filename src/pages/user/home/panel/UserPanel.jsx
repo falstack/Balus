@@ -81,16 +81,12 @@ class UserPanel extends Component {
         >
           <View className='metas'>
             <View className='meta'>
-              <View className='count'>{user.stat_activity + user.stat_exposure}</View>
-              <View className='name'>战斗力</View>
+              <View className='count'>{user.following_count}</View>
+              <View className='name'>关注</View>
             </View>
             <View className='meta'>
-              <View className='count'>{user.wallet_coin}</View>
-              <View className='name'>团子</View>
-            </View>
-            <View className='meta'>
-              <View className='count'>{user.wallet_money}</View>
-              <View className='name'>光玉</View>
+              <View className='count'>{user.followers_count}</View>
+              <View className='name'>粉丝</View>
             </View>
           </View>
           <View className='day-sign'>
