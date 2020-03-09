@@ -124,7 +124,7 @@ class SearchShow extends Component {
               onConfirm={this.handleSubmit}
             />
           </View>
-          <Text className='cancel' onClick={utils.back}>取消</Text>
+          <Text className='cancel' onClick={() => {utils.back()}}>取消</Text>
         </View>
         {
           showPanel ? <View

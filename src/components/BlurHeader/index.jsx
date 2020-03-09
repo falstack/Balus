@@ -35,7 +35,7 @@ class BlurHeader extends Component {
             className='menu'
             style={`padding-right:${menuRect.right + menuRect.width}px;height:${menuRect.height}px;margin-bottom:${menuRect.right}px`}
           >
-            <AtIcon value='chevron-left' color='#fff' onClick={utils.back} />
+            <AtIcon value='chevron-left' color='#fff' onClick={() => {utils.back()}} />
           </View>
           <View
             className='main'
@@ -45,7 +45,7 @@ class BlurHeader extends Component {
           </View>
         </View>
         <View className='head' style={`height:${menuRect.header}px;padding:${menuRect.top}px ${menuRect.width + menuRect.right * 2}px ${menuRect.right}px ${menuRect.right}px;`}>
-          <AtIcon value='chevron-left' color='#fff' onClick={this.back} />
+          <AtIcon value='chevron-left' color='#fff' onClick={() => {utils.back()}} />
           <Text className='line'>|</Text>
           <Text className='title'>{this.props.title}</Text>
         </View>
