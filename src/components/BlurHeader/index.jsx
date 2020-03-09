@@ -15,22 +15,6 @@ class BlurHeader extends Component {
     }
   }
 
-  back() {
-    if (Taro.getCurrentPages().length <= 1) {
-      Taro.switchTab({
-        url: '/pages/index/index'
-      })
-      return
-    }
-    Taro.navigateBack({
-      delta: 1
-    }).then(() => {}).catch(() => {
-      Taro.switchTab({
-        url: '/pages/index/index'
-      })
-    })
-  }
-
   render () {
     const menuRect = this.state.menuRect
     if (!menuRect) {
@@ -51,7 +35,7 @@ class BlurHeader extends Component {
             className='menu'
             style={`padding-right:${menuRect.right + menuRect.width}px;height:${menuRect.height}px;margin-bottom:${menuRect.right}px`}
           >
-            <AtIcon value='chevron-left' color='#fff' onClick={this.back} />
+            <AtIcon value='chevron-left' color='#fff' onClick={utils.back} />
           </View>
           <View
             className='main'

@@ -124,5 +124,17 @@ export default {
     }
     const roles = cache.get('USER_ROLES', [])
     return ~roles.indexOf(role)
+  },
+
+  back(url = '/pages/index/index') {
+    if (Taro.getCurrentPages().length <= 1) {
+      Taro.switchTab({ url })
+      return
+    }
+    Taro.navigateBack({
+      delta: 1
+    }).then(() => {}).catch(() => {
+      Taro.switchTab({ url })
+    })
   }
 }

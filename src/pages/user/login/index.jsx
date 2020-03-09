@@ -3,6 +3,7 @@ import { View, Image, Button } from '@tarojs/components'
 import { AtForm, AtInput, AtButton, AtDivider } from 'taro-ui'
 import { oAuthLogin, accessLogin } from '~/utils/login'
 import toast from '~/utils/toast'
+import utils from '~/utils'
 import loginBg from '~/image/login_bg.png'
 import wechatIcon from '~/image/login_wechat_icon.png'
 import qqIcon from '~/image/login_qq_icon.png'
@@ -31,19 +32,7 @@ export default class extends Component {
       })
       return
     }
-    if (Taro.getCurrentPages().length <= 1) {
-      Taro.switchTab({
-        url: '/pages/user/home/index'
-      })
-      return
-    }
-    Taro.navigateBack({
-      delta: 1
-    }).then(() => {}).catch(() => {
-      Taro.switchTab({
-        url: '/pages/user/home/index'
-      })
-    })
+    utils.back('/pages/user/home/index')
   }
 
   callOAuthSign() {
