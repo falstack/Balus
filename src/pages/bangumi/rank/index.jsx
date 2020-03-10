@@ -1,11 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
-import BangumiRankList from '~/components/FlowList/BangumiRank'
+import { View, Text, Navigator } from '@tarojs/components'
 import './index.scss'
 
 class BangumiRank extends Component {
   config = {
-    navigationBarTitleText: '榜单'
+    navigationBarTitleText: '分区'
   }
 
   constructor (props) {
@@ -25,11 +24,18 @@ class BangumiRank extends Component {
 
   render () {
     return (
-      <View className='scroll-page'>
-        <View className='flex-grow-1'>
-          <View className='scroll-wrap'>
-            <BangumiRankList />
-          </View>
+      <View>
+        <Text>番剧</Text>
+        <View>
+          <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('bangumi/list/release')}`}>
+            新番时间表
+          </Navigator>
+          <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('bangumi/list/hot')}`}>
+            热门番剧
+          </Navigator>
+          <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('bangumi/list/top250')}`}>
+            动漫TOP250
+          </Navigator>
         </View>
       </View>
     )

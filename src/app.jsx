@@ -48,7 +48,7 @@ class App extends Component {
         },
         {
           pagePath: 'pages/bangumi/rank/index',
-          text: '榜单',
+          text: '分区',
           iconPath: 'image/tab_2.png',
           selectedIconPath: 'image/tab_2_selected.png'
         },

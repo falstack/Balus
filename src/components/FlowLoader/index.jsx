@@ -13,6 +13,26 @@ export default class FlowLoader extends Component {
     this.state = {}
   }
 
+  shouldComponentUpdate (nextProps) {
+    if (this.props.scrollX !== nextProps.scrollX) {
+      return true
+    }
+    if (this.props.scrollY !== nextProps.scrollY) {
+      return true
+    }
+    if (
+      this.props.flow.flow_nothing !== nextProps.flow.flow_nothing ||
+      this.props.flow.flow_loading !== nextProps.flow.flow_loading ||
+      this.props.flow.flow_fetched !== nextProps.flow.flow_fetched ||
+      this.props.flow.flow_noMore !== nextProps.flow.flow_noMore ||
+      this.props.flow.flow_error !== nextProps.flow.flow_error ||
+      this.props.flow.flow_result.length !== nextProps.flow.flow_result.length
+    ) {
+      return true
+    }
+    return false
+  }
+
   handleTop() {
     if (!this.props.before) {
       return
@@ -21,6 +41,9 @@ export default class FlowLoader extends Component {
   }
 
   handleBottom() {
+    if (this.props.flow.flow_noMore) {
+      return
+    }
     event.emit(flowEventKey(this.props.namespace, 'bottom', this.props.slug))
   }
 
