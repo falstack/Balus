@@ -43,11 +43,11 @@ export default {
     let height
 
     if (mode === 1) {
-      width = `/w/${options.width * DPR}`
-      height = options.height ? `/h/${options.height * DPR}` : `/h/${options.width * DPR}`
+      width = `/w/${options.width * DPR | 0}`
+      height = options.height ? `/h/${options.height * DPR | 0}` : `/h/${options.width * DPR | 0}`
     } else {
-      width = options.width ? `/w/${options.width * DPR}` : ''
-      height = options.height ? `/h/${options.height * DPR}` : ''
+      width = options.width ? `/w/${options.width * DPR | 0}` : ''
+      height = options.height ? `/h/${options.height * DPR | 0}` : ''
     }
 
     return `${link}?imageMogr2/auto-orient/strip|imageView2/${mode}${width}${height}${format}`

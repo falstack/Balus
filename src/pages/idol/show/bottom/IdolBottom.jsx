@@ -99,7 +99,7 @@ export default class IdolBottom extends Component {
     if (!this.state.user) {
       value = 0
     }
-    const max = this.state.user.wallet_coin / this.props.idol.stock_price
+    const max = parseInt(this.state.user.wallet_coin / this.props.idol.stock_price)
     if (value > max) {
       value = max
     }
