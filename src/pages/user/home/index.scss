@@ -1,32 +1,16 @@
 .user-home {
   .hr {
-    height: 20px;
+    height: $container-padding;
     background-color: #f4f4f4;
   }
 
   .logout {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
+    padding-left: $container-padding;
+    padding-right: $container-padding;
 
-  .at-list__item {
-    padding: 30px;
-  }
-
-  .item-extra__icon-arrow {
-    color: $color-text-light;
-    font-size: 40px;
-    line-height: 40px;
-  }
-
-  .item-extra__info {
-    color: $color-text-light;
-    font-size: 24px;
-    padding-right: 40px;
-  }
-
-  .item-extra__icon {
-    right: 0;
-    height: 40px;
+    button {
+      background-color: $color-red;
+      color: #fff;
+    }
   }
 }

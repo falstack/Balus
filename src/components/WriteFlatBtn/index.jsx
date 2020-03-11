@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { Navigator } from '@tarojs/components'
-import { AtIcon } from 'taro-ui'
 import './index.scss'
 
 export default class extends Component {
@@ -9,15 +8,9 @@ export default class extends Component {
     this.state = {}
   }
 
-  componentWillMount () { }
-
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
+  static options = {
+    addGlobalClass: true
+  }
 
   render () {
     return (
@@ -26,7 +19,7 @@ export default class extends Component {
         className='write-flat-btn'
         url={`/pages/webview/index?url=${encodeURIComponent('write/pin')}`}
       >
-        <AtIcon value='edit' color='#fff' />
+        <Text className='iconfont ic-add' />
       </Navigator>
     )
   }

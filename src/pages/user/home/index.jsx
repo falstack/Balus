@@ -1,9 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View, Button } from '@tarojs/components'
 import cache from '~/utils/cache'
 import event from '~/utils/event'
 import http from '~/utils/http'
-import { AtButton } from 'taro-ui'
 import UserPanel from './panel/UserPanel'
 import UserTable from './table/UserTable'
 import './index.scss'
@@ -94,9 +93,9 @@ export default class extends Component {
         <View className='hr' />
         <UserTable user={user} />
         <View className='logout'>
-          <AtButton type='primary' onClick={this.userLogout.bind(this)}>
+          <Button onClick={this.userLogout.bind(this)}>
             退出登录
-          </AtButton>
+          </Button>
         </View>
       </View>
     )

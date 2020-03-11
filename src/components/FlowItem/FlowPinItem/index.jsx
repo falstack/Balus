@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
-import { AtIcon } from 'taro-ui'
 import utils from '~/utils'
 import './index.scss'
 
@@ -8,6 +7,10 @@ export default class FlowPinItem extends Component {
   constructor (props) {
     super(props)
     this.state = {}
+  }
+
+  static options = {
+    addGlobalClass: true
   }
 
   render () {
@@ -71,11 +74,11 @@ export default class FlowPinItem extends Component {
         <View className='footer'>
           <View className='state'>
             <View className='state-item'>
-              <AtIcon value='message' size='15' />
+              <Text className='iconfont ic-talk' />
               <Text className='text'>{ item.comment_count || '评论' }</Text>
             </View>
             <View className='state-item'>
-              <AtIcon value='heart' size='15' />
+              <Text className='iconfont ic-good' />
               <Text className='text'>{ item.like_count || '点赞' }</Text>
             </View>
           </View>

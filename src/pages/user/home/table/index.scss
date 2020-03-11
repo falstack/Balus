@@ -1,16 +1,19 @@
-.user-panel {
-  padding: 20px 0;
+.user-table {
+  padding: $container-padding;
 
-  .feedback {
-    background-color: transparent;
-    padding: 0;
-    margin: 0;
+  .table-item {
+    height: 88px;
+    line-height: 88px;
     text-align: left;
-    border-radius: 0;
+    font-size: 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: #14171A;
 
-    &:before,
-    &:after {
-      content: none;
+    .ic-right {
+      color: #A7BAC7;
     }
   }
 }

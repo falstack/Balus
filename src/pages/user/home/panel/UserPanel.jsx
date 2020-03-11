@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image, Navigator } from '@tarojs/components'
+import { View, Text, Image, Navigator, Button } from '@tarojs/components'
+import classNames from 'classnames'
 import utils from '~/utils'
-import { AtIcon, AtButton } from 'taro-ui'
 import http from '~/utils/http'
 import state from '~/utils/state'
 import toast from '~/utils/toast'
@@ -16,6 +16,10 @@ class UserPanel extends Component {
       ...this.state,
       signing: false
     }
+  }
+
+  static options = {
+    addGlobalClass: true
   }
 
   daySignAction() {
@@ -46,6 +50,7 @@ class UserPanel extends Component {
     if (!menuRect) {
       return
     }
+
     const { user } = this.props
     if (!user) {
       return
@@ -71,7 +76,7 @@ class UserPanel extends Component {
               <Text className='invite'>cc号：{user.slug}</Text>
             </View>
             <View className='arrow'>
-              <AtIcon value='chevron-right' size='20' color='#fff' />
+              <Text className='iconfont ic-right' />
             </View>
           </View>
         </Navigator>
@@ -89,16 +94,13 @@ class UserPanel extends Component {
               <View className='name'>粉丝</View>
             </Navigator>
           </View>
-          <View className='day-sign'>
-            <AtButton
-              loading={this.state.signing}
-              circle
-              type={user.daily_signed ? 'secondary' : 'primary'}
-              onClick={this.daySignAction.bind(this)}
-            >
-              {user.daily_signed ? '已签到' : '签到'}
-            </AtButton>
-          </View>
+          <Button
+            className={classNames('sign-btn', { 'is-plant': user.daily_signed })}
+            loading={this.state.signing}
+            onClick={this.daySignAction}
+          >
+            {user.daily_signed ? '已签到' : '签到'}
+          </Button>
         </View>
       </View>
     )

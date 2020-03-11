@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
-import SearchHeader from '~/components/SearchHeader/index'
+import IndexHeader from './header/index'
 import NewsPin from '~/components/FlowList/NewsPin/index'
 import RecommendedPin from '~/components/FlowList/RecommendedPin/index'
 import ActivityIdol from '~/components/FlowList/ActivityIdol/index'
@@ -64,10 +64,11 @@ export default class extends Component {
 
   render () {
     const { current, tabs } = this.state
+
     return (
       <View className='homepage scroll-page'>
         <View className='flex-shrink-0'>
-          <SearchHeader />
+          <IndexHeader />
         </View>
         <View className='flex-shrink-0'>
           <TabHeader

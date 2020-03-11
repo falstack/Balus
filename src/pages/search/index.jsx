@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Swiper, Input, SwiperItem } from '@tarojs/components'
-import { AtIcon } from 'taro-ui'
 import TabHeader from '~/components/TabHeader'
 import SearchBangumi from '~/components/FlowList/SearchBangumi/index'
 import SearchIdol from '~/components/FlowList/SearchIdol/index'
@@ -16,6 +15,10 @@ class SearchShow extends Component {
   config = {
     navigationStyle: 'custom',
     disableScroll: true
+  }
+
+  static options = {
+    addGlobalClass: true
   }
 
   constructor (props) {
@@ -114,7 +117,7 @@ class SearchShow extends Component {
           style={`height:${menuRect.header}px;padding:${menuRect.top}px ${menuRect.width + menuRect.right * 2}px ${menuRect.right}px ${menuRect.right}px`}
         >
           <View class='input-box'>
-            <AtIcon value='search' color='#212121' size='15' />
+            <Text className='iconfont ic-search' />
             <Input
               className='input-core'
               value={this.state.value}

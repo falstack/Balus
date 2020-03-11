@@ -1,65 +1,19 @@
 /* Custom Theme */
-$color-brand: #fb7299;
-$color-brand-light: #fc95b3;
-$color-brand-dark: #c95b7a;
+@import "./style/iconfont.css";
 
-@import "~taro-ui/dist/style/index.scss";
-
-.at-nav-bar {
+button {
+  padding: 0;
+  font-size: 32px;
   background-color: transparent;
 
-  &__left-view {
-    .at-icon {
-      font-size: 65px;
-    }
-
-    &:active {
-      background-color: transparent;
-    }
-  }
-
-  &__left-view {
-    flex-grow: 4;
-  }
-
-  &__title {
-    display: none;
+  &:after {
+    content: none;
   }
 }
 
-.at-load-more .at-button {
-  border-width: 0;
-}
-
-.at-input-number {
-  &__btn {
-    padding: 25px;
-  }
-}
-
-.at-tabs {
-  &__header {
-    justify-content: center;
-  }
-
-  &__item {
-    padding: 20px 16px;
-    font-size: 28px;
-    flex: none;
-    color: #505050;
-
-    &--active {
-      color: #FB7299;
-    }
-
-    &-underline {
-      width: calc(100% - 32px);
-      left: 16px;
-      height: 4px;
-      bottom: 2px;
-      border-radius: 4px;
-    }
-  }
+button,
+text {
+  vertical-align: middle;
 }
 
 .scroll-page {

@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
-import utils from '~/utils'
 import BlurHeader from '~/components/BlurHeader'
+import utils from '~/utils'
 import './index.scss'
 
 export default class IdolPanel extends Component {

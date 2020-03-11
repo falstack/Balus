@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
-import { AtIcon } from 'taro-ui'
 import utils from '~/utils'
 import classNames from 'classnames'
 import menuRect from '~/mixin/menuRect'
@@ -13,6 +12,10 @@ class BlurHeader extends Component {
     this.state = {
       ...this.state
     }
+  }
+
+  static options = {
+    addGlobalClass: true
   }
 
   render () {
@@ -35,7 +38,7 @@ class BlurHeader extends Component {
             className='menu'
             style={`padding-right:${menuRect.right + menuRect.width}px;height:${menuRect.height}px;margin-bottom:${menuRect.right}px`}
           >
-            <AtIcon value='chevron-left' color='#fff' onClick={() => {utils.back()}} />
+            <Text className='iconfont ic-left' onClick={() => {utils.back()}} />
           </View>
           <View
             className='main'
@@ -45,7 +48,7 @@ class BlurHeader extends Component {
           </View>
         </View>
         <View className='head' style={`height:${menuRect.header}px;padding:${menuRect.top}px ${menuRect.width + menuRect.right * 2}px ${menuRect.right}px ${menuRect.right}px;`}>
-          <AtIcon value='chevron-left' color='#fff' onClick={() => {utils.back()}} />
+          <Text className='iconfont ic-left' onClick={() => {utils.back()}} />
           <Text className='line'>|</Text>
           <Text className='title'>{this.props.title}</Text>
         </View>

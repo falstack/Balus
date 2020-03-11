@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image, Button } from '@tarojs/components'
-import { AtForm, AtInput, AtButton, AtDivider } from 'taro-ui'
+import { View, Image, Button, Input } from '@tarojs/components'
 import { oAuthLogin, accessLogin } from '~/utils/login'
 import toast from '~/utils/toast'
 import utils from '~/utils'
@@ -82,18 +81,6 @@ export default class extends Component {
     })
   }
 
-  changeAccess(value) {
-    this.setState({
-      access: value
-    })
-  }
-
-  changeSecret(value) {
-    this.setState({
-      secret: value
-    })
-  }
-
   onSubmit() {
     if (this.state.loading || this.state.submitting) {
       return
@@ -126,49 +113,43 @@ export default class extends Component {
   render() {
     return (
       <View className='user-sign'>
-        <View class='form-wrap'>
+        <View className='form-wrap'>
           <View className='bg'>
             <Image src={loginBg} mode='aspectFit' />
           </View>
           <View className='sign-form'>
-            <AtForm onSubmit={this.onSubmit.bind(this)}>
-              <AtInput
-                name='access'
-                title='手机'
+            <View className='input-wrap'>
+              <Input
                 type='phone'
                 placeholder='手机号码'
                 value={this.state.access}
-                onChange={this.changeAccess.bind(this)}
+                onChange={(evt) => { this.setState({ access: evt.detail.value }) }}
               />
-              <AtInput
-                name='secret'
-                title='密码'
+            </View>
+            <View className='input-wrap'>
+              <Input
                 type='password'
                 placeholder='密码不能少于6位数'
                 clear
                 value={this.state.secret}
-                onChange={this.changeSecret.bind(this)}
+                onChange={(evt) => { this.setState({ secret: evt.detail.value }) }}
               />
-              <View className='btn'>
-                <AtButton
-                  loading={this.state.loading}
-                  circle
-                  type='primary'
-                  formType='submit'
-                  onClick={this.onSubmit.bind(this)}
-                >
-                  登录
-                </AtButton>
-              </View>
-            </AtForm>
+            </View>
+            <Button
+              className='submit-btn'
+              loading={this.state.loading}
+              onClick={this.onSubmit.bind(this)}
+            >
+              登录
+            </Button>
           </View>
         </View>
         <View className='others'>
-          <AtDivider
-            content='其它登录方式'
-            fontColor='#657786'
-            lineColor='#ccd6dd'
-          />
+          <View className='divider'>
+            <Text className='line'/>
+            <Text className='text'>其它登录方式</Text>
+            <Text className='line'/>
+          </View>
           <Button
             open-type='getUserInfo'
             className='wechat-btn'

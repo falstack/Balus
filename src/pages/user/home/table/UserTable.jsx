@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Navigator } from '@tarojs/components'
-import { AtList, AtListItem } from 'taro-ui'
 import './index.scss'
 
 export default class UserTable extends Component {
@@ -8,83 +7,24 @@ export default class UserTable extends Component {
     super(props)
   }
 
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
+  static options = {
+    addGlobalClass: true
+  }
 
   render() {
     const { user } = this.props
     return (
-      <View className='user-panel'>
-        <AtList hasBorder={false}>
-          {/*
-          <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('https://www.calibur.tv')}`}>
-            <AtListItem
-              title='交易记录'
-              arrow='right'
-              hasBorder={false}
-              iconInfo={{
-                size: 20,
-                color: '#657786',
-                value: 'shopping-bag'
-              }}
-            />
-          </Navigator>
-          <AtListItem
-            title='我的邀请码'
-            arrow='right'
-            hasBorder={false}
-            extraText='邀请送团子'
-            iconInfo={{
-              size: 20,
-              color: '#657786',
-              value: 'sketch'
-            }}
-          />
-          <AtListItem
-            title='帮助手册'
-            arrow='right'
-            hasBorder={false}
-            iconInfo={{
-              size: 20,
-              color: '#657786',
-              value: 'help'
-            }}
-          />
-          */}
-          {
-            user.is_admin ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('admin')}`}>
-              <AtListItem
-                title='控制台'
-                arrow='right'
-                hasBorder={false}
-                iconInfo={{
-                  size: 20,
-                  color: '#657786',
-                  value: 'settings'
-                }}
-              />
-            </Navigator> : ''
-          }
-          <Button open-type='feedback' class='feedback' hover-class='none'>
-            <AtListItem
-              title='意见反馈'
-              arrow='right'
-              hasBorder={false}
-              iconInfo={{
-                size: 20,
-                color: '#657786',
-                value: 'phone'
-              }}
-            />
-          </Button>
-        </AtList>
+      <View className='user-table'>
+        {
+          user.is_admin ? <Navigator className='table-item' hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('admin')}`}>
+            <Text>控制台</Text>
+            <Text className='iconfont ic-right' />
+          </Navigator> : ''
+        }
+        <Button open-type='feedback' class='table-item' hover-class='none'>
+          <Text>意见反馈</Text>
+          <Text className='iconfont ic-right' />
+        </Button>
       </View>
     )
   }

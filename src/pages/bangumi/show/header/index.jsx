@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator, Button } from '@tarojs/components'
-import { AtIcon } from 'taro-ui'
 import utils from '~/utils'
 import cache from '~/utils/cache'
 import toast from '~/utils/toast'
@@ -15,6 +14,10 @@ export default class BangumiHeader extends Component {
       liker_list: [],
       liker_total: 0
     }
+  }
+
+  static options = {
+    addGlobalClass: true
   }
 
   showLogin() {
@@ -92,7 +95,7 @@ export default class BangumiHeader extends Component {
               {like_users}
               <Text className='avatar-tail text'>等 {liker_total} 个看过的人</Text>
             </View>
-            <AtIcon size='16' color='#FFF' value='chevron-right' />
+            <Text className='iconfont ic-right'/>
           </Navigator> : ''
         }
       </View>

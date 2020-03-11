@@ -61,8 +61,14 @@
     }
 
     .arrow {
-      float: right;
+      color: #fff;
       margin-left: 20px;
+      float: right;
+
+      .iconfont {
+        font-size: 44px;
+        font-weight: bold;
+      }
     }
   }
 
@@ -83,20 +89,33 @@
         width: 170px;
       }
 
-      .name {
-        color: $color-text-light;
-        font-size: 26px;
-      }
-
       .count {
         color: $color-text-normal;
         font-size: 36px;
         font-weight: 500;
       }
+
+      .name {
+        color: $color-text-light;
+        font-size: 26px;
+      }
     }
 
-    .day-sign {
-      width: 312px;
+    .sign-btn {
+      background-color: $color-red;
+      padding: 0 $container-padding;
+      border: 2px solid $color-red;
+      border-radius: 72px;
+      line-height: 68px;
+      height: 72px;
+      font-size: 28px;
+      color: #fff;
+      margin: 0;
+
+      &.is-plant {
+        background-color: transparent;
+        color: $color-red;
+      }
     }
   }
 }

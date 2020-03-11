@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
-import { AtIcon } from 'taro-ui'
 import cache from '~/utils/cache'
 import event from '~/utils/event'
 import utils from '~/utils'
@@ -8,13 +7,17 @@ import menuRect from '~/mixin/menuRect'
 import './index.scss'
 
 @menuRect
-class SearchHeader extends Component {
+class IndexHeader extends Component {
   constructor (props) {
     super(props)
     this.state = {
       ...this.state,
       user: cache.get('USER', null)
     }
+  }
+
+  static options = {
+    addGlobalClass: true
   }
 
   componentDidMount() {
@@ -55,7 +58,7 @@ class SearchHeader extends Component {
     }
     return (
       <View
-        className='search-header'
+        className='index-header'
         style={`margin-top: ${menuRect.top}px;padding-left:${menuRect.right * 2}px;padding-right:${menuRect.right * 3 + menuRect.width}px;height:${menuRect.height + menuRect.right}px`}
       >
         <View className='shim' style={`height: ${menuRect.top}px`} />
@@ -63,7 +66,7 @@ class SearchHeader extends Component {
           <Image onClick={this.handleAvatarClick.bind(this)} src={utils.resize(user ? user.avatar : 'default-poster', { width: menuRect.height })} />
         </View>
         <View onClick={this.handleSearchClick.bind(this)} className='search' style={`border-radius:${menuRect.height / 2}px;height:${menuRect.height}px`}>
-          <AtIcon value='search' color='#fc95b3' size='15' />
+          <Text className='iconfont ic-search' />
           <Text className='text'>搜索 calibur.tv</Text>
         </View>
       </View>
@@ -71,4 +74,4 @@ class SearchHeader extends Component {
   }
 }
 
-export default SearchHeader
+export default IndexHeader

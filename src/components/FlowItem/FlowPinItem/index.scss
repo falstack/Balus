@@ -1,4 +1,4 @@
-$image-padding: 2px;
+$image-padding: 5px;
 
 .flow-pin-item {
   padding: $container-padding;
@@ -9,6 +9,7 @@ $image-padding: 2px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: $container-padding;
 
     .user {
       display: flex;
@@ -31,8 +32,6 @@ $image-padding: 2px;
   }
 
   .body {
-    margin-top: $container-padding;
-
     .title {
       @extend %oneline;
       @extend %breakWord;

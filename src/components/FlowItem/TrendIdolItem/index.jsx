@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
-import { AtIcon } from 'taro-ui'
 import utils from '~/utils'
 import './index.scss'
 
@@ -15,15 +14,11 @@ export default class TrendIdolItem extends Component {
       <Navigator hover-class='none' url={`/pages/idol/show/index?slug=${idol.slug}`} className='trend-idol'>
         <Image className='trend-idol__avatar' src={idol.avatar} mode='aspectFill' />
         {
-          index < 0 ? '' :
-          index ?
-          <View className='trend-idol__order'>
-            {index + 1}
-          </View>
-            :
-          <View className='trend-idol__icon'>
-            <AtIcon value='sketch' color='#fff' />
-          </View>
+          index >= 0 ? (
+            <View className='trend-idol__order'>
+              {index + 1}
+            </View>
+          ) : ''
         }
         <View className='trend-idol__content'>
           <Text className='trend-idol__title'>{inBangumi ? '' : idol.bangumi.name} {idol.name}</Text>

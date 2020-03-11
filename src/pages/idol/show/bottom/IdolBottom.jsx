@@ -1,11 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text } from '@tarojs/components'
-import { AtModal, AtModalHeader, AtModalContent, AtModalAction, AtInputNumber } from "taro-ui"
-import http from '~/utils/http'
+import { View, Button, Text, Input } from '@tarojs/components'
 import utils from '~/utils'
+import http from '~/utils/http'
 import cache from '~/utils/cache'
 import toast from '~/utils/toast'
 import state from '~/utils/state'
+import classNames from 'classnames'
 import './index.scss'
 
 export default class IdolBottom extends Component {
@@ -91,7 +91,18 @@ export default class IdolBottom extends Component {
       })
   }
 
-  handleChange (value) {
+  handleChange (evt) {
+    let value = evt.detail.value
+    if (value < 0) {
+      value = 0
+    }
+    if (!this.state.user) {
+      value = 0
+    }
+    const max = this.state.user.wallet_coin / this.props.idol.stock_price
+    if (value > max) {
+      value = max
+    }
     this.setState({
       value
     })
@@ -109,33 +120,30 @@ export default class IdolBottom extends Component {
           </Button>
         </View>
         <View className='idol-bottom__shim' />
-        <AtModal
-          isOpened={isOpen}
-          onClose={this.handleClose.bind(this)}
-        >
-          <AtModalHeader>投票窗口</AtModalHeader>
-          <AtModalContent>
-            <View className='idol-bottom__dialog'>
-              <View className='idol-bottom__text'>
-                剩余团子：{user.wallet_coin}
+        <View className={classNames('dialog', { 'is-open': isOpen })}>
+          <View className='dialog__mask' onClick={() => { this.setState({ isOpen: false }) }} />
+          <View className='dialog__wrap'>
+            <View className='dialog__header'>投票窗口</View>
+            <View className='dialog__body'>
+              <View className='dialog__line'>
+                <View className='label'>剩余团子：</View>
+                <View>{user.wallet_coin}</View>
               </View>
-              <View className='idol-bottom__text'>
-                购入份额：
-                <AtInputNumber
-                  min={0}
-                  max={parseInt(user ? user.wallet_coin : 0 / idol.stock_price)}
-                  step={1}
+              <View className='dialog__line'>
+                <View className='label'>购入份额：</View>
+                <Input
                   value={this.state.value}
+                  type='number'
                   onChange={this.handleChange.bind(this)}
                 />
               </View>
             </View>
-          </AtModalContent>
-          <AtModalAction>
-            <Button onClick={this.handleCancel.bind(this)}>取消</Button>
-            <Button onClick={this.handleConfirm.bind(this)}>确定</Button>
-          </AtModalAction>
-        </AtModal>
+            <View className='dialog__footer'>
+              <Button hover-class='none' onClick={this.handleCancel.bind(this)}>取消</Button>
+              <Button hover-class='none' onClick={this.handleConfirm.bind(this)}>确定</Button>
+            </View>
+          </View>
+        </View>
       </View>
     )
   }

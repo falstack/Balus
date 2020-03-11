@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
-import { AtTag } from 'taro-ui'
 import utils from '~/utils'
 import cache from '~/utils/cache'
 import './index.scss'
@@ -22,11 +21,12 @@ export default class UserPanel extends Component {
         .toString(36)
         .slice(2, -1)
       return (
-        <AtTag key={key} taroKey={key} size='small' circle>
+        <Text key={key} className='tag'>
           {badge}
-        </AtTag>
+        </Text>
       )
     })
+
     return (
       <View class='public-user-panel'>
         <View className="avatar-wrap">

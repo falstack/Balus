@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
-import TrendIdolItem from '~/components/TrendIdolItem'
+import TrendIdolItem from '~/components/FlowItem/TrendIdolItem'
 import './index.scss'
 
 @flowStore
