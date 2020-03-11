@@ -1,8 +1,8 @@
 $image-padding: 5px;
 
 .flow-pin-item {
-  padding: $container-padding;
-  border-bottom: $container-padding / 2 solid $color-background-container;
+  padding: 30px 30px 20px;
+  border-bottom: 20px solid $color-background-container;
 
   .header {
     display: flex;
@@ -16,12 +16,14 @@ $image-padding: 5px;
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
+      font-size: 28px;
+      color: #484853;
 
       .avatar {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
-        margin-right: $container-padding;
+        margin-right: 10px;
       }
     }
 
@@ -33,13 +35,26 @@ $image-padding: 5px;
 
   .body {
     .title {
+      color: #14171A;
+      font-size: 34px;
+      line-height: 48px;
+      font-weight: 500;
+      margin-bottom: 10px;
       @extend %oneline;
       @extend %breakWord;
     }
 
+    .intro {
+      color: #484853;
+      font-size: 30px;
+      margin-bottom: 20px;
+      @extend %breakWord;
+      @include mutiline(42px);
+    }
+
     .banner {
-      margin-top: $container-padding;
       border-radius: 10px;
+      margin-bottom: 20px;
       overflow: hidden;
 
       .image-box {
@@ -73,7 +88,7 @@ $image-padding: 5px;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        height: calc((100vw - 44px) / 2);
+        height: 240px;
 
         .image-box {
           flex-grow: 1;
@@ -94,7 +109,14 @@ $image-padding: 5px;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        height: calc((100vw - 44px) / 3 * 2);
+        height: 240px;
+
+        .image-wrap-2 {
+          position: relative;
+          flex-grow: 2;
+          height: 100%;
+          margin-right: $image-padding;
+        }
 
         .image-wrap-1 {
           position: relative;
@@ -116,47 +138,58 @@ $image-padding: 5px;
             }
           }
         }
-
-        .image-wrap-2 {
-          position: relative;
-          flex-grow: 2;
-          height: 100%;
-          margin-right: $image-padding;
-        }
       }
     }
+  }
 
-    .intro {
-      margin-top: $container-padding;
-      @extend %breakWord;
-      @include mutiline(40px);
+  .badge {
+    .bangumi {
+      background-color: #F5F8FA;
+      height: 49px;
+      padding-left: 14px;
+      padding-right: 18px;
+      border-radius: 0 8px 0 8px;
+      margin-bottom: 20px;
+      display: inline-flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      image {
+        width: 26px;
+        height: 26px;
+        margin-right: 10px;
+      }
+
+      text {
+        font-size: 26px;
+        color: #484853;
+      }
     }
   }
 
   .footer {
-    margin-top: $container-padding;
-    color: $color-text-light;
-    font-size: 24px;
-    @extend %clearfix;
-
-    .bangumi {
-      @extend %oneline;
-    }
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 
     .state {
-      float: right;
+      flex: 1;
       display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
+      justify-content: center;
+      align-items: center;
 
-      .state-item {
-        margin-left: $container-padding;
-        min-width: 100px;
-        text-align: center;
+      image {
+        width: 40px;
+        height: 40px;
+        margin-right: 4px;
+      }
 
-        .text {
-          margin-left: $container-padding / 2;
-        }
+      text {
+        font-size: 24px;
+        color: #657786;
       }
     }
   }

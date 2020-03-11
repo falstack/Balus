@@ -1,6 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
 import utils from '~/utils'
+import LikeImage from '~/image/like.png'
+import TalkImage from '~/image/talk.png'
+import ShareImage from '~/image/share.png'
+import PinkIcon from '~/image/pink_@.png'
 import './index.scss'
 
 export default class FlowPinItem extends Component {
@@ -41,17 +45,22 @@ export default class FlowPinItem extends Component {
         <Navigator className='body' hover-class='none' url={`/pages/pin/show/index?slug=${item.slug}`}>
           <View className='title'>{ item.title.text }</View>
           {
+            item.intro ? (
+              <View className='intro'>{item.intro}</View>
+            ) : ''
+          }
+          {
             item.banner.length === 3 ? (
               <View className='banner banner-3'>
                 <View className='image-wrap-2'>
-                  <Image lazyLoad src={utils.resize(item.banner[0], { width: 250 })} />
+                  <Image mode='aspectFill' lazyLoad src={utils.resize(item.banner[0], { width: 210, height: 120 })} />
                 </View>
                 <View className='image-wrap-1'>
                   <View className='image-box'>
-                    <Image lazyLoad src={utils.resize(item.banner[1], { width: 125 })} />
+                    <Image mode='aspectFill' lazyLoad src={utils.resize(item.banner[1], { width: 110, height: 57.5 })} />
                   </View>
                   <View className='image-box'>
-                    <Image lazyLoad src={utils.resize(item.banner[2], { width: 125 })} />
+                    <Image mode='aspectFill' lazyLoad src={utils.resize(item.banner[2], { width: 110, height: 57.5 })} />
                   </View>
                 </View>
               </View>
@@ -59,34 +68,40 @@ export default class FlowPinItem extends Component {
               <View className={`banner banner-${item.banner.length}`}>
                 {item.banner.map(image =>(
                   <View key={image} taroKey={image} className='image-box'>
-                    <Image lazyLoad src={utils.resize(image, item.banner.length === 2 ? { width: 200 } : { width: 380, height: 190 })} />
+                    <Image mode='aspectFill' lazyLoad src={utils.resize(image, item.banner.length === 2 ? { width: 170, height: 120 } : { width: 310, height: 120 })} />
                   </View>
                 ))}
               </View>
             )
           }
-          {
-            item.intro ? (
-              <View className='intro'>{item.intro}</View>
-            ) : ''
-          }
         </Navigator>
-        <View className='footer'>
-          <View className='state'>
-            <View className='state-item'>
-              <Text className='iconfont ic-talk' />
-              <Text className='text'>{ item.comment_count || '评论' }</Text>
-            </View>
-            <View className='state-item'>
-              <Text className='iconfont ic-good' />
-              <Text className='text'>{ item.like_count || '点赞' }</Text>
-            </View>
-          </View>
+        <View className='badge'>
           {
             state.showBangumi ? (
-              <Navigator className='bangumi' hover-class='none' url={`/pages/bangumi/show/index?slug=${item.bangumi.slug}`}>{item.bangumi.name}</Navigator>
+              <Navigator
+                className='bangumi'
+                hover-class='none'
+                url={`/pages/bangumi/show/index?slug=${item.bangumi.slug}`}
+              >
+                <Image src={PinkIcon} />
+                <Text>{item.bangumi.name}</Text>
+              </Navigator>
             ) : ''
           }
+        </View>
+        <View className='footer'>
+          <View className='state'>
+            <Image src={ShareImage} />
+            <Text className='text'>分享</Text>
+          </View>
+          <View className='state'>
+            <Image src={TalkImage} />
+            <Text className='text'>{ item.comment_count || '评论' }</Text>
+          </View>
+          <View className='state'>
+            <Image src={LikeImage} />
+            <Text className='text'>{ item.like_count || '点赞' }</Text>
+          </View>
         </View>
       </View>
     )
