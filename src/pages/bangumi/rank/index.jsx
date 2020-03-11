@@ -1,5 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Navigator } from '@tarojs/components'
+import { View, Text, Navigator, ScrollView } from '@tarojs/components'
+import BangumiTopImage from '~/image/bangumi-top.jpeg'
+import BangumiReleaseImage from '~/image/bangumi-release.jpeg'
 import './index.scss'
 
 class BangumiRank extends Component {
@@ -9,9 +11,7 @@ class BangumiRank extends Component {
 
   constructor (props) {
     super(props)
-    this.state = {
-      ...this.state,
-    }
+    this.state = {}
   }
 
   onShareAppMessage() {
@@ -24,18 +24,35 @@ class BangumiRank extends Component {
 
   render () {
     return (
-      <View>
-        <Text>番剧</Text>
-        <View>
-          <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('bangumi/list/release')}`}>
-            新番时间表
-          </Navigator>
-          <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('bangumi/list/top250')}`}>
-            动漫TOP250
-          </Navigator>
+      <View className='bangumi-rank scroll-page'>
+        <View className='flex-shrink-0 pgc-list'>
+          <ScrollView className='scroll-view' scrollX>
+            <Navigator
+              hover-class='none'
+              className='pgc-item'
+              url={`/pages/webview/index?url=${encodeURIComponent('bangumi/list/release')}`}
+            >
+              <View>
+                <Image src={BangumiReleaseImage} mode='aspectFill' />
+                <Text>新番时间表</Text>
+              </View>
+            </Navigator>
+            <Navigator
+              hover-class='none'
+              className='pgc-item'
+              url={`/pages/webview/index?url=${encodeURIComponent('bangumi/list/top250')}`}
+            >
+              <View>
+                <Image src={BangumiTopImage} mode='aspectFill' />
+                <Text>日漫TOP250</Text>
+              </View>
+            </Navigator>
+          </ScrollView>
         </View>
-        <Text>热门</Text>
-        <View>
+        <View className='flex-shrink-0'>
+          <Text>热门分区</Text>
+        </View>
+        <View className='flex-grow-1'>
           热门的板块（动漫/游戏）
         </View>
       </View>

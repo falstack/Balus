@@ -1,0 +1,39 @@
+.bangumi-rank {
+  .pgc-list {
+    height: 200px;
+    margin: $container-padding 0;
+
+    .scroll-view {
+      padding-left: $container-padding;
+      white-space: nowrap;
+      box-sizing: border-box;
+    }
+
+    $pgc-height: 200px;
+    .pgc-item {
+      display: inline-block;
+      height: $pgc-height;
+      width: 300px;
+      box-sizing: border-box;
+      padding-right: 15px;
+
+      view {
+        width: 100%;
+        height: $pgc-height;
+        text-align: center;
+        white-space: normal;
+      }
+
+      image {
+        width: 100%;
+        height: $pgc-height - 40;
+        border-radius: 10px;
+      }
+
+      text {
+        line-height: 40px;
+        font-size: 26px;
+      }
+    }
+  }
+}
