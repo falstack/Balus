@@ -85,29 +85,37 @@ export default class extends Component {
     if (this.state.loading || this.state.submitting) {
       return
     }
-    const { access, secret } = this.state
-    if (
-      !access ||
-      !access.length === 11
-    ) {
-      return toast.info('请输入正确的手机号')
-    }
-    if (!secret || secret.length < 6 || secret.length > 16) {
-      return toast.info('密码错误')
-    }
     this.setState({
       loading: true
     })
-    accessLogin({ access, secret })
-      .then(() => {
-        this.redirect()
-      })
-      .catch((err) => {
-        toast.info(err.message)
+    setTimeout(() => {
+      const { access, secret } = this.state
+      if (
+        !access ||
+        !access.length === 11
+      ) {
         this.setState({
           loading: false
         })
-      })
+        return toast.info('请输入正确的手机号')
+      }
+      if (!secret || secret.length < 6 || secret.length > 16) {
+        this.setState({
+          loading: false
+        })
+        return toast.info('密码错误')
+      }
+      accessLogin({ access, secret })
+        .then(() => {
+          this.redirect()
+        })
+        .catch((err) => {
+          toast.info(err.message)
+          this.setState({
+            loading: false
+          })
+        })
+    }, 400)
   }
 
   render() {
@@ -120,7 +128,7 @@ export default class extends Component {
           <View className='sign-form'>
             <View className='input-wrap'>
               <Input
-                type='phone'
+                type='number'
                 placeholder='手机号码'
                 value={this.state.access}
                 onChange={(evt) => { this.setState({ access: evt.detail.value }) }}
