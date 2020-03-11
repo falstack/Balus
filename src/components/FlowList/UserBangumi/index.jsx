@@ -35,7 +35,6 @@ class UserBangumi extends Component {
         {
           this.state.flow_result.map(item => (
             <BangumiRankItem
-              taroKey={item.slug}
               key={item.slug}
               bangumi={item}
             />

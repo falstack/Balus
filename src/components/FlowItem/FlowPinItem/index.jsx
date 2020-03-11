@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image, Navigator } from '@tarojs/components'
+import { View, Text, Image, Navigator, Button } from '@tarojs/components'
 import utils from '~/utils'
 import LikeImage from '~/image/like.png'
 import TalkImage from '~/image/talk.png'
@@ -67,7 +67,7 @@ export default class FlowPinItem extends Component {
             ) : (
               <View className={`banner banner-${item.banner.length}`}>
                 {item.banner.map(image =>(
-                  <View key={image} taroKey={image} className='image-box'>
+                  <View key={image} className='image-box'>
                     <Image mode='aspectFill' lazyLoad src={utils.resize(image, item.banner.length === 2 ? { width: 170, height: 120 } : { width: 310, height: 120 })} />
                   </View>
                 ))}
@@ -90,10 +90,19 @@ export default class FlowPinItem extends Component {
           }
         </View>
         <View className='footer'>
-          <View className='state'>
+          <Button
+            hover-class='none'
+            data-type='pin'
+            data-slug={item.slug}
+            data-title={item.title.text}
+            data-path={`/pages/pin/show/index?slug=${item.slug}`}
+            data-image-url={item.banner[0]}
+            openType='share'
+            className='state'
+          >
             <Image src={ShareImage} />
             <Text className='text'>分享</Text>
-          </View>
+          </Button>
           <View className='state'>
             <Image src={TalkImage} />
             <Text className='text'>{ item.comment_count || '评论' }</Text>

@@ -138,7 +138,7 @@ export default class extends Component {
             <Button
               className='submit-btn'
               loading={this.state.loading}
-              onClick={this.onSubmit.bind(this)}
+              onClick={this.onSubmit}
             >
               登录
             </Button>
@@ -153,7 +153,7 @@ export default class extends Component {
           <Button
             open-type='getUserInfo'
             className='wechat-btn'
-            onClick={this.callOAuthSign.bind(this)}
+            onClick={this.callOAuthSign}
           >
             <Image src={process.env.TARO_ENV === 'weapp' ? wechatIcon : qqIcon} mode='scaleToFill' />
           </Button>

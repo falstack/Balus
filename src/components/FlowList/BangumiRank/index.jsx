@@ -30,7 +30,6 @@ class BangumiRank extends Component {
         {
           this.state.flow_result.map((item, index) => (
             <BangumiRankItem
-              taroKey={item.slug}
               key={item.slug}
               bangumi={item}
               index={index}

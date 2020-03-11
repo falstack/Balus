@@ -9,9 +9,11 @@ import WriteFlatBtn from '~/components/WriteFlatBtn/index'
 import TabHeader from '~/components/TabHeader'
 import event from '~/utils/event'
 import { flowEventKey } from '~/utils/flow'
+import pageShare from '~/mixin/pageShare'
 import './index.scss'
 
-export default class extends Component {
+@pageShare
+class indexPage extends Component {
   config = {
     navigationStyle: 'custom',
     disableScroll: true
@@ -20,6 +22,7 @@ export default class extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      ...this.state,
       current: 1,
       tabs: [
         { slug: 'news', title: '新闻' },
@@ -27,14 +30,6 @@ export default class extends Component {
         { slug: 'idol', title: '股市' },
         { slug: '54xcl', title: '日常' }
       ]
-    }
-  }
-
-  onShareAppMessage() {
-    return {
-      title: '咔哩吧 - 你开心就好',
-      path: '/pages/index/index',
-      imageUrl: 'https://m1.calibur.tv/default-poster?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400'
     }
   }
 
@@ -85,13 +80,10 @@ export default class extends Component {
             current={current}
             autoplay={false}
             duration={300}
-            onChange={this.handleTabClick.bind(this)}
+            onChange={this.handleTabClick}
           >
             {tabs.map(tab => (
-              <SwiperItem
-                key={tab.slug}
-                taroKey={tab.slug}
-              >
+              <SwiperItem key={tab.slug}>
                 {this.getFlowComponent(tab)}
               </SwiperItem>
             ))}
@@ -102,3 +94,5 @@ export default class extends Component {
     )
   }
 }
+
+export default indexPage

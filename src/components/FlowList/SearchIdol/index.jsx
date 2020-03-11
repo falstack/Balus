@@ -34,7 +34,6 @@ class SearchBangumi extends Component {
         {
           this.state.flow_result.map(item => (
             <TrendIdolItem
-              taroKey={item.slug}
               key={item.slug}
               idol={item}
             />

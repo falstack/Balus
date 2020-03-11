@@ -49,7 +49,6 @@ export default class BangumiHeader extends Component {
         className='avatar'
         src={utils.resize(item.avatar, { width: 140 })}
         key={item.slug}
-        taroKey={item.slug}
         mode='aspectFit'
       />
     ))
@@ -81,7 +80,7 @@ export default class BangumiHeader extends Component {
                 ? bangumi.is_liked
                 ? <Button className='join-btn-empty'>已加入</Button>
                 : <Navigator url={`/pages/webview/index?url=${encodeURIComponent('bangumi/join?slug=' + bangumi.slug)}`} className='join-btn'>加入圈子</Navigator>
-                : <Button className='join-btn' onClick={this.showLogin.bind(this)}>加入圈子</Button>
+                : <Button className='join-btn' onClick={this.showLogin}>加入圈子</Button>
             }
           </View>
         </View>

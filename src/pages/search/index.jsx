@@ -154,10 +154,7 @@ class SearchShow extends Component {
             onChange={this.handleTabClick}
           >
             {tabs.map(tab => (
-              <SwiperItem
-                key={tab.type}
-                taroKey={tab.type}
-              >
+              <SwiperItem key={tab.type}>
                 {this.getFlowComponent(tab)}
               </SwiperItem>
             ))}

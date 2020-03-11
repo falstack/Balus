@@ -33,7 +33,6 @@ class RecommendedPin extends Component {
         {
           this.state.flow_result.map(item => (
             <FlowPinItem
-              taroKey={item.slug}
               key={item.slug}
               item={item}
             />

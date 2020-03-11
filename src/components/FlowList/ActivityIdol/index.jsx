@@ -35,7 +35,6 @@ class ActivityIdol extends Component {
         {
           this.state.flow_result.map((item, index) => (
             <TrendIdolItem
-              taroKey={item.slug}
               key={item.slug}
               index={index}
               idol={item}

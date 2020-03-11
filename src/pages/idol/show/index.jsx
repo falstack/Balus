@@ -112,7 +112,6 @@ class IdolShow extends Component {
         className='avatar'
         src={utils.resize(user.avatar, { width: 70 })}
         key={user.slug}
-        taroKey={user.slug}
         mode='aspectFit'
       />
     ))

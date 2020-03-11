@@ -9,12 +9,14 @@ import http from '~/utils/http'
 import event from '~/utils/event'
 import blurPage from '~/mixin/blurPage'
 import menuRect from '~/mixin/menuRect'
+import pageShare from '~/mixin/pageShare'
 import BlurHeader from '~/components/BlurHeader/index'
 import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
 @blurPage
 @menuRect
+@pageShare
 class UserShow extends Component {
   config = {
     navigationStyle: 'custom',
@@ -25,6 +27,7 @@ class UserShow extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      ...this.state,
       slug: this.$router.params.slug,
       user: null,
       current: 0,
@@ -36,15 +39,6 @@ class UserShow extends Component {
     }
   }
 
-  onShareAppMessage() {
-    const { user } = this.state
-    return {
-      title: user.nickname,
-      path: `/pages/user/show/index?slug=${user.slug}`,
-      imageUrl: `${user.avatar}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
-    }
-  }
-
   componentDidMount() {
     this.getUser()
   }
@@ -52,7 +46,14 @@ class UserShow extends Component {
   getUser() {
     http.get(`user/show?slug=${this.state.slug}`)
       .then(user => {
-        this.setState({ user })
+        this.setState({
+          user,
+          shareData: {
+            path: `/pages/user/show/index?slug=${user.slug}`,
+            title: user.nickname,
+            imageUrl: `${user.avatar}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
+          }
+        })
       })
       .catch(() => {})
   }
@@ -103,13 +104,10 @@ class UserShow extends Component {
             current={current}
             autoplay={false}
             duration={300}
-            onChange={this.handleTabClick.bind(this)}
+            onChange={this.handleTabClick}
           >
             {tabs.map(tab => (
-              <SwiperItem
-                key={tab.type}
-                taroKey={tab.type}
-              >
+              <SwiperItem key={tab.type}>
                 {this.getFlowComponent(tab)}
               </SwiperItem>
             ))}

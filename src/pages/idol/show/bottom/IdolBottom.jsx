@@ -115,7 +115,7 @@ export default class IdolBottom extends Component {
       <View className='idol-bottom'>
         <View className='idol-bottom__content'>
           <Text className='idol-bottom__price'>{idol.stock_price}个团子/票</Text>
-          <Button className='idol-bottom__btn idol-bottom__buy' onClick={this.handleClick.bind(this)}>
+          <Button className='idol-bottom__btn idol-bottom__buy' onClick={this.handleClick}>
             立即投票
           </Button>
         </View>
@@ -134,13 +134,13 @@ export default class IdolBottom extends Component {
                 <Input
                   value={this.state.value}
                   type='number'
-                  onChange={this.handleChange.bind(this)}
+                  onChange={this.handleChange}
                 />
               </View>
             </View>
             <View className='dialog__footer'>
-              <Button hover-class='none' onClick={this.handleCancel.bind(this)}>取消</Button>
-              <Button hover-class='none' onClick={this.handleConfirm.bind(this)}>确定</Button>
+              <Button hover-class='none' onClick={this.handleCancel}>取消</Button>
+              <Button hover-class='none' onClick={this.handleConfirm}>确定</Button>
             </View>
           </View>
         </View>

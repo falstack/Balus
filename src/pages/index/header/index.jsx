@@ -12,7 +12,7 @@ class IndexHeader extends Component {
     super(props)
     this.state = {
       ...this.state,
-      user: cache.get('USER', null)
+      user: null
     }
   }
 
@@ -21,6 +21,9 @@ class IndexHeader extends Component {
   }
 
   componentDidMount() {
+    this.setState({
+      user: cache.get('USER', null)
+    })
     event.on('update-user', () => {
       this.setState({
         user: cache.get('USER', null)
@@ -63,9 +66,9 @@ class IndexHeader extends Component {
       >
         <View className='shim' style={`height: ${menuRect.top}px`} />
         <View className='avatar' style={`width: ${menuRect.height}px;height:${menuRect.height}px;margin-right:${menuRect.right * 2}px`}>
-          <Image onClick={this.handleAvatarClick.bind(this)} src={utils.resize(user ? user.avatar : 'default-poster', { width: menuRect.height })} />
+          <Image onClick={this.handleAvatarClick} src={utils.resize(user ? user.avatar : 'default-poster', { width: menuRect.height })} />
         </View>
-        <View onClick={this.handleSearchClick.bind(this)} className='search' style={`border-radius:${menuRect.height / 2}px;height:${menuRect.height}px`}>
+        <View onClick={this.handleSearchClick} className='search' style={`border-radius:${menuRect.height / 2}px;height:${menuRect.height}px`}>
           <Text className='iconfont ic-search' />
           <Text className='text'>搜索 calibur.tv</Text>
         </View>

@@ -93,7 +93,7 @@ export default class extends Component {
         <View className='hr' />
         <UserTable user={user} />
         <View className='logout'>
-          <Button onClick={this.userLogout.bind(this)}>
+          <Button onClick={this.userLogout}>
             退出登录
           </Button>
         </View>

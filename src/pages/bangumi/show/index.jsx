@@ -10,10 +10,12 @@ import event from '~/utils/event'
 import { flowEventKey } from '~/utils/flow'
 import blurPage from '~/mixin/blurPage'
 import menuRect from '~/mixin/menuRect'
+import pageShare from '~/mixin/pageShare'
 import './index.scss'
 
 @blurPage
 @menuRect
+@pageShare
 class BangumiShow extends Component {
   config = {
     navigationStyle: 'custom',
@@ -35,15 +37,6 @@ class BangumiShow extends Component {
     }
   }
 
-  onShareAppMessage() {
-    const { bangumi } = this.state
-    return {
-      title: bangumi.name,
-      path: `/pages/bangumi/show/index?slug=${bangumi.slug}`,
-      imageUrl: `${bangumi.avatar}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
-    }
-  }
-
   componentDidMount() {
     this.getBangumi()
   }
@@ -53,7 +46,14 @@ class BangumiShow extends Component {
       slug: this.state.slug
     })
       .then(bangumi => {
-        this.setState({ bangumi })
+        this.setState({
+          bangumi,
+          shareData: {
+            title: bangumi.name,
+            path: `/pages/bangumi/show/index?slug=${bangumi.slug}`,
+            imageUrl: `${bangumi.avatar}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
+          }
+        })
         this.patchBangumiData(bangumi)
       })
       .catch(err => {
@@ -125,13 +125,10 @@ class BangumiShow extends Component {
             current={current}
             autoplay={false}
             duration={300}
-            onChange={this.handleTabClick.bind(this)}
+            onChange={this.handleTabClick}
           >
             {tabs.map(tab => (
-              <SwiperItem
-                key={tab.type}
-                taroKey={tab.type}
-              >
+              <SwiperItem key={tab.type}>
                 {this.getFlowComponent(tab)}
               </SwiperItem>
             ))}

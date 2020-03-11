@@ -56,10 +56,9 @@ class TabHeader extends Component {
           {
             list.map((txt, index) => (
               <Text
-                taroKey={txt}
                 key={txt}
                 data-index={index}
-                onClick={this.handleTabClick.bind(this)}
+                onClick={this.handleTabClick}
                 className={classNames('tab-item', { 'is-active': active === index })}
               >{txt}</Text>
             ))
