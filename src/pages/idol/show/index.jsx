@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator, ScrollView } from '@tarojs/components'
 import http from '~/utils/http'
 import utils from '~/utils'
-import BangumiRankItem from "~/components/BangumiRankItem"
+import BangumiRankItem from "~/components/FlowItem/BangumiRankItem"
 import blurPage from '~/mixin/blurPage'
 import menuRect from '~/mixin/menuRect'
 import IdolPanel from './panel/IdolPanel'

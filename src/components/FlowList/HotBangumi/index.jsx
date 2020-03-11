@@ -2,19 +2,19 @@ import Taro, { Component } from '@tarojs/taro'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
-import BangumiRankItem from '~/components/BangumiRankItem'
+import BangumiRankItem from '~/components/FlowItem/BangumiRankItem'
 import './index.scss'
 
 @flowStore
 @flowEvent
-class BangumiRank extends Component {
+class HotBangumi extends Component {
   constructor (props) {
     super(props)
     this.state = {
       ...this.state,
-      flowNamespace: 'rank',
+      flowNamespace: 'hot',
       flowReq: {
-        url: 'bangumi/rank',
+        url: 'bangumi/hot',
         type: 'page'
       }
     }
@@ -28,11 +28,10 @@ class BangumiRank extends Component {
         namespace={this.state.flowNamespace}
       >
         {
-          this.state.flow_result.map((item, index) => (
+          this.state.flow_result.map(item => (
             <BangumiRankItem
               key={item.slug}
               bangumi={item}
-              index={index}
             />
           ))
         }
@@ -41,8 +40,8 @@ class BangumiRank extends Component {
   }
 }
 
-BangumiRank.defaultProps = {
+HotBangumi.defaultProps = {
   autoload: true
 }
 
-export default BangumiRank
+export default HotBangumi

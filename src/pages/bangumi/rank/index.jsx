@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Navigator, ScrollView } from '@tarojs/components'
+import HotBangumi from '~/components/FlowList/HotBangumi'
 import BangumiTopImage from '~/image/bangumi-top.jpeg'
 import BangumiReleaseImage from '~/image/bangumi-release.jpeg'
 import './index.scss'
@@ -49,11 +50,13 @@ class BangumiRank extends Component {
             </Navigator>
           </ScrollView>
         </View>
-        <View className='flex-shrink-0'>
+        <View className='flex-shrink-0 ugc-title'>
           <Text>热门分区</Text>
         </View>
         <View className='flex-grow-1'>
-          热门的板块（动漫/游戏）
+          <View className='scroll-wrap'>
+            <HotBangumi />
+          </View>
         </View>
       </View>
     )

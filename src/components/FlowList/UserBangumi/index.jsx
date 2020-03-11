@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
-import BangumiRankItem from '~/components/BangumiRankItem'
+import BangumiRankItem from '~/components/FlowItem/BangumiRankItem'
 import './index.scss'
 
 @flowStore
