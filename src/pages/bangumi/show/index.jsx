@@ -93,6 +93,7 @@ class BangumiShow extends Component {
           slug={type}
           prefix='bangumi'
           autoload
+          refresh={false}
           scrollY={scrollActive}
           bangumiSlug={slug}
         />

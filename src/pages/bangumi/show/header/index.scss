@@ -1,42 +1,29 @@
 .bangumi-header {
   .content {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: $container-padding;
 
     .avatar {
       float: left;
       width: 180px;
-      height: 240px;
-      border: 4px solid #fff;
-      border-radius: 8px;
-      margin-right: 20px;
+      height: 180px;
+      border-radius: 10px;
+      margin-right: $container-padding;
     }
 
     .body {
-      color: #fff;
-      overflow: hidden;
-      min-height: 240px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-evenly;
       align-items: flex-start;
-
-      .rank {
-        font-size: 22px;
-        font-weight: 500;
-        display: inline-block;
-        padding: 10px 12px;
-        border-radius: 8px;
-        background-color: rgba(0, 0, 0, 0.4);
-        margin-bottom: 5px;
-      }
+      overflow: hidden;
+      min-height: 180px;
+      color: #fff;
 
       .score {
         position: absolute;
-        right: 0;
-        top: 0;
-
-        margin-left: 10px;
+        right: 10px;
+        top: 15px;
 
         &__number {
           color: #FFA726;
@@ -51,14 +38,30 @@
         }
       }
 
-      .title {
-        position: relative;
-        display: block;
-        width: 100%;
-        font-size: 36px;
+      .rank {
+        font-size: 22px;
         font-weight: 500;
-        @extend %oneline;
+        display: inline-block;
+        padding: 10px 12px;
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .title {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
         margin-bottom: 6px;
+
+        .name {
+          flex: 1;
+          font-size: 36px;
+          line-height: 36px;
+          font-weight: 500;
+          @extend %oneline;
+        }
       }
 
       .intro {
@@ -66,30 +69,36 @@
         display: block;
         width: 100%;
         font-size: 24px;
+        line-height: 24px;
+        max-height: 24px;
         font-weight: 300;
-        @include mutiline(36px, 1)
+        @extend %oneline;
       }
+    }
+  }
 
-      .join-btn-empty,
-      .join-btn {
-        display: block;
-        width: 100%;
-        height: 79px;
-        line-height: 77px;
-        font-size: 34px;
-        margin-top: 16px;
-        background-color: #fff;
-        color: $color-text-normal;
-        text-align: center;
-        border-radius: 10px;
-        font-weight: 500;
-        border: 1px solid #fff;
-      }
+  .tag-wrap {
+    margin-bottom: $container-padding;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
 
-      .join-btn-empty {
-        background-color: transparent;
+    .tag-list {
+      .tag-item {
+        display: inline-block;
+        background-color: rgba($color-background-tag, 0.3);
+        padding: 6px 10px;
+        margin-right: 10px;
+        border-radius: 8px;
+        font-size: 24px;
         color: #fff;
       }
+    }
+
+    .tag-tail {
+      color: #fff;
+      font-size: 24px;
     }
   }
 
@@ -97,14 +106,22 @@
     position: relative;
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    padding: 20px;
-    font-size: 0;
+    padding: $container-padding;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $container-padding;
+
+    .iconfont {
+      color: #fff;
+    }
 
     .avatar {
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      margin-left: -20px;
+      margin-left: -$container-padding;
       border: 4px solid #fff;
       vertical-align: middle;
 
@@ -115,23 +132,26 @@
 
     .text {
       color: #fff;
-      font-size: 26px;
+      font-size: 24px;
       vertical-align: middle;
     }
 
     .avatar-tail {
-      margin-left: 20px;
+      margin-left: $container-padding;
     }
   }
 
-  .avatar-panel {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    .iconfont {
-      color: #fff;
-    }
+  .join-btn {
+    display: block;
+    width: 100%;
+    height: 79px;
+    line-height: 77px;
+    font-size: 34px;
+    background-color: #fff;
+    color: $color-text-normal;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: 500;
+    border: 1px solid #fff;
   }
 }
