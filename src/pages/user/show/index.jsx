@@ -44,17 +44,25 @@ class UserShow extends Component {
   }
 
   getUser() {
-    http.get(`user/show?slug=${this.state.slug}`)
-      .then(user => {
-        this.setState({
-          user,
-          shareData: {
-            path: `/pages/user/show/index?slug=${user.slug}`,
-            title: user.nickname,
-            imageUrl: `${user.avatar}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
-          }
-        })
+    const { user } = (this.$router.preload || {})
+    const handler = user => {
+      this.setState({
+        user,
+        shareData: {
+          path: `/pages/user/show/index?slug=${user.slug}`,
+          title: user.nickname,
+          imageUrl: `${user.avatar}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
+        }
       })
+    }
+
+    if (user) {
+      handler(user)
+      return
+    }
+
+    http.get(`user/show?slug=${this.state.slug}`)
+      .then(handler)
       .catch(() => {})
   }
 
@@ -87,6 +95,7 @@ class UserShow extends Component {
     if (!user || !menuRect) {
       return
     }
+
     return (
       <View className='user-show'>
         <BlurHeader background={user.banner} title={user.nickname} collapsed={collapsedHeader}>

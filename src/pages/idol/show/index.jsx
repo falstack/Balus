@@ -42,16 +42,20 @@ class IdolShow extends Component {
   }
 
   getIdolData() {
-    http.get('idol/show', {
-      slug: this.state.slug
-    })
-      .then(idol => {
-        this.setState({ idol })
-        this.patchIdolData(idol)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    const { idol } = (this.$router.preload || {})
+    const handler = idol => {
+      this.setState({ idol })
+      this.patchIdolData(idol)
+    }
+
+    if (idol) {
+      handler(idol)
+      return
+    }
+
+    http.get('idol/show', { slug: this.state.slug })
+      .then(handler)
+      .catch(() => {})
   }
 
   patchIdolData(idol) {

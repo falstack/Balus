@@ -6,7 +6,7 @@ import toast from '~/utils/toast'
 import http from '~/utils/http'
 import './index.scss'
 
-export default class BangumiHeader extends Component {
+class BangumiHeader extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -121,6 +121,10 @@ export default class BangumiHeader extends Component {
 }
 
 BangumiHeader.defaultProps = {
-  bangumi: {},
+  bangumi: {
+    tags: []
+  },
   slug: ''
 }
+
+export default BangumiHeader

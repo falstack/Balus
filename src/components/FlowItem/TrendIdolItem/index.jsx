@@ -8,10 +8,17 @@ export default class TrendIdolItem extends Component {
     super(props)
   }
 
+  handleClick(idol) {
+    this.$preload('idol', idol)
+    Taro.navigateTo({
+      url: `/pages/idol/show/index?slug=${idol.slug}`,
+    })
+  }
+
   render () {
     const { idol, index, inBangumi } = this.props
     return (
-      <Navigator hover-class='none' url={`/pages/idol/show/index?slug=${idol.slug}`} className='trend-idol'>
+      <View className='trend-idol' onClick={() => this.handleClick(idol)}>
         <Image className='trend-idol__avatar' src={idol.avatar} mode='aspectFill' />
         {
           index >= 0 ? (
@@ -28,7 +35,7 @@ export default class TrendIdolItem extends Component {
             <Text className='trend-idol__fans'>{idol.fans_count}人投票</Text>
           </View>
         </View>
-      </Navigator>
+      </View>
     )
   }
 }

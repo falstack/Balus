@@ -30,18 +30,26 @@ export default class extends Component {
   }
 
   getData() {
-    http.get(`pin/show?slug=${this.$router.params.slug}`)
-      .then(data => {
-        this.setState({
-          shareData: {
-            title: `「${data.badge}」${data.title.text}`,
-            path: `/pages/pin/show/index?slug=${data.slug}`,
-            imageUrl: data.banner.length
-              ? `${data.banner[0].url}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
-              : `${data.author.avatar}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
-          }
-        })
+    const { pin } = (this.$router.preload || {})
+    const handler = pin => {
+      this.setState({
+        shareData: {
+          title: `「${pin.badge}」${pin.title.text}`,
+          path: `/pages/pin/show/index?slug=${pin.slug}`,
+          imageUrl: pin.banner.length
+            ? `${pin.banner[0].url}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
+            : `${pin.author.avatar}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
+        }
       })
+    }
+
+    if (pin) {
+      handler(pin)
+      return
+    }
+
+    http.get(`pin/show?slug=${this.$router.params.slug}`)
+      .then(handler)
       .catch(() => {})
   }
 

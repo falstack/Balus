@@ -7,10 +7,10 @@ import BangumiPin from '~/components/FlowList/BangumiPin/index'
 import BangumiIdol from '~/components/FlowList/BangumiIdol/index'
 import http from '~/utils/http'
 import event from '~/utils/event'
-import { flowEventKey } from '~/utils/flow'
 import blurPage from '~/mixin/blurPage'
 import menuRect from '~/mixin/menuRect'
 import pageShare from '~/mixin/pageShare'
+import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
 @blurPage
@@ -42,23 +42,27 @@ class BangumiShow extends Component {
   }
 
   getBangumi() {
-    http.get('bangumi/show', {
-      slug: this.state.slug
-    })
-      .then(bangumi => {
-        this.setState({
-          bangumi,
-          shareData: {
-            title: bangumi.name,
-            path: `/pages/bangumi/show/index?slug=${bangumi.slug}`,
-            imageUrl: `${bangumi.avatar}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
-          }
-        })
-        this.patchBangumiData(bangumi)
+    const { bangumi } = (this.$router.preload || {})
+    const handler = bangumi => {
+      this.setState({
+        bangumi,
+        shareData: {
+          title: bangumi.name,
+          path: `/pages/bangumi/show/index?slug=${bangumi.slug}`,
+          imageUrl: `${bangumi.avatar}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
+        }
       })
-      .catch(err => {
-        console.log(err)
-      })
+      this.patchBangumiData(bangumi)
+    }
+
+    if (bangumi) {
+      handler(bangumi)
+      return
+    }
+
+    http.get('bangumi/show', { slug: this.state.slug })
+      .then(handler)
+      .catch(() => {})
   }
 
   patchBangumiData(bangumi) {

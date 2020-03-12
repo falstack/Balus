@@ -17,6 +17,27 @@ export default class FlowPinItem extends Component {
     addGlobalClass: true
   }
 
+  clickBangumi(bangumi) {
+    this.$preload('bangumi', bangumi)
+    Taro.navigateTo({
+      url: `/pages/bangumi/show/index?slug=${bangumi.slug}`,
+    })
+  }
+
+  clickUser(user) {
+    this.$preload('user', user)
+    Taro.navigateTo({
+      url: `/pages/user/show/index?slug=${user.slug}`,
+    })
+  }
+
+  clickPin(pin) {
+    this.$preload('pin', pin)
+    Taro.navigateTo({
+      url: `/pages/pin/show/index?slug=${pin.slug}`,
+    })
+  }
+
   render () {
     const { item, params } = this.props
     const state = {
@@ -25,15 +46,16 @@ export default class FlowPinItem extends Component {
       showTime: false,
       ...params
     }
+
     return (
       <View className='flow-pin-item'>
         {
           state.showUser ? (
             <View className='header'>
-              <Navigator className='user' hover-class='none' url={`/pages/user/show/index?slug=${item.author.slug}`}>
+              <View className='user' onClick={() => {this.clickUser(item.author)}}>
                 <Image lazyLoad className='avatar' src={utils.resize(item.author.avatar, { width: 50 })} />
                 <Text>{ item.author.nickname }</Text>
-              </Navigator>
+              </View>
               {
                 state.showTime ? (
                   <Text className='time'>{ utils.timeAgo(item.published_at) }</Text>
@@ -42,7 +64,7 @@ export default class FlowPinItem extends Component {
             </View>
           ) : ''
         }
-        <Navigator className='body' hover-class='none' url={`/pages/pin/show/index?slug=${item.slug}`}>
+        <View className='body' onClick={() => this.clickPin(item)}>
           <View className='title'>{ item.title.text }</View>
           {
             item.intro ? (
@@ -74,18 +96,18 @@ export default class FlowPinItem extends Component {
               </View>
             )
           }
-        </Navigator>
+        </View>
         <View className='badge'>
           {
             state.showBangumi ? (
-              <Navigator
+              <View
                 className='bangumi'
-                hover-class='none'
                 url={`/pages/bangumi/show/index?slug=${item.bangumi.slug}`}
+                onClick={() => {this.clickBangumi(item.bangumi)}}
               >
                 <Image src={PinkIcon} />
                 <Text>{item.bangumi.name}</Text>
-              </Navigator>
+              </View>
             ) : ''
           }
         </View>
