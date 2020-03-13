@@ -10,7 +10,6 @@ class BangumiHeader extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: cache.get('USER', null),
       liker_list: [],
       liker_total: 0
     }
@@ -20,8 +19,41 @@ class BangumiHeader extends Component {
     addGlobalClass: true
   }
 
-  showLogin() {
-    toast.info('请先登录')
+  clickJoinBtn() {
+    const user = cache.get('USER', null)
+    if (!user) {
+      Taro.navigateTo({
+        url: '/pages/user/login/index',
+      })
+      return
+    }
+
+    const rule = this.props.bangumi.rule
+    if (!rule || rule.rule_type === 0) {
+      http.post('join/pass', {
+        slug: this.props.slug
+      })
+        .then(() => {
+          const { liker_total, liker_list } = this.state
+          this.props.onUpdate({
+            is_liked: true
+          })
+          liker_list.unshift(user)
+          this.setState({
+            liker_total: liker_total + 1,
+            liker_list
+          })
+        })
+        .catch(() => {
+          toast.info('网络错误')
+        })
+
+      return
+    }
+
+    Taro.navigateTo({
+      url: `/pages/webview/index?url=${encodeURIComponent('bangumi/join?slug=' + this.props.slug)}`,
+    })
   }
 
   componentDidMount() {
@@ -43,8 +75,7 @@ class BangumiHeader extends Component {
 
   render() {
     const { bangumi } = this.props
-    const { user, liker_list, liker_total } = this.state
-
+    const { liker_list, liker_total } = this.state
     return (
       <View className='bangumi-header'>
         <View className='content'>
@@ -109,11 +140,9 @@ class BangumiHeader extends Component {
           </Navigator> : ''
         }
         {
-          user
-            ? bangumi.is_liked
-            ? ''
-            : <Navigator url={`/pages/webview/index?url=${encodeURIComponent('bangumi/join?slug=' + bangumi.slug)}`} className='join-btn'>加入圈子</Navigator>
-            : <Button className='join-btn' onClick={this.showLogin}>加入圈子</Button>
+          bangumi.is_liked || bangumi.type > 1
+          ? ''
+          : <Button className='join-btn' onClick={this.clickJoinBtn}>加入圈子</Button>
         }
       </View>
     )
@@ -121,6 +150,7 @@ class BangumiHeader extends Component {
 }
 
 BangumiHeader.defaultProps = {
+  onUpdate: () => {},
   bangumi: {
     tags: []
   },

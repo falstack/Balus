@@ -89,6 +89,16 @@ class BangumiShow extends Component {
     event.emit(flowEventKey('bangumi', 'switch', this.state.tabs[current].type))
   }
 
+  handleUpdate(data) {
+    const bangumi = this.state.bangumi
+    this.setState({
+      bangumi: {
+        ...bangumi,
+        ...data
+      }
+    })
+  }
+
   getFlowComponent({ type }) {
     const { slug, scrollActive } = this.state
     switch (type) {
@@ -116,7 +126,7 @@ class BangumiShow extends Component {
     return (
       <View>
         <BlurHeader blur background={bangumi.avatar} title={bangumi.name} collapsed={collapsedHeader}>
-          <BangumiHeader slug={slug} bangumi={bangumi} />
+          <BangumiHeader slug={slug} bangumi={bangumi} onUpdate={this.handleUpdate.bind(this)} />
         </BlurHeader>
         <TabHeader
           line
