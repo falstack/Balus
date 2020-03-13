@@ -111,7 +111,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: $container-padding;
 
     .iconfont {
       color: #fff;
@@ -153,5 +152,6 @@
     border-radius: 10px;
     font-weight: 500;
     border: 1px solid #fff;
+    margin-top: $container-padding;
   }
 }
