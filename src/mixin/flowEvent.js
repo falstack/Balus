@@ -26,13 +26,12 @@ export default function flowEvent(Comp) {
         this.loadMore()
       })
       event.on(this._CREATE_EVENT_KEY('refresh'), () => {
-        this.initData(true)
+        if (this.handleRefresh) {
+          this.handleRefresh(() => { this.initData(true) })
+        } else {
+          this.initData(true)
+        }
       })
-      if (this.props.loadBefore) {
-        event.on(this._CREATE_EVENT_KEY('top'), () => {
-          this.loadBefore()
-        })
-      }
       if (this.props.clearable) {
         event.on(this._CREATE_EVENT_KEY('clear'), () => {
           this.resetStore()
@@ -48,7 +47,6 @@ export default function flowEvent(Comp) {
       event.off(this._CREATE_EVENT_KEY('refresh'))
       event.off(this._CREATE_EVENT_KEY('bottom'))
       event.off(this._CREATE_EVENT_KEY('clear'))
-      event.off(this._CREATE_EVENT_KEY('top'))
     }
 
     _CREATE_EVENT_KEY(type) {

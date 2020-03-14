@@ -43,13 +43,13 @@ class indexPage extends Component {
   getFlowComponent({ title, slug }) {
     switch (title) {
       case '热门': {
-        return <PinList from='index' sort={slug} />
+        return <PinList from='index' sort={slug} refresh />
       }
       case '动态': {
-        return <PinList from='index' sort={slug} autoload />
+        return <PinList from='index' sort={slug} refresh autoload />
       }
       case '最新': {
-        return <PinList from='index' sort={slug} params={{ showTime: true }} />
+        return <PinList from='index' sort={slug} refresh params={{ showTime: true }} />
       }
     }
     return <ActivityIdol slug={slug} />

@@ -5,6 +5,9 @@ import FlowLoader from '~/components/FlowLoader'
 import FlowPinItem from '~/components/FlowItem/PinItem'
 import './index.scss'
 
+const getRandId = () => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9][Math.random() * 9 | 0]
+
+
 @flowStore
 @flowEvent
 class PinList extends Component {
@@ -17,6 +20,7 @@ class PinList extends Component {
         url: `flow/pin/${props.sort}`,
         type: props.sort === 'newest' ? 'lastId' : 'seenIds',
         query: {
+          rand_id: getRandId(),
           slug: props.slug,
           from: props.from
         }
@@ -24,13 +28,32 @@ class PinList extends Component {
     }
   }
 
+  handleRefresh(callback) {
+    if (this.props.sort === 'hottest') {
+      const { flowReq } = this.state
+      this.setState({
+        flowReq: {
+          ...flowReq,
+          query: {
+            ...flowReq.query,
+            rand_id: getRandId()
+          }
+        }
+      }, () => {
+        callback()
+      })
+    } else {
+      callback()
+    }
+  }
+
   render () {
     return (
       <FlowLoader
         launch
-        refresh
         flow={this.state}
         slug={this.props.slug}
+        refresh={this.props.refresh}
         scrollY={this.props.scrollY}
         namespace={this.state.flowNamespace}
       >
@@ -54,6 +77,7 @@ PinList.defaultProps = {
   sort: '',
   params: {},
   scrollY: true,
+  refresh: false,
   autoload: false
 }
 

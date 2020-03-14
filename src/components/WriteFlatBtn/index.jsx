@@ -8,10 +8,6 @@ export default class extends Component {
     this.state = {}
   }
 
-  static options = {
-    addGlobalClass: true
-  }
-
   render () {
     return (
       <Navigator
@@ -19,7 +15,8 @@ export default class extends Component {
         className='write-flat-btn'
         url={`/pages/webview/index?url=${encodeURIComponent('write/pin')}`}
       >
-        <Text className='iconfont ic-add' />
+        <View className='right' />
+        <View className='left' />
       </Navigator>
     )
   }
