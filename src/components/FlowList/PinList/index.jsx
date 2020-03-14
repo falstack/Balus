@@ -29,7 +29,7 @@ class PinList extends Component {
   }
 
   handleRefresh(callback) {
-    if (this.props.sort === 'hottest') {
+    if (this.props.sort !== 'newest') {
       const { flowReq } = this.state
       this.setState({
         flowReq: {
