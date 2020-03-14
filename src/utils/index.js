@@ -1,16 +1,6 @@
 import cache from '~/utils/cache'
 import Taro from '@tarojs/taro'
 
-const adjustDate = (time) => {
-  if (/^\d+$/.test(time) && time.toString().length === 10) {
-    return new Date(time * 1000)
-  }
-  let result = new Date(time)
-  if (result.toString() === 'Invalid Date') {
-    result = new Date(time.replace(/-/g, '/'))
-  }
-  return result
-}
 const DPR = (function () {
   try {
     const info = Taro.getSystemInfoSync()
@@ -76,24 +66,83 @@ export default {
     return num > 1000 ? `${Math.floor((num / 1000) * 10) / 10}k` : num
   },
 
+  pad(number) {
+    return number < 10 ? '0' + number : number
+  },
+
   timeAgo(time) {
-    const date = adjustDate(time)
-    const delta = Date.now() - date.getTime()
-    const format = [date.getFullYear(), `0${date.getMonth() + 1}`.substr(-2), `0${date.getDate()}`.substr(-2), `0${date.getHours()}`.substr(-2), `0${date.getMinutes()}`.substr(-2)]
-    if (delta > 365 * 86400000 || delta <= 0) {
-      return `${format[0]}-${format[1]}-${format[2]}`
+    if (!time) {
+      return ''
     }
+    const date = this.adjustDate(time)
     const today = new Date().setHours(0, 0, 0, 0)
+    const obj = this.parseDateProps(time)
     if (today < date) {
-      return `今天${format[3]}:${format[4]}`
+      return `今天${this.pad(obj.hour)}:${this.pad(obj.minutes)}`
     }
     if (today - 86400000 < date) {
-      return `昨天${format[3]}:${format[4]}`
+      return `昨天${this.pad(obj.hour)}:${this.pad(obj.minutes)}`
     }
     if (today - 172800000 < date) {
-      return `前天${format[3]}:${format[4]}`
+      return `前天${this.pad(obj.hour)}:${this.pad(obj.minutes)}`
     }
-    return `${format[1]}-${format[2]} ${format[3]}:${format[4]}`
+    const delta = Date.now() - date.getTime()
+    if (delta > 365 * 86400000) {
+      return this.formatTime(time, 'ymd')
+    }
+    return this.formatTime(time, 'md')
+  },
+
+  adjustDate(time) {
+    if (!time) {
+      return null
+    }
+    if (/^\d+$/.test(time)) {
+      if (time.toString().length === 10) {
+        return new Date(time * 1000)
+      }
+      return new Date(+time)
+    }
+    let result = new Date(time)
+    if (result.toString() === 'Invalid Date') {
+      result = new Date(time.replace(/-/g, '/'))
+    }
+    return result
+  },
+
+  parseDateProps(time) {
+    if (!time) {
+      return null
+    }
+    const date = this.adjustDate(time)
+    if (!date) {
+      return null
+    }
+
+    return {
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate(),
+      hour: date.getHours(),
+      minutes: date.getMinutes(),
+      seconds: date.getSeconds()
+    }
+  },
+
+  formatTime(ts, type = 'ymd') {
+    const obj = this.parseDateProps(ts)
+    if (!obj) {
+      return ''
+    }
+    if (type === 'ymd') {
+      return `${obj.year}-${obj.month}-${obj.day}`
+    }
+
+    if (type === 'md') {
+      return `${obj.month}-${obj.day}`
+    }
+
+    return obj.year
   },
 
   webview(url) {

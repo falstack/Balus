@@ -25,11 +25,9 @@ export default function flowEvent(Comp) {
       event.on(this._CREATE_EVENT_KEY('bottom'), () => {
         this.loadMore()
       })
-      if (this.props.refresh) {
-        event.on(this._CREATE_EVENT_KEY('refresh'), () => {
-          this.initData(true)
-        })
-      }
+      event.on(this._CREATE_EVENT_KEY('refresh'), () => {
+        this.initData(true)
+      })
       if (this.props.loadBefore) {
         event.on(this._CREATE_EVENT_KEY('top'), () => {
           this.loadBefore()

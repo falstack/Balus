@@ -3,7 +3,7 @@ import { View, Swiper, SwiperItem } from '@tarojs/components'
 import TabHeader from '~/components/TabHeader'
 import BlurHeader from '~/components/BlurHeader/index'
 import BangumiHeader from './header/index'
-import BangumiPin from '~/components/FlowList/BangumiPin/index'
+import PinList from '~/components/FlowList/PinList/index'
 import BangumiIdol from '~/components/FlowList/BangumiIdol/index'
 import http from '~/utils/http'
 import event from '~/utils/event'
@@ -103,13 +103,13 @@ class BangumiShow extends Component {
     const { slug, scrollActive } = this.state
     switch (type) {
       case 'pin': {
-        return <BangumiPin
-          slug={type}
-          prefix='bangumi'
-          autoload
-          refresh={false}
+        return <PinList
           scrollY={scrollActive}
-          bangumiSlug={slug}
+          sort='activity'
+          from='bangumi'
+          slug={slug}
+          params={{ showBangumi: false }}
+          autoload
         />
       }
       case 'idol': {

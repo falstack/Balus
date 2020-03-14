@@ -1,7 +1,7 @@
 export default new class {
   constructor() {
     this.all = {}
-    this.debug = 0
+    this.debug = 1
   }
 
   on(type, handler) {

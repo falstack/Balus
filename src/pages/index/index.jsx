@@ -1,10 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
 import IndexHeader from './header/index'
-import NewsPin from '~/components/FlowList/NewsPin/index'
-import RecommendedPin from '~/components/FlowList/RecommendedPin/index'
 import ActivityIdol from '~/components/FlowList/ActivityIdol/index'
-import BangumiPin from '~/components/FlowList/BangumiPin/index'
+import PinList from '~/components/FlowList/PinList/index'
 import WriteFlatBtn from '~/components/WriteFlatBtn/index'
 import TabHeader from '~/components/TabHeader'
 import event from '~/utils/event'
@@ -25,10 +23,10 @@ class indexPage extends Component {
       ...this.state,
       current: 1,
       tabs: [
-        { slug: 'news', title: '新闻' },
-        { slug: 'recommended', title: '推荐' },
+        { slug: 'hottest', title: '热门' },
+        { slug: 'activity', title: '动态' },
+        { slug: 'newest', title: '最新' },
         { slug: 'idol', title: '股市' },
-        { slug: '54xcl', title: '日常' }
       ]
     }
   }
@@ -39,22 +37,22 @@ class indexPage extends Component {
       return
     }
     this.setState({ current })
-    event.emit(flowEventKey('index', 'switch', this.state.tabs[current].slug))
+    event.emit(flowEventKey(`index-${this.state.tabs[current].slug}`, 'switch', ''))
   }
 
   getFlowComponent({ title, slug }) {
     switch (title) {
-      case '新闻': {
-        return <NewsPin slug={slug} />
+      case '热门': {
+        return <PinList from='index' sort={slug} />
       }
-      case '推荐': {
-        return <RecommendedPin slug={slug} />
+      case '动态': {
+        return <PinList from='index' sort={slug} autoload />
       }
-      case '股市': {
-        return <ActivityIdol slug={slug} />
+      case '最新': {
+        return <PinList from='index' sort={slug} params={{ showTime: true }} />
       }
     }
-    return <BangumiPin prefix='index' bangumiSlug={slug} slug={slug} />
+    return <ActivityIdol slug={slug} />
   }
 
   render () {

@@ -1,9 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
 import UserPanel from './panel/UserPanel'
-import UserPin from '~/components/FlowList/UserPin/index'
 import UserBangumi from '~/components/FlowList/UserBangumi/index'
 import UserIdol from '~/components/FlowList/UserIdol/index'
+import PinList from '~/components/FlowList/PinList/index'
 import TabHeader from '~/components/TabHeader'
 import http from '~/utils/http'
 import event from '~/utils/event'
@@ -79,7 +79,14 @@ class UserShow extends Component {
     const { slug, scrollActive } = this.state
     switch (type) {
       case 'pin': {
-        return <UserPin scrollY={scrollActive} slug={type} userSlug={slug} />
+        return <PinList
+          scrollY={scrollActive}
+          sort='newest'
+          from='user'
+          slug={slug}
+          params={{ showUser: false, showTime: true }}
+          autoload
+        />
       }
       case 'bangumi': {
         return <UserBangumi scrollY={scrollActive} slug={type} userSlug={slug} />

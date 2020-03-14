@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image, Navigator, Button } from '@tarojs/components'
+import { View, Text, Image, Button } from '@tarojs/components'
 import utils from '~/utils'
 import LikeImage from '~/image/like.png'
 import TalkImage from '~/image/talk.png'
@@ -7,7 +7,7 @@ import ShareImage from '~/image/share.png'
 import PinkIcon from '~/image/pink_@.png'
 import './index.scss'
 
-export default class FlowPinItem extends Component {
+class PinItem extends Component {
   constructor (props) {
     super(props)
     this.state = {}
@@ -49,21 +49,21 @@ export default class FlowPinItem extends Component {
 
     return (
       <View className='flow-pin-item'>
-        {
-          state.showUser ? (
-            <View className='header'>
+        <View className='header'>
+          {
+            state.showUser ? (
               <View className='user' onClick={() => {this.clickUser(item.author)}}>
                 <Image lazyLoad className='avatar' src={utils.resize(item.author.avatar, { width: 50 })} />
-                <Text>{ item.author.nickname }</Text>
+                <Text className='name'>{ item.author.nickname }</Text>
               </View>
-              {
-                state.showTime ? (
-                  <Text className='time'>{ utils.timeAgo(item.published_at) }</Text>
-                ) : ''
-              }
-            </View>
-          ) : ''
-        }
+            ) : ''
+          }
+          {
+            state.showTime ? (
+              <Text className='time'>{ utils.timeAgo(item.published_at) }</Text>
+            ) : ''
+          }
+        </View>
         <View className='body' onClick={() => this.clickPin(item)}>
           <View className='title'>{ item.title.text }</View>
           {
@@ -139,7 +139,7 @@ export default class FlowPinItem extends Component {
   }
 }
 
-FlowPinItem.defaultProps = {
+PinItem.defaultProps = {
   item: {
     title: {},
     author: {},
@@ -148,3 +148,5 @@ FlowPinItem.defaultProps = {
   },
   params: {}
 }
+
+export default PinItem

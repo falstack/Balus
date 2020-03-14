@@ -2,25 +2,23 @@ import Taro, { Component } from '@tarojs/taro'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
-import FlowPinItem from '~/components/FlowItem/FlowPinItem'
+import FlowPinItem from '~/components/FlowItem/PinItem'
 import './index.scss'
 
 @flowStore
 @flowEvent
-class BangumiActive extends Component {
+class PinList extends Component {
   constructor (props) {
     super(props)
     this.state = {
       ...this.state,
-      flowNamespace: this.props.prefix,
+      flowNamespace: `${props.from}-${props.sort}`,
       flowReq: {
-        url: 'bangumi/pins',
-        type: 'seenIds',
+        url: `flow/pin/${props.sort}`,
+        type: props.sort === 'newest' ? 'lastId' : 'seenIds',
         query: {
-          slug: this.props.bangumiSlug,
-          sort: 'active',
-          time: 'all',
-          is_up: 0
+          slug: props.slug,
+          from: props.from
         }
       }
     }
@@ -30,9 +28,9 @@ class BangumiActive extends Component {
     return (
       <FlowLoader
         launch
+        refresh
         flow={this.state}
         slug={this.props.slug}
-        refresh={this.props.refresh}
         scrollY={this.props.scrollY}
         namespace={this.state.flowNamespace}
       >
@@ -41,7 +39,7 @@ class BangumiActive extends Component {
             <FlowPinItem
               key={item.slug}
               item={item}
-              params={{ showBangumi: false }}
+              params={this.props.params}
             />
           ))
         }
@@ -50,13 +48,13 @@ class BangumiActive extends Component {
   }
 }
 
-BangumiActive.defaultProps = {
+PinList.defaultProps = {
   slug: '',
-  prefix: '',
-  bangumiSlug: '',
-  refresh: true,
-  autoload: false,
-  scrollY: true
+  from: '',
+  sort: '',
+  params: {},
+  scrollY: true,
+  autoload: false
 }
 
-export default BangumiActive
+export default PinList
