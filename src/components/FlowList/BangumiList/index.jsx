@@ -2,22 +2,23 @@ import Taro, { Component } from '@tarojs/taro'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
-import BangumiRankItem from '~/components/FlowItem/BangumiRankItem'
+import BangumiItem from '~/components/FlowItem/BangumiItem'
 import './index.scss'
 
 @flowStore
 @flowEvent
-class UserBangumi extends Component {
+class BangumiList extends Component {
   constructor (props) {
     super(props)
     this.state = {
       ...this.state,
-      flowNamespace: 'user',
+      flowNamespace: `bangumi-${props.from}-${props.sort}`,
       flowReq: {
-        url: 'user/like_bangumi',
+        url: props.from === 'hot' ? 'bangumi/hot' : 'user/like_bangumi',
         type: 'page',
         query: {
-          slug: this.props.userSlug
+          slug: props.slug,
+          from: props.from
         }
       }
     }
@@ -28,15 +29,13 @@ class UserBangumi extends Component {
       <FlowLoader
         launch
         flow={this.state}
-        slug={this.props.slug}
         namespace={this.state.flowNamespace}
-        scrollY={this.props.scrollY}
       >
         {
           this.state.flow_result.map(item => (
-            <BangumiRankItem
+            <BangumiItem
               key={item.slug}
-              bangumi={item}
+              item={item}
             />
           ))
         }
@@ -45,11 +44,14 @@ class UserBangumi extends Component {
   }
 }
 
-UserBangumi.defaultProps = {
+BangumiList.defaultProps = {
   slug: '',
-  userSlug: '',
+  from: '',
+  sort: '',
+  params: {},
   scrollY: true,
+  refresh: false,
   autoload: false
 }
 
-export default UserBangumi
+export default BangumiList

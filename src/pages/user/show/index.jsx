@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
 import UserPanel from './panel/UserPanel'
-import UserBangumi from '~/components/FlowList/UserBangumi/index'
 import PinList from '~/components/FlowList/PinList/index'
+import BangumiList from '~/components/FlowList/BangumiList/index'
 import IdolList from '~/components/FlowList/IdolList/index'
 import TabHeader from '~/components/TabHeader'
 import http from '~/utils/http'
@@ -90,7 +90,12 @@ class UserShow extends Component {
         />
       }
       case 'bangumi': {
-        return <UserBangumi scrollY={scrollActive} slug={tab.type} userSlug={slug} />
+        return <BangumiList
+          scrollY={scrollActive}
+          sort={tab.sort}
+          from='user'
+          slug={slug}
+        />
       }
       case 'idol': {
         return <IdolList

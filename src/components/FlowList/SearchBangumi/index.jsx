@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
-import BangumiRankItem from '~/components/FlowItem/BangumiRankItem'
+import BangumiItem from '~/components/FlowItem/BangumiItem'
 import './index.scss'
 
 @flowStore
@@ -33,9 +33,9 @@ class SearchBangumi extends Component {
       >
         {
           this.state.flow_result.map(item => (
-            <BangumiRankItem
+            <BangumiItem
               key={item.slug}
-              bangumi={item}
+              item={item}
             />
           ))
         }

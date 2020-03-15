@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator, ScrollView } from '@tarojs/components'
 import http from '~/utils/http'
 import utils from '~/utils'
-import BangumiRankItem from "~/components/FlowItem/BangumiRankItem"
+import BangumiItem from "~/components/FlowItem/BangumiItem"
 import blurPage from '~/mixin/blurPage'
 import menuRect from '~/mixin/menuRect'
 import IdolPanel from './panel/IdolPanel'
@@ -148,7 +148,7 @@ class IdolShow extends Component {
             }
             <View className='intro'>
               <Text className='intro__title'>所属番剧</Text>
-              <BangumiRankItem bangumi={idol.bangumi} />
+              <BangumiItem item={idol.bangumi} />
             </View>
             <IdolBottom idol={idol} onPayCallback={this.handleBuyStock.bind(this)} />
           </ScrollView>
