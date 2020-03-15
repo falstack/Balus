@@ -26,7 +26,7 @@ class indexPage extends Component {
         { sort: 'hottest', title: '热门', type: 'pin' },
         { sort: 'activity', title: '动态', type: 'pin' },
         { sort: 'newest', title: '最新', type: 'pin' },
-        { sort: 'activity', title: '股市', type: 'idol' },
+        { sort: 'hottest', title: '股市', type: 'idol' },
       ]
     }
   }

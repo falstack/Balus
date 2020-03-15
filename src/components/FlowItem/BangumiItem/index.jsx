@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image, Navigator } from '@tarojs/components'
+import { View, Text, Image } from '@tarojs/components'
 import './index.scss'
 
 export default class BangumiRankItem extends Component {
@@ -7,10 +7,18 @@ export default class BangumiRankItem extends Component {
     super(props)
   }
 
+  clickBangumi(bangumi) {
+    this.$preload('bangumi', bangumi)
+    Taro.navigateTo({
+      url: `/pages/bangumi/show/index?slug=${bangumi.slug}`,
+    })
+  }
+
   render () {
     const { item, index } = this.props
+
     return (
-      <Navigator hover-class='none'  url={`/pages/item/show/index?slug=${item.slug}`} className='item-rank-item'>
+      <View className='bangumi-item' onClick={() => {this.clickBangumi(item)}}>
         <Image className='avatar' src={item.avatar} mode='aspectFill' />
         {
           index < 0 ? '' :
@@ -28,7 +36,7 @@ export default class BangumiRankItem extends Component {
         <View className='content'>
           <Text className='title'>{item.name}</Text>
         </View>
-      </Navigator>
+      </View>
     )
   }
 }

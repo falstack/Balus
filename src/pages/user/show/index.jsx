@@ -103,6 +103,7 @@ class UserShow extends Component {
           sort={tab.sort}
           from='user'
           slug={slug}
+          params={{ showUser: false }}
         />
       }
     }

@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text, Image, Button } from '@tarojs/components'
 import utils from '~/utils'
 import './index.scss'
 
@@ -15,6 +15,20 @@ class IdolItem extends Component {
     })
   }
 
+  clickBangumi(bangumi) {
+    this.$preload('bangumi', bangumi)
+    Taro.navigateTo({
+      url: `/pages/bangumi/show/index?slug=${bangumi.slug}`,
+    })
+  }
+
+  clickUser(user) {
+    this.$preload('user', user)
+    Taro.navigateTo({
+      url: `/pages/user/show/index?slug=${user.slug}`,
+    })
+  }
+
   render () {
     const { item, index, params } = this.props
     const state = {
@@ -24,21 +38,45 @@ class IdolItem extends Component {
       ...params
     }
     return (
-      <View className='idol-item' onClick={() => this.handleClick(item)}>
-        <Image className='idol-item__avatar' src={item.avatar} mode='aspectFill' />
+      <View className={`idol-item i_${index}`} onClick={() => this.handleClick(item)}>
         {
           index >= 0 ? (
-            <View className='idol-item__order'>
+            <View className='order'>
               {index + 1}
             </View>
           ) : ''
         }
-        <View className='idol-item__content'>
-          <Text className='idol-item__title'>{state.showBangumi ? tem.bangumi.name : ''} {item.name}</Text>
-          <Text className='idol-item__intro'>{item.intro}</Text>
-          <View className='idol-item__footer'>
-            <Text className='idol-item__price'>总分数：{utils.calculate(item.market_price)}</Text>
-            <Text className='idol-item__fans'>{item.fans_count}人投票</Text>
+        <View className="avatar">
+          <Image className='idol' src={utils.resize(item.avatar, { width: 60 })} mode='aspectFill' />
+          {
+            state.showUser && item.lover ? (
+              <Image
+                className='user'
+                src={utils.resize(item.lover.avatar, { width: 25 })}
+                mode='aspectFill'
+                onClick={() => {this.clickUser(item.lover)}}
+              />
+            ) : ''
+          }
+        </View>
+        <View className='content'>
+          <View className='body'>
+            <Text className='name'>{item.name}</Text>
+            <View className='stat'>
+              {item.fans_count}人应援 · {item.stock_price}团子/股
+            </View>
+            {
+              state.showBangumi ? (
+                <View
+                  className='bangumi'
+                  url={`/pages/bangumi/show/index?slug=${item.bangumi.slug}`}
+                  onClick={() => {this.clickBangumi(item.bangumi)}}
+                >{item.bangumi.name}</View>
+              ) : ''
+            }
+          </View>
+          <View className='control'>
+            <Button className='btn'>{item.market_price}</Button>
           </View>
         </View>
       </View>
