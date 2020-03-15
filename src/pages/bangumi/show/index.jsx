@@ -4,7 +4,7 @@ import TabHeader from '~/components/TabHeader'
 import BlurHeader from '~/components/BlurHeader/index'
 import BangumiHeader from './header/index'
 import PinList from '~/components/FlowList/PinList/index'
-import BangumiIdol from '~/components/FlowList/BangumiIdol/index'
+import IdolList from '~/components/FlowList/IdolList/index'
 import http from '~/utils/http'
 import event from '~/utils/event'
 import blurPage from '~/mixin/blurPage'
@@ -31,8 +31,8 @@ class BangumiShow extends Component {
       bangumi: null,
       current: 0,
       tabs: [
-        { type: 'pin', title: '帖子' },
-        { type: 'idol', title: '角色' }
+        { type: 'pin', title: '帖子', sort: 'activity' },
+        { type: 'idol', title: '角色', sort: 'hottest' }
       ]
     }
   }
@@ -86,7 +86,8 @@ class BangumiShow extends Component {
       return
     }
     this.setState({ current })
-    event.emit(flowEventKey('bangumi', 'switch', this.state.tabs[current].type))
+    const tab = this.state.tabs[current]
+    event.emit(flowEventKey(`${tab.type}-bangumi-${tab.sort}`, 'switch', this.state.slug))
   }
 
   handleUpdate(data) {
@@ -99,13 +100,13 @@ class BangumiShow extends Component {
     })
   }
 
-  getFlowComponent({ type }) {
+  getFlowComponent(tab) {
     const { slug, scrollActive } = this.state
-    switch (type) {
+    switch (tab.type) {
       case 'pin': {
         return <PinList
           scrollY={scrollActive}
-          sort='activity'
+          sort={tab.sort}
           from='bangumi'
           slug={slug}
           params={{ showBangumi: false }}
@@ -113,7 +114,13 @@ class BangumiShow extends Component {
         />
       }
       case 'idol': {
-        return <BangumiIdol slug={type} scrollY={scrollActive} bangumiSlug={slug} />
+        return <IdolList
+          scrollY={scrollActive}
+          sort={tab.sort}
+          from='bangumi'
+          slug={slug}
+          params={{ showBangumi: false }}
+        />
       }
     }
   }

@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
 import IndexHeader from './header/index'
-import ActivityIdol from '~/components/FlowList/ActivityIdol/index'
 import PinList from '~/components/FlowList/PinList/index'
+import IdolList from '~/components/FlowList/IdolList/index'
 import WriteFlatBtn from '~/components/WriteFlatBtn/index'
 import TabHeader from '~/components/TabHeader'
 import event from '~/utils/event'
@@ -23,10 +23,10 @@ class indexPage extends Component {
       ...this.state,
       current: 1,
       tabs: [
-        { slug: 'hottest', title: '热门' },
-        { slug: 'activity', title: '动态' },
-        { slug: 'newest', title: '最新' },
-        { slug: 'idol', title: '股市' },
+        { sort: 'hottest', title: '热门', type: 'pin' },
+        { sort: 'activity', title: '动态', type: 'pin' },
+        { sort: 'newest', title: '最新', type: 'pin' },
+        { sort: 'activity', title: '股市', type: 'idol' },
       ]
     }
   }
@@ -37,22 +37,26 @@ class indexPage extends Component {
       return
     }
     this.setState({ current })
-    event.emit(flowEventKey(`index-${this.state.tabs[current].slug}`, 'switch', ''))
+    const tab = this.state.tabs[current]
+    event.emit(flowEventKey(`${tab.type}-index-${tab.sort}`, 'switch', ''))
   }
 
-  getFlowComponent({ title, slug }) {
+  getFlowComponent({ title, sort }) {
     switch (title) {
       case '热门': {
-        return <PinList from='index' sort={slug} refresh />
+        return <PinList from='index' sort={sort} refresh />
       }
       case '动态': {
-        return <PinList from='index' sort={slug} refresh autoload />
+        return <PinList from='index' sort={sort} refresh autoload />
       }
       case '最新': {
-        return <PinList from='index' sort={slug} refresh params={{ showTime: true }} />
+        return <PinList from='index' sort={sort} refresh params={{ showTime: true }} />
+      }
+      case '股市': {
+        return <IdolList from='index' sort={sort} refresh />
       }
     }
-    return <ActivityIdol slug={slug} />
+    return <PinList from='index' sort={sort} refresh />
   }
 
   render () {
@@ -81,7 +85,7 @@ class indexPage extends Component {
             onChange={this.handleTabClick}
           >
             {tabs.map(tab => (
-              <SwiperItem key={tab.slug}>
+              <SwiperItem key={tab.sort}>
                 {this.getFlowComponent(tab)}
               </SwiperItem>
             ))}

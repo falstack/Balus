@@ -2,22 +2,23 @@ import Taro, { Component } from '@tarojs/taro'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
-import TrendIdolItem from '~/components/FlowItem/TrendIdolItem'
+import IdolItem from '~/components/FlowItem/IdolItem'
 import './index.scss'
 
 @flowStore
 @flowEvent
-class BangumiIdol extends Component {
+class IdolList extends Component {
   constructor (props) {
     super(props)
     this.state = {
       ...this.state,
-      flowNamespace: 'bangumi',
+      flowNamespace: `idol-${props.from}-${props.sort}`,
       flowReq: {
-        url: 'bangumi/idols',
-        type: 'page',
+        url: `flow/idol/${props.sort}`,
+        type: props.sort === 'newest' ? 'lastId' : 'seenIds',
         query: {
-          slug: this.props.bangumiSlug
+          slug: props.slug,
+          from: props.from
         }
       }
     }
@@ -29,14 +30,17 @@ class BangumiIdol extends Component {
         launch
         flow={this.state}
         slug={this.props.slug}
+        refresh={this.props.refresh}
+        scrollY={this.props.scrollY}
         namespace={this.state.flowNamespace}
       >
         {
           this.state.flow_result.map((item, index) => (
-            <TrendIdolItem
+            <IdolItem
               key={item.slug}
-              idol={item}
               index={index}
+              item={item}
+              params={this.props.params}
             />
           ))
         }
@@ -45,10 +49,14 @@ class BangumiIdol extends Component {
   }
 }
 
-BangumiIdol.defaultProps = {
+IdolList.defaultProps = {
   slug: '',
-  bangumiSlug: '',
+  from: '',
+  sort: '',
+  params: {},
+  scrollY: true,
+  refresh: false,
   autoload: false
 }
 
-export default BangumiIdol
+export default IdolList

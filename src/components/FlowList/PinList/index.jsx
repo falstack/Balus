@@ -7,7 +7,6 @@ import './index.scss'
 
 const getRandId = () => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9][Math.random() * 9 | 0]
 
-
 @flowStore
 @flowEvent
 class PinList extends Component {
@@ -15,7 +14,7 @@ class PinList extends Component {
     super(props)
     this.state = {
       ...this.state,
-      flowNamespace: `${props.from}-${props.sort}`,
+      flowNamespace: `pin-${props.from}-${props.sort}`,
       flowReq: {
         url: `flow/pin/${props.sort}`,
         type: props.sort === 'newest' ? 'lastId' : 'seenIds',

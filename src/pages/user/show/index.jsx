@@ -2,8 +2,8 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
 import UserPanel from './panel/UserPanel'
 import UserBangumi from '~/components/FlowList/UserBangumi/index'
-import UserIdol from '~/components/FlowList/UserIdol/index'
 import PinList from '~/components/FlowList/PinList/index'
+import IdolList from '~/components/FlowList/IdolList/index'
 import TabHeader from '~/components/TabHeader'
 import http from '~/utils/http'
 import event from '~/utils/event'
@@ -32,9 +32,9 @@ class UserShow extends Component {
       user: null,
       current: 0,
       tabs: [
-        { type: 'pin', title: '帖子' },
-        { type: 'bangumi', title: '番剧' },
-        { type: 'idol', title: '偶像' }
+        { type: 'pin', title: '帖子', sort: 'newest' },
+        { type: 'bangumi', title: '番剧', sort: 'activity' },
+        { type: 'idol', title: '偶像', sort: 'hottest' }
       ]
     }
   }
@@ -72,16 +72,17 @@ class UserShow extends Component {
       return
     }
     this.setState({ current })
-    event.emit(flowEventKey('user', 'switch', this.state.tabs[current].type))
+    const tab = this.state.tabs[current]
+    event.emit(flowEventKey(`${tab.type}-user-${tab.sort}`, 'switch', this.state.slug))
   }
 
-  getFlowComponent({ type }) {
+  getFlowComponent(tab) {
     const { slug, scrollActive } = this.state
-    switch (type) {
+    switch (tab.type) {
       case 'pin': {
         return <PinList
           scrollY={scrollActive}
-          sort='newest'
+          sort={tab.sort}
           from='user'
           slug={slug}
           params={{ showUser: false, showTime: true }}
@@ -89,10 +90,15 @@ class UserShow extends Component {
         />
       }
       case 'bangumi': {
-        return <UserBangumi scrollY={scrollActive} slug={type} userSlug={slug} />
+        return <UserBangumi scrollY={scrollActive} slug={tab.type} userSlug={slug} />
       }
       case 'idol': {
-        return <UserIdol scrollY={scrollActive} slug={type} userSlug={slug} />
+        return <IdolList
+          scrollY={scrollActive}
+          sort={tab.sort}
+          from='user'
+          slug={slug}
+        />
       }
     }
   }
