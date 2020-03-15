@@ -72,7 +72,7 @@
   .content {
     flex: 1;
     height: 152px;
-    padding: 16px 30px 16px 0;
+    padding: 16px $container-padding 16px 0;
     border-bottom: 1px solid $color-background-container;
     display: flex;
     flex-direction: row;
