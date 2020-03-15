@@ -41,7 +41,7 @@ class IdolItem extends Component {
     }
     return (
       <View className={`idol-item i_${item.rank}`} onClick={() => this.handleClick(item)}>
-        <View className='order'>{item.rank}</View>
+        <View className='order'>{item.rank.toString() === '0' ? '-' : item.rank}</View>
         <View className="avatar">
           <Image className='idol' src={utils.resize(item.avatar, { width: 60 })} mode='aspectFill' />
           {
