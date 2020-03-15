@@ -15,17 +15,11 @@ export default class BangumiRankItem extends Component {
   }
 
   render () {
-    const { item, index } = this.props
+    const { item } = this.props
 
     return (
       <View className='bangumi-item' onClick={() => {this.clickBangumi(item)}}>
         <Image className='avatar' src={item.avatar} mode='aspectFill' />
-        {
-          index < 0 ? '' :
-            <View className='order'>
-              {index + 1}
-            </View>
-        }
         {
           Number(item.score) ?
             <View className='score'>
@@ -42,6 +36,5 @@ export default class BangumiRankItem extends Component {
 }
 
 BangumiRankItem.defaultProps = {
-  item: {},
-  index: -1
+  item: {}
 }

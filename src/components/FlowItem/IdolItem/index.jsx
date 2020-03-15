@@ -30,22 +30,18 @@ class IdolItem extends Component {
   }
 
   render () {
-    const { item, index, params } = this.props
+    const { item, params } = this.props
+
     const state = {
       showUser: true,
       showBangumi: true,
       showTime: false,
+      showRank: true,
       ...params
     }
     return (
-      <View className={`idol-item i_${index}`} onClick={() => this.handleClick(item)}>
-        {
-          index >= 0 ? (
-            <View className='order'>
-              {index + 1}
-            </View>
-          ) : ''
-        }
+      <View className={`idol-item i_${item.rank}`} onClick={() => this.handleClick(item)}>
+        <View className='order'>{item.rank}</View>
         <View className="avatar">
           <Image className='idol' src={utils.resize(item.avatar, { width: 60 })} mode='aspectFill' />
           {
@@ -85,7 +81,6 @@ class IdolItem extends Component {
 }
 
 IdolItem.defaultProps = {
-  index: -1,
   item: {
     bangumi: {},
     lover: null

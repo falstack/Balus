@@ -83,8 +83,13 @@
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
+    overflow: hidden;
+    height: 50px;
 
     .tag-list {
+      word-break: break-all;
+      height: 50px;
+
       .tag-item {
         display: inline-block;
         background-color: rgba($color-background-tag, 0.3);
@@ -97,8 +102,11 @@
     }
 
     .tag-tail {
+      height: 50px;
+      line-height: 50px;
       color: #fff;
       font-size: 24px;
+      white-space: nowrap;
     }
   }
 

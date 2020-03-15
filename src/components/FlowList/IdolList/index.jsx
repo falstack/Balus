@@ -35,10 +35,9 @@ class IdolList extends Component {
         namespace={this.state.flowNamespace}
       >
         {
-          this.state.flow_result.map((item, index) => (
+          this.state.flow_result.map(item => (
             <IdolItem
               key={item.slug}
-              index={index}
               item={item}
               params={this.props.params}
             />

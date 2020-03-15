@@ -5,7 +5,7 @@
   justify-content: flex-start;
   align-items: center;
 
-  &.i_0 {
+  &.i_1 {
     .order {
       color: goldenrod;
     }
@@ -15,7 +15,7 @@
     }
   }
 
-  &.i_1 {
+  &.i_2 {
     .order {
       color: slategray;
     }
@@ -25,7 +25,7 @@
     }
   }
 
-  &.i_2 {
+  &.i_3 {
     .order {
       color: indianred;
     }
@@ -115,6 +115,8 @@
     }
 
     .control {
+      margin-left: 10px;
+
       .btn {
         background-color: #FA5A57;
         padding: 10px 16px;
