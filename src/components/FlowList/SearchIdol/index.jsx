@@ -2,12 +2,12 @@ import Taro, { Component } from '@tarojs/taro'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
-import TrendIdolItem from '~/components/FlowItem/TrendIdolItem'
+import IdolItem from '~/components/FlowItem/IdolItem'
 import './index.scss'
 
 @flowStore
 @flowEvent
-class SearchBangumi extends Component {
+class SearchIdol extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -33,9 +33,9 @@ class SearchBangumi extends Component {
       >
         {
           this.state.flow_result.map(item => (
-            <TrendIdolItem
+            <IdolItem
               key={item.slug}
-              idol={item}
+              item={item}
             />
           ))
         }
@@ -44,10 +44,10 @@ class SearchBangumi extends Component {
   }
 }
 
-SearchBangumi.defaultProps = {
+SearchIdol.defaultProps = {
   slug: 'idol',
   clearable: true,
   autoload: false
 }
 
-export default SearchBangumi
+export default SearchIdol

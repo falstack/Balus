@@ -30,10 +30,7 @@ class BangumiShow extends Component {
       slug: this.$router.params.slug,
       bangumi: null,
       current: 0,
-      tabs: [
-        { type: 'pin', title: '帖子', sort: 'activity' },
-        { type: 'idol', title: '角色', sort: 'hottest' }
-      ]
+      tabs: []
     }
   }
 
@@ -44,7 +41,15 @@ class BangumiShow extends Component {
   getBangumi() {
     const { bangumi } = (this.$router.preload || {})
     const handler = bangumi => {
+      const tabs = bangumi.type.toString() === '0' ? [
+        { type: 'pin', title: '帖子', sort: 'activity' },
+        { type: 'idol', title: '角色', sort: 'hottest' }
+      ] : [
+        { type: 'pin', title: '动态', sort: 'activity' },
+        { type: 'pin', title: '最新', sort: 'newest' },
+      ]
       this.setState({
+        tabs,
         bangumi,
         shareData: {
           title: bangumi.name,
