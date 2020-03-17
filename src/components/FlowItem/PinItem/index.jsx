@@ -1,4 +1,4 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { PureComponent } from '@tarojs/taro'
 import { View, Text, Image, Button } from '@tarojs/components'
 import utils from '~/utils'
 import LikeImage from '~/image/like.png'
@@ -7,7 +7,7 @@ import ShareImage from '~/image/share.png'
 import PinkIcon from '~/image/pink_@.png'
 import './index.scss'
 
-class PinItem extends Component {
+class PinItem extends PureComponent {
   constructor (props) {
     super(props)
     this.state = {}
@@ -46,7 +46,7 @@ class PinItem extends Component {
       showTime: false,
       ...params
     }
-
+    console.log('render pin item')
     return (
       <View className='flow-pin-item'>
         <View className='header'>

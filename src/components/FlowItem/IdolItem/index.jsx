@@ -1,9 +1,9 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { PureComponent } from '@tarojs/taro'
 import { View, Text, Image, Button } from '@tarojs/components'
 import utils from '~/utils'
 import './index.scss'
 
-class IdolItem extends Component {
+class IdolItem extends PureComponent {
   constructor (props) {
     super(props)
   }
