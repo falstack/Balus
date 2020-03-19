@@ -39,7 +39,7 @@ class UserShow extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getUser()
   }
 

@@ -56,7 +56,7 @@ class BangumiHeader extends Component {
     })
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getBangumiLiker()
   }
 

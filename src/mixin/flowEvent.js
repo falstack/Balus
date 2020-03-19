@@ -3,7 +3,7 @@ import { flowEventKey } from '~/utils/flow'
 
 export default function flowEvent(Comp) {
   return class extends Comp {
-    componentDidMount() {
+    componentWillMount() {
       event.on(this._CREATE_EVENT_KEY('switch'), (query) => {
         if (!query) {
           this.initData()

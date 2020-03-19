@@ -11,7 +11,7 @@ class TabHeader extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getTabsRect()
   }
 

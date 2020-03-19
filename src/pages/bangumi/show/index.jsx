@@ -34,7 +34,7 @@ class BangumiShow extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getBangumi()
   }
 

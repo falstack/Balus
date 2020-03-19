@@ -19,7 +19,7 @@ export default class extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (!this.state.user) {
       Taro.redirectTo({
         url: '/pages/user/login/index'

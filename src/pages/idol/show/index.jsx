@@ -98,7 +98,7 @@ class IdolShow extends Component {
     })
   }
 
-  componentDidMount () {
+  componentWillMount() {
     this.getIdolData()
     this.getIdolFans()
     this.setState({

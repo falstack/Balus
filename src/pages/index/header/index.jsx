@@ -20,7 +20,7 @@ class IndexHeader extends Component {
     addGlobalClass: true
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.setState({
       user: cache.get('USER', null)
     })

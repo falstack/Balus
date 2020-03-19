@@ -5,15 +5,18 @@ export default function menuRect(Comp) {
     constructor(props) {
       super(props)
       this.state = {
-        menuRect: null
+        menuRect: utils.getMenuRect()
       }
     }
 
-    componentWillMount() {
+    componentDidMount() {
       this._GET_MENU_RECT()
     }
 
     _GET_MENU_RECT() {
+      if (this.state.menuRect) {
+        return
+      }
       const menuRect = utils.getMenuRect()
       if (!menuRect) {
         setTimeout(() => {
