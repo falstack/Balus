@@ -3,14 +3,28 @@ import { View, Image, Button, Input } from '@tarojs/components'
 import { oAuthLogin, accessLogin } from '~/utils/login'
 import toast from '~/utils/toast'
 import utils from '~/utils'
+import classNames from 'classnames'
 import loginBg from '~/image/login_bg.png'
 import wechatIcon from '~/image/login_wechat_icon.png'
 import qqIcon from '~/image/login_qq_icon.png'
 import './index.scss'
 
+/*
+<View className='input-wrap'>
+  <Input
+    type='password'
+    placeholder='密码不能少于6位数'
+    clear
+    value={this.state.secret}
+    onChange={(evt) => { this.setState({ secret: evt.detail.value }) }}
+  />
+</View>
+*/
+
 export default class extends Component {
   config = {
-    navigationStyle: 'custom'
+    navigationBarTitleText: '',
+    disableScroll: true
   }
 
   constructor(props) {
@@ -18,6 +32,8 @@ export default class extends Component {
     this.state = {
       loading: false,
       submitting: false,
+      step: 0,
+      accessValidate: false,
       access: '',
       secret: ''
     }
@@ -34,7 +50,16 @@ export default class extends Component {
     utils.back('/pages/user/home/index')
   }
 
-  callOAuthSign() {
+  callOAuthSign(from) {
+    const env = process.env.TARO_ENV
+    if (from === 'wx' && env !== 'weapp') {
+      toast.info('请从微信访问')
+      return
+    }
+    if (from === 'qq' && env !== 'qq') {
+      toast.info('请从QQ访问')
+      return
+    }
     if (this.state.loading || this.state.submitting) {
       return
     }
@@ -82,43 +107,64 @@ export default class extends Component {
   }
 
   onSubmit() {
+    const { access, secret } = this.state
+    if (
+      !access ||
+      !access.length === 11
+    ) {
+      this.setState({
+        loading: false
+      })
+      return toast.info('请输入正确的手机号')
+    }
     if (this.state.loading || this.state.submitting) {
       return
     }
     this.setState({
       loading: true
     })
-    setTimeout(() => {
-      const { access, secret } = this.state
-      if (
-        !access ||
-        !access.length === 11
-      ) {
+    if (!secret || secret.length < 6 || secret.length > 16) {
+      this.setState({
+        loading: false
+      })
+      return toast.info('密码错误')
+    }
+    accessLogin({ access, secret })
+      .then(() => {
+        this.redirect()
+      })
+      .catch((err) => {
+        toast.info(err.message)
         this.setState({
           loading: false
         })
-        return toast.info('请输入正确的手机号')
-      }
-      if (!secret || secret.length < 6 || secret.length > 16) {
-        this.setState({
-          loading: false
-        })
-        return toast.info('密码错误')
-      }
-      accessLogin({ access, secret })
-        .then(() => {
-          this.redirect()
-        })
-        .catch((err) => {
-          toast.info(err.message)
-          this.setState({
-            loading: false
-          })
-        })
-    }, 400)
+      })
+  }
+
+  handleAccess(evt) {
+    const { value } = evt.detail
+    this.setState({
+      access: value,
+      accessValidate: value.length === 11
+    })
+  }
+
+  changeMethod() {
+    const { step } = this.state
+    let next
+    if (step === 0) {
+      next = 1
+    } else if (step === 1) {
+      next = 0
+    }
+    this.setState({
+      step: next
+    })
   }
 
   render() {
+    const { step } = this.state
+
     return (
       <View className='user-sign'>
         <View className='form-wrap'>
@@ -126,45 +172,66 @@ export default class extends Component {
             <Image src={loginBg} mode='aspectFit' />
           </View>
           <View className='sign-form'>
+            <View className='title'>{step === 0 ? '手机号登录注册' : '账号登录'}</View>
             <View className='input-wrap'>
+              <Text>+86</Text>
               <Input
                 type='number'
-                placeholder='手机号码'
+                placeholder='输入手机号'
                 value={this.state.access}
-                onChange={(evt) => { this.setState({ access: evt.detail.value }) }}
+                onInput={this.handleAccess}
               />
             </View>
-            <View className='input-wrap'>
-              <Input
-                type='password'
-                placeholder='密码不能少于6位数'
-                clear
-                value={this.state.secret}
-                onChange={(evt) => { this.setState({ secret: evt.detail.value }) }}
-              />
-            </View>
+            {
+              step === 1 ? (
+                <View className='input-wrap'>
+                  <Text className='iconfont ic-secret' />
+                  <Input
+                    type='password'
+                    placeholder='请输入密码'
+                    password
+                    value={this.state.secret}
+                    onInput={(evt) => { this.setState({ secret: evt.detail.value }) }}
+                  />
+                </View>
+              ) : ''
+            }
             <Button
-              className='submit-btn'
+              className={classNames('submit-btn', { 'is-active': this.state.accessValidate })}
               loading={this.state.loading}
               onClick={this.onSubmit}
             >
-              登录
+              {step === 0 ? '登录/注册' : '登录'}
             </Button>
+            <View className='method' onClick={this.changeMethod}>
+              {step === 0 ? '账号密码登录' : '短信验证码登录'}
+            </View>
           </View>
         </View>
         <View className='others'>
           <View className='divider'>
             <Text className='line'/>
-            <Text className='text'>其它登录方式</Text>
+            <Text className='text'>快速登录</Text>
             <Text className='line'/>
           </View>
-          <Button
-            open-type='getUserInfo'
-            className='wechat-btn'
-            onClick={this.callOAuthSign}
-          >
-            <Image src={process.env.TARO_ENV === 'weapp' ? wechatIcon : qqIcon} mode='scaleToFill' />
-          </Button>
+          <View className='auth-channel'>
+            <Button
+              open-type='getUserInfo'
+              className='auth-btn'
+              hover-class='none'
+              onClick={() => this.callOAuthSign('qq')}
+            >
+              <Image src={qqIcon} mode='scaleToFill' />
+            </Button>
+            <Button
+              open-type='getUserInfo'
+              className='auth-btn'
+              hover-class='none'
+              onClick={() => this.callOAuthSign('wx')}
+            >
+              <Image src={wechatIcon} mode='scaleToFill' />
+            </Button>
+          </View>
         </View>
       </View>
     )
