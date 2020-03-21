@@ -2,24 +2,13 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Button, Input } from '@tarojs/components'
 import { oAuthLogin, accessLogin } from '~/utils/login'
 import toast from '~/utils/toast'
+import http from '~/utils/http'
 import utils from '~/utils'
 import classNames from 'classnames'
 import loginBg from '~/image/login_bg.png'
 import wechatIcon from '~/image/login_wechat_icon.png'
 import qqIcon from '~/image/login_qq_icon.png'
 import './index.scss'
-
-/*
-<View className='input-wrap'>
-  <Input
-    type='password'
-    placeholder='密码不能少于6位数'
-    clear
-    value={this.state.secret}
-    onChange={(evt) => { this.setState({ secret: evt.detail.value }) }}
-  />
-</View>
-*/
 
 export default class extends Component {
   config = {
@@ -32,8 +21,15 @@ export default class extends Component {
     this.state = {
       loading: false,
       submitting: false,
+      /**
+       * 0 手机号登录注册，第一步，待账号认证
+       * 1 账号密码登录
+       * 2 手机号登录注册，是新账号，走注册，等待输入验证码
+       * 3 手机号登录注册，是旧账号，输入验证码
+       */
       step: 0,
       accessValidate: false,
+      secretValidate: false,
       access: '',
       secret: ''
     }
@@ -106,30 +102,67 @@ export default class extends Component {
     })
   }
 
-  onSubmit() {
-    const { access, secret } = this.state
-    if (
-      !access ||
-      !access.length === 11
-    ) {
-      this.setState({
-        loading: false
+  checkAccessIsNew(access) {
+    this.setState({
+      loading: true
+    })
+    http.post('door/detect', {
+      method: 'phone',
+      access
+    })
+      .then(res => {
+        this.sendValidateMsg(access, res.is_new ? 'sign_up' : 'sign_in')
       })
-      return toast.info('请输入正确的手机号')
+      .catch(() => {
+        toast.info('网络错误')
+        this.setState({
+          loading: false
+        })
+      })
+  }
+
+  sendValidateMsg(access, type) {
+    http.post('door/message', {
+      type,
+      phone_number: access
+    })
+      .then(res => {
+        this.setState({
+          step: res.is_new ? 2 : 3,
+          loading: false
+        })
+      })
+      .catch(() => {
+        toast.info('请尝试密码登录')
+        this.setState({
+          loading: false
+        })
+      })
+  }
+
+  onSubmit() {
+    const { access, secret, step } = this.state
+    if (!this.state.accessValidate) {
+      return toast.info('请输入11位手机号')
     }
     if (this.state.loading || this.state.submitting) {
       return
     }
-    this.setState({
-      loading: true
-    })
-    if (!secret || secret.length < 6 || secret.length > 16) {
-      this.setState({
-        loading: false
-      })
-      return toast.info('密码错误')
+    if (step === 0) {
+      this.checkAccessIsNew(access)
+      return
     }
-    accessLogin({ access, secret })
+    if (step === 1) {
+      if (!this.state.secretValidate) {
+        toast.info('请输入有效的密码')
+        return
+      }
+      this.handleLogin({ access, secret, method: 'pwd' })
+    }
+  }
+
+  handleLogin({ access, secret, method }) {
+    accessLogin({ access, secret, method })
       .then(() => {
         this.redirect()
       })
@@ -149,6 +182,14 @@ export default class extends Component {
     })
   }
 
+  handleSecret(evt) {
+    const { value } = evt.detail
+    this.setState({
+      secret: value,
+      secretValidate: value >= 6 && value <= 16
+    })
+  }
+
   changeMethod() {
     const { step } = this.state
     let next
@@ -163,7 +204,26 @@ export default class extends Component {
   }
 
   render() {
-    const { step } = this.state
+    const { step, loading } = this.state
+    let title = ''
+    let btnTxt = ''
+    let switchTxt = ''
+    if (step === 0) {
+      title = '手机号登录注册'
+      btnTxt = '登录/注册'
+      switchTxt = '账号密码登录'
+    } else if (step === 1) {
+      title = '账号登录'
+      btnTxt = '登录'
+      switchTxt = '短信验证码登录'
+    } else if (step === 2) {
+      title = '输入短信验证码'
+      btnTxt = '注册'
+    } else if (step === 3) {
+      title = '输入短信验证码'
+      btnTxt = '登录'
+    }
+    const isPreStep = step === 0 || step === 1
 
     return (
       <View className='user-sign'>
@@ -172,16 +232,21 @@ export default class extends Component {
             <Image src={loginBg} mode='aspectFit' />
           </View>
           <View className='sign-form'>
-            <View className='title'>{step === 0 ? '手机号登录注册' : '账号登录'}</View>
-            <View className='input-wrap'>
-              <Text>+86</Text>
-              <Input
-                type='number'
-                placeholder='输入手机号'
-                value={this.state.access}
-                onInput={this.handleAccess}
-              />
-            </View>
+            <View className='title'>{title}</View>
+            {
+              isPreStep ? (
+                <View className='input-wrap'>
+                  <Text>+86</Text>
+                  <Input
+                    type='number'
+                    disabled={loading}
+                    placeholder='输入手机号'
+                    value={this.state.access}
+                    onInput={this.handleAccess}
+                  />
+                </View>
+              ) : ''
+            }
             {
               step === 1 ? (
                 <View className='input-wrap'>
@@ -189,50 +254,63 @@ export default class extends Component {
                   <Input
                     type='password'
                     placeholder='请输入密码'
+                    disabled={loading}
                     password
                     value={this.state.secret}
-                    onInput={(evt) => { this.setState({ secret: evt.detail.value }) }}
+                    onInput={this.handleSecret}
                   />
                 </View>
               ) : ''
             }
-            <Button
-              className={classNames('submit-btn', { 'is-active': this.state.accessValidate })}
-              loading={this.state.loading}
-              onClick={this.onSubmit}
-            >
-              {step === 0 ? '登录/注册' : '登录'}
-            </Button>
-            <View className='method' onClick={this.changeMethod}>
-              {step === 0 ? '账号密码登录' : '短信验证码登录'}
+            {
+              isPreStep ? (
+                <Button
+                  className={classNames('submit-btn', { 'is-active': this.state.accessValidate })}
+                  loading={loading}
+                  onClick={this.onSubmit}
+                >
+                  {btnTxt}
+                </Button>
+              ) : ''
+            }
+            {
+              isPreStep ? (
+                <View className='method' onClick={this.changeMethod}>
+                  {switchTxt}
+                </View>
+              ) : ''
+            }
+          </View>
+        </View>
+        {
+          isPreStep ? (
+            <View className='others'>
+              <View className='divider'>
+                <Text className='line'/>
+                <Text className='text'>快速登录</Text>
+                <Text className='line'/>
+              </View>
+              <View className='auth-channel'>
+                <Button
+                  open-type='getUserInfo'
+                  className='auth-btn'
+                  hover-class='none'
+                  onClick={() => this.callOAuthSign('qq')}
+                >
+                  <Image src={qqIcon} mode='scaleToFill' />
+                </Button>
+                <Button
+                  open-type='getUserInfo'
+                  className='auth-btn'
+                  hover-class='none'
+                  onClick={() => this.callOAuthSign('wx')}
+                >
+                  <Image src={wechatIcon} mode='scaleToFill' />
+                </Button>
+              </View>
             </View>
-          </View>
-        </View>
-        <View className='others'>
-          <View className='divider'>
-            <Text className='line'/>
-            <Text className='text'>快速登录</Text>
-            <Text className='line'/>
-          </View>
-          <View className='auth-channel'>
-            <Button
-              open-type='getUserInfo'
-              className='auth-btn'
-              hover-class='none'
-              onClick={() => this.callOAuthSign('qq')}
-            >
-              <Image src={qqIcon} mode='scaleToFill' />
-            </Button>
-            <Button
-              open-type='getUserInfo'
-              className='auth-btn'
-              hover-class='none'
-              onClick={() => this.callOAuthSign('wx')}
-            >
-              <Image src={wechatIcon} mode='scaleToFill' />
-            </Button>
-          </View>
-        </View>
+          ) : ''
+        }
       </View>
     )
   }
