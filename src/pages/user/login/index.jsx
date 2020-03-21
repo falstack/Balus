@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Button, Input } from '@tarojs/components'
 import { oAuthLogin, accessLogin } from '~/utils/login'
+import CodeInput from '~/components/CodeInput'
 import toast from '~/utils/toast'
 import http from '~/utils/http'
 import utils from '~/utils'
@@ -132,8 +133,8 @@ export default class extends Component {
           loading: false
         })
       })
-      .catch(() => {
-        toast.info('请尝试密码登录')
+      .catch((err) => {
+        toast.info(err.message)
         this.setState({
           loading: false
         })
@@ -161,17 +162,21 @@ export default class extends Component {
     }
   }
 
-  handleLogin({ access, secret, method }) {
-    accessLogin({ access, secret, method })
-      .then(() => {
-        this.redirect()
-      })
-      .catch((err) => {
-        toast.info(err.message)
-        this.setState({
-          loading: false
+  handleLogin({ access, secret, method }, isLogin = true) {
+    return new Promise((resolve, reject) => {
+      accessLogin({ access, secret, method }, isLogin)
+        .then(() => {
+          this.redirect()
+          resolve()
         })
-      })
+        .catch((err) => {
+          toast.info(err.message)
+          this.setState({
+            loading: false
+          })
+          reject()
+        })
+    })
   }
 
   handleAccess(evt) {
@@ -186,7 +191,7 @@ export default class extends Component {
     const { value } = evt.detail
     this.setState({
       secret: value,
-      secretValidate: value >= 6 && value <= 16
+      secretValidate: value.length >= 6 && value.length <= 16
     })
   }
 
@@ -201,6 +206,21 @@ export default class extends Component {
     this.setState({
       step: next
     })
+  }
+
+  handleAuthCode(value) {
+    let form = {
+      access: this.state.access,
+    }
+    let isLogin = true
+    if (this.state.step === 2) {
+      isLogin = false
+      form.authCode = value
+    } else {
+      form.secret = value
+      form.method = 'msg'
+    }
+    return this.handleLogin(form, isLogin)
   }
 
   render() {
@@ -245,7 +265,7 @@ export default class extends Component {
                     onInput={this.handleAccess}
                   />
                 </View>
-              ) : ''
+              ) : <CodeInput onConfirm={this.handleAuthCode.bind(this)} />
             }
             {
               step === 1 ? (

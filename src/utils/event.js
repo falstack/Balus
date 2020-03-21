@@ -1,7 +1,7 @@
 export default new class {
   constructor() {
     this.all = {}
-    this.debug = 1
+    this.debug = process.env.NODE_ENV === 'development'
   }
 
   on(type, handler) {

@@ -41,9 +41,9 @@ export const oAuthLogin = () => {
   })
 }
 
-export const accessLogin = form => {
+export const accessLogin = (form, isLogin = true) => {
   return new Promise((resolve, reject) => {
-    step_0_get_jwt_token_by_access(form)
+    step_0_get_jwt_token_by_access(form, isLogin)
       .then(token => {
         step_5_get_current_user(token)
           .then(resolve)
@@ -125,10 +125,10 @@ const step_5_get_current_user = token => {
   })
 }
 
-const step_0_get_jwt_token_by_access = form => {
+const step_0_get_jwt_token_by_access = (form, isLogin) => {
   return new Promise((resolve, reject) => {
     http
-      .post('door/login', form)
+      .post(isLogin ? 'door/login' : 'door/register', form)
       .then(token => {
         resolve(token)
       })

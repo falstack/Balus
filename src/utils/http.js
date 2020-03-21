@@ -15,6 +15,10 @@ const request = (method, path, data, config) => {
       header,
       method,
       success: res => {
+        if (res.statusCode < 200 || res.statusCode >= 400) {
+          reject(res.data)
+          return
+        }
         resolve(res.data.data)
       },
       fail: err => {
