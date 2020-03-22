@@ -185,5 +185,12 @@ export default {
     }).then(() => {}).catch(() => {
       Taro.switchTab({ url })
     })
+  },
+
+  maskTel(tel) {
+    if (!tel) {
+      return tel
+    }
+    return tel.substring(0, 3) + '****' + tel.substr(tel.length - 4)
   }
 }

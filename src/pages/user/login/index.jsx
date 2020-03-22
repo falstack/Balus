@@ -29,6 +29,9 @@ export default class extends Component {
        * 3 手机号登录注册，是旧账号，输入验证码
        */
       step: 0,
+      timeout: 0,
+      lastDetectAccess: '',
+      lastDetectIsNew: false,
       accessValidate: false,
       secretValidate: false,
       access: '',
@@ -104,6 +107,13 @@ export default class extends Component {
   }
 
   checkAccessIsNew(access) {
+    if (access === this.state.lastDetectAccess && this.state.timeout) {
+      this.setState({
+        step: this.state.lastDetectIsNew ? 2 : 3,
+        loading: false
+      })
+      return
+    }
     this.setState({
       loading: true
     })
@@ -112,7 +122,11 @@ export default class extends Component {
       access
     })
       .then(res => {
-        this.sendValidateMsg(access, res.is_new ? 'sign_up' : 'sign_in')
+        this.setState({
+          lastDetectAccess: access,
+          lastDetectIsNew: res.is_new
+        })
+        this.sendValidateMsg(access, res.is_new)
       })
       .catch(() => {
         toast.info('网络错误')
@@ -122,23 +136,62 @@ export default class extends Component {
       })
   }
 
-  sendValidateMsg(access, type) {
+  sendValidateMsg(access, isNew) {
     http.post('door/message', {
-      type,
+      type: isNew ? 'sign_up' : 'sign_in',
       phone_number: access
     })
-      .then(res => {
+      .then(() => {
         this.setState({
-          step: res.is_new ? 2 : 3,
+          step: isNew ? 2 : 3,
+          timeout: 59,
           loading: false
         })
+        this.countDown()
       })
       .catch((err) => {
+        if (err.code === 503) {
+          this.setState({
+            loading: false
+          })
+          toast.info(isNew ? '请使用快速注册' : '请使用密码登录')
+          return
+        }
+        if (err.code === 429) {
+          this.setState({
+            step: isNew ? 2 : 3,
+            timeout: 59,
+            loading: false
+          })
+          this.countDown()
+          toast.info('短信已发送')
+          return
+        }
         toast.info(err.message)
         this.setState({
           loading: false
         })
       })
+  }
+
+  resendMessage() {
+    if (this.state.timeout) {
+      return
+    }
+    this.sendValidateMsg(this.state.access, this.state.step === 2)
+  }
+
+  countDown() {
+    setTimeout(() => {
+      const { timeout } = this.state
+      if (timeout - 1 < 0) {
+        return
+      }
+      this.setState({
+        timeout: timeout - 1
+      })
+      this.countDown()
+    }, 1000)
   }
 
   onSubmit() {
@@ -162,9 +215,9 @@ export default class extends Component {
     }
   }
 
-  handleLogin({ access, secret, method }, isLogin = true) {
+  handleLogin(form, isLogin = true) {
     return new Promise((resolve, reject) => {
-      accessLogin({ access, secret, method }, isLogin)
+      accessLogin(form, isLogin)
         .then(() => {
           this.redirect()
           resolve()
@@ -202,6 +255,8 @@ export default class extends Component {
       next = 1
     } else if (step === 1) {
       next = 0
+    } else {
+      next = 0
     }
     this.setState({
       step: next
@@ -224,7 +279,7 @@ export default class extends Component {
   }
 
   render() {
-    const { step, loading } = this.state
+    const { step, loading, access, timeout } = this.state
     let title = ''
     let btnTxt = ''
     let switchTxt = ''
@@ -236,12 +291,8 @@ export default class extends Component {
       title = '账号登录'
       btnTxt = '登录'
       switchTxt = '短信验证码登录'
-    } else if (step === 2) {
-      title = '输入短信验证码'
-      btnTxt = '注册'
-    } else if (step === 3) {
-      title = '输入短信验证码'
-      btnTxt = '登录'
+    } else {
+      switchTxt = '返回上一步'
     }
     const isPreStep = step === 0 || step === 1
 
@@ -252,7 +303,11 @@ export default class extends Component {
             <Image src={loginBg} mode='aspectFit' />
           </View>
           <View className='sign-form'>
-            <View className='title'>{title}</View>
+            {
+              isPreStep ? (
+                <View className='title'>{title}</View>
+              ) : ''
+            }
             {
               isPreStep ? (
                 <View className='input-wrap'>
@@ -261,11 +316,13 @@ export default class extends Component {
                     type='number'
                     disabled={loading}
                     placeholder='输入手机号'
-                    value={this.state.access}
+                    value={access}
                     onInput={this.handleAccess}
                   />
                 </View>
-              ) : <CodeInput onConfirm={this.handleAuthCode.bind(this)} />
+              ) : <View>
+                <CodeInput phone={access} onConfirm={this.handleAuthCode.bind(this)} />
+              </View>
             }
             {
               step === 1 ? (
@@ -293,13 +350,18 @@ export default class extends Component {
                 </Button>
               ) : ''
             }
-            {
-              isPreStep ? (
-                <View className='method' onClick={this.changeMethod}>
-                  {switchTxt}
-                </View>
-              ) : ''
-            }
+            <View className={classNames('footer', { 'is-small': !isPreStep })}>
+              <View className='method' onClick={this.changeMethod}>
+                {switchTxt}
+              </View>
+              {
+                isPreStep ? '' : (
+                  <View className={classNames('count-down', { 'is-active': !timeout })} onClick={this.resendMessage}>
+                    {timeout ? `${timeout} 秒后可重新获取` : '重新发送'}
+                  </View>
+                )
+              }
+            </View>
           </View>
         </View>
         {
@@ -307,7 +369,7 @@ export default class extends Component {
             <View className='others'>
               <View className='divider'>
                 <Text className='line'/>
-                <Text className='text'>快速登录</Text>
+                <Text className='text'>快速注册/登录</Text>
                 <Text className='line'/>
               </View>
               <View className='auth-channel'>

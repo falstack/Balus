@@ -78,11 +78,23 @@
         }
       }
 
-      .method {
-        display: inline-block;
-        color: $color-red;
+      .footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        color: #657786;
         font-size: 28px;
         margin-top: 30px;
+
+        &.is-small {
+          margin: 50px auto;
+          width: 530px;
+        }
+
+        .is-active {
+          color: $color-red;
+        }
       }
     }
   }

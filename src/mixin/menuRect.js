@@ -17,15 +17,15 @@ export default function menuRect(Comp) {
       if (this.state.menuRect) {
         return
       }
-      const menuRect = utils.getMenuRect()
-      if (!menuRect) {
+      const result = utils.getMenuRect()
+      if (!result) {
         setTimeout(() => {
           this._GET_MENU_RECT()
         }, 200)
         return
       }
       this.setState({
-        menuRect
+        menuRect: result
       })
     }
   }

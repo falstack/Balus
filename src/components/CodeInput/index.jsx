@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Input } from '@tarojs/components'
+import utils from '~/utils'
 import './index.scss'
 
 class CodeInput extends Component {
@@ -37,7 +38,8 @@ class CodeInput extends Component {
   }
 
   render () {
-    const { length, value, count } = this.props
+    const { length } = this.props
+    const { count, value } = this.state
     const list = new Array(length)
     const result = list.map((_, index) => (
       <View
@@ -50,17 +52,20 @@ class CodeInput extends Component {
 
     return (
       <View className='code-input'>
-        <Input
-          focus
-          type='number'
-          disabled={this.state.loading}
-          value={this.state.value}
-          maxLength={length}
-          style={`padding-left:${36 * count + 18}px`}
-          onInput={this.handleInput}
-        />
-        <View className='wrap'>
-          {result}
+        <View className='title'>短信已发送至：+86 {utils.maskTel(this.props.phone)}</View>
+        <View className='core'>
+          <Input
+            focus
+            type='number'
+            disabled={this.state.loading}
+            value={value}
+            maxLength={length}
+            style={`padding-left:${36 * count + 18}px`}
+            onInput={this.handleInput}
+          />
+          <View className='wrap'>
+            {result}
+          </View>
         </View>
       </View>
     )
@@ -68,6 +73,7 @@ class CodeInput extends Component {
 }
 
 CodeInput.defaultProps = {
+  phone: '',
   length: 6,
   onConfirm: () => {}
 }
