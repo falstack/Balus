@@ -9,32 +9,48 @@ class CodeInput extends Component {
     this.state = {
       value: '',
       loading: false,
+      disabled: false,
       count: 0
     }
   }
 
   handleInput(evt) {
+    if (this.state.loading) {
+      return
+    }
     const { value } = evt.detail
     const count = value.length
-    const loading = count === this.props.length
+    const matched = count === this.props.length
+    if (!matched) {
+      this.setState({
+        value,
+        count
+      })
+      return
+    }
     this.setState({
       value,
       count,
-      loading
+      disabled: true
     })
-    if (loading) {
-      setTimeout(() => {
-        this.props.onConfirm(value)
-          .then(() => {})
-          .catch(() => {
-            this.setState({
-              value: '',
-              count: 0,
-              loading: false
-            })
+    setTimeout(() => {
+      if (this.state.loading) {
+        return
+      }
+      this.setState({
+        loading: true
+      })
+      this.props.onConfirm(value)
+        .then(() => {})
+        .catch(() => {
+          this.setState({
+            value: '',
+            count: 0,
+            loading: false,
+            disabled: false
           })
-      }, 1000)
-    }
+        })
+    }, 1000)
   }
 
   render () {
@@ -57,7 +73,7 @@ class CodeInput extends Component {
           <Input
             focus
             type='number'
-            disabled={this.state.loading}
+            disabled={this.state.disabled}
             value={value}
             maxLength={length}
             style={`padding-left:${36 * count + 18}px`}

@@ -264,6 +264,12 @@ export default class extends Component {
   }
 
   handleAuthCode(value) {
+    if (this.state.loading) {
+      return
+    }
+    this.setState({
+      loading: true
+    })
     let form = {
       access: this.state.access,
     }
