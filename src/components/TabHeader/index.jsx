@@ -23,7 +23,7 @@ class TabHeader extends Component {
     const query = Taro.createSelectorQuery().in(this.$scope)
     query.selectAll('.tab-item').boundingClientRect()
     query.exec((res) => {
-      if (res[0] === null) {
+      if (res[0] === null || !res[0].length) {
         if (loop < 5) {
           setTimeout(() => {
             this.getTabsRect(loop + 1)
