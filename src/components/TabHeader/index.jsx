@@ -22,6 +22,7 @@ class TabHeader extends Component {
   getTabsRect(loop = 0) {
     const query = Taro.createSelectorQuery().in(this.$scope)
     query.selectAll('.tab-item').boundingClientRect()
+    query.select('.tab-header').boundingClientRect()
     query.exec((res) => {
       if (res[0] === null || !res[0].length) {
         if (loop < 5) {
@@ -34,8 +35,8 @@ class TabHeader extends Component {
       this.setState({
         tabRect: res[0].map(_ => {
           return {
-            left: _.left,
-            width: _.width
+            left: (_.left - res[1].left) | 0,
+            width: _.width | 0
           }
         })
       })
@@ -43,12 +44,13 @@ class TabHeader extends Component {
   }
 
   render () {
-    const { list, active, line, pink } = this.props
+    const { list, active, line, pink, height } = this.props
     const { tabRect } = this.state
     return (
       <ScrollView
         scrollLeft={tabRect && active ? tabRect[active - 1].left : 0}
         className={classNames('tab-header', `tab-header--${list.length}`, { 'tab-header--line': line }, { 'tab-header--pink': pink })}
+        style={`height:${height}`}
         scrollX
         scrollWithAnimation
       >
@@ -75,6 +77,7 @@ TabHeader.defaultProps = {
   pink: false,
   list: [],
   active: 0,
+  height: '40PX',
   onClick: () => {}
 }
 

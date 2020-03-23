@@ -13,7 +13,6 @@ import './app.scss'
 // }
 
 class App extends Component {
-
   config = {
     pages: [
       'pages/index/index',
@@ -110,15 +109,28 @@ class App extends Component {
       task.onOpen(() => {
         cache.set('WEB_SOCKET', task, false)
       })
-      task.onMessage((msg) => {
-        const data = JSON.parse(msg.data)
-        cache.set(`SOCKET_MSG_${data.channel}`, data, false)
-      })
       task.onClose(() => {
         cache.set('WEB_SOCKET', null, false)
         setTimeout(() => {
           this.connectSocket(token)
         }, 10000)
+      })
+      task.onMessage((msg) => {
+        const data = JSON.parse(msg.data)
+        if (data.channel === 'unread_total') {
+          const total = data.unread_message_total + data.unread_notice_total
+          if (total) {
+            Taro.setTabBarBadge({
+              index: 2,
+              text: total.toString()
+            })
+          } else {
+            Taro.removeTabBarBadge({
+              index: 2
+            })
+          }
+        }
+        cache.set(`SOCKET_MSG_${data.channel}`, data, false)
       })
     })
   }

@@ -5,8 +5,9 @@ export default function flowEvent(Comp) {
   return class extends Comp {
     componentWillMount() {
       event.on(this._CREATE_EVENT_KEY('switch'), (query) => {
+        const isForce = !!this.props.force
         if (!query) {
-          this.initData()
+          this.initData(isForce)
           return
         }
         const flowReq = this.state.flowReq
@@ -19,7 +20,7 @@ export default function flowEvent(Comp) {
             }
           }
         }, () => {
-          this.initData()
+          this.initData(isForce)
         })
       })
       event.on(this._CREATE_EVENT_KEY('bottom'), () => {

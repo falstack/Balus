@@ -1,28 +1,80 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Swiper, SwiperItem } from '@tarojs/components'
+import menuRect from '~/mixin/menuRect'
+import MessageMenu from '~/components/FlowList/MessageMenu'
+import TabHeader from '~/components/TabHeader'
+import event from '~/utils/event'
+import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
-export default class extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {}
+@menuRect
+class MessageEntry extends Component {
+  config = {
+    navigationStyle: 'custom',
+    disableScroll: true
   }
 
-  componentWillMount () { }
+  constructor (props) {
+    super(props)
+    this.state = {
+      ...this.state,
+      current: 0,
+      tabs: [
+        { title: '通知', type: 'notice' },
+        { title: '私信', type: 'email' },
+      ]
+    }
+  }
 
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
+  handleTabClick(value) {
+    const current = typeof value === 'number' ? value : value.detail.current
+    if (current === this.state.current) {
+      return
+    }
+    this.setState({ current })
+    const tab = this.state.tabs[current]
+    event.emit(flowEventKey(`${tab.type}-message`, 'switch', ''))
+  }
 
   render () {
+    const { current, tabs, menuRect } = this.state
+    if (!menuRect) {
+      return
+    }
+
     return (
-      <View>
-        <Text>msg</Text>
+      <View className='message-show scroll-page'>
+        <View
+          className='flex-shrink-0 header-wrap'
+          style={`padding-top:${menuRect.top}px;padding-left:${menuRect.right + menuRect.width}px;padding-right:${menuRect.right + menuRect.width}px;height:${menuRect.height + menuRect.right + menuRect.top}px`}
+        >
+          <TabHeader
+            pink
+            list={tabs.map(_ => _.title)}
+            active={current}
+            height={`${menuRect.height + menuRect.right}px`}
+            onClick={this.handleTabClick.bind(this)}
+          />
+        </View>
+        <View className='flex-grow-1'>
+          <Swiper
+            className='scroll-wrap'
+            current={current}
+            autoplay={false}
+            duration={300}
+            onChange={this.handleTabClick}
+          >
+            <SwiperItem>
+              2333
+            </SwiperItem>
+            <SwiperItem>
+              <MessageMenu />
+            </SwiperItem>
+          </Swiper>
+        </View>
       </View>
     )
   }
 }
+
+export default MessageEntry

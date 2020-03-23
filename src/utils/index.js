@@ -87,10 +87,13 @@ export default {
       return `前天${this.pad(obj.hour)}:${this.pad(obj.minutes)}`
     }
     const delta = Date.now() - date.getTime()
-    if (delta > 365 * 86400000) {
-      return this.formatTime(time, 'ymd')
+    if (delta > 86400000 * 365) {
+      return `${delta / (86400000 * 365) | 0} 年前`
     }
-    return this.formatTime(time, 'md')
+    if (delta > 86400000 * 30) {
+      return `${delta / (86400000 * 30) | 0} 个月前`
+    }
+    return `${delta / (86400000) | 0} 天前`
   },
 
   adjustDate(time) {
