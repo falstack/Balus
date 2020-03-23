@@ -23,6 +23,7 @@ class App extends Component {
       'pages/user/login/index',
       'pages/bangumi/show/index',
       'pages/bangumi/rank/index',
+      'pages/message/entry/index',
       'pages/search/index',
       'pages/pin/show/index',
       'pages/webview/index',
@@ -53,10 +54,16 @@ class App extends Component {
           selectedIconPath: 'image/tab_2_selected.png'
         },
         {
-          pagePath: 'pages/user/home/index',
-          text: '我的',
+          pagePath: 'pages/message/entry/index',
+          text: '消息',
           iconPath: 'image/tab_3.png',
           selectedIconPath: 'image/tab_3_selected.png'
+        },
+        {
+          pagePath: 'pages/user/home/index',
+          text: '我的',
+          iconPath: 'image/tab_4.png',
+          selectedIconPath: 'image/tab_4_selected.png'
         }
       ]
     }
