@@ -41,8 +41,12 @@
     }
 
     .meta {
-      text-align: right;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
       padding-left: $container-padding;
+      height: 64px;
 
       .time {
         color: #657786;
