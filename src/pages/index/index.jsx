@@ -69,7 +69,6 @@ class indexPage extends Component {
         </View>
         <View className='flex-shrink-0'>
           <TabHeader
-            line
             pink
             list={tabs.map(_ => _.title)}
             active={current}

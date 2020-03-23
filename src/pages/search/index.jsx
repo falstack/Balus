@@ -138,7 +138,6 @@ class SearchShow extends Component {
         }
         <View className={classNames('flex-shrink-0', { showPanel: 'panel-hidden' })}>
           <TabHeader
-            line
             pink
             list={tabs.map(_ => _.title)}
             active={current}

@@ -63,14 +63,15 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.getCurrentUser()
-  }
-
-  getCurrentUser() {
     const token = cache.get('JWT-TOKEN')
     if (!token) {
       return
     }
+    this.getCurrentUser()
+    this.connectSocket()
+  }
+
+  getCurrentUser() {
     http
       .post('door/get_user_info')
       .then(data => {
@@ -83,6 +84,36 @@ class App extends Component {
           cache.remove('JWT-TOKEN')
         }
       })
+  }
+
+  connectSocket() {
+    const token = cache.get('JWT-TOKEN')
+    if (!token) {
+      return
+    }
+    Taro.connectSocket({
+      url: `wss://api.calibur.tv/ws?token=${token}`,
+      fail: () => {
+        cache.set('WEB_SOCKET', null, false)
+        setTimeout(() => {
+          this.connectSocket(token)
+        }, 10000)
+      }
+    }).then(task => {
+      task.onOpen(() => {
+        cache.set('WEB_SOCKET', task, false)
+      })
+      task.onMessage((msg) => {
+        const data = JSON.parse(msg.data)
+        cache.set(`SOCKET_MSG_${data.channel}`, data, false)
+      })
+      task.onClose(() => {
+        cache.set('WEB_SOCKET', null, false)
+        setTimeout(() => {
+          this.connectSocket(token)
+        }, 10000)
+      })
+    })
   }
 
   // 在 App 类中的 render() 函数没有实际作用
