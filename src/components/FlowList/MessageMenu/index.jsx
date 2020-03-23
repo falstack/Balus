@@ -29,8 +29,8 @@ class MessageMenu extends Component {
         namespace={this.state.flowNamespace}
       >
         {
-          this.state.flow_result.map(item => (
-            <UserEmailItem key={item.channel} item={item} />
+          this.state.flow_result.map((item, index) => (
+            <UserEmailItem key={item.channel} first={index === 0} item={item} />
           ))
         }
       </FlowLoader>

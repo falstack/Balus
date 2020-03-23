@@ -16,18 +16,28 @@
   .content {
     flex: 1;
     padding: $container-padding * 2 $container-padding * 2 $container-padding * 2 0;
-    border-bottom: 1px solid #CCD6DD;
+    border-top: 1px solid #CCD6DD;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
 
+    &.is-first {
+      border-top: none;
+    }
+
     .intro {
       flex: 1;
       overflow: hidden;
+      height: 86px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
 
       .nickname {
+        width: 100%;
         color: #14171A;
         font-size: 32px;
         font-weight: 500;
@@ -35,8 +45,10 @@
       }
 
       .desc {
+        width: 100%;
         color: #657786;
         font-size: 24px;
+        @extend %oneline;
       }
     }
 
@@ -46,7 +58,7 @@
       justify-content: space-between;
       align-items: flex-end;
       padding-left: $container-padding;
-      height: 64px;
+      height: 86px;
 
       .time {
         color: #657786;

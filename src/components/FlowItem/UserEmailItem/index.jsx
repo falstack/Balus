@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
+import classNames from 'classnames'
 import utils from '~/utils'
 import './index.scss'
 
@@ -17,6 +18,14 @@ class UserEmailItem extends Component {
     })
   }
 
+  messageClick() {
+    const { item } = this.props
+    this.$preload('room', item.about_user)
+    Taro.navigateTo({
+      url: `/pages/message/chat/index?channel=${item.channel}`,
+    })
+  }
+
   render () {
     const { item } = this.props
 
@@ -27,10 +36,10 @@ class UserEmailItem extends Component {
           src={utils.resize(item.about_user.avatar, { width: 50 })}
           onClick={this.userClick}
         />
-        <View className='content'>
+        <View className={classNames('content', { 'is-first': this.props.first })} onClick={this.messageClick}>
           <View className='intro'>
             <View className='nickname'>{item.about_user.nickname}</View>
-            <View className='desc'>desc</View>
+            <View className='desc'>{item.desc}</View>
           </View>
           <View className='meta'>
             <View className='time'>{utils.timeAgo(item.time)}</View>
@@ -47,6 +56,7 @@ class UserEmailItem extends Component {
 }
 
 UserEmailItem.defaultProps = {
+  first: false,
   item: {
     about_user: {}
   }

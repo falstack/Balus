@@ -23,6 +23,7 @@ class App extends Component {
       'pages/bangumi/show/index',
       'pages/bangumi/rank/index',
       'pages/message/entry/index',
+      'pages/message/chat/index',
       'pages/search/index',
       'pages/pin/show/index',
       'pages/webview/index',
