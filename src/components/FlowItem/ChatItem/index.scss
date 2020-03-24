@@ -1,7 +1,6 @@
 .chat-item {
-  min-height: 60px;
-  margin: $container-padding 0;
-  padding: 0 $container-padding;
+  min-height: 60px + $container-padding * 2;
+  padding: $container-padding;
   @extend %clearfix;
 
   .avatar {

@@ -1,0 +1,33 @@
+.message-chat {
+  .input-wrap {
+    border-top: 1px solid $color-line;
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
+
+    .input-box {
+      position: relative;
+      padding: 0 $container-padding;
+      min-height: 80px;
+
+      .shim {
+        font-size: 28px;
+        line-height: 1.6;
+        width: 100%;
+        font-family: UICTFontTextStyleBody;
+        min-height: 1.4rem;
+        opacity: 0;
+      }
+
+      input {
+        position: absolute;
+        top: 0;
+        left: $container-padding;
+        right: $container-padding;
+        bottom: 0;
+        font-size: 28px;
+        height: 80px;
+        line-height: 1.6;
+      }
+    }
+  }
+}
