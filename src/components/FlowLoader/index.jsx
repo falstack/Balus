@@ -34,10 +34,17 @@ export default class FlowLoader extends Component {
   }
 
   handleBottom() {
-    if (this.props.flow.flow_noMore) {
+    if (this.props.bottom && this.props.flow.flow_noMore) {
       return
     }
     event.emit(flowEventKey(this.props.namespace, 'bottom', this.props.slug))
+  }
+
+  handleTop() {
+    if (this.props.top && this.props.flow.flow_noMore) {
+      return
+    }
+    event.emit(flowEventKey(this.props.namespace, 'top', this.props.slug))
   }
 
   handleRefresh() {
@@ -74,11 +81,12 @@ export default class FlowLoader extends Component {
     return (
       <ScrollView
         scrollAnchoring
-        refresherTriggered={flow.flow_refreshing}
         scrollY={this.props.scrollY}
         scrollX={this.props.scrollX}
-        refresherEnabled={this.props.refresh}
         onScrollToLower={this.handleBottom}
+        onScrollToUpper={this.handleTop}
+        refresherEnabled={this.props.refresh}
+        refresherTriggered={flow.flow_refreshing}
         onRefresherRefresh={this.handleRefresh}
         className='flow-loader'
       >
@@ -94,6 +102,8 @@ FlowLoader.defaultProps = {
   refresh: false,
   scrollX: false,
   scrollY: true,
+  bottom: true,
+  top: false,
   namespace: 'flow',
   slug: 0
 }

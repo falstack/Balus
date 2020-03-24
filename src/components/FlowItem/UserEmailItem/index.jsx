@@ -1,10 +1,10 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { PureComponent } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import classNames from 'classnames'
 import utils from '~/utils'
 import './index.scss'
 
-class UserEmailItem extends Component {
+class UserEmailItem extends PureComponent {
   constructor (props) {
     super(props)
     this.state = {}

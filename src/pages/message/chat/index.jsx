@@ -1,22 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import http from '~/utils/http'
+import ChatList from '~/components/FlowList/ChatList'
 import './index.scss'
 
 export default class extends Component {
   constructor (props) {
     super(props)
     this.state = {}
-  }
-
-  componentWillMount () {
-    http.get('message/history', {
-      channel: this.$router.params.channel
-    })
-      .then(res => {
-        console.log(res)
-      })
-      .catch(() => {})
   }
 
   componentDidMount () { }
@@ -28,9 +18,14 @@ export default class extends Component {
   componentDidHide () { }
 
   render () {
+    const { channel } = this.$router.params
+    if (!channel) {
+      return
+    }
+
     return (
       <View>
-        <Text>text</Text>
+        <ChatList slug={channel} />
       </View>
     )
   }

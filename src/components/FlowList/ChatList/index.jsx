@@ -1,42 +1,48 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { PureComponent } from '@tarojs/taro'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
-import BangumiItem from '~/components/FlowItem/BangumiItem'
+import ChatItem from '~/components/FlowItem/ChatItem'
+import cache from '~/utils/cache'
 import './index.scss'
 
 @flowStore
 @flowEvent
-class SearchBangumi extends Component {
+class ChatList extends PureComponent {
   constructor (props) {
     super(props)
     this.state = {
       ...this.state,
-      flowNamespace: 'search',
+      flowNamespace: 'message-room',
       flowReq: {
-        url: 'search/mixin',
-        type: 'page',
+        url: 'message/history',
+        type: 'lastId',
         query: {
-          type: this.props.slug
+          is_up: 1,
+          channel: props.slug
         }
       }
     }
   }
 
   render () {
+    const user = cache.get('USER', null)
+    if (!user) {
+      return
+    }
+
     return (
       <FlowLoader
         launch
+        top
+        bottom={false}
         flow={this.state}
         slug={this.props.slug}
         namespace={this.state.flowNamespace}
       >
         {
           this.state.flow_result.map(item => (
-            <BangumiItem
-              key={item.slug}
-              item={item}
-            />
+            <ChatItem is_mine={user.slug === item.user.slug} key={item.id} item={item} />
           ))
         }
       </FlowLoader>
@@ -44,9 +50,9 @@ class SearchBangumi extends Component {
   }
 }
 
-SearchBangumi.defaultProps = {
-  slug: 'bangumi',
-  autoload: false
+ChatList.defaultProps = {
+  slug: '',
+  autoload: true
 }
 
-export default SearchBangumi
+export default ChatList

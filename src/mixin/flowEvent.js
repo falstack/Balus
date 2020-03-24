@@ -26,6 +26,9 @@ export default function flowEvent(Comp) {
       event.on(this._CREATE_EVENT_KEY('bottom'), () => {
         this.loadMore()
       })
+      event.on(this._CREATE_EVENT_KEY('top'), () => {
+        this.loadBefore()
+      })
       event.on(this._CREATE_EVENT_KEY('refresh'), () => {
         if (this.handleRefresh) {
           this.handleRefresh(() => { this.initData(true) })
@@ -33,11 +36,9 @@ export default function flowEvent(Comp) {
           this.initData(true)
         }
       })
-      if (this.props.clearable) {
-        event.on(this._CREATE_EVENT_KEY('clear'), () => {
-          this.resetStore()
-        })
-      }
+      event.on(this._CREATE_EVENT_KEY('clear'), () => {
+        this.resetStore()
+      })
       if (this.props.autoload) {
         this.initData()
       }
@@ -47,6 +48,7 @@ export default function flowEvent(Comp) {
       event.off(this._CREATE_EVENT_KEY('switch'))
       event.off(this._CREATE_EVENT_KEY('refresh'))
       event.off(this._CREATE_EVENT_KEY('bottom'))
+      event.off(this._CREATE_EVENT_KEY('top'))
       event.off(this._CREATE_EVENT_KEY('clear'))
     }
 

@@ -1,0 +1,84 @@
+.chat-item {
+  min-height: 60px;
+  margin: $container-padding 0;
+  padding: 0 $container-padding;
+  @extend %clearfix;
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+
+  &.is-left {
+    .avatar {
+      float: left;
+      margin-right: $container-padding;
+    }
+
+    .content {
+      text-align: left;
+    }
+
+    .status {
+      right: -40px;
+    }
+  }
+
+  &.is-right {
+    .avatar {
+      float: right;
+      margin-left: $container-padding;
+    }
+
+    .content {
+      text-align: right;
+    }
+
+    .status {
+      left: -40px;
+    }
+  }
+
+  &.sex-0 {
+    .bubble {
+      color: #212121;
+      background-color: $color-background-container;
+    }
+  }
+
+  &.sex-1 {
+    .bubble {
+      color: #fff;
+      background-color: #12b7f5;
+    }
+  }
+
+  &.sex-2 {
+    .bubble {
+      color: #fff;
+      background-color: $color-red;
+    }
+  }
+
+  .content {
+    overflow: hidden;
+
+    .bubble {
+      position: relative;
+      padding: 14px 26px;
+      border-radius: 30px;
+      max-width: 500px;
+      display: inline-block;
+      text-align: left;
+      font-size: 28px;
+      line-height: 1.6;
+      @extend %breakWord;
+
+      .status {
+        position: absolute;
+        top: 22px;
+      }
+    }
+  }
+}

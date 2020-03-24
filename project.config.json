@@ -97,6 +97,14 @@
 					"id": -1,
 					"name": "登录页面",
 					"pathName": "pages/user/login/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "私信页面",
+					"pathName": "pages/message/chat/index",
+					"query": "channel=channel@1@cc-36c1@cc-19f",
 					"scene": null
 				}
 			]

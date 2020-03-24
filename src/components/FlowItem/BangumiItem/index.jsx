@@ -2,7 +2,7 @@ import Taro, { PureComponent } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import './index.scss'
 
-export default class BangumiItem extends PureComponent {
+class BangumiItem extends PureComponent {
   constructor (props) {
     super(props)
   }
@@ -38,3 +38,5 @@ export default class BangumiItem extends PureComponent {
 BangumiItem.defaultProps = {
   item: {}
 }
+
+export default BangumiItem
