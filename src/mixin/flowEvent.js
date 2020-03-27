@@ -39,6 +39,9 @@ export default function flowEvent(Comp) {
       event.on(this._CREATE_EVENT_KEY('clear'), () => {
         this.resetStore()
       })
+      event.on(this._CREATE_EVENT_KEY('append'), (data) => {
+        // TODO
+      })
       if (this.props.autoload) {
         this.initData()
       }
@@ -50,6 +53,7 @@ export default function flowEvent(Comp) {
       event.off(this._CREATE_EVENT_KEY('bottom'))
       event.off(this._CREATE_EVENT_KEY('top'))
       event.off(this._CREATE_EVENT_KEY('clear'))
+      event.off(this._CREATE_EVENT_KEY('append'))
     }
 
     _CREATE_EVENT_KEY(type) {

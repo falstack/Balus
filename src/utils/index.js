@@ -88,12 +88,12 @@ export default {
     }
     const delta = Date.now() - date.getTime()
     if (delta > 86400000 * 365) {
-      return `${delta / (86400000 * 365) | 0} 年前`
+      return `${delta / (86400000 * 365) | 0}年前`
     }
     if (delta > 86400000 * 30) {
-      return `${delta / (86400000 * 30) | 0} 个月前`
+      return `${delta / (86400000 * 30) | 0}个月前`
     }
-    return `${delta / (86400000) | 0} 天前`
+    return `${delta / (86400000) | 0}天前`
   },
 
   adjustDate(time) {

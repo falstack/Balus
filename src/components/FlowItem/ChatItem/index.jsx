@@ -11,10 +11,10 @@ class ChatItem extends PureComponent {
   }
 
   userClick() {
-    const { user } = this.props.item
-    this.$preload('user', user)
+    const { sender } = this.props.item
+    this.$preload('user', sender)
     Taro.navigateTo({
-      url: `/pages/user/show/index?slug=${user.slug}`,
+      url: `/pages/user/show/index?slug=${sender.slug}`,
     })
   }
 
@@ -22,8 +22,8 @@ class ChatItem extends PureComponent {
     const { is_mine, item } = this.props
 
     return (
-      <View className={classNames('chat-item', [is_mine ? 'is-right' : 'is-left'], `sex-${item.user.sex}`)}>
-        <Image className='avatar' src={utils.resize(item.user.avatar, { width: 30 })} onClick={this.userClick} />
+      <View className={classNames('chat-item', [is_mine ? 'is-right' : 'is-left'], `sex-${item.sender.sex}`)}>
+        <Image className='avatar' src={utils.resize(item.sender.avatar, { width: 36 })} onClick={this.userClick} />
         <View className='content'>
           <View className='bubble'>
             {item.content[0].data.text}
@@ -37,7 +37,7 @@ class ChatItem extends PureComponent {
 ChatItem.defaultProps = {
   is_mine: false,
   item: {
-    user: {},
+    sender: {},
     content: []
   }
 }

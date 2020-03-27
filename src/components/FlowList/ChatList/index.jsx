@@ -42,7 +42,7 @@ class ChatList extends PureComponent {
       >
         {
           this.state.flow_result.map(item => (
-            <ChatItem is_mine={user.slug === item.user.slug} key={item.id} item={item} />
+            <ChatItem is_mine={user.slug === item.sender_slug} key={item.id} item={item} />
           ))
         }
       </FlowLoader>

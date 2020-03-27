@@ -1,6 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Input } from '@tarojs/components'
 import ChatList from '~/components/FlowList/ChatList'
+import http from '~/utils/http'
+import event from '~/utils/event'
+import toast from '~/utils/toast'
+import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
 export default class extends Component {
@@ -19,6 +23,32 @@ export default class extends Component {
     this.setState({
       value: evt.detail.value
     })
+  }
+
+  handleSubmit() {
+    const { value } = this.state
+    if (!value || !value.trim()) {
+      return
+    }
+    const content = [
+      {
+        type: 'paragraph',
+        data: {
+          text: value.trim()
+        }
+      }
+    ]
+    const { channel } = this.$router.params
+    http.post('message/send', { channel, content })
+      .then(msg => {
+        this.setState({
+          value: ''
+        })
+        event.emit(flowEventKey('message-room', 'append', channel), msg)
+      })
+      .catch((err) => {
+        toast.info(err.message)
+      })
   }
 
   render () {
@@ -45,6 +75,7 @@ export default class extends Component {
               placeholder='输入新消息'
               confirmType='send'
               onInput={this.handleInput}
+              onConfirm={this.handleSubmit}
             />
           </View>
         </View>

@@ -4,8 +4,8 @@
   @extend %clearfix;
 
   .avatar {
-    width: 60px;
-    height: 60px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
   }
 
@@ -39,6 +39,7 @@
     }
   }
 
+  &.sex--1,
   &.sex-0 {
     .bubble {
       color: #212121;
@@ -65,13 +66,13 @@
 
     .bubble {
       position: relative;
-      padding: 14px 26px;
-      border-radius: 30px;
+      padding: 15px 26px;
+      border-radius: 36px;
       max-width: 500px;
       display: inline-block;
       text-align: left;
       font-size: 28px;
-      line-height: 1.6;
+      line-height: 44px;
       @extend %breakWord;
 
       .status {

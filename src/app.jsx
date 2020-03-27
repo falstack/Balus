@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import http from '~/utils/http'
 import cache from '~/utils/cache'
+import socket from '~/utils/socket'
 import { step_6_get_user_roles } from '~/utils/login'
 import Index from './pages/index'
 
@@ -117,21 +118,7 @@ class App extends Component {
         }, 10000)
       })
       task.onMessage((msg) => {
-        const data = JSON.parse(msg.data)
-        if (data.channel === 'unread_total') {
-          const total = data.unread_message_total + data.unread_notice_total
-          if (total) {
-            Taro.setTabBarBadge({
-              index: 2,
-              text: total.toString()
-            })
-          } else {
-            Taro.removeTabBarBadge({
-              index: 2
-            })
-          }
-        }
-        cache.set(`SOCKET_MSG_${data.channel}`, data, false)
+        socket.dispatch(JSON.parse(msg.data))
       })
     })
   }
