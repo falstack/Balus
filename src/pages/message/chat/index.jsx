@@ -62,9 +62,7 @@ export default class extends Component {
     return (
       <View className='message-chat scroll-page'>
         <View className='flex-grow-1'>
-          <View className='scroll-wrap'>
-            <ChatList slug={channel} />
-          </View>
+          <ChatList slug={channel} />
         </View>
         <View className='flex-shrink-0 input-wrap'>
           <View className='input-box'>

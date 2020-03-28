@@ -40,7 +40,7 @@ export default function flowEvent(Comp) {
         this.resetStore()
       })
       event.on(this._CREATE_EVENT_KEY('append'), (data) => {
-        // TODO
+        this.appendStore(data)
       })
       if (this.props.autoload) {
         this.initData()

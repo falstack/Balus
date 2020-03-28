@@ -1,14 +1,16 @@
-import Taro, { PureComponent } from '@tarojs/taro'
+import Taro, { Component } from '@tarojs/taro'
+import { View, ScrollView } from '@tarojs/components'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
-import FlowLoader from '~/components/FlowLoader'
 import ChatItem from '~/components/FlowItem/ChatItem'
 import cache from '~/utils/cache'
+import event from '~/utils/event'
+import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
 @flowStore
 @flowEvent
-class ChatList extends PureComponent {
+class ChatList extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -19,33 +21,52 @@ class ChatList extends PureComponent {
         type: 'lastId',
         query: {
           is_up: 1,
+          changing: 'id',
           channel: props.slug
         }
       }
     }
   }
 
+  static options = {
+    addGlobalClass: true
+  }
+
+  handleTop() {
+    if (this.state.flow_noMore) {
+      return
+    }
+    event.emit(flowEventKey(this.state.flowNamespace, 'top', this.props.slug))
+  }
+
   render () {
     const user = cache.get('USER', null)
-    if (!user) {
+    const { flow_result } = this.state
+    if (!user || !flow_result.length) {
       return
     }
 
     return (
-      <FlowLoader
-        launch
-        top
-        bottom={false}
-        flow={this.state}
-        slug={this.props.slug}
-        namespace={this.state.flowNamespace}
-      >
-        {
-          this.state.flow_result.map(item => (
-            <ChatItem is_mine={user.slug === item.sender_slug} key={item.id} item={item} />
-          ))
-        }
-      </FlowLoader>
+      <View className='scroll-wrap'>
+        <ScrollView
+          scrollY
+          className='scroll-view'
+          onScrollToUpper={this.handleTop}
+          scrollIntoView={`chat-${flow_result[flow_result.length - 1].id}`}
+          scrollAnchoring
+        >
+          {
+            flow_result.map(item => (
+              <ChatItem
+                id={`chat-${item.id}`}
+                key={item.id}
+                item={item}
+                is_mine={user.slug === item.sender_slug}
+              />
+            ))
+          }
+        </ScrollView>
+      </View>
     )
   }
 }

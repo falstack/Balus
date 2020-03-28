@@ -32,7 +32,7 @@ export const generateRequestParams = (field, params, type) => {
     if (type === 'seenIds') {
       result.seen_ids = field.flow_result.map(_ => getObjectDeepValue(_, changing)).join(',')
     } else if (type === 'lastId') {
-      result.last_id = getObjectDeepValue(field.flow_result[field.flow_result.length - 1], changing)
+      result.last_id = getObjectDeepValue(field.flow_result[query.is_up ? 0 : field.flow_result.length - 1], changing)
     } else if (type === 'sinceId') {
       result.since_id = getObjectDeepValue(query.is_up ? field.flow_result[0] : field.flow_result[field.flow_result.length - 1], changing)
       result.is_up = query.is_up ? 1 : 0
@@ -58,8 +58,8 @@ export const generateRequestParams = (field, params, type) => {
   return Object.assign(query, result)
 }
 
-export const setReactivityField = (oldVal, newVal, type, insertBefore ) => {
-  if (oldVal) {
+export const setReactivityField = (oldVal, newVal, type, insertBefore) => {
+  if (isArray(oldVal) && oldVal.length) {
     if (type === 'jump' || !isArray(newVal)) {
       return newVal
     } else {

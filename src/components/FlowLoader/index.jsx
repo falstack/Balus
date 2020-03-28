@@ -88,6 +88,7 @@ export default class FlowLoader extends Component {
         refresherEnabled={this.props.refresh}
         refresherTriggered={flow.flow_refreshing}
         onRefresherRefresh={this.handleRefresh}
+        refresherBackground='#F4F4F4'
         className='flow-loader'
       >
         {this.props.children}

@@ -57,6 +57,14 @@ export default function flowStore(Comp) {
       this.loadMore(false, true)
     }
 
+    appendStore(data) {
+      const { flow_result } = this.state
+      flow_result.push(data)
+      this.setState({
+        flow_result
+      })
+    }
+
     resetStore() {
       this.setState({ ...defaultFlowField })
     }

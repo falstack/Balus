@@ -46,7 +46,7 @@ class PinItem extends PureComponent {
       showTime: false,
       ...params
     }
-    console.log('render pin item')
+
     return (
       <View className='flow-pin-item'>
         <View className='header'>
