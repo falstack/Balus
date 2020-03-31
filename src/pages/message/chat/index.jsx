@@ -16,7 +16,7 @@ export default class extends Component {
     super(props)
     this.state = {
       value: '',
-      loading: true
+      loading: false
     }
   }
 

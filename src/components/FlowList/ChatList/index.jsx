@@ -74,6 +74,7 @@ class ChatList extends Component {
 ChatList.defaultProps = {
   slug: '',
   before: true,
+  append: true,
   autoload: true
 }
 

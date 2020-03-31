@@ -1,4 +1,3 @@
-import Taro from '@tarojs/taro'
 import cache from '~/utils/cache'
 import event from '~/utils/event'
 
@@ -6,7 +5,7 @@ export default {
   dispatch(data) {
     console.log('dispatch', data)
     if (data.channel === 'unread_total') {
-      this._setTabBadge(data.unread_message_total + data.unread_notice_total)
+      this._setTabBadge(data.unread_message_total + data.unread_notice_total, 2)
     } else {
       this._dispatchData(data)
     }
@@ -17,16 +16,8 @@ export default {
     event.emit(`socket-${data.channel}`, data)
   },
 
-  _setTabBadge(total) {
-    if (total) {
-      Taro.setTabBarBadge({
-        index: 2,
-        text: total.toString()
-      })
-    } else {
-      Taro.removeTabBarBadge({
-        index: 2
-      })
-    }
+  _setTabBadge(total, index) {
+    cache.set(`TAB_BAR_${index}_COUNT`, total)
+    event.emit(`TAB_BAR_${index}_CHANGE`)
   }
 }

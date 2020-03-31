@@ -41,6 +41,7 @@
     z-index: 1;
 
     .tab {
+      position: relative;
       flex: 1;
 
       image {
@@ -77,6 +78,24 @@
       .right {
         transform: translate(-50%, -50%) rotate(90deg);
       }
+    }
+
+    .badge {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(25%);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      height: 34px;
+      min-width: 34px;
+      background-color: $color-red;
+      color: #fff;
+      padding: 0 10px;
+      border-radius: 34px;
+      border: 2px solid #fff;
     }
   }
 }

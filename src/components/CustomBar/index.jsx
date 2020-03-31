@@ -8,12 +8,37 @@ import Tab1Selected from '~/image/tab_1_selected.png'
 import Tab2Selected from '~/image/tab_2_selected.png'
 import Tab3Selected from '~/image/tab_3_selected.png'
 import Tab4Selected from '~/image/tab_4_selected.png'
+import cache from '~/utils/cache'
+import event from '~/utils/event'
 import './index.scss'
 
 class CustomBar extends Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      tab_2_count: 0
+    }
+  }
+
+  componentWillMount() {
+    event.on('TAB_BAR_2_CHANGE', () => {
+      this._updateTabCount(2)
+    })
+  }
+
+  componentWillUnmount() {
+    event.off('TAB_BAR_2_CHANGE')
+  }
+
+  componentDidShow() {
+    this._updateTabCount(2)
+  }
+
+  _updateTabCount(index) {
+    const key = `tab_${index}_count`
+    this.setState({
+      [key]: cache.get(`TAB_BAR_${index}_COUNT`, 0)
+    })
   }
 
   handleClick(index) {
@@ -41,6 +66,7 @@ class CustomBar extends Component {
 
   render () {
     const { active } = this.props
+    const { tab_2_count } = this.state
 
     return (
       <View className='custom-bar'>
@@ -62,6 +88,9 @@ class CustomBar extends Component {
             </View>
             <View className='tab'>
               <Image src={active === 2 ? Tab3Selected : Tab3} onClick={() => {this.handleClick(2)}} />
+              {
+                tab_2_count ? <View className='badge'>{tab_2_count}</View> : ''
+              }
             </View>
             <View className='tab'>
               <Image src={active === 3 ? Tab4Selected : Tab4} onClick={() => {this.handleClick(3)}} />
