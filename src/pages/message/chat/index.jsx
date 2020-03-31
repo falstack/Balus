@@ -15,8 +15,21 @@ export default class extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      value: ''
+      value: '',
+      loading: true
     }
+  }
+
+  componentDidMount() {
+    const { channel } = this.$router.params
+    event.on(`socket-${channel}`, data => {
+      event.emit(flowEventKey('message-room', 'append', channel), data)
+    })
+  }
+
+  componentWillUnmount() {
+    const { channel } = this.$router.params
+    event.off(`socket-${channel}`)
   }
 
   handleInput(evt) {
@@ -30,6 +43,9 @@ export default class extends Component {
     if (!value || !value.trim()) {
       return
     }
+    this.setState({
+      loading: true
+    })
     const content = [
       {
         type: 'paragraph',
@@ -42,12 +58,16 @@ export default class extends Component {
     http.post('message/send', { channel, content })
       .then(msg => {
         this.setState({
-          value: ''
+          value: '',
+          loading: false
         })
         event.emit(flowEventKey('message-room', 'append', channel), msg)
       })
       .catch((err) => {
         toast.info(err.message)
+        this.setState({
+          loading: false
+        })
       })
   }
 
@@ -57,7 +77,7 @@ export default class extends Component {
       return
     }
 
-    const { value } = this.state
+    const { value, loading } = this.state
 
     return (
       <View className='message-chat scroll-page'>
@@ -68,6 +88,7 @@ export default class extends Component {
           <View className='input-box'>
             <Input
               value={value}
+              disabled={loading}
               confirmHold
               type='text'
               placeholder='输入新消息'

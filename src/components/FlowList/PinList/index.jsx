@@ -75,6 +75,8 @@ PinList.defaultProps = {
   from: '',
   sort: '',
   params: {},
+  switch: true,
+  bottom: true,
   scrollY: true,
   refresh: false,
   autoload: false

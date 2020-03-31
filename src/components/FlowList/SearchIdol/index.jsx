@@ -46,6 +46,8 @@ class SearchIdol extends Component {
 
 SearchIdol.defaultProps = {
   slug: 'idol',
+  switch: true,
+  bottom: true,
   autoload: false
 }
 

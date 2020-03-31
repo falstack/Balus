@@ -1,13 +1,31 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
 import utils from '~/utils'
+import http from '~/utils/http'
 import cache from '~/utils/cache'
+import toast from '~/utils/toast'
 import './index.scss'
 
 export default class UserPanel extends Component {
   constructor(props) {
     super(props)
     this.state = {}
+  }
+
+  getMessageChannel() {
+    http.get('message/get_channel', {
+      type: 1,
+      slug: this.props.user.slug
+    })
+      .then(channel => {
+        this.$preload('room', this.props.user)
+        Taro.navigateTo({
+          url: `/pages/message/chat/index?channel=${channel}`,
+        })
+      })
+      .catch(() => {
+        toast.info('暂时不能私信TA')
+      })
   }
 
   render() {
@@ -39,7 +57,9 @@ export default class UserPanel extends Component {
             className='avatar'
           />
           {
-            isMine ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('user/edit?slug=' + user.slug)}`} className='edit-profile-btn'>编辑资料</Navigator> : ''
+            isMine
+              ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('user/edit?slug=' + user.slug)}`} className='edit-profile-btn'>编辑资料</Navigator>
+              : <View className='edit-profile-btn' onClick={this.getMessageChannel}>私信</View>
           }
         </View>
         <View className='nickname-wrap'>

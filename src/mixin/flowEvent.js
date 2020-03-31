@@ -4,44 +4,56 @@ import { flowEventKey } from '~/utils/flow'
 export default function flowEvent(Comp) {
   return class extends Comp {
     componentWillMount() {
-      event.on(this._CREATE_EVENT_KEY('switch'), (query) => {
-        const isForce = !!this.props.force
-        if (!query) {
-          this.initData(isForce)
-          return
-        }
-        const flowReq = this.state.flowReq
-        this.setState({
-          flowReq: {
-            ...flowReq,
-            query: {
-              ...flowReq.query,
-              ...query
-            }
+      if (this.props.switch) {
+        event.on(this._CREATE_EVENT_KEY('switch'), (query) => {
+          const isForce = !!this.props.force
+          if (!query) {
+            this.initData(isForce)
+            return
           }
-        }, () => {
-          this.initData(isForce)
+          const flowReq = this.state.flowReq
+          this.setState({
+            flowReq: {
+              ...flowReq,
+              query: {
+                ...flowReq.query,
+                ...query
+              }
+            }
+          }, () => {
+            this.initData(isForce)
+          })
         })
-      })
-      event.on(this._CREATE_EVENT_KEY('bottom'), () => {
-        this.loadMore()
-      })
-      event.on(this._CREATE_EVENT_KEY('top'), () => {
-        this.loadBefore()
-      })
-      event.on(this._CREATE_EVENT_KEY('refresh'), () => {
-        if (this.handleRefresh) {
-          this.handleRefresh(() => { this.initData(true) })
-        } else {
-          this.initData(true)
-        }
-      })
-      event.on(this._CREATE_EVENT_KEY('clear'), () => {
-        this.resetStore()
-      })
-      event.on(this._CREATE_EVENT_KEY('append'), (data) => {
-        this.appendStore(data)
-      })
+      }
+      if (this.props.bottom) {
+        event.on(this._CREATE_EVENT_KEY('bottom'), () => {
+          this.loadMore()
+        })
+      }
+      if (this.props.refresh) {
+        event.on(this._CREATE_EVENT_KEY('refresh'), () => {
+          if (this.handleRefresh) {
+            this.handleRefresh(() => { this.initData(true) })
+          } else {
+            this.initData(true)
+          }
+        })
+      }
+      if (this.props.clear) {
+        event.on(this._CREATE_EVENT_KEY('clear'), () => {
+          this.resetStore()
+        })
+      }
+      if (this.props.before) {
+        event.on(this._CREATE_EVENT_KEY('top'), () => {
+          this.loadBefore()
+        })
+      }
+      if (this.props.append) {
+        event.on(this._CREATE_EVENT_KEY('append'), (data) => {
+          this.appendStore(data)
+        })
+      }
       if (this.props.autoload) {
         this.initData()
       }

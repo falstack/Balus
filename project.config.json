@@ -101,10 +101,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 7,
 					"name": "私信页面",
 					"pathName": "pages/message/chat/index",
-					"query": "channel=channel@1@cc-36c1@cc-19f",
+					"query": "channel=channel@1@cc-myl@cc-19f",
 					"scene": null
 				}
 			]

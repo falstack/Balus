@@ -46,6 +46,8 @@ class SearchBangumi extends Component {
 
 SearchBangumi.defaultProps = {
   slug: 'bangumi',
+  switch: true,
+  bottom: true,
   autoload: false
 }
 

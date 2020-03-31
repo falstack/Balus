@@ -40,6 +40,7 @@ class MessageMenu extends Component {
 
 MessageMenu.defaultProps = {
   slug: '',
+  switch: true,
   force: true,
   autoload: false
 }

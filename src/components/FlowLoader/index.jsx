@@ -34,14 +34,14 @@ export default class FlowLoader extends Component {
   }
 
   handleBottom() {
-    if (this.props.bottom && this.props.flow.flow_noMore) {
+    if (!this.props.bottom || this.props.flow.flow_noMore) {
       return
     }
     event.emit(flowEventKey(this.props.namespace, 'bottom', this.props.slug))
   }
 
   handleTop() {
-    if (this.props.top && this.props.flow.flow_noMore) {
+    if (!this.props.top || this.props.flow.flow_noMore) {
       return
     }
     event.emit(flowEventKey(this.props.namespace, 'top', this.props.slug))

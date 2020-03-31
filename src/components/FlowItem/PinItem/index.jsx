@@ -40,6 +40,9 @@ class PinItem extends PureComponent {
 
   render () {
     const { item, params } = this.props
+    if (!item) {
+      return
+    }
     const state = {
       showUser: true,
       showBangumi: true,
@@ -140,12 +143,7 @@ class PinItem extends PureComponent {
 }
 
 PinItem.defaultProps = {
-  item: {
-    title: {},
-    author: {},
-    bangumi: {},
-    banner: []
-  },
+  item: null,
   params: {}
 }
 
