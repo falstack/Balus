@@ -3,6 +3,7 @@ import { View, Button } from '@tarojs/components'
 import cache from '~/utils/cache'
 import event from '~/utils/event'
 import http from '~/utils/http'
+import CustomBar from '~/components/CustomBar'
 import UserPanel from './panel/UserPanel'
 import UserTable from './table/UserTable'
 import './index.scss'
@@ -88,14 +89,21 @@ export default class extends Component {
     }
 
     return (
-      <View className='user-home'>
-        <UserPanel user={user} />
-        <View className='hr' />
-        <UserTable user={user} />
-        <View className='logout'>
-          <Button onClick={this.userLogout}>
-            退出登录
-          </Button>
+      <View className='user-home scroll-page'>
+        <View className='flex-shrink-0'>
+          <UserPanel user={user} />
+        </View>
+        <View className='flex-grow-1'>
+          <View className='hr' />
+          <UserTable user={user} />
+          <View className='logout'>
+            <Button onClick={this.userLogout}>
+              退出登录
+            </Button>
+          </View>
+        </View>
+        <View className='flex-shrink-0'>
+          <CustomBar active={3} />
         </View>
       </View>
     )

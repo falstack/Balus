@@ -3,16 +3,21 @@ import { View, Text, Navigator, ScrollView } from '@tarojs/components'
 import BangumiList from '~/components/FlowList/BangumiList/index'
 import BangumiTopImage from '~/image/bangumi-top.jpeg'
 import BangumiReleaseImage from '~/image/bangumi-release.jpeg'
+import CustomBar from '~/components/CustomBar'
+import menuRect from '~/mixin/menuRect'
 import './index.scss'
 
+@menuRect
 class BangumiRank extends Component {
   config = {
-    navigationBarTitleText: '分区'
+    navigationStyle: 'custom'
   }
 
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      ...this.state,
+    }
   }
 
   onShareAppMessage() {
@@ -24,8 +29,16 @@ class BangumiRank extends Component {
   }
 
   render () {
+    const { menuRect } = this.state
+    if (!menuRect) {
+      return
+    }
+
     return (
       <View className='bangumi-rank scroll-page'>
+        <View className='header' style={`padding-top:${menuRect.top}px;padding-bottom:${menuRect.right}px;height:${menuRect.height}px`}>
+          分区
+        </View>
         <View className='flex-shrink-0 pgc-list'>
           <ScrollView className='scroll-view' scrollX>
             <Navigator
@@ -57,6 +70,9 @@ class BangumiRank extends Component {
           <View className='scroll-wrap'>
             <BangumiList from='hot' sort='hottest' autoload />
           </View>
+        </View>
+        <View className='flex-shrink-0'>
+          <CustomBar active={1} />
         </View>
       </View>
     )

@@ -3,6 +3,7 @@ import { View, Swiper, SwiperItem } from '@tarojs/components'
 import menuRect from '~/mixin/menuRect'
 import MessageMenu from '~/components/FlowList/MessageMenu'
 import TabHeader from '~/components/TabHeader'
+import CustomBar from '~/components/CustomBar'
 import event from '~/utils/event'
 import { flowEventKey } from '~/utils/flow'
 import './index.scss'
@@ -71,6 +72,9 @@ class MessageEntry extends Component {
               <MessageMenu />
             </SwiperItem>
           </Swiper>
+        </View>
+        <View className='flex-shrink-0'>
+          <CustomBar active={2} />
         </View>
       </View>
     )

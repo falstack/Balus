@@ -3,8 +3,8 @@ import { View, Swiper, SwiperItem } from '@tarojs/components'
 import IndexHeader from './header/index'
 import PinList from '~/components/FlowList/PinList/index'
 import IdolList from '~/components/FlowList/IdolList/index'
-import WriteFlatBtn from '~/components/WriteFlatBtn/index'
 import TabHeader from '~/components/TabHeader'
+import CustomBar from '~/components/CustomBar'
 import event from '~/utils/event'
 import { flowEventKey } from '~/utils/flow'
 import pageShare from '~/mixin/pageShare'
@@ -90,7 +90,9 @@ class indexPage extends Component {
             ))}
           </Swiper>
         </View>
-        <WriteFlatBtn />
+        <View className='flex-shrink-0'>
+          <CustomBar />
+        </View>
       </View>
     )
   }
