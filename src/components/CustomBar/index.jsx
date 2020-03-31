@@ -48,14 +48,24 @@ class CustomBar extends Component {
         <View className='core'>
           <View className='mask' />
           <View className="wrap">
-            <Image className='tab' src={active === 0 ? Tab1Selected : Tab1} onClick={() => {this.handleClick(0)}} />
-            <Image className='tab' src={active === 1 ? Tab2Selected : Tab2} onClick={() => {this.handleClick(1)}} />
-            <View className='create-btn' onClick={this.clickCreate}>
-              <View className='right' />
-              <View className='left' />
+            <View className='tab'>
+              <Image src={active === 0 ? Tab1Selected : Tab1} onClick={() => {this.handleClick(0)}} />
             </View>
-            <Image className='tab' src={active === 2 ? Tab3Selected : Tab3} onClick={() => {this.handleClick(2)}} />
-            <Image className='tab' src={active === 3 ? Tab4Selected : Tab4} onClick={() => {this.handleClick(3)}} />
+            <View className='tab'>
+              <Image src={active === 1 ? Tab2Selected : Tab2} onClick={() => {this.handleClick(1)}} />
+            </View>
+            <View className='tab' onClick={this.clickCreate}>
+              <View className='create-btn'>
+                <View className='right' />
+                <View className='left' />
+              </View>
+            </View>
+            <View className='tab'>
+              <Image src={active === 2 ? Tab3Selected : Tab3} onClick={() => {this.handleClick(2)}} />
+            </View>
+            <View className='tab'>
+              <Image src={active === 3 ? Tab4Selected : Tab4} onClick={() => {this.handleClick(3)}} />
+            </View>
           </View>
         </View>
       </View>
