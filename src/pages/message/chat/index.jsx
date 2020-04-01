@@ -25,11 +25,16 @@ export default class extends Component {
     event.on(`socket-${channel}`, data => {
       event.emit(flowEventKey('message-room', 'append', channel), data)
     })
+    this.updateMessageMenu(channel)
   }
 
   componentWillUnmount() {
     const { channel } = this.$router.params
     event.off(`socket-${channel}`)
+  }
+
+  updateMessageMenu(channel) {
+    http.post('message/clear_channel', { channel })
   }
 
   handleInput(evt) {

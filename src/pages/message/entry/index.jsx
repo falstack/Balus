@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
 import menuRect from '~/mixin/menuRect'
+import NoticeMenu from '~/components/FlowList/NoticeMenu'
 import MessageMenu from '~/components/FlowList/MessageMenu'
 import TabHeader from '~/components/TabHeader'
 import CustomBar from '~/components/CustomBar'
@@ -66,7 +67,7 @@ class MessageEntry extends Component {
             onChange={this.handleTabClick}
           >
             <SwiperItem>
-              2333
+              <NoticeMenu />
             </SwiperItem>
             <SwiperItem>
               <MessageMenu />
