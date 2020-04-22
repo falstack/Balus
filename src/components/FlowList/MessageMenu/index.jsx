@@ -3,6 +3,7 @@ import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
 import UserEmailItem from '~/components/FlowItem/UserEmailItem'
+import event from '~/utils/event'
 import './index.scss'
 
 @flowStore
@@ -18,6 +19,14 @@ class MessageMenu extends Component {
         type: 'page'
       }
     }
+  }
+
+  componentDidMount() {
+    event.on('socket-message-menu', ({ data }) => {
+      this.setState({
+        flow_result: data
+      })
+    })
   }
 
   render () {

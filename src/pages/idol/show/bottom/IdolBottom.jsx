@@ -80,6 +80,7 @@ export default class IdolBottom extends Component {
           stock_count: value,
           coin_amount: amount
         })
+        toast.info('入股成功')
       })
       .catch(err => {
         toast.info(err.message)
@@ -91,7 +92,7 @@ export default class IdolBottom extends Component {
       })
   }
 
-  handleChange (evt) {
+  handleInput (evt) {
     let value = evt.detail.value
     if (value < 0) {
       value = 0
@@ -134,7 +135,7 @@ export default class IdolBottom extends Component {
                 <Input
                   value={this.state.value}
                   type='number'
-                  onChange={this.handleChange}
+                  onInput={this.handleInput}
                 />
               </View>
             </View>

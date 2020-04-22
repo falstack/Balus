@@ -36,6 +36,9 @@ const config = {
   defineConstants: {
   },
   mini: {
+    imageUrlLoaderOption: {
+      limit: 0
+    },
     postcss: {
       pxtransform: {
         enable: true,

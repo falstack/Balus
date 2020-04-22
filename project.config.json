@@ -106,6 +106,13 @@
 					"pathName": "pages/message/chat/index",
 					"query": "channel=channel@1@cc-myl@cc-19f",
 					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "通知页面",
+					"pathName": "pages/message/entry/index",
+					"query": "",
+					"scene": null
 				}
 			]
 		}
