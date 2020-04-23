@@ -4,13 +4,11 @@ import BangumiList from '~/components/FlowList/BangumiList/index'
 import BangumiTopImage from '~/image/bangumi-top.jpeg'
 import BangumiReleaseImage from '~/image/bangumi-release.jpeg'
 import CustomBar from '~/components/CustomBar'
-import menuRect from '~/mixin/menuRect'
 import './index.scss'
 
-@menuRect
 class BangumiRank extends Component {
   config = {
-    navigationStyle: 'custom'
+    navigationBarTitleText: '分区',
   }
 
   constructor (props) {
@@ -29,16 +27,8 @@ class BangumiRank extends Component {
   }
 
   render () {
-    const { menuRect } = this.state
-    if (!menuRect) {
-      return
-    }
-
     return (
       <View className='bangumi-rank scroll-page'>
-        <View className='header' style={`padding-top:${menuRect.top}px;padding-bottom:${menuRect.right}px;height:${menuRect.height}px`}>
-          分区
-        </View>
         <View className='flex-shrink-0 pgc-list'>
           <ScrollView className='scroll-view' scrollX>
             <Navigator

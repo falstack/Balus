@@ -1,32 +1,22 @@
+import Taro from '@tarojs/taro'
+
 export default new class {
   constructor() {
-    this.all = {}
     this.debug = process.env.NODE_ENV === 'development'
   }
 
   on(type, handler) {
     this.debug && console.log('on', type)
-    if (!this.all[type]) {
-      this.all[type] = []
-    }
-    this.all[type].push(handler)
+    Taro.eventCenter.on(type, handler)
   }
 
   off(type, handler) {
     this.debug && console.log('off', type)
-    if (this.all[type]) {
-      if (handler) {
-        this.all[type].splice(this.all[type].indexOf(handler) >>> 0, 1)
-      } else {
-        this.all[type] = []
-      }
-    }
+    Taro.eventCenter.off(type, handler)
   }
 
   emit(type, ...args) {
     this.debug && console.log('emit', type);
-    ;(this.all[type] || []).map(handler => {
-      handler(...args)
-    })
+    Taro.eventCenter.trigger(type, ...args)
   }
 }()

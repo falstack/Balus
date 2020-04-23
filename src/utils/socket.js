@@ -3,17 +3,11 @@ import event from '~/utils/event'
 
 export default {
   dispatch(data) {
-    console.log('dispatch', data)
+    cache.set(`SOCKET_MSG_${data.channel}`, data, false)
+    event.emit(`socket-${data.channel}`, data)
     if (data.channel === 'unread_total') {
       this._setTabBadge(data, 2)
-    } else {
-      this._dispatchData(data)
     }
-    cache.set(`SOCKET_MSG_${data.channel}`, data, false)
-  },
-
-  _dispatchData(data) {
-    event.emit(`socket-${data.channel}`, data)
   },
 
   _setTabBadge(data, index) {

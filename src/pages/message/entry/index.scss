@@ -1,5 +1,48 @@
 .message-show {
-  .header-wrap {
-    background-color: $color-red;
+  .notice-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    border-bottom: $container-padding solid $color-background-container;
+
+    .notice-item {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      padding: $container-padding 0;
+
+      image {
+        display: block;
+        width: 100px;
+        height: 100px;
+        margin-bottom: $container-padding / 2;
+      }
+
+      text {
+        font-size: 26px;
+      }
+
+      view {
+        position: absolute;
+        left: 50%;
+        top: 20px;
+        transform: translateX(25%);
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px;
+        height: 34px;
+        min-width: 34px;
+        background-color: $color-red;
+        color: #fff;
+        padding: 0 10px;
+        border-radius: 34px;
+        border: 2px solid #fff;
+      }
+    }
   }
 }

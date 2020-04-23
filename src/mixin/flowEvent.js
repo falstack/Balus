@@ -6,7 +6,7 @@ export default function flowEvent(Comp) {
     componentWillMount() {
       if (this.props.switch) {
         event.on(this._CREATE_EVENT_KEY('switch'), (query) => {
-          const isForce = !!this.props.force
+          const isForce = !!this.props.reload
           if (!query) {
             this.initData(isForce)
             return
@@ -56,6 +56,12 @@ export default function flowEvent(Comp) {
       }
       if (this.props.autoload) {
         this.initData()
+      }
+    }
+
+    componentDidShow() {
+      if (this.state.flow_fetched && this.props.reload) {
+        this.initData(true)
       }
     }
 
