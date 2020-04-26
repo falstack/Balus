@@ -2,26 +2,32 @@ import Taro, { Component } from '@tarojs/taro'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
-import IdolItem from '~/components/FlowItem/IdolItem'
 import './index.scss'
 
 @flowStore
 @flowEvent
-class SearchIdol extends Component {
+class UnreadCommentList extends Component {
   constructor (props) {
     super(props)
     this.state = {
       ...(this.state || {}),
-      flowNamespace: 'search',
+      flowNamespace: 'unread',
       flowReq: {
-        url: 'search/mixin',
-        type: 'page',
-        query: {
-          type: this.props.slug
-        }
+        url: 'message/message_pin_comment',
+        type: 'lastId'
       }
     }
   }
+
+  componentWillMount () { }
+
+  componentDidMount () { }
+
+  componentWillUnmount () { }
+
+  componentDidShow () { }
+
+  componentDidHide () { }
 
   render () {
     return (
@@ -31,24 +37,16 @@ class SearchIdol extends Component {
         slug={this.props.slug}
         namespace={this.state.flowNamespace}
       >
-        {
-          this.state.flow_result.map(item => (
-            <IdolItem
-              key={item.slug}
-              item={item}
-            />
-          ))
-        }
+        {this.state.flow_result}
       </FlowLoader>
     )
   }
 }
 
-SearchIdol.defaultProps = {
-  slug: 'idol',
-  switch: true,
+UnreadCommentList.defaultProps = {
+  slug: 'comment',
   bottom: true,
-  autoload: false
+  autoload: true
 }
 
-export default SearchIdol
+export default UnreadCommentList

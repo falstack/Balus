@@ -25,7 +25,7 @@ class SearchShow extends Component {
     super(props)
     const value = this.$router.params.q || ''
     this.state = {
-      ...this.state,
+      ...(this.state || {}),
       value,
       current: 0,
       showPanel: !value,

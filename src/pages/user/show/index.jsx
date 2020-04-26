@@ -27,7 +27,7 @@ class UserShow extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      ...this.state,
+      ...(this.state || {}),
       slug: this.$router.params.slug,
       user: null,
       current: 0,

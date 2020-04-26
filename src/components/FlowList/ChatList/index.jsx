@@ -14,7 +14,7 @@ class ChatList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      ...this.state,
+      ...(this.state || {}),
       flowNamespace: 'message-room',
       flowReq: {
         url: 'message/history',

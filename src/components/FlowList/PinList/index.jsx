@@ -13,7 +13,7 @@ class PinList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      ...this.state,
+      ...(this.state || {}),
       flowNamespace: `pin-${props.from}-${props.sort}`,
       flowReq: {
         url: `flow/pin/${props.sort}`,

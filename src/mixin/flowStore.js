@@ -74,8 +74,8 @@ export default function flowStore(Comp) {
       const state = {
         flow_loading: false,
         flow_refreshing: false,
-        flow_total: data.total,
-        flow_noMore: req.type === 'jump' ? false : data.no_more,
+        flow_total: data.total || 0,
+        flow_noMore: req.type === 'jump' ? false : (typeof data.no_more === 'undefined' ? result.length === 0 : data.no_more),
         flow_page: typeof params.page === 'number' ? params.page : typeof params.page === 'string' ? +params.page : 1,
         flow_result: setReactivityField(refresh ? [] : this.state.flow_result, result, req.type, !!params.is_up)
       }

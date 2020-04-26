@@ -11,7 +11,7 @@ class IdolList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      ...this.state,
+      ...(this.state || {}),
       flowNamespace: `idol-${props.from}-${props.sort}`,
       flowReq: {
         url: `flow/idol/${props.sort}`,

@@ -21,7 +21,7 @@ class IdolShow extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      ...this.state,
+      ...(this.state || {}),
       slug: this.$router.params.slug,
       showEdit: false,
       idol: {

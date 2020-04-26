@@ -12,7 +12,7 @@ class MessageMenu extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      ...this.state,
+      ...(this.state || {}),
       flowNamespace: 'email-message',
       flowReq: {
         url: 'message/menu',

@@ -20,7 +20,7 @@ class indexPage extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      ...this.state,
+      ...(this.state || {}),
       current: 1,
       tabs: [
         { sort: 'hottest', title: '热门', type: 'pin' },

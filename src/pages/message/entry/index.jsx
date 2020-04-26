@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image, Text } from '@tarojs/components'
+import { View, Image, Text, Navigator } from '@tarojs/components'
 import MessageMenu from '~/components/FlowList/MessageMenu'
 import CustomBar from '~/components/CustomBar'
 import rewardIcon from '~/image/icon_reward.png'
@@ -21,11 +21,34 @@ class MessageEntry extends Component {
     this.state = {
       unread_comment_count: 0,
       unread_follow_count: 0,
-      unread_like_count: 0,
+      unread_comment_like_count: 0,
+      unread_pin_like_count: 0,
       unread_mark_count: 0,
       unread_message_count: 0,
       unread_reward_count: 0,
       unread_share_count: 0,
+      list: [
+        {
+          name: '评论',
+          type: 'unread_comment_count',
+          icon: commentIcon
+        },
+        {
+          name: '点赞',
+          type: 'unread_comment_like_count+unread_pin_like_count',
+          icon: agreeIcon
+        },
+        {
+          name: '投食',
+          type: 'unread_reward_count',
+          icon: rewardIcon
+        },
+        {
+          name: '关注',
+          type: 'unread_follow_count',
+          icon: noticeIcon
+        }
+      ]
     }
   }
 
@@ -45,42 +68,26 @@ class MessageEntry extends Component {
     return (
       <View className='message-show scroll-page'>
         <View className='flex-shrink-0 notice-wrap'>
-          <View className='notice-item'>
-            <Image src={commentIcon} />
-            <Text>评论</Text>
-            {
-              this.state.unread_comment_count
-                ? <View>{this.state.unread_comment_count}</View>
-                : ''
-            }
-          </View>
-          <View className='notice-item'>
-            <Image src={agreeIcon} />
-            <Text>点赞</Text>
-            {
-              this.state.unread_like_count
-                ? <View>{this.state.unread_like_count}</View>
-                : ''
-            }
-          </View>
-          <View className='notice-item'>
-            <Image src={rewardIcon} />
-            <Text>投食</Text>
-            {
-              this.state.unread_reward_count
-                ? <View>{this.state.unread_reward_count}</View>
-                : ''
-            }
-          </View>
-          <View className='notice-item'>
-            <Image src={noticeIcon} />
-            <Text>关注</Text>
-            {
-              this.state.unread_follow_count
-                ? <View>{this.state.unread_follow_count}</View>
-                : ''
-            }
-          </View>
+          {
+            this.state.list.map(item => {
+              const { type } = item
+              let count
+              if (type.includes('+')) {
+                count = type.split('+').map(key => this.state[key]).reduce((a, b) => a + b)
+              } else {
+                count = this.state[type]
+              }
+              return (
+                <Navigator key={`${type}-${count}`} hover-class='none' url={`/pages/message/list/index?type=${item.name}`} className='notice-item'>
+                  <Image src={item.icon} />
+                  <Text>{item.name}</Text>
+                  {
+                    count ? <View>{count}</View> : ''
+                  }
+                </Navigator>
+              )
+            })
+          }
         </View>
         <View className='flex-grow-1'>
           <View className='scroll-wrap'>

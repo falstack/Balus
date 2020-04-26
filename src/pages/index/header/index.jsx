@@ -11,7 +11,7 @@ class IndexHeader extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      ...this.state,
+      ...(this.state || {}),
       user: null
     }
   }

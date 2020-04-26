@@ -11,7 +11,7 @@ class BangumiList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      ...this.state,
+      ...(this.state || {}),
       flowNamespace: `bangumi-${props.from}-${props.sort}`,
       flowReq: {
         url: props.from === 'hot' ? 'bangumi/hot' : 'user/like_bangumi',
