@@ -1,0 +1,74 @@
+.u-a-item {
+  padding: $container-padding $container-padding 0;
+  @extend %clearfix;
+
+  .header {
+    margin-bottom: $container-padding;
+
+    .avatar {
+      display: block;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-right: $container-padding;
+      border: 1px solid $color-avatar-border;
+      float: left;
+    }
+
+    .info {
+      overflow: hidden;
+      height: 80px;
+      font-size: 30px;
+
+      .nickname {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      .meta {
+        color: $color-text-gray;
+        font-size: 26px;
+      }
+    }
+  }
+
+  .body {
+    border-radius: 8px;
+    padding: $container-padding;
+    background-color: #f4f4f4;
+
+    .banner {
+      float: right;
+      width: 100px;
+      height: 80px;
+      border-radius: 5px;
+    }
+
+    .text-wrap {
+      overflow: hidden;
+
+      .content {
+        font-size: 30px;
+        @include mutiline(40px)
+      }
+
+      .meta {
+        font-size: 28px;
+
+        .item,
+        .dot {
+          color: $color-text-gray;
+        }
+
+        .dot {
+          margin: 0 5px;
+        }
+      }
+    }
+  }
+
+  .footer {
+    margin-top: $container-padding;
+    border-bottom: 1PX solid #f4f4f4;
+  }
+}

@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
+import UnreadAgreeItem from '~/components/FlowItem/UnreadAgreeItem'
 import './index.scss'
 
 @flowStore
@@ -37,7 +38,7 @@ class UnreadAgreeList extends Component {
         slug={this.props.slug}
         namespace={this.state.flowNamespace}
       >
-        {this.state.flow_result}
+        {this.state.flow_result.map(item => <UnreadAgreeItem key={item.type + '-' + item.id + '-' + item.user.id} item={item} />)}
       </FlowLoader>
     )
   }

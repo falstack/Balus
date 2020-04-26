@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import FlowLoader from '~/components/FlowLoader'
+import UnreadCommentItem from '~/components/FlowItem/UnreadCommentItem'
 import './index.scss'
 
 @flowStore
@@ -19,16 +20,6 @@ class UnreadCommentList extends Component {
     }
   }
 
-  componentWillMount () { }
-
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
-
   render () {
     return (
       <FlowLoader
@@ -37,7 +28,7 @@ class UnreadCommentList extends Component {
         slug={this.props.slug}
         namespace={this.state.flowNamespace}
       >
-        {this.state.flow_result}
+        {this.state.flow_result.map(item => <UnreadCommentItem key={item.id} item={item} />)}
       </FlowLoader>
     )
   }
