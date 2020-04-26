@@ -20,6 +20,10 @@
       height: 80px;
       font-size: 30px;
 
+      .name-wrap {
+        @extend %oneline;
+      }
+
       .nickname {
         font-weight: bold;
         margin-right: 10px;

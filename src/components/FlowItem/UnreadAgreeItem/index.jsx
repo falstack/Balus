@@ -9,16 +9,38 @@ class UnreadAgreeItem extends PureComponent {
     this.state = {}
   }
 
+  clickBody() {
+    const { data } = this.props.item
+    if (this.props.item.type === 'pin') {
+      this.$preload('pin', data)
+      Taro.navigateTo({
+        url: `/pages/pin/show/index?slug=${data.slug}`,
+      })
+    } else {
+      Taro.navigateTo({
+        url: `/pages/pin/show/index?slug=${data.pin_slug}`,
+      })
+    }
+  }
+
+  clickUser() {
+    const { user } = this.props.item
+    this.$preload('user', user)
+    Taro.navigateTo({
+      url: `/pages/user/show/index?slug=${user.slug}`,
+    })
+  }
+
   render () {
     const { item } = this.props
     const isPin = item.type === 'pin'
     return (
       <View className='u-a-item'>
         <View className='header'>
-          <Image className='avatar' src={utils.resize(item.user.avatar, { width: 80 })} />
+          <Image onClick={this.clickUser.bind(this)} className='avatar' src={utils.resize(item.user.avatar, { width: 80 })} />
           <View className='info'>
-            <View>
-              <Text className='nickname'>{item.user.nickname}</Text>
+            <View className='name-wrap'>
+              <Text className='nickname' onClick={this.clickUser.bind(this)}>{item.user.nickname}</Text>
               <Text>喜欢你的{isPin ? '文章' : '评论'}</Text>
             </View>
             <View className='meta'>
@@ -26,7 +48,7 @@ class UnreadAgreeItem extends PureComponent {
             </View>
           </View>
         </View>
-        <View className='body'>
+        <View className='body' onClick={this.clickBody.bind(this)}>
           {
             isPin && item.data.banner.length
               ? <Image className='banner' src={utils.resize(item.data.banner[0], { width: 100, height: 80 })} />
