@@ -29,6 +29,10 @@ class MessageMenu extends Component {
     })
   }
 
+  refresh() {
+    this.initData(true)
+  }
+
   render () {
     return (
       <FlowLoader

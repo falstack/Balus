@@ -58,3 +58,31 @@ text {
   width: 100%;
   height: 100%;
 }
+
+.panel-header {
+  height: 88px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 28px;
+  color: #212121;
+  padding-right: $container-padding;
+
+  &.line {
+    border-bottom: solid 1px #e7e7e7;
+  }
+
+  .left {
+    padding-left: $container-padding;
+  }
+
+  .more {
+    color: #999999;
+    font-size: 26px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}

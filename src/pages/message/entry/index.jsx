@@ -1,13 +1,13 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image, Text, Navigator } from '@tarojs/components'
+import { View, Image, Text } from '@tarojs/components'
 import MessageMenu from '~/components/FlowList/MessageMenu'
 import CustomBar from '~/components/CustomBar'
 import rewardIcon from '~/image/icon_reward.png'
-import noticeIcon from '~/image/icon_notice.png'
 import agreeIcon from '~/image/icon_agree.png'
 import commentIcon from '~/image/icon_comment.png'
 import event from '~/utils/event'
 import cache from '~/utils/cache'
+import http from '~/utils/http'
 import './index.scss'
 
 class MessageEntry extends Component {
@@ -42,11 +42,6 @@ class MessageEntry extends Component {
           name: '投食',
           type: 'unread_reward_count',
           icon: rewardIcon
-        },
-        {
-          name: '关注',
-          type: 'unread_follow_count',
-          icon: noticeIcon
         }
       ]
     }
@@ -56,12 +51,43 @@ class MessageEntry extends Component {
     event.on('socket-unread_total', data => {
       this.setState(data)
     })
-    const data = cache.get('SOCKET_MSG_unread_total', {})
-    this.setState(data)
   }
 
   componentWillUnmount() {
     event.off('socket-unread_total')
+  }
+
+  componentDidShow() {
+    this.getUnreadData()
+  }
+
+  getUnreadData() {
+    http.get('message/total')
+      .then(res => {
+        this.setState(res)
+      })
+      .catch(() => {
+        const data = cache.get('SOCKET_MSG_unread_total', {})
+        this.setState(data)
+      })
+  }
+
+  handleRedirect(item) {
+    http.post('message/unread_clear', {
+      type: item.type.split('+').join(',')
+    })
+    Taro.navigateTo({
+      url: `/pages/message/list/index?type=${item.name}`
+    })
+  }
+
+  clearMessage() {
+    http.post('message/unread_clear', {
+      type: 'unread_chat_message'
+    })
+      .then(() => {
+        this.refs.menu.refresh()
+      })
   }
 
   render () {
@@ -78,20 +104,24 @@ class MessageEntry extends Component {
                 count = this.state[type]
               }
               return (
-                <Navigator key={`${type}-${count}`} hover-class='none' url={`/pages/message/list/index?type=${item.name}`} className='notice-item'>
+                <View key={`${type}-${count}`} onClick={() => {this.handleRedirect(item)}} className='notice-item'>
                   <Image src={item.icon} />
                   <Text>{item.name}</Text>
                   {
                     count ? <View>{count}</View> : ''
                   }
-                </Navigator>
+                </View>
               )
             })
           }
         </View>
+        <View className='flex-shrink-0 panel-header'>
+          <Text className='left'>消息列表</Text>
+          <Text className='more' onClick={this.clearMessage}>全部已读</Text>
+        </View>
         <View className='flex-grow-1'>
           <View className='scroll-wrap'>
-            <MessageMenu />
+            <MessageMenu ref='menu' />
           </View>
         </View>
         <View className='flex-shrink-0'>

@@ -14,7 +14,9 @@ export default {
     let total = 0
     delete data.channel
     Object.keys(data).forEach(key => {
-      total += data[key]
+      if (key !== 'unread_follow_count') {
+        total += data[key]
+      }
     })
     cache.set(`TAB_BAR_${index}_COUNT`, total)
     event.emit(`TAB_BAR_${index}_CHANGE`)
