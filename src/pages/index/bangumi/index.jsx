@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Navigator, ScrollView } from '@tarojs/components'
+import Navbar from '~/components/Navbar/text'
 import BangumiList from '~/components/FlowList/BangumiList/index'
 import BangumiTopImage from '~/image/bangumi-top.jpeg'
 import BangumiReleaseImage from '~/image/bangumi-release.jpeg'
@@ -12,7 +13,10 @@ class BangumiRank extends Component {
 
   render () {
     return (
-      <View className='bangumi-rank scroll-page'>
+      <View className='bangumi-page scroll-page'>
+        <View className='flex-shrink-0'>
+          <Navbar/>
+        </View>
         <View className='flex-shrink-0 pgc-list'>
           <ScrollView className='scroll-view' scrollX>
             <Navigator

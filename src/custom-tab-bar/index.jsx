@@ -16,7 +16,7 @@ class CustomBar extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      active: props.defaultActive,
+      active: 0,
       tab_2_count: 0
     }
   }
@@ -47,20 +47,11 @@ class CustomBar extends Component {
       return
     }
 
-    const urls = [
-      '/pages/index/index',
-      '/pages/bangumi/rank/index',
-      '/pages/message/entry/index',
-      '/pages/user/home/index',
-    ]
-
-    Taro.switchTab({
-      url: urls[index]
-    })
     this.setState({
       active: index
     })
-    this.props.onChange(index)
+
+    event.emit('TAB_SWITCH', index)
   }
 
   clickCreate() {
@@ -105,11 +96,6 @@ class CustomBar extends Component {
       </View>
     )
   }
-}
-
-CustomBar.defaultProps = {
-  defaultActive: 0,
-  onChange: () => {}
 }
 
 export default CustomBar

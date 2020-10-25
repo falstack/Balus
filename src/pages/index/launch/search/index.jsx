@@ -5,7 +5,7 @@ import event from '~/utils/event'
 import utils from '~/utils'
 import './index.scss'
 
-class IndexHeader extends Component {
+class IndexSearch extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -69,4 +69,4 @@ class IndexHeader extends Component {
   }
 }
 
-export default IndexHeader
+export default IndexSearch

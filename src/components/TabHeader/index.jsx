@@ -1,16 +1,9 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { PureComponent } from '@tarojs/taro'
 import { ScrollView, View, Text } from '@tarojs/components'
 import classNames from 'classnames'
 import './index.scss'
 
-class TabHeader extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      tabRect: null
-    }
-  }
-
+class TabHeader extends PureComponent {
   handleTabClick(value) {
     this.props.onClick(value.currentTarget.dataset.index)
   }
@@ -20,7 +13,6 @@ class TabHeader extends Component {
 
     return (
       <ScrollView
-        scrollLeft={tabRect && active ? tabRect[active - 1].left : 0}
         className={classNames('tab-header', `tab-header--${list.length}`, { 'tab-header--line': line }, { 'tab-header--pink': pink })}
         style={`height:${height}`}
         scrollX

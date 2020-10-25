@@ -1,14 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Swiper, SwiperItem } from '@tarojs/components'
-import IndexHeader from './header/index'
-import Navbar from '~/components/Navbar/text'
-import PinList from '~/components/FlowList/PinList/index'
-import IdolList from '~/components/FlowList/IdolList/index'
-import TabHeader from '~/components/TabHeader'
+import { View } from '@tarojs/components'
 import CustomBar from '~/custom-tab-bar'
 import event from '~/utils/event'
-import { flowEventKey } from '~/utils/flow'
 import pageShare from '~/mixin/pageShare'
+import LaunchPage from './launch'
+import BangumiPage from './bangumi'
 import './index.scss'
 
 @pageShare
@@ -22,72 +18,32 @@ class indexPage extends Component {
     super(props)
     this.state = {
       ...(this.state || {}),
-      current: 1,
-      tabs: [
-        { sort: 'hottest', title: '热门', type: 'pin' },
-        { sort: 'activity', title: '动态', type: 'pin' },
-        { sort: 'newest', title: '最新', type: 'pin' },
-        { sort: 'hottest', title: '股市', type: 'idol' },
-      ]
+      currentPage: 0,
     }
   }
 
-  handleTabClick(value) {
-    const current = typeof value === 'number' ? value : value.detail.current
-    if (current === this.state.current) {
-      return
-    }
-    this.setState({ current })
-    const tab = this.state.tabs[current]
-    event.emit(flowEventKey(`${tab.type}-index-${tab.sort}`, 'switch', ''))
+  componentDidMount() {
+    event.on('TAB_SWITCH', (currentPage) => {
+      this.setState({ currentPage })
+    })
   }
 
-  getFlowComponent({ title, sort }) {
-    switch (title) {
-      case '热门': {
-        return <PinList from='index' sort={sort} refresh />
-      }
-      case '动态': {
-        return <PinList from='index' sort={sort} refresh autoload />
-      }
-      case '最新': {
-        return <PinList from='index' sort={sort} refresh params={{ showTime: true }} />
-      }
-      case '股市': {
-        return <IdolList from='index' sort={sort} refresh />
-      }
-    }
-    return <PinList from='index' sort={sort} refresh />
+  componentWillUnmount() {
+    event.off('TAB_SWITCH')
   }
 
   render () {
-    const { current, tabs } = this.state
-
+    const { currentPage } = this.state
+    console.log(currentPage)
     return (
-      <View className='homepage scroll-page'>
-        <View className='flex-shrink-0'>
-          <Navbar>
-            <TabHeader
-              list={tabs.map(_ => _.title)}
-              active={current}
-              onClick={this.handleTabClick.bind(this)}
-            />
-          </Navbar>
-        </View>
+      <View className='scroll-page'>
         <View className='flex-grow-1'>
-          <Swiper
-            className='scroll-wrap'
-            current={current}
-            autoplay={false}
-            duration={300}
-            onChange={this.handleTabClick}
-          >
-            {tabs.map(tab => (
-              <SwiperItem key={tab.sort}>
-                {this.getFlowComponent(tab)}
-              </SwiperItem>
-            ))}
-          </Swiper>
+          {
+            currentPage === 0 && <LaunchPage />
+          }
+          {
+            currentPage === 1 && <BangumiPage />
+          }
         </View>
         <View className='flex-shrink-0'>
           <CustomBar />
