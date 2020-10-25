@@ -1,10 +1,13 @@
 import cache from '~/utils/cache'
 import Taro from '@tarojs/taro'
 
+const systemInfo = Taro.getSystemInfoSync()
+
+cache.set('SYSTEM_INFO', systemInfo)
+
 const DPR = (function () {
   try {
-    const info = Taro.getSystemInfoSync()
-    return info.pixelRatio || 2
+    return parseInt(systemInfo.pixelRatio || 2)
   } catch (e) {
     return 2
   }
@@ -44,22 +47,27 @@ export default {
   },
 
   getMenuRect() {
-    const cacheData = cache.get('capsule-rect')
-    if (cacheData) {
-      return cacheData
+    if (cache.get('menu-bar-rect')) {
+      return
     }
+
     const menuRect = Taro.getMenuButtonBoundingClientRect()
-    if (!menuRect.height) {
-      return null
+    const margin = menuRect.top - systemInfo.statusBarHeight
+    const height = menuRect.height
+    const width = menuRect.left
+
+    const rect = {
+      width,
+      height,
+      margin
     }
-    Taro.getSystemInfo({
-      success: res => {
-        menuRect.right = (res.screenWidth - menuRect.right) || 8
-        menuRect.header = menuRect.top + menuRect.right + menuRect.height
-        cache.set('capsule-rect', menuRect, false)
-        return menuRect
-      }
-    })
+    if (!rect.width || !rect.height || !rect.margin) {
+      return
+    }
+
+    cache.set('menu-bar-rect', rect)
+
+    return rect
   },
 
   number(num) {

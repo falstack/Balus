@@ -32,9 +32,9 @@ class App extends Component {
     ],
     window: {
       backgroundTextStyle: 'dark',
-      navigationBarBackgroundColor: '#fb7299',
+      navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: '咔哩吧',
-      navigationBarTextStyle: 'white'
+      navigationBarTextStyle: 'black'
     },
     tabBar: {
       custom: true,

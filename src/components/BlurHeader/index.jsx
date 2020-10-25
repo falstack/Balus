@@ -2,10 +2,8 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
 import utils from '~/utils'
 import classNames from 'classnames'
-import menuRect from '~/mixin/menuRect'
 import './index.scss'
 
-@menuRect
 class BlurHeader extends Component {
   constructor (props) {
     super(props)

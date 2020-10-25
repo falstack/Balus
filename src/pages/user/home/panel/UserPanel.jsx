@@ -5,10 +5,8 @@ import utils from '~/utils'
 import http from '~/utils/http'
 import state from '~/utils/state'
 import toast from '~/utils/toast'
-import menuRect from '~/mixin/menuRect'
 import './index.scss'
 
-@menuRect
 class UserPanel extends Component {
   constructor(props) {
     super(props)

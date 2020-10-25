@@ -4,13 +4,11 @@ import http from '~/utils/http'
 import utils from '~/utils'
 import BangumiItem from "~/components/FlowItem/BangumiItem"
 import blurPage from '~/mixin/blurPage'
-import menuRect from '~/mixin/menuRect'
 import IdolPanel from './panel/IdolPanel'
 import IdolBottom from './bottom/IdolBottom'
 import './index.scss'
 
 @blurPage
-@menuRect
 class IdolShow extends Component {
   config = {
     navigationStyle: 'custom',

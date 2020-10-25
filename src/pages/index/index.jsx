@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
 import IndexHeader from './header/index'
+import Navbar from '~/components/Navbar/text'
 import PinList from '~/components/FlowList/PinList/index'
 import IdolList from '~/components/FlowList/IdolList/index'
 import TabHeader from '~/components/TabHeader'
@@ -65,15 +66,13 @@ class indexPage extends Component {
     return (
       <View className='homepage scroll-page'>
         <View className='flex-shrink-0'>
-          <IndexHeader />
-        </View>
-        <View className='flex-shrink-0'>
-          <TabHeader
-            pink
-            list={tabs.map(_ => _.title)}
-            active={current}
-            onClick={this.handleTabClick.bind(this)}
-          />
+          <Navbar>
+            <TabHeader
+              list={tabs.map(_ => _.title)}
+              active={current}
+              onClick={this.handleTabClick.bind(this)}
+            />
+          </Navbar>
         </View>
         <View className='flex-grow-1'>
           <Swiper

@@ -8,14 +8,12 @@ import TabHeader from '~/components/TabHeader'
 import http from '~/utils/http'
 import event from '~/utils/event'
 import blurPage from '~/mixin/blurPage'
-import menuRect from '~/mixin/menuRect'
 import pageShare from '~/mixin/pageShare'
 import BlurHeader from '~/components/BlurHeader/index'
 import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
 @blurPage
-@menuRect
 @pageShare
 class UserShow extends Component {
   config = {

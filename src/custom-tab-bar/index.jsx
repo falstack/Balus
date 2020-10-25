@@ -1,13 +1,13 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
-import Tab1 from '~/image/tab_1.png'
-import Tab2 from '~/image/tab_2.png'
-import Tab3 from '~/image/tab_3.png'
-import Tab4 from '~/image/tab_4.png'
-import Tab1Selected from '~/image/tab_1_selected.png'
-import Tab2Selected from '~/image/tab_2_selected.png'
-import Tab3Selected from '~/image/tab_3_selected.png'
-import Tab4Selected from '~/image/tab_4_selected.png'
+import Tab0 from '~/image/tab_1.png'
+import Tab1 from '~/image/tab_2.png'
+import Tab2 from '~/image/tab_3.png'
+import Tab3 from '~/image/tab_4.png'
+import Tab0Selected from '~/image/tab_1_selected.png'
+import Tab1Selected from '~/image/tab_2_selected.png'
+import Tab2Selected from '~/image/tab_3_selected.png'
+import Tab3Selected from '~/image/tab_4_selected.png'
 import cache from '~/utils/cache'
 import event from '~/utils/event'
 import './index.scss'
@@ -16,6 +16,7 @@ class CustomBar extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      active: props.defaultActive,
       tab_2_count: 0
     }
   }
@@ -42,7 +43,7 @@ class CustomBar extends Component {
   }
 
   handleClick(index) {
-    if (this.props.active === index) {
+    if (this.state.active === index) {
       return
     }
 
@@ -56,6 +57,10 @@ class CustomBar extends Component {
     Taro.switchTab({
       url: urls[index]
     })
+    this.setState({
+      active: index
+    })
+    this.props.onChange(index)
   }
 
   clickCreate() {
@@ -65,45 +70,46 @@ class CustomBar extends Component {
   }
 
   render () {
-    const { active } = this.props
+    const { active } = this.state
     const { tab_2_count } = this.state
 
     return (
-      <View className='custom-bar'>
-        <View className='shim' />
-        <View className='core'>
-          <View className='mask' />
-          <View className="wrap">
+      <View className="tabbar">
+        <View className="tabbar__wrap">
+          <View className="tabbar__mask" />
+          <View className="tabbar__text">
             <View className='tab'>
-              <Image src={active === 0 ? Tab1Selected : Tab1} onClick={() => {this.handleClick(0)}} />
+              <Image src={active === 0 ? Tab0Selected : Tab0} onClick={() => {this.handleClick(0)}} />
             </View>
             <View className='tab'>
-              <Image src={active === 1 ? Tab2Selected : Tab2} onClick={() => {this.handleClick(1)}} />
+              <Image src={active === 1 ? Tab1Selected : Tab1} onClick={() => {this.handleClick(1)}} />
             </View>
-            <View className='tab' onClick={this.clickCreate}>
-              <View className='create-btn'>
-                <View className='right' />
-                <View className='left' />
+            <View className="tab">
+              <View className="create-btn" onClick={this.clickCreate}>
+                <View className="right" />
+                <View className="left" />
               </View>
             </View>
             <View className='tab'>
-              <Image src={active === 2 ? Tab3Selected : Tab3} onClick={() => {this.handleClick(2)}} />
+              <Image src={active === 2 ? Tab2Selected : Tab2} onClick={() => {this.handleClick(2)}} />
               {
-                tab_2_count ? <View className='badge'>{tab_2_count}</View> : ''
+                tab_2_count && <View className='badge'>{tab_2_count}</View>
               }
             </View>
             <View className='tab'>
-              <Image src={active === 3 ? Tab4Selected : Tab4} onClick={() => {this.handleClick(3)}} />
+              <Image src={active === 3 ? Tab3Selected : Tab3} onClick={() => {this.handleClick(3)}} />
             </View>
           </View>
         </View>
+        <View className="tabbar__shim" />
       </View>
     )
   }
 }
 
 CustomBar.defaultProps = {
-  active: 0
+  defaultActive: 0,
+  onChange: () => {}
 }
 
 export default CustomBar

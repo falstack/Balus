@@ -3,15 +3,12 @@ import { View, Text, Image } from '@tarojs/components'
 import cache from '~/utils/cache'
 import event from '~/utils/event'
 import utils from '~/utils'
-import menuRect from '~/mixin/menuRect'
 import './index.scss'
 
-@menuRect
 class IndexHeader extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      ...(this.state || {}),
       user: null
     }
   }
@@ -55,20 +52,15 @@ class IndexHeader extends Component {
   }
 
   render () {
-    const { user, menuRect } = this.state
-    if (!menuRect) {
-      return
-    }
+    const { user } = this.state
+
     return (
-      <View
-        className='index-header'
-        style={`margin-top: ${menuRect.top}px;padding-left:${menuRect.right * 2}px;padding-right:${menuRect.right * 3 + menuRect.width}px;height:${menuRect.height + menuRect.right}px`}
-      >
-        <View className='shim' style={`height: ${menuRect.top}px`} />
-        <View className='avatar' style={`width: ${menuRect.height}px;height:${menuRect.height}px;margin-right:${menuRect.right * 2}px`}>
-          <Image onClick={this.handleAvatarClick} src={utils.resize(user ? user.avatar : 'default-poster', { width: menuRect.height })} />
+      <View className='index-header'>
+        <View className='shim' />
+        <View className='avatar' >
+          <Image onClick={this.handleAvatarClick} src={utils.resize(user ? user.avatar : 'default-poster')} />
         </View>
-        <View onClick={this.handleSearchClick} className='search' style={`border-radius:${menuRect.height / 2}px;height:${menuRect.height}px`}>
+        <View onClick={this.handleSearchClick} className='search'>
           <Text className='iconfont ic-search' />
           <Text className='text'>搜索 calibur.tv</Text>
         </View>

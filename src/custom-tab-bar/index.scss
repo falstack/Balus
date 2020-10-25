@@ -1,54 +1,78 @@
-.custom-bar {
-  .core {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: transparent;
-    border-top: 1px solid #E5E5E5;
-    overflow: hidden;
-  }
-
-  .core,
-  .shim {
-    box-sizing: content-box;
+.tabbar {
+  &__shim,
+  &__wrap {
     height: 100px;
-    width: 100%;
+    box-sizing: content-box;
     padding-bottom: constant(safe-area-inset-bottom);
     padding-bottom: env(safe-area-inset-bottom);
   }
 
-  .mask {
+  &__wrap {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 888;
+    border-top: 1PX solid #e7e7e7;
+  }
+
+  &__mask {
     position: absolute;
-    top: -25%;
-    left: -25%;
-    width: 150%;
-    height: 150%;
-    background-color: rgba(#fff, 0.98);
-    filter: blur(4px);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255,255,255,0.72);
+    backdrop-filter: saturate(180%) blur(20px);
     z-index: 0;
   }
 
-  .wrap {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
+  &__text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    z-index: 1;
 
     .tab {
       position: relative;
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #3D3D3D;
+      font-size: 22px;
+      height: 100%;
 
       image {
         display: block;
         width: 72px;
         height: 72px;
         margin: 0 auto;
+      }
+
+      .badge {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(25%);
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px;
+        height: 34px;
+        min-width: 34px;
+        background-color: $color-red;
+        color: #fff;
+        padding: 0 10px;
+        border-radius: 34px;
+        border: 2px solid #fff;
       }
     }
 

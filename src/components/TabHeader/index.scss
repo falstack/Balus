@@ -21,7 +21,19 @@
     color: #505050;
 
     &.is-active {
+      position: relative;
       color: $color-red;
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 32px;
+        right: 32px;
+        bottom: 0;
+        height: 2PX;
+        border-radius: 2PX;
+        background-color: $color-red;
+      }
     }
   }
 

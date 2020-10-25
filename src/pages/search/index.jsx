@@ -6,11 +6,9 @@ import SearchIdol from '~/components/FlowList/SearchIdol/index'
 import event from '~/utils/event'
 import utils from '~/utils'
 import classNames from 'classnames'
-import menuRect from '~/mixin/menuRect'
 import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
-@menuRect
 class SearchShow extends Component {
   config = {
     navigationStyle: 'custom',

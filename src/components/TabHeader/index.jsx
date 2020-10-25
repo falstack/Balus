@@ -11,41 +11,13 @@ class TabHeader extends Component {
     }
   }
 
-  componentWillMount() {
-    this.getTabsRect()
-  }
-
   handleTabClick(value) {
     this.props.onClick(value.currentTarget.dataset.index)
   }
 
-  getTabsRect(loop = 0) {
-    const query = Taro.createSelectorQuery().in(this.$scope)
-    query.selectAll('.tab-item').boundingClientRect()
-    query.select('.tab-header').boundingClientRect()
-    query.exec((res) => {
-      if (res[0] === null || !res[0].length) {
-        if (loop < 5) {
-          setTimeout(() => {
-            this.getTabsRect(loop + 1)
-          }, 200)
-        }
-        return
-      }
-      this.setState({
-        tabRect: res[0].map(_ => {
-          return {
-            left: (_.left - res[1].left) | 0,
-            width: _.width | 0
-          }
-        })
-      })
-    })
-  }
-
   render () {
     const { list, active, line, pink, height } = this.props
-    const { tabRect } = this.state
+
     return (
       <ScrollView
         scrollLeft={tabRect && active ? tabRect[active - 1].left : 0}
@@ -65,7 +37,6 @@ class TabHeader extends Component {
               >{txt}</Text>
             ))
           }
-          <View className='tab-anchor' style={`width:${tabRect ? tabRect[active].width - 32 : 0}px;transform:translateX(${tabRect ? tabRect[active].left + 16 : 0}px);`} />
         </View>
       </ScrollView>
     )
