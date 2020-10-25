@@ -22,7 +22,6 @@ class App extends Component {
       'pages/user/show/index',
       'pages/user/login/index',
       'pages/bangumi/show/index',
-      'pages/message/entry/index',
       'pages/message/chat/index',
       'pages/message/list/index',
       'pages/search/index',

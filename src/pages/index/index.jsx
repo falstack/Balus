@@ -5,6 +5,7 @@ import event from '~/utils/event'
 import pageShare from '~/mixin/pageShare'
 import LaunchPage from './launch'
 import BangumiPage from './bangumi'
+import MessagePage from './message'
 import './index.scss'
 
 @pageShare
@@ -34,7 +35,7 @@ class indexPage extends Component {
 
   render () {
     const { currentPage } = this.state
-    console.log(currentPage)
+
     return (
       <View className='scroll-page'>
         <View className='flex-grow-1'>
@@ -43,6 +44,9 @@ class indexPage extends Component {
           }
           {
             currentPage === 1 && <BangumiPage />
+          }
+          {
+            currentPage === 2 && <MessagePage />
           }
         </View>
         <View className='flex-shrink-0'>

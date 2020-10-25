@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Text } from '@tarojs/components'
+import Navbar from '~/components/Navbar/text'
 import MessageMenu from '~/components/FlowList/MessageMenu'
-import CustomBar from '~/custom-tab-bar'
 import rewardIcon from '~/image/icon_reward.png'
 import agreeIcon from '~/image/icon_agree.png'
 import commentIcon from '~/image/icon_comment.png'
@@ -11,11 +11,6 @@ import http from '~/utils/http'
 import './index.scss'
 
 class MessageEntry extends Component {
-  config = {
-    navigationBarTitleText: '消息',
-    disableScroll: true
-  }
-
   constructor (props) {
     super(props)
     this.state = {
@@ -45,6 +40,10 @@ class MessageEntry extends Component {
         }
       ]
     }
+  }
+
+  static options = {
+    addGlobalClass: true
   }
 
   componentWillMount() {
@@ -92,7 +91,10 @@ class MessageEntry extends Component {
 
   render () {
     return (
-      <View className='message-show scroll-page'>
+      <View className='message-page scroll-page'>
+        <View className='flex-shrink-0'>
+          <Navbar />
+        </View>
         <View className='flex-shrink-0 notice-wrap'>
           {
             this.state.list.map(item => {
@@ -123,9 +125,6 @@ class MessageEntry extends Component {
           <View className='scroll-wrap'>
             <MessageMenu ref='menu' />
           </View>
-        </View>
-        <View className='flex-shrink-0'>
-          <CustomBar active={2} />
         </View>
       </View>
     )
