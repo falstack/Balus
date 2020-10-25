@@ -9,8 +9,11 @@ const config = {
     '750': 1,
     '828': 1.81 / 2
   },
+  plugins: [
+    '@tarojs/plugin-sass'
+  ],
   sourceRoot: 'src',
-  outputRoot: 'dist',
+  outputRoot: `dist/${process.env.TARO_ENV}`,
   babel: {
     sourceMap: true,
     presets: [

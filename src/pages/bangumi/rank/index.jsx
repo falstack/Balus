@@ -3,7 +3,7 @@ import { View, Text, Navigator, ScrollView } from '@tarojs/components'
 import BangumiList from '~/components/FlowList/BangumiList/index'
 import BangumiTopImage from '~/image/bangumi-top.jpeg'
 import BangumiReleaseImage from '~/image/bangumi-release.jpeg'
-import CustomBar from '~/components/CustomBar'
+import CustomBar from '~/custom-tab-bar'
 import './index.scss'
 
 class BangumiRank extends Component {
