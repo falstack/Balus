@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
+import Navbar from '~/components/Navbar/bg'
 import UserPanel from './panel/UserPanel'
 import PinList from '~/components/FlowList/PinList/index'
 import BangumiList from '~/components/FlowList/BangumiList/index'
@@ -108,23 +109,27 @@ class UserShow extends Component {
   }
 
   render () {
-    const { current, tabs, user, collapsedHeader, menuRect } = this.state
-    if (!user || !menuRect) {
+    const { current, tabs, user } = this.state
+    if (!user) {
       return
     }
 
     return (
       <View className='user-show'>
-        <BlurHeader background={user.banner} title={user.nickname} collapsed={collapsedHeader}>
-          <UserPanel user={user} />
-        </BlurHeader>
-        <TabHeader
-          line
-          list={tabs.map(_ => _.title)}
-          active={current}
-          onClick={this.handleTabClick.bind(this)}
-        />
-        <View style={`position:relative;height:calc(100vh - ${menuRect.header + 40}px)`}>
+        <View className='flex-shrink-0'>
+          <Navbar background={user.banner} title={user.nickname}>
+            <UserPanel user={user} />
+          </Navbar>
+        </View>
+        <View className='flex-shrink-0'>
+          <TabHeader
+            line
+            list={tabs.map(_ => _.title)}
+            active={current}
+            onClick={this.handleTabClick.bind(this)}
+          />
+        </View>
+        <View className='flex-grow-1'>
           <Swiper
             className='scroll-wrap'
             current={current}

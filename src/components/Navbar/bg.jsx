@@ -23,7 +23,7 @@ export default class extends Component {
               style={coreStyle(this.state)}
               className='navbar__core has-bg'
             >
-              <View className="iconfont ic-back"/>
+              <Text className='iconfont ic-left' onClick={() => {utils.back()}} />
             </View>
           </View>
           <View
@@ -38,7 +38,9 @@ export default class extends Component {
               />
             </View>
             <View className="navbar__mask" />
-            {this.props.children}
+            <View className='navbar__body'>
+              {this.props.children}
+            </View>
           </View>
         </View>
       </View>

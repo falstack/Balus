@@ -74,6 +74,10 @@
     }
   }
 
+  &__body {
+    padding: 0 $container-padding $container-padding;
+  }
+
   &__mask {
     position: absolute;
     left: 0;

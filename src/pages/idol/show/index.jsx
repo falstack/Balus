@@ -105,8 +105,8 @@ class IdolShow extends Component {
   }
 
   render () {
-    const { idol, fans_data, showEdit, collapsedHeader, scrollActive, menuRect } = this.state
-    if (!idol || !menuRect) {
+    const { idol, fans_data, showEdit, collapsedHeader, scrollActive } = this.state
+    if (!idol) {
       return
     }
     const avatar = fans_data.map(user => (
@@ -118,9 +118,11 @@ class IdolShow extends Component {
       />
     ))
     return (
-      <View className='idol-show'>
-        <IdolPanel idol={idol} collapsed={collapsedHeader} />
-        <View style={`position:relative;height:calc(100vh - ${menuRect.header + 45}px)`}>
+      <View className='idol-show scroll-page'>
+        <View className='flex-shrink-0'>
+          <IdolPanel idol={idol} collapsed={collapsedHeader} />
+        </View>
+        <View className='flex-grow-1'>
           <ScrollView className='scroll-wrap' scrollY={scrollActive}>
             <View className='intro'>
               <Text className='intro__title'>{idol.bangumi.name} {idol.name}</Text>
