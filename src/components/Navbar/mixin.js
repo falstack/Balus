@@ -1,6 +1,5 @@
 import cache from '~/utils/cache'
 import utils from '~/utils'
-import './index.scss'
 
 export default function blurPage(Comp) {
   return class extends Comp {

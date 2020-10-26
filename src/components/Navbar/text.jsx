@@ -2,9 +2,14 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { wrapStyle, coreStyle, shimStyle } from './utils'
 import mixin from './mixin'
+import './index.scss'
 
 @mixin
 export default class extends Component {
+  static options = {
+    addGlobalClass: true
+  }
+
   render () {
     return (
       <View className='navbar'>

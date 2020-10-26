@@ -63,9 +63,9 @@
     width: 125%;
     height: 125%;
     z-index: -1;
-    // @include filter-blur(20);
+    @include filter-blur(20);
 
-    image {
+    .image {
       position: relative;
       left: 10%;
       top: 10%;

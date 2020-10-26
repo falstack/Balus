@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
+import Navbar from '~/components/Navbar/bg'
 import TabHeader from '~/components/TabHeader'
-import BlurHeader from '~/components/BlurHeader/index'
 import BangumiHeader from './header/index'
 import PinList from '~/components/FlowList/PinList/index'
 import IdolList from '~/components/FlowList/IdolList/index'
@@ -129,22 +129,27 @@ class BangumiShow extends Component {
   }
 
   render () {
-    const { current, tabs, slug, bangumi, collapsedHeader, menuRect } = this.state
-    if (!bangumi || !menuRect) {
+    const { current, tabs, slug, bangumi } = this.state
+    if (!bangumi) {
       return
     }
+
     return (
-      <View>
-        <BlurHeader blur background={bangumi.avatar} title={bangumi.name} collapsed={collapsedHeader}>
-          <BangumiHeader slug={slug} bangumi={bangumi} onUpdate={this.handleUpdate.bind(this)} />
-        </BlurHeader>
-        <TabHeader
-          line
-          list={tabs.map(_ => _.title)}
-          active={current}
-          onClick={this.handleTabClick.bind(this)}
-        />
-        <View style={`position:relative;height:calc(100vh - ${menuRect.header + 40}px)`}>
+      <View class='scroll-page'>
+        <View class='flex-shrink-0'>
+          <Navbar background={bangumi.avatar}>
+            <BangumiHeader slug={slug} bangumi={bangumi} onUpdate={this.handleUpdate.bind(this)} />
+          </Navbar>
+        </View>
+        <View class='flex-shrink-0'>
+          <TabHeader
+            line
+            list={tabs.map(_ => _.title)}
+            active={current}
+            onClick={this.handleTabClick.bind(this)}
+          />
+        </View>
+        <View className='flex-grow-1'>
           <Swiper
             className='scroll-wrap'
             current={current}
