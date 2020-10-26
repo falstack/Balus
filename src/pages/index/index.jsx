@@ -6,6 +6,7 @@ import pageShare from '~/mixin/pageShare'
 import LaunchPage from './launch'
 import BangumiPage from './bangumi'
 import MessagePage from './message'
+import UserPage from './user'
 import './index.scss'
 
 @pageShare
@@ -47,6 +48,9 @@ class indexPage extends Component {
           }
           {
             currentPage === 2 && <MessagePage />
+          }
+          {
+            currentPage === 3 && <UserPage />
           }
         </View>
         <View className='flex-shrink-0'>
