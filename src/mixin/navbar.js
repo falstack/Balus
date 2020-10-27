@@ -1,17 +1,13 @@
-import cache from '~/utils/cache'
 import utils from '~/utils'
 
-export default function blurPage(Comp) {
+export default function navbar(Comp) {
   return class extends Comp {
     constructor(props) {
       super(props)
       this.state = {
-        rect: cache.get('menu-bar-rect'),
+        ...(this.state || {}),
+        rect: utils.getMenuRect(),
       }
-    }
-
-    componentDidMount () {
-      this.calcMenuRect()
     }
 
     calcMenuRect() {

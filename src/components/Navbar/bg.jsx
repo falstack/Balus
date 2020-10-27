@@ -2,13 +2,16 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
 import { wrapStyle, coreStyle, shimStyle } from './utils'
 import utils from '~/utils'
-import mixin from './mixin'
-import './index.scss'
+import navbar from '~/mixin/navbar'
 
-@mixin
+@navbar
 export default class extends Component {
   static options = {
     addGlobalClass: true
+  }
+
+  componentDidMount () {
+    this.calcMenuRect()
   }
 
   render () {

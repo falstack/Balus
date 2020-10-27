@@ -8,17 +8,17 @@ import IdolList from '~/components/FlowList/IdolList/index'
 import TabHeader from '~/components/TabHeader'
 import http from '~/utils/http'
 import event from '~/utils/event'
-import blurPage from '~/mixin/blurPage'
+import navbar from '~/mixin/navbar'
 import pageShare from '~/mixin/pageShare'
-import BlurHeader from '~/components/BlurHeader/index'
 import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
-@blurPage
+@navbar
 @pageShare
 class UserShow extends Component {
   config = {
     navigationStyle: 'custom',
+    navigationBarTextStyle: 'white',
     disableScroll: false,
     onReachBottomDistance: 0
   }
@@ -109,27 +109,23 @@ class UserShow extends Component {
   }
 
   render () {
-    const { current, tabs, user } = this.state
+    const { current, tabs, user, rect } = this.state
     if (!user) {
       return
     }
 
     return (
       <View className='user-show'>
-        <View className='flex-shrink-0'>
-          <Navbar background={user.banner} title={user.nickname}>
-            <UserPanel user={user} />
-          </Navbar>
-        </View>
-        <View className='flex-shrink-0'>
-          <TabHeader
-            line
-            list={tabs.map(_ => _.title)}
-            active={current}
-            onClick={this.handleTabClick.bind(this)}
-          />
-        </View>
-        <View className='flex-grow-1'>
+        <Navbar background={user.banner} title={user.nickname}>
+          <UserPanel user={user} />
+        </Navbar>
+        <TabHeader
+          line
+          list={tabs.map(_ => _.title)}
+          active={current}
+          onClick={this.handleTabClick.bind(this)}
+        />
+        <View style={`height:calc(100vh - ${(rect.navbar || 0) + 40}px)`} className='flex-grow-1'>
           <Swiper
             className='scroll-wrap'
             current={current}

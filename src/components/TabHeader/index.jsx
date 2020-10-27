@@ -40,7 +40,7 @@ TabHeader.defaultProps = {
   pink: false,
   list: [],
   active: 0,
-  height: '40PX',
+  height: '40px',
   onClick: () => {}
 }
 

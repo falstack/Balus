@@ -23,6 +23,6 @@ export const coreStyle = (state) => {
 
 export const shimStyle = (state) => {
   return {
-    paddingTop: `${(state.rect ? state.rect.height + state.rect.margin * 2 : 50) + systemInfo.statusBarHeight}px`
+    paddingTop: `${(state.rect ? state.rect.navbar : 100)}px`
   }
 }

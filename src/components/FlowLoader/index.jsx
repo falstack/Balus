@@ -80,6 +80,8 @@ export default class FlowLoader extends Component {
     }
     return (
       <ScrollView
+        enhanced
+        showScrollbar={false}
         scrollAnchoring
         scrollY={this.props.scrollY}
         scrollX={this.props.scrollX}

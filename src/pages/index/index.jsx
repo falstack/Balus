@@ -20,13 +20,18 @@ class indexPage extends Component {
     super(props)
     this.state = {
       ...(this.state || {}),
+      loadedPages: [0],
       currentPage: 0,
     }
   }
 
   componentDidMount() {
     event.on('TAB_SWITCH', (currentPage) => {
-      this.setState({ currentPage })
+      const { loadedPages } = this.state
+      if (loadedPages.indexOf(currentPage) === -1) {
+        loadedPages.push(currentPage)
+      }
+      this.setState({ currentPage, loadedPages })
     })
   }
 
@@ -35,22 +40,28 @@ class indexPage extends Component {
   }
 
   render () {
-    const { currentPage } = this.state
+    const { currentPage, loadedPages } = this.state
 
     return (
       <View className='scroll-page'>
-        <View className='flex-grow-1'>
+        <View style={`display:${currentPage === 0 ? 'block' : 'none'}`} className='flex-grow-1'>
           {
-            currentPage === 0 && <LaunchPage />
+            loadedPages.indexOf(0) !== -1 && <LaunchPage />
           }
+        </View>
+        <View style={`display:${currentPage === 1 ? 'block' : 'none'}`} className='flex-grow-1'>
           {
-            currentPage === 1 && <BangumiPage />
+            loadedPages.indexOf(1) !== -1 && <BangumiPage />
           }
+        </View>
+        <View style={`display:${currentPage === 2 ? 'block' : 'none'}`} className='flex-grow-1'>
           {
-            currentPage === 2 && <MessagePage />
+            loadedPages.indexOf(2) !== -1 && <MessagePage />
           }
+        </View>
+        <View style={`display:${currentPage === 3 ? 'block' : 'none'}`} className='flex-grow-1'>
           {
-            currentPage === 3 && <UserPage />
+            loadedPages.indexOf(3) !== -1 && <UserPage />
           }
         </View>
         <View className='flex-shrink-0'>

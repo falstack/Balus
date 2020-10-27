@@ -47,8 +47,10 @@ export default {
   },
 
   getMenuRect() {
-    if (cache.get('menu-bar-rect')) {
-      return
+    const cacheKey = 'MENU-BAR-RECT'
+    const cacheVal = cache.get(cacheKey)
+    if (cacheVal) {
+      return cacheVal
     }
 
     const menuRect = Taro.getMenuButtonBoundingClientRect()
@@ -59,13 +61,15 @@ export default {
     const rect = {
       width,
       height,
-      margin
-    }
-    if (!rect.width || !rect.height || !rect.margin) {
-      return
+      margin,
+      navbar: systemInfo.statusBarHeight + height + margin * 2
     }
 
-    cache.set('menu-bar-rect', rect)
+    if (!rect.width || !rect.height || !rect.margin) {
+      return null
+    }
+
+    cache.set(cacheKey, rect)
 
     return rect
   },

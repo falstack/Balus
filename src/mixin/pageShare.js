@@ -3,6 +3,7 @@ export default function pageShare(Comp) {
     constructor(props) {
       super(props)
       this.state = {
+        ...(this.state || {}),
         shareData: {
           title: '咔哩吧 - 你开心就好',
           path: '/pages/index/index',
