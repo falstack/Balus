@@ -1,17 +1,39 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
 import { wrapStyle, coreStyle, shimStyle } from './utils'
+import classNames from 'classnames'
 import utils from '~/utils'
 import navbar from '~/mixin/navbar'
 
 @navbar
-export default class extends Component {
+class Navbar extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      ...(this.state || {}),
+      blur: false,
+    }
+  }
+
   static options = {
     addGlobalClass: true
   }
 
   componentDidMount () {
     this.calcMenuRect()
+    this.addScrollListener()
+  }
+
+  addScrollListener() {
+    this.ob = Taro.createIntersectionObserver(this.$scope, {
+      thresholds: [0.5],
+      initialRatio: 1
+    })
+    this.ob.relativeToViewport({ bottom: 0 }).observe('.navbar', () => {
+      this.setState({
+        blur: !this.state.blur
+      })
+    })
   }
 
   render () {
@@ -27,13 +49,17 @@ export default class extends Component {
               className='navbar__core has-bg'
             >
               <Text className='iconfont ic-left' onClick={() => {utils.back()}} />
+              <View className={classNames('navbar__title', { 'has-blur': this.state.blur })}>
+                <Text className='line'>|</Text>
+                <Text className='title'>{this.props.title}</Text>
+              </View>
             </View>
           </View>
           <View
             style={shimStyle(this.state)}
             className='navbar__shim has-bg'
           >
-            <View className="navbar__bg">
+            <View className={classNames('navbar__bg', { 'has-blur': this.state.blur })}>
               <Image
                 className='image'
                 mode="aspectFill"
@@ -41,7 +67,7 @@ export default class extends Component {
               />
             </View>
             <View className="navbar__mask" />
-            <View className='navbar__body'>
+            <View className={classNames('navbar__body', { 'has-blur': this.state.blur })}>
               {this.props.children}
             </View>
           </View>
@@ -50,3 +76,10 @@ export default class extends Component {
     )
   }
 }
+
+Navbar.defaultProps = {
+  title: '',
+  background: ''
+}
+
+export default Navbar

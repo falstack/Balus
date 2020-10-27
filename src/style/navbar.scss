@@ -46,7 +46,14 @@
       width: 88px;
       line-height: 88px;
       text-align: center;
-      font-size: 46px;
+      font-size: 48px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .line {
+      padding-left: 5px;
+      padding-right: 20px;
       flex-shrink: 0;
     }
 
@@ -58,6 +65,21 @@
 
   &__body {
     padding: 0 $container-padding $container-padding;
+    transition: opacity 400ms ease-out;
+    opacity: 1;
+
+    &.has-blur {
+      opacity: 0;
+    }
+  }
+
+  &__title {
+    opacity: 0;
+    transition: opacity 400ms ease-out;
+
+    &.has-blur {
+      opacity: 1;
+    }
   }
 
   &__mask {
@@ -99,6 +121,8 @@
     height: 125%;
     z-index: -1;
     background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(47,47,47,0) 100%);
+    transition: 400ms ease-out;
+    @include filter-blur(0);
 
     .image {
       position: relative;
@@ -106,6 +130,10 @@
       top: 10%;
       width: 80%;
       height: 80%;
+    }
+
+    &.has-blur {
+      @include filter-blur(80);
     }
   }
 }
