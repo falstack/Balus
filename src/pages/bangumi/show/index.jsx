@@ -1,22 +1,23 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
 import Navbar from '~/components/Navbar/bg'
+import navbar from '~/mixin/navbar'
 import TabHeader from '~/components/TabHeader'
 import BangumiHeader from './header/index'
 import PinList from '~/components/FlowList/PinList/index'
 import IdolList from '~/components/FlowList/IdolList/index'
 import http from '~/utils/http'
 import event from '~/utils/event'
-import blurPage from '~/mixin/blurPage'
 import pageShare from '~/mixin/pageShare'
 import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
-@blurPage
+@navbar
 @pageShare
 class BangumiShow extends Component {
   config = {
     navigationStyle: 'custom',
+    navigationBarTextStyle: 'white',
     disableScroll: false,
     onReachBottomDistance: 0
   }
@@ -129,27 +130,23 @@ class BangumiShow extends Component {
   }
 
   render () {
-    const { current, tabs, slug, bangumi } = this.state
+    const { current, tabs, slug, bangumi, rect } = this.state
     if (!bangumi) {
       return
     }
 
     return (
-      <View class='scroll-page'>
-        <View class='flex-shrink-0'>
-          <Navbar background={bangumi.avatar}>
-            <BangumiHeader slug={slug} bangumi={bangumi} onUpdate={this.handleUpdate.bind(this)} />
-          </Navbar>
-        </View>
-        <View class='flex-shrink-0'>
-          <TabHeader
-            line
-            list={tabs.map(_ => _.title)}
-            active={current}
-            onClick={this.handleTabClick.bind(this)}
-          />
-        </View>
-        <View className='flex-grow-1'>
+      <View class='bangumi-show'>
+        <Navbar background={bangumi.avatar}>
+          <BangumiHeader slug={slug} bangumi={bangumi} onUpdate={this.handleUpdate.bind(this)} />
+        </Navbar>
+        <TabHeader
+          line
+          list={tabs.map(_ => _.title)}
+          active={current}
+          onClick={this.handleTabClick.bind(this)}
+        />
+        <View className='collapsed-panel' style={`height:calc(100vh - ${(rect.navbar || 0) + 40}px)`}>
           <Swiper
             className='scroll-wrap'
             current={current}

@@ -125,7 +125,7 @@ class UserShow extends Component {
           active={current}
           onClick={this.handleTabClick.bind(this)}
         />
-        <View style={`height:calc(100vh - ${(rect.navbar || 0) + 40}px)`} className='flex-grow-1'>
+        <View className='collapsed-panel' style={`height:calc(100vh - ${(rect.navbar || 0) + 40}px)`}>
           <Swiper
             className='scroll-wrap'
             current={current}

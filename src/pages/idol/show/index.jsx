@@ -1,17 +1,18 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image, Navigator, ScrollView } from '@tarojs/components'
+import { View, Text, Image, Navigator } from '@tarojs/components'
 import http from '~/utils/http'
 import utils from '~/utils'
+import navbar from '~/mixin/navbar'
 import BangumiItem from "~/components/FlowItem/BangumiItem"
-import blurPage from '~/mixin/blurPage'
 import IdolPanel from './panel/IdolPanel'
 import IdolBottom from './bottom/IdolBottom'
 import './index.scss'
 
-@blurPage
+@navbar
 class IdolShow extends Component {
   config = {
     navigationStyle: 'custom',
+    navigationBarTextStyle: 'white',
     disableScroll: false,
     onReachBottomDistance: 0
   }
@@ -105,10 +106,12 @@ class IdolShow extends Component {
   }
 
   render () {
-    const { idol, fans_data, showEdit, collapsedHeader, scrollActive } = this.state
+    const { idol, fans_data, showEdit, rect } = this.state
+
     if (!idol) {
       return
     }
+
     const avatar = fans_data.map(user => (
       <Image
         className='avatar'
@@ -118,40 +121,36 @@ class IdolShow extends Component {
       />
     ))
     return (
-      <View className='idol-show scroll-page'>
-        <View className='flex-shrink-0'>
-          <IdolPanel idol={idol} collapsed={collapsedHeader} />
-        </View>
-        <View className='flex-grow-1'>
-          <ScrollView className='scroll-wrap' scrollY={scrollActive}>
-            <View className='intro'>
-              <Text className='intro__title'>{idol.bangumi.name} {idol.name}</Text>
+      <View className='idol-show'>
+        <IdolPanel idol={idol} />
+        <View className='collapsed-panel' style={`height:calc(100vh - ${(rect.navbar || 0) + 40}px)`}>
+          <View className='intro'>
+            <Text className='intro__title'>{idol.bangumi.name} {idol.name}</Text>
+          </View>
+          <View className='social-panel intro'>
+            <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('user/list?type=idol_fans&slug=' + idol.slug)}`} className='avatar-list'>
+              {avatar}
+            </Navigator>
+            <View className='controls'>
+              {
+                showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('idol/edit?slug=' + idol.slug)}`}>
+                  编辑
+                </Navigator> : ''
+              }
             </View>
-            <View className='social-panel intro'>
-              <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('user/list?type=idol_fans&slug=' + idol.slug)}`} className='avatar-list'>
-                {avatar}
-              </Navigator>
-              <View className='controls'>
-                {
-                  showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('idol/edit?slug=' + idol.slug)}`}>
-                    编辑
-                  </Navigator> : ''
-                }
-              </View>
-            </View>
-            {
-              idol.intro ?
-                <View className='intro'>
-                  <Text className='intro__title'>角色简介</Text>
-                  <Text className='intro__text'>{idol.intro}</Text>
-                </View> : ''
-            }
-            <View className='intro'>
-              <Text className='intro__title'>所属番剧</Text>
-              <BangumiItem item={idol.bangumi} />
-            </View>
-            <IdolBottom idol={idol} onPayCallback={this.handleBuyStock.bind(this)} />
-          </ScrollView>
+          </View>
+          {
+            idol.intro ?
+              <View className='intro'>
+                <Text className='intro__title'>角色简介</Text>
+                <Text className='intro__text'>{idol.intro}</Text>
+              </View> : ''
+          }
+          <View className='intro'>
+            <Text className='intro__title'>所属番剧</Text>
+            <BangumiItem item={idol.bangumi} />
+          </View>
+          <IdolBottom idol={idol} onPayCallback={this.handleBuyStock.bind(this)} />
         </View>
       </View>
     )
