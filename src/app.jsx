@@ -1,18 +1,23 @@
 import Taro, { Component } from '@tarojs/taro'
+import { Provider, connect } from '@tarojs/redux'
 import http from '~/utils/http'
 import cache from '~/utils/cache'
 import socket from '~/utils/socket'
-import { step_6_get_user_roles } from '~/utils/login'
+
+import configStore from './store'
 import Index from './pages/index'
-
 import './app.scss'
+import { getUserInfo } from './store/actions/user'
 
-// 如果需要在 h5 环境中开启 React Devtools
-// 取消以下注释：
-// if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
-//   require('nerv-devtools')
-// }
+const store = configStore()
 
+@connect(({ user }) => ({
+  user
+}), (dispatch) => ({
+  getUserInfo () {
+    dispatch(getUserInfo())
+  }
+}))
 class App extends Component {
   config = {
     pages: [
@@ -63,7 +68,7 @@ class App extends Component {
     if (!token) {
       return
     }
-    this.getCurrentUser()
+    this.props.getUserInfo()
     this.connectSocket()
   }
 
@@ -111,11 +116,11 @@ class App extends Component {
     })
   }
 
-  // 在 App 类中的 render() 函数没有实际作用
-  // 请勿修改此函数
   render () {
     return (
-      <Index />
+      <Provider store={store}>
+        <Index />
+      </Provider>
     )
   }
 }
