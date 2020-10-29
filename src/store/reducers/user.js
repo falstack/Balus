@@ -1,4 +1,5 @@
 import {
+  DEL_USER_INFO,
   SET_USER_INFO
 } from '../constants/user'
 
@@ -14,6 +15,12 @@ export default function counter (state = INITIAL_STATE, action) {
         ...state,
         isLogin: true,
         info: action.user
+      }
+    case DEL_USER_INFO:
+      return {
+        ...state,
+        isLogin: false,
+        info: null
       }
     default:
       return state

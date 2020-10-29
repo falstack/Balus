@@ -1,0 +1,19 @@
+.user-table {
+  padding: $container-padding;
+
+  .table-item {
+    height: 88px;
+    line-height: 88px;
+    text-align: left;
+    font-size: 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: #14171A;
+
+    .ic-right {
+      color: #A7BAC7;
+    }
+  }
+}

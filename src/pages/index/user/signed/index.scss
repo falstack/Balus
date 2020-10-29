@@ -1,0 +1,16 @@
+.user-home {
+  .hr {
+    height: $container-padding;
+    background-color: #f4f4f4;
+  }
+
+  .logout {
+    padding-left: $container-padding;
+    padding-right: $container-padding;
+
+    button {
+      background-color: $color-red;
+      color: #fff;
+    }
+  }
+}

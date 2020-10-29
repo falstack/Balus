@@ -1,42 +1,22 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import cache from '~/utils/cache'
-import event from '~/utils/event'
-import http from '~/utils/http'
 import CustomBar from '~/custom-tab-bar'
 import UserPanel from './panel/UserPanel'
 import UserTable from './table/UserTable'
+import { delUserInfo } from '~/store/actions/user'
 import './index.scss'
 
-@connect(({ user }) => ({ user }))
+@connect(({ user }) => ({
+  user
+}), (dispatch) => ({
+  delUserInfo () {
+    dispatch(delUserInfo())
+  }
+}))
 export default class extends Component {
-  config = {
-    navigationStyle: 'custom'
-  }
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      user: cache.get('USER', null)
-    }
-  }
-
-  componentWillMount() {
-    console.log(this.props.user)
-    if (!this.state.user) {
-      Taro.redirectTo({
-        url: '/pages/user/login/index'
-      })
-      return
-    }
-    event.on('update-user', () => {
-      this.refreshUser()
-    })
-  }
-
-  componentWillUnmount() {
-    event.off('update-user')
+  static options = {
+    addGlobalClass: true
   }
 
   componentDidShow() {
@@ -44,7 +24,7 @@ export default class extends Component {
   }
 
   onShareAppMessage() {
-    const { user } = this.state
+    const { user } = this.props
     if (!user) {
       return null
     }
@@ -55,38 +35,17 @@ export default class extends Component {
     }
   }
 
-  refreshUser() {
-    const user = cache.get('USER', null)
-    if (user) {
-      http.get('user/patch', {
-        slug: user.slug
-      })
-        .then(data => {
-          this.setState({
-            user: {
-              ...user,
-              ...data
-            }
-          })
-        })
-    } else {
-      this.setState({
-        user
-      })
-    }
-  }
+  refreshUser() {}
 
   userLogout() {
-    http.post('door/logout')
-    cache.remove('JWT-TOKEN')
-    cache.remove('USER')
+    this.props.delUserInfo()
     Taro.reLaunch({
       url: '/pages/index/index'
     })
   }
 
   render() {
-    const { user } = this.state
+    const { user } = this.props
     if (user === null) {
       return
     }

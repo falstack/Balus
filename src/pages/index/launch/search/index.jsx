@@ -1,7 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
-import cache from '~/utils/cache'
-import event from '~/utils/event'
 import utils from '~/utils'
 import './index.scss'
 
@@ -15,21 +13,6 @@ class IndexSearch extends Component {
 
   static options = {
     addGlobalClass: true
-  }
-
-  componentWillMount() {
-    this.setState({
-      user: cache.get('USER', null)
-    })
-    event.on('update-user', () => {
-      this.setState({
-        user: cache.get('USER', null)
-      })
-    })
-  }
-
-  componentWillUnmount() {
-    event.off('update-user')
   }
 
   handleSearchClick () {
