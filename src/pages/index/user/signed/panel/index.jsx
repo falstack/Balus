@@ -1,5 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator, Button } from '@tarojs/components'
+import { connect } from '@tarojs/redux'
+import Navbar from '~/components/Navbar/text'
 import classNames from 'classnames'
 import utils from '~/utils'
 import http from '~/utils/http'
@@ -7,11 +9,13 @@ import state from '~/utils/state'
 import toast from '~/utils/toast'
 import './index.scss'
 
-class UserPanel extends Component {
+@connect(store => ({
+  user: store.user.info
+}))
+export default class extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      ...(this.state || {}),
       signing: false
     }
   }
@@ -44,26 +48,20 @@ class UserPanel extends Component {
   }
 
   render() {
-    const { menuRect } = this.state
-    if (!menuRect) {
-      return
-    }
-
     const { user } = this.props
     if (!user) {
-      return
+      return <View />
     }
 
     return (
       <View className='user-panel'>
-        <View className='shim' style={`padding-top:${menuRect.header}px`}/>
+        <Navbar />
         <Navigator
           hover-class='none'
           url={`/pages/user/show/index?slug=${user.slug}`}
-          style={`padding:0 ${menuRect.right * 2}px`}
         >
-          <View className='intro' style={`margin-bottom:${menuRect.right * 2}px`}>
-            <View className='avatar' style={`margin-right:${menuRect.right * 2}px`}>
+          <View className='intro'>
+            <View className='avatar'>
               <Image className='avatar-src' src={utils.resize(user.avatar, { width: 120 })}/>
             </View>
             <View className='text'>
@@ -78,10 +76,7 @@ class UserPanel extends Component {
             </View>
           </View>
         </Navigator>
-        <View
-          className='control'
-          style={`padding:${menuRect.right * 2}px ${menuRect.right * 2}px ${menuRect.right * 2}px`}
-        >
+        <View className='control'>
           <View className='metas'>
             <Navigator className='meta' hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('user/list?type=user_following&slug=' + user.slug)}`}>
               <View className='count'>{user.following_count}</View>
@@ -104,11 +99,3 @@ class UserPanel extends Component {
     )
   }
 }
-
-UserPanel.defaultProps = {
-  user: {
-    providers: {}
-  }
-}
-
-export default UserPanel

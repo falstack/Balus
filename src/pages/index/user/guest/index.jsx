@@ -1,16 +1,25 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Button, Input } from '@tarojs/components'
+import { connect } from '@tarojs/redux'
 import { oAuthLogin, accessLogin } from '~/utils/login'
 import CodeInput from '~/components/CodeInput'
 import toast from '~/utils/toast'
 import http from '~/utils/http'
-import utils from '~/utils'
 import classNames from 'classnames'
 import loginBg from '~/image/login_bg.png'
 import wechatIcon from '~/image/login_wechat_icon.png'
 import qqIcon from '~/image/login_qq_icon.png'
 import './index.scss'
+import {getUserInfo} from "../../../../store/actions/user";
 
+
+@connect(({ user }) => ({
+  user
+}), (dispatch) => ({
+  getUserInfo () {
+    dispatch(getUserInfo())
+  }
+}))
 export default class extends Component {
   constructor(props) {
     super(props)
@@ -39,14 +48,15 @@ export default class extends Component {
   }
 
   redirect() {
-    const from = this.$router.params.from
-    if (from) {
-      Taro.redirectTo({
-        url: `/pages/webview/index?url=${from}`
-      })
-      return
-    }
-    utils.back('/pages/user/home/index')
+    // const from = this.$router.params.from
+    // if (from) {
+    //   Taro.redirectTo({
+    //     url: `/pages/webview/index?url=${from}`
+    //   })
+    //   return
+    // }
+    // utils.back('/pages/user/home/index')
+    this.props.getUserInfo()
   }
 
   callOAuthSign(from) {

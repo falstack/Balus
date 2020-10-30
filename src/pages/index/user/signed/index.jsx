@@ -2,13 +2,13 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import CustomBar from '~/custom-tab-bar'
-import UserPanel from './panel/UserPanel'
-import UserTable from './table/UserTable'
+import UserPanel from './panel'
+import UserTable from './table'
 import { delUserInfo } from '~/store/actions/user'
 import './index.scss'
 
-@connect(({ user }) => ({
-  user
+@connect(store => ({
+  user: store.user.info
 }), (dispatch) => ({
   delUserInfo () {
     dispatch(delUserInfo())
@@ -45,19 +45,14 @@ export default class extends Component {
   }
 
   render() {
-    const { user } = this.props
-    if (user === null) {
-      return
-    }
-
     return (
       <View className='user-home scroll-page'>
         <View className='flex-shrink-0'>
-          <UserPanel user={user} />
+          <UserPanel />
         </View>
         <View className='flex-grow-1'>
           <View className='hr' />
-          <UserTable user={user} />
+          <UserTable />
           <View className='logout'>
             <Button onClick={this.userLogout}>
               退出登录

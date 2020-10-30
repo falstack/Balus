@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
 import cache from '~/utils/cache'
 import event from '~/utils/event'
 import http from '~/utils/http'
@@ -9,7 +8,6 @@ import UserPanel from './panel/UserPanel'
 import UserTable from './table/UserTable'
 import './index.scss'
 
-@connect(({ user }) => ({ user }))
 export default class extends Component {
   config = {
     navigationStyle: 'custom'
