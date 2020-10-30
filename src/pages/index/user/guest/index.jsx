@@ -9,9 +9,8 @@ import classNames from 'classnames'
 import loginBg from '~/image/login_bg.png'
 import wechatIcon from '~/image/login_wechat_icon.png'
 import qqIcon from '~/image/login_qq_icon.png'
+import { getUserInfo } from '~/store/actions/user'
 import './index.scss'
-import {getUserInfo} from "../../../../store/actions/user";
-
 
 @connect(({ user }) => ({
   user

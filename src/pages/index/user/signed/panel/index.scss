@@ -5,10 +5,12 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: 0 $container-padding $container-padding * 2;
     @extend %clearfix;
 
     .avatar {
       float: left;
+      margin-right: $container-padding;
 
       .avatar-src {
         width: 120px;
@@ -78,6 +80,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: #fff;
+    padding: $container-padding;
 
     .metas {
       display: flex;
