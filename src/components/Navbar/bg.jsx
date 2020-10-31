@@ -30,16 +30,22 @@ class Navbar extends Component {
 
   addScrollListener() {
     this.ob = Taro.createIntersectionObserver(this.$scope, {
-      thresholds: [0.5],
+      thresholds: [1, 0.5],
       initialRatio: 1
     })
 
-    this.ob.relativeToViewport({ bottom: 0 }).observe('.navbar', () => {
+    this.ob.relativeToViewport({ bottom: 0 }).observe('.navbar', utils.throttle((e) => {
+      if (e.intersectionRatio > 0.9) {
+        this.setState({
+          blur: false
+        })
+        return
+      }
       const { blur } = this.state
       this.setState({
         blur: !blur
       })
-    })
+    }, 100))
   }
 
   render () {

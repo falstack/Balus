@@ -137,7 +137,7 @@ class BangumiShow extends Component {
 
     return (
       <View class='bangumi-show'>
-        <Navbar background={bangumi.avatar}>
+        <Navbar title={bangumi.name} background={bangumi.avatar}>
           <BangumiHeader slug={slug} bangumi={bangumi} onUpdate={this.handleUpdate.bind(this)} />
         </Navbar>
         <TabHeader

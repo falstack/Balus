@@ -52,14 +52,12 @@
     }
 
     .line {
-      padding-left: 5px;
       padding-right: 20px;
       flex-shrink: 0;
     }
 
     .title {
       flex: 1;
-      @extend %oneline;
 
       .page_title {
         font-size: 40px;
@@ -83,6 +81,7 @@
   &__title {
     opacity: 0;
     transition: opacity 400ms ease-out;
+    @extend %oneline;
 
     &.has-blur {
       opacity: 1;

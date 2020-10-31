@@ -74,6 +74,37 @@ export default {
     return rect
   },
 
+  debounce(wait, func1, func2) {
+    let lastTime
+    let timeout
+    return function () {
+      if (lastTime && Date.now() - lastTime < wait) {
+        lastTime = Date.now()
+        timeout && clearTimeout(timeout)
+        timeout = setTimeout(() => {
+          func1()
+        }, wait)
+        return
+      }
+      lastTime = Date.now()
+      func2 ? func2() : func1()
+    }
+  },
+
+  throttle(fn, gapTime) {
+    if (gapTime === null || gapTime === undefined) {
+      gapTime = 1500
+    }
+    let _lastTime = null
+    return function () {
+      let _nowTime = new Date()
+      if (_nowTime - _lastTime > gapTime || !_lastTime) {
+        _lastTime = _nowTime
+        fn.apply(this, arguments)
+      }
+    }
+  },
+
   number(num) {
     return num > 1000 ? `${Math.floor((num / 1000) * 10) / 10}k` : num
   },
