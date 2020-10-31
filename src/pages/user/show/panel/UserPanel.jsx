@@ -1,11 +1,14 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
+import { connect } from '@tarojs/redux'
 import utils from '~/utils'
 import http from '~/utils/http'
-import cache from '~/utils/cache'
 import toast from '~/utils/toast'
 import './index.scss'
 
+@connect(store => ({
+  self: store.user.info
+}))
 export default class UserPanel extends Component {
   constructor(props) {
     super(props)
@@ -33,7 +36,7 @@ export default class UserPanel extends Component {
     if (!user) {
       return
     }
-    const isMine = user.slug === cache.get('USER', {}).slug
+    const isMine = user.slug === this.props.self.slug
     const badges = user.title.map(badge => {
       const key = Math.random()
         .toString(36)

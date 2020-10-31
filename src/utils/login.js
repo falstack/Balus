@@ -1,8 +1,6 @@
+import Taro from '@tarojs/taro'
 import http from '~/utils/http'
 import cache from '~/utils/cache'
-import event from '~/utils/event'
-
-const globalEnv = process.env.TARO_ENV === 'weapp' ? wx : qq
 
 export const oAuthLogin = () => {
   return new Promise((resolve, reject) => {
@@ -11,9 +9,8 @@ export const oAuthLogin = () => {
         step_2_get_token_or_user_by_code(code)
           .then(resp => {
             if (resp.type === 'token') {
-              step_5_get_current_user(resp.data)
-                .then(resolve)
-                .catch(reject)
+              step_5_set_user_token(resp.data)
+              resolve()
             } else {
               step_3_get_secret_data_from_wechat()
                 .then(user => {
@@ -26,9 +23,8 @@ export const oAuthLogin = () => {
                     app_name: 'moe_idol'
                   })
                     .then(token => {
-                      step_5_get_current_user(token)
-                        .then(resolve)
-                        .catch(reject)
+                      step_5_set_user_token(token)
+                      resolve()
                     })
                     .catch(reject)
                 })
@@ -45,9 +41,8 @@ export const accessLogin = (form, isLogin = true) => {
   return new Promise((resolve, reject) => {
     step_0_get_jwt_token_by_access(form, isLogin)
       .then(token => {
-        step_5_get_current_user(token)
-          .then(resolve)
-          .catch(reject)
+        step_5_set_user_token(token)
+        resolve()
       })
       .catch(reject)
   })
@@ -55,7 +50,7 @@ export const accessLogin = (form, isLogin = true) => {
 
 const step_1_get_wx_code = () => {
   return new Promise((resolve, reject) => {
-    globalEnv.login({
+    Taro.login({
       success(data) {
         if (data.code) {
           resolve(data.code)
@@ -84,7 +79,7 @@ const step_2_get_token_or_user_by_code = code => {
 
 const step_3_get_secret_data_from_wechat = () => {
   return new Promise((resolve, reject) => {
-    globalEnv.getUserInfo({
+    Taro.getUserInfo({
       withCredentials: true,
       success(data) {
         resolve(data)
@@ -97,32 +92,12 @@ const step_3_get_secret_data_from_wechat = () => {
 }
 
 const step_4_get_user = form => {
-  return new Promise((resolve, reject) => {
-    const url = process.env.TARO_ENV === 'weapp' ? 'door/wechat_mini_app_login' : 'door/qq_mini_app_login'
-    http
-      .post(url, form)
-      .then(data => {
-        resolve(data)
-      })
-      .catch(reject)
-  })
+  const url = process.env.TARO_ENV === 'weapp' ? 'door/wechat_mini_app_login' : 'door/qq_mini_app_login'
+  return http.post(url, form)
 }
 
-const step_5_get_current_user = token => {
+const step_5_set_user_token = token => {
   cache.set('JWT-TOKEN', token)
-  return new Promise((resolve, reject) => {
-    http
-      .post('door/get_user_info')
-      .then(user => {
-        cache.set('USER', user)
-        if (user && user.title.length) {
-          step_6_get_user_roles()
-        }
-        event.emit('update-user')
-        resolve(user)
-      })
-      .catch(reject)
-  })
 }
 
 const step_0_get_jwt_token_by_access = (form, isLogin) => {
@@ -134,12 +109,4 @@ const step_0_get_jwt_token_by_access = (form, isLogin) => {
       })
       .catch(reject)
   })
-}
-
-export const step_6_get_user_roles = () => {
-  http.get('user/roles')
-    .then(roles => {
-      cache.set('USER_ROLES', roles)
-    })
-    .catch(() => {})
 }

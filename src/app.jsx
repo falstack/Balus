@@ -1,6 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
 import { Provider, connect } from '@tarojs/redux'
-import http from '~/utils/http'
 import cache from '~/utils/cache'
 import socket from '~/utils/socket'
 
@@ -69,21 +68,6 @@ class App extends Component {
     }
     this.props.getUserInfo()
     this.connectSocket()
-  }
-
-  getCurrentUser() {
-    http
-      .post('door/get_user_info')
-      .then(data => {
-        cache.set('USER', data)
-        step_6_get_user_roles()
-      })
-      .catch(err => {
-        cache.remove('USER')
-        if (err.code === 401) {
-          cache.remove('JWT-TOKEN')
-        }
-      })
   }
 
   connectSocket() {

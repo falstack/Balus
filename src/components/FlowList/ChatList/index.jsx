@@ -1,13 +1,16 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
+import { connect } from '@tarojs/redux'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import ChatItem from '~/components/FlowItem/ChatItem'
-import cache from '~/utils/cache'
 import event from '~/utils/event'
 import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
+@connect(store => ({
+  user: store.user.info
+}))
 @flowStore
 @flowEvent
 class ChatList extends Component {
@@ -40,7 +43,7 @@ class ChatList extends Component {
   }
 
   render () {
-    const user = cache.get('USER', null)
+    const { user } = this.props
     const { flow_result } = this.state
     if (!user || !flow_result.length) {
       return

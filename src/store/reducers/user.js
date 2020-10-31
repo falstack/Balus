@@ -7,7 +7,7 @@ import {
 
 const INITIAL_STATE = {
   isLogin: false,
-  info: null,
+  info: {},
 }
 
 export default function counter (state = INITIAL_STATE, action) {
@@ -22,7 +22,7 @@ export default function counter (state = INITIAL_STATE, action) {
       return {
         ...state,
         isLogin: false,
-        info: null
+        info: {}
       }
     case UPDATE_USER_POCKET:
       const value = Number(action.data)
