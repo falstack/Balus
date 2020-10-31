@@ -1,13 +1,20 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text, Input } from '@tarojs/components'
+import { connect } from '@tarojs/redux'
 import utils from '~/utils'
 import http from '~/utils/http'
-import cache from '~/utils/cache'
 import toast from '~/utils/toast'
-import state from '~/utils/state'
 import classNames from 'classnames'
+import { updateUserPocket } from '~/store/actions/user'
 import './index.scss'
 
+@connect(store => ({
+  user: store.user.info
+}), (dispatch) => ({
+  updateUserPocket (val) {
+    dispatch(updateUserPocket(val))
+  }
+}))
 export default class IdolBottom extends Component {
   constructor (props) {
     super(props)
@@ -15,12 +22,11 @@ export default class IdolBottom extends Component {
       isOpen: false,
       submitting: false,
       value: 0,
-      user: cache.get('USER', null)
     }
   }
 
   handleClick() {
-    const { user } = this.state
+    const { user } = this.props
     if (!user) {
       toast.info('请先登录')
       return
@@ -50,7 +56,7 @@ export default class IdolBottom extends Component {
     if (this.state.submitting) {
       return
     }
-    const { value, user } = this.state
+    const { value } = this.state
     if (!value) {
       this.setState({
         isOpen: false
@@ -68,12 +74,8 @@ export default class IdolBottom extends Component {
       stock_count: value
     })
       .then(() => {
-        state.updateUserPocket(-amount)
+        this.props.updateUserPocket(-amount)
         this.setState({
-          user: {
-            ...user,
-            wallet_coin: +user.wallet_coin - amount
-          },
           isOpen: false
         })
         this.props.onPayCallback({
@@ -97,10 +99,10 @@ export default class IdolBottom extends Component {
     if (value < 0) {
       value = 0
     }
-    if (!this.state.user) {
+    if (!this.props.user) {
       value = 0
     }
-    const max = parseInt(this.state.user.wallet_coin / this.props.idol.stock_price)
+    const max = parseInt(this.props.user.wallet_coin / this.props.idol.stock_price)
     if (value > max) {
       value = max
     }
@@ -110,8 +112,8 @@ export default class IdolBottom extends Component {
   }
 
   render () {
-    const { idol } = this.props
-    const { isOpen, user } = this.state
+    const { idol, user } = this.props
+    const { isOpen } = this.state
     return (
       <View className='idol-bottom'>
         <View className='idol-bottom__content'>

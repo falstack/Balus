@@ -29,7 +29,6 @@ export default class extends Component {
   }
 
   daySignAction() {
-    this.props.updateUserPocket(1)
     if (this.props.user.daily_signed || this.state.signing) {
       return
     }
