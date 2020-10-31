@@ -71,9 +71,11 @@ class CustomBar extends Component {
           <View className="tabbar__text">
             <View className='tab'>
               <Image src={active === 0 ? Tab0Selected : Tab0} onClick={() => {this.handleClick(0)}} />
+              <Text>发现</Text>
             </View>
             <View className='tab'>
               <Image src={active === 1 ? Tab1Selected : Tab1} onClick={() => {this.handleClick(1)}} />
+              <Text>番剧</Text>
             </View>
             <View className="tab">
               <View className="create-btn" onClick={this.clickCreate}>
@@ -86,9 +88,11 @@ class CustomBar extends Component {
               {
                 tab_2_count && <View className='badge'>{tab_2_count}</View>
               }
+              <Text>消息</Text>
             </View>
             <View className='tab'>
               <Image src={active === 3 ? Tab3Selected : Tab3} onClick={() => {this.handleClick(3)}} />
+              <Text>我的</Text>
             </View>
           </View>
         </View>

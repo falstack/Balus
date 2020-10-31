@@ -93,7 +93,7 @@ class MessageEntry extends Component {
     return (
       <View className='message-page scroll-page'>
         <View className='flex-shrink-0'>
-          <Navbar />
+          <Navbar title={'消息'} />
         </View>
         <View className='flex-shrink-0 notice-wrap'>
           {

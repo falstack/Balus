@@ -15,7 +15,7 @@ class BangumiRank extends Component {
     return (
       <View className='bangumi-page scroll-page'>
         <View className='flex-shrink-0'>
-          <Navbar/>
+          <Navbar title={'番剧'} />
         </View>
         <View className='flex-shrink-0 pgc-list'>
           <ScrollView className='scroll-view' scrollX>

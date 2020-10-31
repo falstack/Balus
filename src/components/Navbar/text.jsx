@@ -29,7 +29,11 @@ export default class extends Component {
                 this.props.showBack && <View className="iconfont ic-back"/>
               }
               <View className="title">
-                {this.props.children}
+                {
+                  this.props.title
+                    ? <Text className='page_title'>{this.props.title}</Text>
+                    : this.props.children
+                }
               </View>
             </View>
           </View>
