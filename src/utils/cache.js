@@ -19,13 +19,13 @@ const Cache = class {
   }
 
   get(key, def = undefined) {
-    console.log(key)
     const result = this.globalData[key]
     if (result !== undefined) {
       return result
     }
     try {
       const value = Taro.getStorageSync(key)
+      console.log(key)
       if (value === '') {
         return def
       }

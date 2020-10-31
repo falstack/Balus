@@ -25,7 +25,6 @@ class App extends Component {
       'pages/idol/show/index',
       'pages/user/home/index',
       'pages/user/show/index',
-      'pages/user/login/index',
       'pages/bangumi/show/index',
       'pages/message/chat/index',
       'pages/message/list/index',

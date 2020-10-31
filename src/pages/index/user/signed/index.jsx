@@ -1,10 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
+import event from '~/utils/event'
 import CustomBar from '~/custom-tab-bar'
 import UserPanel from './panel'
 import UserTable from './table'
-import { delUserInfo } from '~/store/actions/user'
+import { delUserInfo, refreshUserInfo } from '~/store/actions/user'
 import './index.scss'
 
 @connect(store => ({
@@ -12,6 +13,9 @@ import './index.scss'
 }), (dispatch) => ({
   delUserInfo () {
     dispatch(delUserInfo())
+  },
+  refreshUserInfo (slug) {
+    dispatch(refreshUserInfo(slug))
   }
 }))
 export default class extends Component {
@@ -19,23 +23,25 @@ export default class extends Component {
     addGlobalClass: true
   }
 
-  componentDidShow() {
+  componentDidMount() {
+    this.refreshUser()
+    event.on('TAB_SWITCH', this.onTabSwitch.bind(this))
+  }
+
+  componentWillUnmount() {
+    event.off('TAB_SWITCH', this.onTabSwitch.bind(this))
+  }
+
+  onTabSwitch(index) {
+    if (index !== 3) {
+      return
+    }
     this.refreshUser()
   }
 
-  onShareAppMessage() {
-    const { user } = this.props
-    if (!user) {
-      return null
-    }
-    return {
-      title: user.nickname,
-      path: `/pages/user/show/index?slug=${user.slug}`,
-      imageUrl: `${user.avatar}?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400`
-    }
+  refreshUser() {
+    this.props.refreshUserInfo(this.props.user.slug)
   }
-
-  refreshUser() {}
 
   userLogout() {
     this.props.delUserInfo()

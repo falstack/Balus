@@ -5,12 +5,16 @@ import Navbar from '~/components/Navbar/text'
 import classNames from 'classnames'
 import utils from '~/utils'
 import http from '~/utils/http'
-import state from '~/utils/state'
 import toast from '~/utils/toast'
 import './index.scss'
+import { updateUserPocket } from '~/store/actions/user'
 
 @connect(store => ({
   user: store.user.info
+}), (dispatch) => ({
+  updateUserPocket (val) {
+    dispatch(updateUserPocket(val))
+  }
 }))
 export default class extends Component {
   constructor(props) {
@@ -25,6 +29,7 @@ export default class extends Component {
   }
 
   daySignAction() {
+    this.props.updateUserPocket(1)
     if (this.props.user.daily_signed || this.state.signing) {
       return
     }
@@ -38,7 +43,7 @@ export default class extends Component {
           signing: false
         })
         toast.info(res.message)
-        state.updateUserPocket(res.add_coin_count)
+        this.props.updateUserPocket(res.add_coin_count)
       })
       .catch(() => {
         this.setState({
