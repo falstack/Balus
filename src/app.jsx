@@ -1,22 +1,17 @@
 import Taro, { Component } from '@tarojs/taro'
-import { Provider, connect } from '@tarojs/redux'
+import { onError, Provider, inject, observer } from '@tarojs/mobx'
 import cache from '~/utils/cache'
 import socket from '~/utils/socket'
-
-import configStore from './store'
+import store from '~/store'
 import Index from './pages/index'
 import './app.scss'
-import { getUserInfo } from './store/actions/user'
 
-const store = configStore()
+onError(error => {
+  console.log('mobx global error listener:', error)
+})
 
-@connect(({ user }) => ({
-  user
-}), (dispatch) => ({
-  getUserInfo () {
-    dispatch(getUserInfo())
-  }
-}))
+@inject('user')
+@observer
 class App extends Component {
   config = {
     pages: [
@@ -66,7 +61,7 @@ class App extends Component {
     if (!token) {
       return
     }
-    this.props.getUserInfo()
+    this.props.user.getUserInfo()
     this.connectSocket()
   }
 

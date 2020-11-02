@@ -2,16 +2,17 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import SignedPanel from './signed'
 import GuestPanel from './guest'
-import { connect } from '@tarojs/redux'
+import { inject, observer } from '@tarojs/mobx'
 
-@connect(store => ({
-  isLogin: store.user.isLogin
-}))
+@inject('user')
+@observer
 export default class extends Component {
   render() {
+    const { user: { isLogin } } = this.props
+
     return (
       <View>
-        {this.props.isLogin ? <SignedPanel /> : <GuestPanel />}
+        {isLogin ? <SignedPanel /> : <GuestPanel />}
       </View>
     )
   }

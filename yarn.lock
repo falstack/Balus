@@ -2112,6 +2112,35 @@
     webpack-chain "4.9.0"
     webpack-format-messages "^2.0.5"
 
+"@tarojs/mobx-common@^2.2.10":
+  version "2.2.10"
+  resolved "https://registry.yarnpkg.com/@tarojs/mobx-common/-/mobx-common-2.2.10.tgz#c6c152ba7e714727d088055bd2190cf0712f7d33"
+  integrity sha512-tFfM13pDWQV+aXdmF1lc0S78QLJ34jn1Imug0xDjwdbUhysAjKXOox3MG6rxeGW7WfOH+pRrDvjEi8u7+eWCCA==
+
+"@tarojs/mobx-h5@^2.2.10":
+  version "2.2.10"
+  resolved "https://registry.yarnpkg.com/@tarojs/mobx-h5/-/mobx-h5-2.2.10.tgz#0c74ecbf9b99c33deeda11866279b3fda3d9352f"
+  integrity sha512-3D0CB10h4EbPca+fPftH6VNKkbMpZ7xGscuzTmPA/nfHjcOh0k/aIBea7pGq7+607N64yMnhj53Vve4B8Gfjxw==
+  dependencies:
+    "@tarojs/mobx-common" "^2.2.10"
+    "@tarojs/taro-h5" "^2.2.10"
+
+"@tarojs/mobx-rn@^2.2.10":
+  version "2.2.10"
+  resolved "https://registry.yarnpkg.com/@tarojs/mobx-rn/-/mobx-rn-2.2.10.tgz#302df5441d695166021ac8aedfff746cc51945df"
+  integrity sha512-lldGONF4WLHIaw1LSMD6BwuX/AiG9ol7HLfCcblBIV2U13mSWr+nImHLnv8KRAffqFEfV0ljFNHjlx2/agP1Yw==
+  dependencies:
+    "@tarojs/mobx-common" "^2.2.10"
+    "@tarojs/taro-rn" "^2.2.10"
+
+"@tarojs/mobx@^2.2.10":
+  version "2.2.10"
+  resolved "https://registry.yarnpkg.com/@tarojs/mobx/-/mobx-2.2.10.tgz#ce7fbc7748e38246290055a6c10637bd29066847"
+  integrity sha512-frWde1/vvh/PioX1A21SYeCgiqzJoxhL7SrTZA7EtmPqv95tiEvfbYs+cMKYc02HAONYCVYnaWghf+i7unERmQ==
+  dependencies:
+    "@tarojs/mobx-common" "^2.2.10"
+    "@tarojs/taro" "^2.2.10"
+
 "@tarojs/plugin-babel@2.2.10":
   version "2.2.10"
   resolved "https://registry.yarnpkg.com/@tarojs/plugin-babel/-/plugin-babel-2.2.10.tgz#587c872e7a1fc07c2e8d0a165523bd33d8fa7856"
@@ -2143,24 +2172,6 @@
   integrity sha512-p/KWaUC9cKbpeJxL7SCdYP8ZID0ipfAbhLUwiWBBStjuHiQeAcKMIe+eh0JVtPsYHimTcRByk/VLoQVp4bOr0Q==
   dependencies:
     uglify-js "^3.3.24"
-
-"@tarojs/redux-h5@^2.2.10":
-  version "2.2.10"
-  resolved "https://registry.yarnpkg.com/@tarojs/redux-h5/-/redux-h5-2.2.10.tgz#025a22a68d016d4ba181c32b430c598e6e0705bf"
-  integrity sha512-yRfVXBcrCT3Tx+btvklpVYGAkpyj08TeVAW6mQitIP7lSSRyZa5iV9yvnNqT/UQbuVe/1fXlUNjLGwCel6NWfA==
-  dependencies:
-    hoist-non-react-statics "^2.5.0"
-    invariant "^2.2.4"
-    loose-envify "^1.1.0"
-    prop-types "^15.6.1"
-
-"@tarojs/redux@^2.2.10":
-  version "2.2.10"
-  resolved "https://registry.yarnpkg.com/@tarojs/redux/-/redux-2.2.10.tgz#63b1ee7cd123c17aa67d71d6d5ae8ce6ef6eacea"
-  integrity sha512-t2dkhUi5W7iVO5GBPIqxNQEfSHm5UBtdIssQFn69Hd4vhuEWLATUBCLa4Ki8fYz1s+peqLfNuObz2svVKOiRDg==
-  dependencies:
-    "@tarojs/taro" "^2.2.10"
-    "@tarojs/utils" "^2.2.10"
 
 "@tarojs/router@3.0.15":
   version "3.0.15"
@@ -5234,11 +5245,6 @@ decode-uri-component@^0.2.0:
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
   integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
 
-deep-diff@^0.3.5:
-  version "0.3.8"
-  resolved "https://registry.yarnpkg.com/deep-diff/-/deep-diff-0.3.8.tgz#c01de63efb0eec9798801d40c7e0dae25b582c84"
-  integrity sha1-wB3mPvsO7JeYgB1Ax+Da4ltYLIQ=
-
 deep-equal@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/deep-equal/-/deep-equal-1.1.0.tgz#3103cdf8ab6d32cf4a8df7865458f2b8d33f3745"
@@ -7039,11 +7045,6 @@ hmac-drbg@^1.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hoist-non-react-statics@^2.5.0:
-  version "2.5.5"
-  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
-  integrity sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==
-
 home-or-tmp@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/home-or-tmp/-/home-or-tmp-2.0.0.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
@@ -8264,7 +8265,7 @@ longest-streak@^2.0.1:
   resolved "https://registry.yarnpkg.com/longest-streak/-/longest-streak-2.0.3.tgz#3de7a3f47ee18e9074ded8575b5c091f5d0a4105"
   integrity sha512-9lz5IVdpwsKLMzQi0MQ+oD9EA0mIGcWYP7jXMTZVXP8D42PwuAk+M/HBFYQoxt1G5OR8m7aSIgb1UymfWGBWEw==
 
-loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.4.0:
+loose-envify@^1.0.0, loose-envify@^1.2.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
@@ -8702,6 +8703,11 @@ mobile-detect@^1.4.2:
   version "1.4.4"
   resolved "https://registry.yarnpkg.com/mobile-detect/-/mobile-detect-1.4.4.tgz#686c74e92d3cc06b09a9b3594b7b981494b137f6"
   integrity sha512-vTgEjKjS89C5yHL5qWPpT6BzKuOVqABp+A3Szpbx34pIy3sngxlGaFpgHhfj6fKze1w0QKeOSDbU7SKu7wDvRQ==
+
+mobx@4.8.0:
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-4.8.0.tgz#6059feb9e0d3440acca5ae192daad63198b1180f"
+  integrity sha512-uR6FnrK50UEbV+zTXkOI+R0pAMb7xA5mkAWnKTMBcN6hAh57qAa9r0XMvsiPgpb8dS3Kw1x0sNhrrUNUcM+Pug==
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -10388,26 +10394,6 @@ redent@^3.0.0:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
 
-redux-logger@^3.0.6:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-3.0.6.tgz#f7555966f3098f3c88604c449cf0baf5778274bf"
-  integrity sha1-91VZZvMJjzyIYExEnPC69XeCdL8=
-  dependencies:
-    deep-diff "^0.3.5"
-
-redux-thunk@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
-  integrity sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==
-
-redux@^4.0.5:
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.5.tgz#4db5de5816e17891de8a80c424232d06f051d93f"
-  integrity sha512-VSz1uMAH24DM6MF72vcojpYPtrTUu3ByVWfPL1nPfVRb5mZVTve5GnNCUV53QM/BZ66xfWrm0CTWoM+Xlz8V1w==
-  dependencies:
-    loose-envify "^1.4.0"
-    symbol-observable "^1.2.0"
-
 regenerate-unicode-properties@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/regenerate-unicode-properties/-/regenerate-unicode-properties-8.1.0.tgz#ef51e0f0ea4ad424b77bf7cb41f3e015c70a3f0e"
@@ -11828,11 +11814,6 @@ swiper@4.4.2:
   dependencies:
     dom7 "^2.1.2"
     ssr-window "^1.0.1"
-
-symbol-observable@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
-  integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
 
 table@^5.2.3:
   version "5.4.6"

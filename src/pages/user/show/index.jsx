@@ -117,7 +117,7 @@ class UserShow extends Component {
     return (
       <View className='user-show'>
         <Navbar background={user.banner} title={user.nickname}>
-          <UserPanel user={user} />
+          <UserPanel info={user} />
         </Navbar>
         <TabHeader
           line

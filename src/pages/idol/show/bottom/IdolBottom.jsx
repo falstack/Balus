@@ -1,20 +1,14 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text, Input } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
+import { inject, observer } from '@tarojs/mobx'
 import utils from '~/utils'
 import http from '~/utils/http'
 import toast from '~/utils/toast'
 import classNames from 'classnames'
-import { updateUserPocket } from '~/store/actions/user'
 import './index.scss'
 
-@connect(store => ({
-  user: store.user.info
-}), (dispatch) => ({
-  updateUserPocket (val) {
-    dispatch(updateUserPocket(val))
-  }
-}))
+@inject('user')
+@observer
 export default class IdolBottom extends Component {
   constructor (props) {
     super(props)
@@ -26,12 +20,11 @@ export default class IdolBottom extends Component {
   }
 
   handleClick() {
-    const { user } = this.props
-    if (!user) {
+    if (!this.props.user.isLogin) {
       toast.info('请先登录')
       return
     }
-    if (!+user.wallet_coin) {
+    if (!+this.props.user.wallet_coin) {
       toast.info('木有团子啊')
       return
     }
@@ -74,7 +67,7 @@ export default class IdolBottom extends Component {
       stock_count: value
     })
       .then(() => {
-        this.props.updateUserPocket(-amount)
+        this.props.user.updateUserPocket(-amount)
         this.setState({
           isOpen: false
         })
@@ -99,10 +92,10 @@ export default class IdolBottom extends Component {
     if (value < 0) {
       value = 0
     }
-    if (!this.props.user) {
+    if (!this.props.user.isLogin) {
       value = 0
     }
-    const max = parseInt(this.props.user.wallet_coin / this.props.idol.stock_price)
+    const max = parseInt(this.props.user.info.wallet_coin / this.props.idol.stock_price)
     if (value > max) {
       value = max
     }
@@ -130,7 +123,7 @@ export default class IdolBottom extends Component {
             <View className='dialog__body'>
               <View className='dialog__line'>
                 <View className='label'>剩余团子：</View>
-                <View>{user.wallet_coin}</View>
+                <View>{user.info.wallet_coin}</View>
               </View>
               <View className='dialog__line'>
                 <View className='label'>购入份额：</View>

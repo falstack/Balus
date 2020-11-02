@@ -1,30 +1,21 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
+import { inject, observer } from '@tarojs/mobx'
 import event from '~/utils/event'
 import CustomBar from '~/custom-tab-bar'
 import UserPanel from './panel'
 import UserTable from './table'
-import { delUserInfo, refreshUserInfo } from '~/store/actions/user'
 import './index.scss'
 
-@connect(store => ({
-  user: store.user.info
-}), (dispatch) => ({
-  delUserInfo () {
-    dispatch(delUserInfo())
-  },
-  refreshUserInfo (slug) {
-    dispatch(refreshUserInfo(slug))
-  }
-}))
+@inject('user')
+@observer
 export default class extends Component {
   static options = {
     addGlobalClass: true
   }
 
   componentDidMount() {
-    this.refreshUser()
+    this.props.user.refreshUser()
     event.on('TAB_SWITCH', this.onTabSwitch.bind(this))
   }
 
@@ -36,15 +27,11 @@ export default class extends Component {
     if (index !== 3) {
       return
     }
-    this.refreshUser()
-  }
-
-  refreshUser() {
-    this.props.refreshUserInfo(this.props.user.slug)
+    this.props.user.refreshUser()
   }
 
   userLogout() {
-    this.props.delUserInfo()
+    this.props.user.delUserSign()
     Taro.reLaunch({
       url: '/pages/index/index'
     })

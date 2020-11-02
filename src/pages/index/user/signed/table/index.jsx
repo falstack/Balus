@@ -1,11 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Navigator } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
+import { inject, observer } from '@tarojs/mobx'
 import './index.scss'
 
-@connect(store => ({
-  user: store.user.info
-}))
+@inject('user')
+@observer
 export default class extends Component {
   constructor(props) {
     super(props)
@@ -17,14 +16,14 @@ export default class extends Component {
 
   render() {
     const { user } = this.props
-    if (!user) {
+    if (!user.isLogin) {
       return <View />
     }
 
     return (
       <View className='user-table'>
         {
-          user.is_admin && <Navigator className='table-item' hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('admin')}`}>
+          user.info.is_admin && <Navigator className='table-item' hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('admin')}`}>
             <Text>控制台</Text>
             <Text className='iconfont ic-right' />
           </Navigator>

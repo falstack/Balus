@@ -1,14 +1,13 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator, Button } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
+import { inject, observer } from '@tarojs/mobx'
 import utils from '~/utils'
 import toast from '~/utils/toast'
 import http from '~/utils/http'
 import './index.scss'
 
-@connect(store => ({
-  user: store.user.info
-}))
+@inject('user')
+@observer
 class BangumiHeader extends Component {
   constructor(props) {
     super(props)
@@ -23,7 +22,7 @@ class BangumiHeader extends Component {
   }
 
   clickJoinBtn() {
-    if (!this.props.user) {
+    if (!this.props.user.isLogin) {
       toast.info('请先登录')
       return
     }
@@ -38,7 +37,7 @@ class BangumiHeader extends Component {
           this.props.onUpdate({
             is_liked: true
           })
-          liker_list.unshift(this.props.user)
+          liker_list.unshift(this.props.user.info)
           this.setState({
             liker_total: liker_total + 1,
             liker_list

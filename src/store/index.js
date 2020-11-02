@@ -1,13 +1,5 @@
-import { createStore, applyMiddleware } from 'redux'
-import thunkMiddleware from 'redux-thunk'
-import { createLogger } from 'redux-logger'
-import rootReducer from './reducers'
+import user from './user'
 
-const middlewares = [
-  thunkMiddleware,
-  createLogger()
-]
-
-export default function configStore () {
-  return createStore(rootReducer, applyMiddleware(...middlewares))
+export default {
+  user
 }

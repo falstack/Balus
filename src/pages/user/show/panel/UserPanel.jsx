@@ -1,14 +1,13 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, Navigator } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
+import { inject, observer } from '@tarojs/mobx'
 import utils from '~/utils'
 import http from '~/utils/http'
 import toast from '~/utils/toast'
 import './index.scss'
 
-@connect(store => ({
-  self: store.user.info
-}))
+@inject('user')
+@observer
 export default class UserPanel extends Component {
   constructor(props) {
     super(props)
@@ -18,10 +17,10 @@ export default class UserPanel extends Component {
   getMessageChannel() {
     http.get('message/get_channel', {
       type: 1,
-      slug: this.props.user.slug
+      slug: this.props.info.slug
     })
       .then(channel => {
-        this.$preload('room', this.props.user)
+        this.$preload('room', this.props.info)
         Taro.navigateTo({
           url: `/pages/message/chat/index?channel=${channel}`,
         })
@@ -32,12 +31,12 @@ export default class UserPanel extends Component {
   }
 
   render() {
-    const { user } = this.props
-    if (!user) {
+    const { info } = this.props
+    if (!info) {
       return
     }
-    const isMine = user.slug === this.props.self.slug
-    const badges = user.title.map(badge => {
+    const isMine = info.slug === this.props.user.info.slug
+    const badges = info.title.map(badge => {
       const key = Math.random()
         .toString(36)
         .slice(2, -1)
@@ -52,7 +51,7 @@ export default class UserPanel extends Component {
       <View class='public-user-panel'>
         <View className="avatar-wrap">
           <Image
-            src={utils.resize(user.avatar, {
+            src={utils.resize(info.avatar, {
               height: 160,
               mode: 2
             })}
@@ -61,25 +60,25 @@ export default class UserPanel extends Component {
           />
           {
             isMine
-              ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('user/edit?slug=' + user.slug)}`} className='edit-profile-btn'>编辑资料</Navigator>
+              ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('user/edit?slug=' + info.slug)}`} className='edit-profile-btn'>编辑资料</Navigator>
               : <View className='edit-profile-btn' onClick={this.getMessageChannel}>私信</View>
           }
         </View>
         <View className='nickname-wrap'>
-          <Text className='nickname'>{user.nickname}</Text>
-          <Text className='level'>LV{user.level}</Text>
+          <Text className='nickname'>{info.nickname}</Text>
+          <Text className='level'>LV{info.level}</Text>
         </View>
         <View className='intro-wrap'>
           <View className='badges'>{badges}</View>
-          <View className='intro'>{user.signature}</View>
+          <View className='intro'>{info.signature}</View>
         </View>
         <View className='meta-wrap'>
           <View className='meta'>
-            <View className='count'>{user.wallet_coin}</View>
+            <View className='count'>{info.wallet_coin}</View>
             <View className='name'>团子</View>
           </View>
           <View className='meta'>
-            <View className='count'>{user.wallet_money}</View>
+            <View className='count'>{info.wallet_money}</View>
             <View className='name'>光玉</View>
           </View>
         </View>
@@ -89,7 +88,7 @@ export default class UserPanel extends Component {
 }
 
 UserPanel.defaultProps = {
-  user: {
+  info: {
     title: []
   }
 }

@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
+import { inject, observer } from '@tarojs/mobx'
 import flowEvent from '~/mixin/flowEvent'
 import flowStore from '~/mixin/flowStore'
 import ChatItem from '~/components/FlowItem/ChatItem'
@@ -8,9 +8,8 @@ import event from '~/utils/event'
 import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
-@connect(store => ({
-  user: store.user.info
-}))
+@inject('user')
+@observer
 @flowStore
 @flowEvent
 class ChatList extends Component {
@@ -45,7 +44,7 @@ class ChatList extends Component {
   render () {
     const { user } = this.props
     const { flow_result } = this.state
-    if (!user || !flow_result.length) {
+    if (!user.isLogin || !flow_result.length) {
       return
     }
 
@@ -64,7 +63,7 @@ class ChatList extends Component {
                 id={`chat-${item.id}`}
                 key={item.id}
                 item={item}
-                is_mine={user.slug === item.sender_slug}
+                is_mine={user.info.slug === item.sender_slug}
               />
             ))
           }
