@@ -30,6 +30,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@flowlist/js-core": "^1.4.0",
     "@tarojs/components": "2.2.10",
     "@tarojs/components-qa": "2.2.10",
     "@tarojs/mobx": "^2.2.10",

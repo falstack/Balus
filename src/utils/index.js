@@ -91,6 +91,10 @@ export default {
     }
   },
 
+  getRandId() {
+    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9][Math.random() * 9 | 0]
+  },
+
   throttle(fn, gapTime) {
     if (gapTime === null || gapTime === undefined) {
       gapTime = 1500

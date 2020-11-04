@@ -5,6 +5,7 @@ import PinList from '~/components/FlowList/PinList/index'
 import IdolList from '~/components/FlowList/IdolList/index'
 import TabHeader from '~/components/TabHeader'
 import event from '~/utils/event'
+import utils from '~/utils'
 import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
@@ -39,19 +40,19 @@ class indexPage extends Component {
   getFlowComponent({ title, sort }) {
     switch (title) {
       case '热门': {
-        return <PinList from='index' sort={sort} refresh />
+        return <PinList query={{ sort, from: 'index', rand_id: utils.getRandId() }} />
       }
       case '动态': {
-        return <PinList from='index' sort={sort} refresh autoload />
+        return <PinList query={{ sort, from: 'index', rand_id: utils.getRandId() }} />
       }
       case '最新': {
-        return <PinList from='index' sort={sort} refresh params={{ showTime: true }} />
+        return <PinList query={{ sort, from: 'index', rand_id: utils.getRandId() }} params={{ showTime: true }} />
       }
       case '股市': {
-        return <IdolList from='index' sort={sort} refresh />
+        return <IdolList from='index' sort={sort} />
       }
     }
-    return <PinList from='index' sort={sort} refresh />
+    return <PinList query={{ sort, from: 'index', rand_id: utils.getRandId() }} />
   }
 
   render () {
@@ -77,7 +78,7 @@ class indexPage extends Component {
             onChange={this.handleTabClick}
           >
             {tabs.map(tab => (
-              <SwiperItem key={tab.sort}>
+              <SwiperItem className='scroll-view' key={tab.sort}>
                 {this.getFlowComponent(tab)}
               </SwiperItem>
             ))}
