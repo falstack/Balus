@@ -10,7 +10,7 @@ function PinList(props) {
 
   const params = {
     func: getPins,
-    type: props.query && props.query.sort === 'newest' ? 'lastId' : 'seenIds',
+    type: props.query && props.query.sort === 'newest' ? 'sinceId' : 'seenIds',
     query: props.query,
     uniqueKey: 'slug'
   }
