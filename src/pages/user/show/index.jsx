@@ -7,10 +7,8 @@ import BangumiList from '~/components/FlowList/BangumiList/index'
 import IdolList from '~/components/FlowList/IdolList/index'
 import TabHeader from '~/components/TabHeader'
 import http from '~/utils/http'
-import event from '~/utils/event'
 import navbar from '~/mixin/navbar'
 import pageShare from '~/mixin/pageShare'
-import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
 @navbar
@@ -71,8 +69,6 @@ class UserShow extends Component {
       return
     }
     this.setState({ current })
-    const tab = this.state.tabs[current]
-    event.emit(flowEventKey(`${tab.type}-user-${tab.sort}`, 'switch', this.state.slug))
   }
 
   getFlowComponent(tab) {

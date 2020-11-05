@@ -7,9 +7,7 @@ import BangumiHeader from './header/index'
 import PinList from '~/components/FlowList/PinList/index'
 import IdolList from '~/components/FlowList/IdolList/index'
 import http from '~/utils/http'
-import event from '~/utils/event'
 import pageShare from '~/mixin/pageShare'
-import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
 @navbar
@@ -90,8 +88,6 @@ class BangumiShow extends Component {
       return
     }
     this.setState({ current })
-    const tab = this.state.tabs[current]
-    event.emit(flowEventKey(`${tab.type}-bangumi-${tab.sort}`, 'switch', this.state.slug))
   }
 
   handleUpdate(data) {

@@ -4,9 +4,7 @@ import Navbar from '~/components/Navbar/text'
 import PinList from '~/components/FlowList/PinList/index'
 import IdolList from '~/components/FlowList/IdolList/index'
 import TabHeader from '~/components/TabHeader'
-import event from '~/utils/event'
 import utils from '~/utils'
-import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
 class indexPage extends Component {
@@ -33,8 +31,6 @@ class indexPage extends Component {
       return
     }
     this.setState({ current })
-    const tab = this.state.tabs[current]
-    event.emit(flowEventKey(`${tab.type}-index-${tab.sort}`, 'switch', ''))
   }
 
   getFlowComponent({ title, sort }) {
@@ -49,7 +45,7 @@ class indexPage extends Component {
         return <PinList query={{ sort, from: 'index', rand_id: utils.getRandId() }} params={{ showTime: true }} />
       }
       case '股市': {
-        return <IdolList from='index' sort={sort} />
+        return <IdolList query={{ sort, from: 'index' }} />
       }
     }
     return <PinList query={{ sort, from: 'index', rand_id: utils.getRandId() }} />

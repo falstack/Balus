@@ -1,52 +1,22 @@
-import Taro, { Component } from '@tarojs/taro'
-import flowEvent from '~/mixin/flowEvent'
-import flowStore from '~/mixin/flowStore'
-import FlowLoader from '~/components/FlowLoader'
-import './index.scss'
+import { createStore, createComponent } from '@flowlist/taro2-react-mobx'
+import ListView from '~/components/ListView/index'
+import { getUnreadUserFollowList } from '~/utils/api'
 
-@flowStore
-@flowEvent
-class UnreadUserFollowList extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      ...(this.state || {}),
-      flowNamespace: 'unread',
-      flowReq: {
-        url: 'message/message_user_follow',
-        type: 'lastId'
-      }
-    }
+function UnreadUserFollowList(props) {
+  const store = createStore()
+
+  const { state } = store
+
+  const params = {
+    func: getUnreadUserFollowList,
+    type: 'sinceId'
   }
 
-  componentWillMount () { }
-
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
-
-  render () {
-    return (
-      <FlowLoader
-        launch
-        flow={this.state}
-        slug={this.props.slug}
-        namespace={this.state.flowNamespace}
-      >
-        {this.state.flow_result}
-      </FlowLoader>
-    )
-  }
+  return (
+    <ListView store={store} params={params}>
+      {state.result}
+    </ListView>
+  )
 }
 
-UnreadUserFollowList.defaultProps = {
-  slug: 'user_follow',
-  bottom: true,
-  autoload: true
-}
-
-export default UnreadUserFollowList
+export default createComponent(UnreadUserFollowList)

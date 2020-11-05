@@ -3,7 +3,7 @@ import { View, Text, Image, Navigator } from '@tarojs/components'
 import http from '~/utils/http'
 import utils from '~/utils'
 import navbar from '~/mixin/navbar'
-import BangumiItem from "~/components/FlowItem/BangumiItem"
+import BangumiItem from "~/components/ListItem/BangumiItem"
 import IdolPanel from './panel/IdolPanel'
 import IdolBottom from './bottom/IdolBottom'
 import './index.scss'

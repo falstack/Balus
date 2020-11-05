@@ -1,43 +1,30 @@
-import Taro, { Component } from '@tarojs/taro'
-import flowEvent from '~/mixin/flowEvent'
-import flowStore from '~/mixin/flowStore'
-import FlowLoader from '~/components/FlowLoader'
-import UnreadCommentItem from '~/components/FlowItem/UnreadCommentItem'
-import './index.scss'
+import { createStore, createComponent } from '@flowlist/taro2-react-mobx'
+import ListView from '~/components/ListView/index'
+import UnreadCommentItem from '~/components/ListItem/UnreadCommentItem'
+import { getUnreadCommentList } from '~/utils/api'
 
-@flowStore
-@flowEvent
-class UnreadCommentList extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      ...(this.state || {}),
-      flowNamespace: 'unread',
-      flowReq: {
-        url: 'message/message_pin_comment',
-        type: 'lastId'
+function UnreadCommentList(props) {
+  const store = createStore()
+
+  const { state } = store
+
+  const params = {
+    func: getUnreadCommentList,
+    type: 'sinceId'
+  }
+
+  return (
+    <ListView store={store} params={params}>
+      {
+        state.result.map(item => (
+          <UnreadCommentItem
+            key={item.id}
+            item={item}
+          />
+        ))
       }
-    }
-  }
-
-  render () {
-    return (
-      <FlowLoader
-        launch
-        flow={this.state}
-        slug={this.props.slug}
-        namespace={this.state.flowNamespace}
-      >
-        {this.state.flow_result.map(item => <UnreadCommentItem key={item.id} item={item} />)}
-      </FlowLoader>
-    )
-  }
+    </ListView>
+  )
 }
 
-UnreadCommentList.defaultProps = {
-  slug: 'comment',
-  bottom: true,
-  autoload: true
-}
-
-export default UnreadCommentList
+export default createComponent(UnreadCommentList)

@@ -1,53 +1,22 @@
-import Taro, { Component } from '@tarojs/taro'
-import flowEvent from '~/mixin/flowEvent'
-import flowStore from '~/mixin/flowStore'
-import FlowLoader from '~/components/FlowLoader'
-import UnreadRewardItem from '~/components/FlowItem/UnreadRewardItem'
-import './index.scss'
+import { createStore, createComponent } from '@flowlist/taro2-react-mobx'
+import ListView from '~/components/ListView/index'
+import { getUnreadRewardList } from '~/utils/api'
 
-@flowStore
-@flowEvent
-class UnreadRewardList extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      ...(this.state || {}),
-      flowNamespace: 'unread',
-      flowReq: {
-        url: 'message/message_pin_reward',
-        type: 'lastId'
-      }
-    }
+function UnreadRewardList(props) {
+  const store = createStore()
+
+  const { state } = store
+
+  const params = {
+    func: getUnreadRewardList,
+    type: 'sinceId'
   }
 
-  componentWillMount () { }
-
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
-
-  render () {
-    return (
-      <FlowLoader
-        launch
-        flow={this.state}
-        slug={this.props.slug}
-        namespace={this.state.flowNamespace}
-      >
-        {this.state.flow_result.map(item => <UnreadRewardItem key={item.id} item={item} />)}
-      </FlowLoader>
-    )
-  }
+  return (
+    <ListView store={store} params={params}>
+      {state.result}
+    </ListView>
+  )
 }
 
-UnreadRewardList.defaultProps = {
-  slug: 'reward',
-  bottom: true,
-  autoload: true
-}
-
-export default UnreadRewardList
+export default createComponent(UnreadRewardList)

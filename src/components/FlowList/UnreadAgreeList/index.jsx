@@ -1,53 +1,30 @@
-import Taro, { Component } from '@tarojs/taro'
-import flowEvent from '~/mixin/flowEvent'
-import flowStore from '~/mixin/flowStore'
-import FlowLoader from '~/components/FlowLoader'
-import UnreadAgreeItem from '~/components/FlowItem/UnreadAgreeItem'
-import './index.scss'
+import { createStore, createComponent } from '@flowlist/taro2-react-mobx'
+import ListView from '~/components/ListView/index'
+import UnreadAgreeItem from '~/components/ListItem/UnreadAgreeItem'
+import { getUnreadAgreeList } from '~/utils/api'
 
-@flowStore
-@flowEvent
-class UnreadAgreeList extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      ...(this.state || {}),
-      flowNamespace: 'unread',
-      flowReq: {
-        url: 'message/message_agree',
-        type: 'page'
+function UnreadAgreeList(props) {
+  const store = createStore()
+
+  const { state } = store
+
+  const params = {
+    func: getUnreadAgreeList,
+    type: 'page'
+  }
+
+  return (
+    <ListView store={store} params={params}>
+      {
+        state.result.map(item => (
+          <UnreadAgreeItem
+            key={item.type + '-' + item.id + '-' + item.user.id}
+            item={item}
+          />
+        ))
       }
-    }
-  }
-
-  componentWillMount () { }
-
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
-
-  render () {
-    return (
-      <FlowLoader
-        launch
-        flow={this.state}
-        slug={this.props.slug}
-        namespace={this.state.flowNamespace}
-      >
-        {this.state.flow_result.map(item => <UnreadAgreeItem key={item.type + '-' + item.id + '-' + item.user.id} item={item} />)}
-      </FlowLoader>
-    )
-  }
+    </ListView>
+  )
 }
 
-UnreadAgreeList.defaultProps = {
-  slug: 'agree',
-  bottom: true,
-  autoload: true
-}
-
-export default UnreadAgreeList
+export default createComponent(UnreadAgreeList)

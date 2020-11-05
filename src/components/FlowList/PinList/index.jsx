@@ -1,6 +1,6 @@
 import { createStore, createComponent } from '@flowlist/taro2-react-mobx'
 import ListView from '~/components/ListView/index'
-import FlowPinItem from '~/components/FlowItem/PinItem'
+import FlowPinItem from '~/components/ListItem/PinItem'
 import { getPins } from '~/utils/api'
 
 function PinList(props) {

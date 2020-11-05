@@ -1,63 +1,33 @@
-import Taro, { Component } from '@tarojs/taro'
-import flowEvent from '~/mixin/flowEvent'
-import flowStore from '~/mixin/flowStore'
-import FlowLoader from '~/components/FlowLoader'
-import IdolItem from '~/components/FlowItem/IdolItem'
-import './index.scss'
+import { createStore, createComponent } from '@flowlist/taro2-react-mobx'
+import ListView from '~/components/ListView/index'
+import IdolItem from '~/components/ListItem/IdolItem'
+import { getIdols } from '~/utils/api'
 
-@flowStore
-@flowEvent
-class IdolList extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      ...(this.state || {}),
-      flowNamespace: `idol-${props.from}-${props.sort}`,
-      flowReq: {
-        url: `flow/idol/${props.sort}`,
-        type: props.sort === 'newest' ? 'lastId' : 'seenIds',
-        query: {
-          slug: props.slug,
-          from: props.from
-        }
+function IdolList(props) {
+  const store = createStore()
+
+  const { state } = store
+
+  const params = {
+    func: getIdols,
+    type: props.query && props.query.sort === 'newest' ? 'sinceId' : 'seenIds',
+    query: props.query,
+    uniqueKey: 'slug'
+  }
+
+  return (
+    <ListView store={store} params={params}>
+      {
+        state.result.map(item => (
+          <IdolItem
+            key={item.slug}
+            item={item}
+            params={props.params}
+          />
+        ))
       }
-    }
-  }
-
-  render () {
-    return (
-      <FlowLoader
-        launch
-        flow={this.state}
-        slug={this.props.slug}
-        refresh={this.props.refresh}
-        scrollY={this.props.scrollY}
-        namespace={this.state.flowNamespace}
-      >
-        {
-          this.state.flow_result.map(item => (
-            <IdolItem
-              key={item.slug}
-              item={item}
-              params={this.props.params}
-            />
-          ))
-        }
-      </FlowLoader>
-    )
-  }
+    </ListView>
+  )
 }
 
-IdolList.defaultProps = {
-  slug: '',
-  from: '',
-  sort: '',
-  params: {},
-  switch: true,
-  bottom: true,
-  scrollY: true,
-  refresh: false,
-  autoload: false
-}
-
-export default IdolList
+export default createComponent(IdolList)

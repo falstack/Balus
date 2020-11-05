@@ -1,17 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
 import { inject, observer } from '@tarojs/mobx'
-import flowEvent from '~/mixin/flowEvent'
-import flowStore from '~/mixin/flowStore'
-import ChatItem from '~/components/FlowItem/ChatItem'
-import event from '~/utils/event'
-import { flowEventKey } from '~/utils/flow'
+import ChatItem from '~/components/ListItem/ChatItem'
 import './index.scss'
 
 @inject('user')
 @observer
-@flowStore
-@flowEvent
 class ChatList extends Component {
   constructor (props) {
     super(props)
@@ -32,13 +26,6 @@ class ChatList extends Component {
 
   static options = {
     addGlobalClass: true
-  }
-
-  handleTop() {
-    if (this.state.flow_noMore) {
-      return
-    }
-    event.emit(flowEventKey(this.state.flowNamespace, 'top', this.props.slug))
   }
 
   render () {
