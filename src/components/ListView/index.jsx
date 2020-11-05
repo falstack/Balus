@@ -1,41 +1,25 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, { PureComponent } from '@tarojs/taro'
 import { View, Image, Block } from '@tarojs/components'
-import { observer } from '@tarojs/mobx'
+import { didMount, didUnmount, defaultProps, convertProps } from '@flowlist/taro2-react-mobx'
 import Loading from '~/image/loading.gif'
 import Nothing from '~/image/page_nothing.png'
 import Error from '~/image/page_error.png'
 import './index.scss'
 
-@observer
-class ListView extends Component {
+class ListView extends PureComponent {
   componentDidMount () {
-    this.ob = Taro.createIntersectionObserver(this.$scope, {
-      thresholds: [0]
-    })
-
-    this.ob.relativeToViewport({ bottom: 0 }).observe('.list-view__shim', (e) => {
-      if (e.intersectionRatio <= 0) {
-        return
-      }
-      if (this.props.store.state && this.props.store.state.fetched) {
-        this.props.store.loadMore(this.props.params)
-      } else {
-        this.props.store.initData(this.props.params)
-      }
+    didMount(this, {
+      className: 'list-view__shim'
     })
   }
 
   componentWillUnmount () {
-    this.ob && this.ob.disconnect()
+    didUnmount(this)
   }
 
   render () {
-    const { launch, displayNothing, store } = this.props
-    const { state: { loading, nothing, noMore, fetched, error, total } } = store
-
-    const showError = error && launch && !total
-    const showNoMore = noMore && this.props.displayNoMore
-    const showLaunch = loading && launch && !fetched
+    const { launch, displayNothing } = this.props
+    const { showError, showNoMore, showLaunch, showNothing, state } = convertProps(this)
 
     return (
       <View className='list-view'>
@@ -44,7 +28,7 @@ class ListView extends Component {
             <View className='list-view__state'>
               <Image className='list-view__img' mode='aspectFit' src={Loading} />
             </View>
-          ) : nothing ? (
+          ) : showNothing ? (
             <View className='list-view__state'>
               {
                 launch && <Image className='list-view__img' mode='aspectFit' src={Nothing} />
@@ -56,7 +40,7 @@ class ListView extends Component {
           ) : showError ? (
             <View className='list-view__state'>
               <Image className='list-view__img' mode='aspectFit' src={Error} />
-              <View className='list-view__txt'>{ error.message || '网络错误' }</View>
+              <View className='list-view__txt'>{ state.error.message || '网络错误' }</View>
             </View>
           ) : <Block>
             {this.props.children}
@@ -71,13 +55,6 @@ class ListView extends Component {
   }
 }
 
-ListView.defaultProps = {
-  launch: true,
-  displayNoMore: false,
-  store: {
-    state: {}
-  },
-  params: {}
-}
+ListView.defaultProps = defaultProps
 
 export default ListView

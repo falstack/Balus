@@ -1,4 +1,4 @@
-import { createStore, createComponent } from './store'
+import { createStore, createComponent } from '@flowlist/taro2-react-mobx'
 import ListView from '~/components/ListView/index'
 import FlowPinItem from '~/components/FlowItem/PinItem'
 import { getPins } from '~/utils/api'
@@ -8,12 +8,15 @@ function PinList(props) {
 
   const { state } = store
 
+  const params = {
+    func: getPins,
+    type: props.query && props.query.sort === 'newest' ? 'lastId' : 'seenIds',
+    query: props.query,
+    uniqueKey: 'slug'
+  }
+
   return (
-    <ListView store={store} params={{
-      func: getPins,
-      type: props.query && props.query.sort === 'newest' ? 'lastId' : 'seenIds',
-      query: props.query
-    }}>
+    <ListView store={store} params={params}>
       {
         state.result.map(item => (
           <FlowPinItem

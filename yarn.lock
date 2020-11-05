@@ -1958,6 +1958,16 @@
   resolved "https://registry.yarnpkg.com/@flowlist/js-core/-/js-core-1.4.0.tgz#163b652dad5d4d4a8bd840422e2098f0a2a84f18"
   integrity sha512-Bb0PVWmxrtezD6jgwhBxSUShVK4lRWmgCmPC0zIN1LG1/waDBlcc2OnHRxlFXT+iwsAvFoePieiTWtgWoifVjw==
 
+"@flowlist/taro2-react-mobx@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@flowlist/taro2-react-mobx/-/taro2-react-mobx-0.0.5.tgz#9b3a4df501160fa15d82d904a8e64a7d9125dbb3"
+  integrity sha512-NqeX/4jQ2oC4wn0fUwNUcbZSm3WE8/kGBRHzBJI/LVNn1jf6nTQaLKEjkw3vCNNabwBC9uEBqXInmWUG/2e7iA==
+  dependencies:
+    "@flowlist/js-core" "^1.4.0"
+    "@tarojs/components" "2.2.15"
+    "@tarojs/mobx" "^2.2.10"
+    "@tarojs/taro" "2.2.15"
+
 "@hapi/address@^4.0.1":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-4.1.0.tgz#d60c5c0d930e77456fdcde2598e77302e2955e1d"
@@ -2043,6 +2053,18 @@
   version "2.2.10"
   resolved "https://registry.yarnpkg.com/@tarojs/components/-/components-2.2.10.tgz#626bbd5437137aa87aae66b49bddd6a5afeda44c"
   integrity sha512-PZuQueg23BT3si9JrR451HKaTOanft0C5OGEQHNw8Eym0NV4m9C52bUbuQUu01V6roS6uM4PcvV+Is6R+NikZQ==
+  dependencies:
+    classnames "^2.2.5"
+    intersection-observer "^0.7.0"
+    omit.js "^1.0.0"
+    resolve-pathname "^3.0.0"
+    swiper "4.4.2"
+    weui "^1.1.2"
+
+"@tarojs/components@2.2.15":
+  version "2.2.15"
+  resolved "https://registry.yarnpkg.com/@tarojs/components/-/components-2.2.15.tgz#d4c9f6836a438b8d9648a56faa2de9b173721e06"
+  integrity sha512-1OeXqjs0BYXVIoS2952TcdVmNY4PSMV51I/sXX2eTWNdY8GLrVUiaszHYEcQ90LWOiI+vWsLMM5si6FP7x4zog==
   dependencies:
     classnames "^2.2.5"
     intersection-observer "^0.7.0"
