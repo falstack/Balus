@@ -3,6 +3,8 @@ import ListView from '~/components/ListView/index'
 import UserEmailItem from '~/components/ListItem/UserEmailItem'
 import { getMessageMenu } from '~/utils/api'
 
+// TODO：事件监听
+// TODO：reload 组件 show 的时候，刷新数据
 function MessageMenu() {
   const store = createStore()
 

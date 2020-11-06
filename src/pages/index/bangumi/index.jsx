@@ -46,7 +46,7 @@ class BangumiRank extends Component {
         </View>
         <View className='flex-grow-1'>
           <View className='scroll-wrap'>
-            <BangumiList from='hot' sort='hottest' autoload />
+            <BangumiList query={{ from: 'hot', sort: 'hottest' }} />
           </View>
         </View>
       </View>

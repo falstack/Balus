@@ -4,6 +4,7 @@ import { inject, observer } from '@tarojs/mobx'
 import ChatItem from '~/components/ListItem/ChatItem'
 import './index.scss'
 
+// TODO：向上加载
 @inject('user')
 @observer
 class ChatList extends Component {
