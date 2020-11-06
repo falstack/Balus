@@ -72,32 +72,34 @@ class UserShow extends Component {
   }
 
   getFlowComponent(tab) {
-    const { slug, scrollActive } = this.state
+    const { slug } = this.state
     switch (tab.type) {
       case 'pin': {
         return <PinList
-          scrollY={scrollActive}
-          sort={tab.sort}
-          from='user'
-          slug={slug}
+          query={{
+            slug: slug,
+            from: 'user',
+            sort: tab.sort
+          }}
           params={{ showUser: false, showTime: true }}
-          autoload
         />
       }
       case 'bangumi': {
         return <BangumiList
-          scrollY={scrollActive}
-          sort={tab.sort}
-          from='user'
-          slug={slug}
+          query={{
+            slug: slug,
+            from: 'user',
+            sort: tab.srt
+          }}
         />
       }
       case 'idol': {
         return <IdolList
-          scrollY={scrollActive}
-          sort={tab.sort}
-          from='user'
-          slug={slug}
+          query={{
+            slug: slug,
+            from: 'user',
+            sort: tab.srt
+          }}
           params={{ showUser: false }}
         />
       }

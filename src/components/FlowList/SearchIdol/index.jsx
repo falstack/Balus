@@ -3,7 +3,7 @@ import ListView from '~/components/ListView/index'
 import IdolItem from '~/components/ListItem/IdolItem'
 import { getSearchList } from '~/utils/api'
 
-function SearchIdolList() {
+function SearchIdolList(props) {
   const store = createStore()
 
   const { state } = store
@@ -12,7 +12,8 @@ function SearchIdolList() {
     func: getSearchList,
     type: 'page',
     query: {
-      type: 'idol'
+      type: 'idol',
+      q: props.keyword
     }
   }
 

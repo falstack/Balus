@@ -3,7 +3,7 @@ import ListView from '~/components/ListView/index'
 import BangumiItem from '~/components/ListItem/BangumiItem'
 import { getSearchList } from '~/utils/api'
 
-function SearchBangumiList() {
+function SearchBangumiList(props) {
   const store = createStore()
 
   const { state } = store
@@ -12,7 +12,8 @@ function SearchBangumiList() {
     func: getSearchList,
     type: 'page',
     query: {
-      type: 'bangumi'
+      type: 'bangumi',
+      q: props.keyword
     }
   }
 

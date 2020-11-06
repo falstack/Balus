@@ -4,7 +4,6 @@ import ChatList from '~/components/FlowList/ChatList'
 import http from '~/utils/http'
 import event from '~/utils/event'
 import toast from '~/utils/toast'
-import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
 export default class extends Component {
@@ -22,9 +21,10 @@ export default class extends Component {
 
   componentDidMount() {
     const { channel } = this.$router.params
-    event.on(`socket-${channel}`, data => {
-      event.emit(flowEventKey('message-room', 'append', channel), data)
-    })
+    // TODO：append channel
+    // event.on(`socket-${channel}`, data => {
+    //   event.emit(flowEventKey('message-room', 'append', channel), data)
+    // })
     this.updateMessageMenu(channel)
   }
 
@@ -66,7 +66,8 @@ export default class extends Component {
           value: '',
           loading: false
         })
-        event.emit(flowEventKey('message-room', 'append', channel), msg)
+        // TODO：append message
+        // event.emit(flowEventKey('message-room', 'append', channel), msg)
       })
       .catch((err) => {
         toast.info(err.message)

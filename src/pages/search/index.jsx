@@ -3,10 +3,8 @@ import { View, Text, Swiper, Input, SwiperItem } from '@tarojs/components'
 import TabHeader from '~/components/TabHeader'
 import SearchBangumi from '~/components/FlowList/SearchBangumi/index'
 import SearchIdol from '~/components/FlowList/SearchIdol/index'
-import event from '~/utils/event'
 import utils from '~/utils'
 import classNames from 'classnames'
-import { flowEventKey } from '~/utils/flow'
 import './index.scss'
 
 class SearchShow extends Component {
@@ -44,26 +42,16 @@ class SearchShow extends Component {
 
   handleSearchAction(evt) {
     const { value } = evt.detail
-    const { tabs, current } = this.state
     this.setState({
       showPanel: !value
     })
-    tabs.forEach(tab => {
-      event.emit(flowEventKey('search', 'clear', tab.type))
-    })
-    if (value) {
-      event.emit(flowEventKey('search', 'switch', tabs[current].type), {
-        q: value
-      })
-    }
+    // TODO：reset listView
+    // TODO：search listView
   }
 
   handleSubmit(e) {
     const value = e.detail.value
-    const { tabs } = this.state
-    tabs.forEach(tab => {
-      event.emit(flowEventKey('search', 'clear', tab.type))
-    })
+    // TODO：reset listView
     this.setState({
       value,
       current: 0,
@@ -73,7 +61,6 @@ class SearchShow extends Component {
         return
       }
       this.setState({ value })
-      event.emit(flowEventKey('search', 'switch', tabs[0].type), { q: value })
     })
   }
 
@@ -85,20 +72,16 @@ class SearchShow extends Component {
     this.setState({
       current
     })
-    if (!this.state.value) {
-      return
-    }
-    event.emit(flowEventKey('search', 'switch', this.state.tabs[current].type), { q: this.state.value })
   }
 
   getFlowComponent({ type }) {
     const { value } = this.state
     switch (type) {
       case 'bangumi': {
-        return <SearchBangumi slug={type} keyword={value} />
+        return <SearchBangumi keyword={value} />
       }
       case 'idol': {
-        return <SearchIdol slug={type} keyword={value} />
+        return <SearchIdol keyword={value} />
       }
     }
   }
@@ -128,11 +111,10 @@ class SearchShow extends Component {
           <Text className='cancel' onClick={() => {utils.back()}}>取消</Text>
         </View>
         {
-          showPanel ? <View
+          showPanel && <View
             className='history-wrap'
             style={`top:${menuRect.header}px`}
-          >
-          </View> : ''
+          />
         }
         <View className={classNames('flex-shrink-0', { showPanel: 'panel-hidden' })}>
           <TabHeader
@@ -151,7 +133,7 @@ class SearchShow extends Component {
             onChange={this.handleTabClick}
           >
             {tabs.map(tab => (
-              <SwiperItem key={tab.type}>
+              <SwiperItem className='scroll-view' key={tab.type}>
                 {this.getFlowComponent(tab)}
               </SwiperItem>
             ))}

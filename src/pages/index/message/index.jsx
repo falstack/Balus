@@ -85,7 +85,8 @@ class MessageEntry extends Component {
       type: 'unread_chat_message'
     })
       .then(() => {
-        this.refs.menu.refresh()
+        // TODO：refresh
+        // this.refs.menu.refresh()
       })
   }
 

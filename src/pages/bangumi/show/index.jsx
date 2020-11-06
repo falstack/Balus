@@ -101,24 +101,25 @@ class BangumiShow extends Component {
   }
 
   getFlowComponent(tab) {
-    const { slug, scrollActive } = this.state
+    const { slug } = this.state
     switch (tab.type) {
       case 'pin': {
         return <PinList
-          scrollY={scrollActive}
-          sort={tab.sort}
-          from='bangumi'
-          slug={slug}
+          query={{
+            from: 'bangumi',
+            slug: slug,
+            sort: tab.sort
+          }}
           params={{ showBangumi: false }}
-          autoload
         />
       }
       case 'idol': {
         return <IdolList
-          scrollY={scrollActive}
-          sort={tab.sort}
-          from='bangumi'
-          slug={slug}
+          query={{
+            sort: tab.sort,
+            from: 'bangumi',
+            slug: slug
+          }}
           params={{ showBangumi: false }}
         />
       }
