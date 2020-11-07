@@ -1,16 +1,15 @@
 import { observable, action } from 'mobx'
-import { initState, initData, loadMore, updateState } from '@flowlist/js-core'
-import * as api from '~/utils/api'
+import { initState, initData, loadMore, updateState, utils } from '@flowlist/js-core'
 import { setter, getter, cache } from './utils'
 
-class ListStore {
-  @observable state = {}
+export default class ListStore {
+  @observable state = utils.generateDefaultField()
 
   @action.bound
   initData({ func, type, query, uniqueKey, callback, cacheTimeout }) {
     return initData({
       getter: getter(this.state), setter: setter(this.state), cache,
-      api, func, type, query, uniqueKey, callback, cacheTimeout
+      func, type, query, uniqueKey, callback, cacheTimeout
     })
   }
 
@@ -18,7 +17,7 @@ class ListStore {
   loadMore({ type, func, query, uniqueKey, errorRetry, callback, cacheTimeout }) {
     return loadMore({
       getter: getter(this.state), setter: setter(this.state), cache,
-      api, func, type, query, uniqueKey, errorRetry, callback, cacheTimeout
+      func, type, query, uniqueKey, errorRetry, callback, cacheTimeout
     })
   }
 
@@ -38,5 +37,3 @@ class ListStore {
     })
   }
 }
-
-export default new ListStore()

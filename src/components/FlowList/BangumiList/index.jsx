@@ -1,31 +1,39 @@
-import { createStore, createComponent } from '@flowlist/taro2-react-mobx'
+import Taro, { PureComponent } from '@tarojs/taro'
+import { createStore, reactive } from '@flowlist/taro2-react-mobx'
 import ListView from '~/components/ListView/index'
 import BangumiItem from '~/components/ListItem/BangumiItem'
 import { getHotBangumis, getUserLikeBangumis } from '~/utils/api'
 
-function BangumiList(props) {
-  const store = createStore()
-
-  const { state } = store
-
-  const params = {
-    func: props.type === 'user' ? getUserLikeBangumis : getHotBangumis,
-    type: 'page',
-    query: props.query
+@reactive
+export default class extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.store = createStore()
+    this.params = {
+      func: props.type === 'user' ? getUserLikeBangumis : getHotBangumis,
+      type: 'page',
+      query: props.query
+    }
   }
 
-  return (
-    <ListView store={store} params={params}>
-      {
-        state.result.map(item => (
-          <BangumiItem
-            key={item.slug}
-            item={item}
-          />
-        ))
-      }
-    </ListView>
-  )
-}
+  componentWillMount () { }
 
-export default createComponent(BangumiList)
+  componentWillUnmount () { }
+
+  render () {
+    const { store, store: { state } } = this
+
+    return (
+      <ListView store={store} params={this.params}>
+        {
+          state.result.map(item => (
+            <BangumiItem
+              key={item.slug}
+              item={item}
+            />
+          ))
+        }
+      </ListView>
+    )
+  }
+}

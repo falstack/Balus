@@ -1,22 +1,32 @@
-import { createStore, createComponent } from '@flowlist/taro2-react-mobx'
+import Taro, { PureComponent } from '@tarojs/taro'
+import { createStore, reactive } from '@flowlist/taro2-react-mobx'
 import ListView from '~/components/ListView/index'
 import { getUnreadRewardList } from '~/utils/api'
 
-function UnreadRewardList(props) {
-  const store = createStore()
-
-  const { state } = store
-
-  const params = {
-    func: getUnreadRewardList,
-    type: 'sinceId'
+@reactive
+export default class extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.store = createStore()
+    this.params = {
+      func: getUnreadRewardList,
+      type: 'sinceId'
+    }
   }
 
-  return (
-    <ListView store={store} params={params}>
-      {state.result}
-    </ListView>
-  )
-}
+  componentWillMount () { }
 
-export default createComponent(UnreadRewardList)
+  componentWillUnmount () { }
+
+  render () {
+    const { store, store: { state } } = this
+
+    return (
+      <ListView store={store} params={this.params}>
+        {
+          state.result
+        }
+      </ListView>
+    )
+  }
+}

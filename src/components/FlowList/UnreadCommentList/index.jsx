@@ -1,30 +1,40 @@
-import { createStore, createComponent } from '@flowlist/taro2-react-mobx'
+import Taro, { PureComponent } from '@tarojs/taro'
+import { createStore, reactive } from '@flowlist/taro2-react-mobx'
 import ListView from '~/components/ListView/index'
 import UnreadCommentItem from '~/components/ListItem/UnreadCommentItem'
 import { getUnreadCommentList } from '~/utils/api'
 
-function UnreadCommentList(props) {
-  const store = createStore()
-
-  const { state } = store
-
-  const params = {
-    func: getUnreadCommentList,
-    type: 'sinceId'
+@reactive
+export default class extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.store = createStore()
+    this.params = {
+      func: getUnreadCommentList,
+      type: 'sinceId'
+    }
   }
 
-  return (
-    <ListView store={store} params={params}>
-      {
-        state.result.map(item => (
-          <UnreadCommentItem
-            key={item.id}
-            item={item}
-          />
-        ))
-      }
-    </ListView>
-  )
-}
+  componentWillMount () { }
 
-export default createComponent(UnreadCommentList)
+  componentDidMount () { }
+
+  componentWillUnmount () { }
+
+  render () {
+    const { store, store: { state } } = this
+
+    return (
+      <ListView store={store} params={this.params}>
+        {
+          state.result.map(item => (
+            <UnreadCommentItem
+              key={item.id}
+              item={item}
+            />
+          ))
+        }
+      </ListView>
+    )
+  }
+}

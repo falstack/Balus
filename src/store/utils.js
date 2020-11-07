@@ -1,13 +1,13 @@
 import cacheManager from '~/utils/cache'
 
-export const getter = state => name => state[name]
+export const getter = state => () => state
 
-export const setter = state => ({ key, type, value, callback }) => {
+export const setter = state => ({ type, value, callback }) => {
   if (type === 0) {
-    state[key] = value
+    state = value
   } else if (type === 1) {
-    state[key] = {
-      ...(state[key] || {}),
+    state = {
+      ...(state || {}),
       ...value
     }
   }
