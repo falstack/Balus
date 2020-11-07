@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Swiper, Input, SwiperItem } from '@tarojs/components'
 import TabHeader from '~/components/TabHeader'
-import SearchBangumi from '~/components/FlowList/SearchBangumi/index'
-import SearchIdol from '~/components/FlowList/SearchIdol/index'
+import SearchBangumi from '~/components/FlowList/SearchBangumi'
+import SearchIdol from '~/components/FlowList/SearchIdol'
 import utils from '~/utils'
 import classNames from 'classnames'
 import './index.scss'
@@ -35,7 +35,7 @@ class SearchShow extends Component {
   onShareAppMessage() {
     return {
       title: '咔哩吧 - 你开心就好',
-      path: '/pages/index/index',
+      path: '/pages/index',
       imageUrl: 'https://m1.calibur.tv/default-poster?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400'
     }
   }

@@ -1,6 +1,6 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { createStore, reactive } from '@flowlist/taro2-react-mobx'
-import ListView from '~/components/ListView/index'
+import ListView from '~/components/ListView'
 import IdolItem from '~/components/ListItem/IdolItem'
 import { getIdols } from '~/utils/api'
 
@@ -22,16 +22,14 @@ export default class extends PureComponent {
   componentWillUnmount () { }
 
   render () {
-    const { store, store: { state } } = this
-
     return (
-      <ListView store={store} params={this.params}>
+      <ListView store={this.store} params={this.params}>
         {
-          state.result.map(item => (
+          this.store.state.result.map(item => (
             <IdolItem
               key={item.slug}
               item={item}
-              params={props.params}
+              params={this.props.params}
             />
           ))
         }

@@ -17,7 +17,7 @@ class IndexSearch extends Component {
 
   handleSearchClick () {
     Taro.navigateTo({
-      url: '/pages/search/index',
+      url: '/pages/search',
     })
   }
 
@@ -29,7 +29,7 @@ class IndexSearch extends Component {
       })
     } else {
       Taro.switchTab({
-        url: '/pages/user/home/index',
+        url: '/pages/user/home',
       })
     }
   }

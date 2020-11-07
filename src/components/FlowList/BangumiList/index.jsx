@@ -1,6 +1,6 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { createStore, reactive } from '@flowlist/taro2-react-mobx'
-import ListView from '~/components/ListView/index'
+import ListView from '~/components/ListView'
 import BangumiItem from '~/components/ListItem/BangumiItem'
 import { getHotBangumis, getUserLikeBangumis } from '~/utils/api'
 

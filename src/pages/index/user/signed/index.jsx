@@ -33,7 +33,7 @@ export default class extends Component {
   userLogout() {
     this.props.user.delUserSign()
     Taro.reLaunch({
-      url: '/pages/index/index'
+      url: '/pages/index'
     })
   }
 

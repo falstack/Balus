@@ -48,7 +48,7 @@ export default class extends Component {
     //   })
     //   return
     // }
-    // utils.back('/pages/user/home/index')
+    // utils.back('/pages/user/home')
     this.props.user.getUserInfo()
   }
 

@@ -2,9 +2,9 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
 import Navbar from '~/components/Navbar/bg'
 import UserPanel from './panel/UserPanel'
-import PinList from '~/components/FlowList/PinList/index'
-import BangumiList from '~/components/FlowList/BangumiList/index'
-import IdolList from '~/components/FlowList/IdolList/index'
+import PinList from '~/components/FlowList/PinList'
+import BangumiList from '~/components/FlowList/BangumiList'
+import IdolList from '~/components/FlowList/IdolList'
 import TabHeader from '~/components/TabHeader'
 import http from '~/utils/http'
 import navbar from '~/mixin/navbar'
@@ -89,7 +89,7 @@ class UserShow extends Component {
           query={{
             slug: slug,
             from: 'user',
-            sort: tab.srt
+            sort: tab.sort
           }}
         />
       }
@@ -98,7 +98,7 @@ class UserShow extends Component {
           query={{
             slug: slug,
             from: 'user',
-            sort: tab.srt
+            sort: tab.sort
           }}
           params={{ showUser: false }}
         />

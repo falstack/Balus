@@ -15,7 +15,7 @@ export default class extends Component {
     this.state = {
       shareData: {
         title: '咔哩吧 - 你开心就好',
-        path: '/pages/index/index',
+        path: '/pages/index',
         imageUrl: 'https://m1.calibur.tv/default-poster?imageMogr2/auto-orient/strip|imageView2/1/w/500/h/400'
       }
     }
