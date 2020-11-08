@@ -1,6 +1,7 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { createStore, reactive } from '@flowlist/taro2-react-mobx'
 import ListView from '~/components/ListView'
+import UnreadRewardItem from '~/components/ListItem/UnreadRewardItem'
 import { getUnreadRewardList } from '~/utils/api'
 
 @reactive
@@ -19,12 +20,15 @@ export default class extends PureComponent {
   componentWillUnmount () { }
 
   render () {
-    const { store, store: { state } } = this
-
     return (
-      <ListView store={store} params={this.params}>
+      <ListView store={this.store} params={this.params}>
         {
-          state.result
+          this.store.state.result.map(item => (
+            <UnreadRewardItem
+              key={item.id}
+              item={item}
+            />
+          ))
         }
       </ListView>
     )

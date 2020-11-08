@@ -46,21 +46,21 @@ class MessageEntry extends Component {
     addGlobalClass: true
   }
 
-  componentWillMount() {
-    event.on('socket-unread_total', data => {
-      this.setState(data)
-    })
+  componentDidMount() {
+    event.on('socket-unread_total', this.setUnreadTotal.bind(this))
+    event.on('TAB_SWITCH', this.getUnreadData.bind(this))
   }
 
   componentWillUnmount() {
-    event.off('socket-unread_total')
+    event.off('socket-unread_total', this.setUnreadTotal.bind(this))
+    event.off('TAB_SWITCH', this.getUnreadData.bind(this))
   }
 
-  componentDidShow() {
-    this.getUnreadData()
+  setUnreadTotal = (data) => {
+    this.setState(data)
   }
 
-  getUnreadData() {
+  getUnreadData = () => {
     http.get('message/total')
       .then(res => {
         this.setState(res)
@@ -85,8 +85,7 @@ class MessageEntry extends Component {
       type: 'unread_chat_message'
     })
       .then(() => {
-        // TODO：refresh
-        // this.refs.menu.refresh()
+        event.emit('REFRESH_MESSAGE_MENU')
       })
   }
 
@@ -111,7 +110,7 @@ class MessageEntry extends Component {
                   <Image src={item.icon} />
                   <Text>{item.name}</Text>
                   {
-                    count ? <View>{count}</View> : ''
+                    count && <View>{count}</View>
                   }
                 </View>
               )

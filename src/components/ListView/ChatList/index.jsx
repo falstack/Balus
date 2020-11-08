@@ -3,6 +3,7 @@ import { createStore, reactive } from '@flowlist/taro2-react-mobx'
 import { inject } from '@tarojs/mobx'
 import ListView from '~/components/ListView'
 import ChatItem from '~/components/ListItem/ChatItem'
+import event from '~/utils/event'
 import { getChatList } from '~/utils/api'
 import './index.scss'
 
@@ -21,11 +22,21 @@ export default class extends PureComponent {
     }
   }
 
-  componentWillMount () { }
+  componentDidMount () {
+    event.on('CHAT_LIST_UPDATE', this.watchMessage.bind(this))
+  }
 
-  componentDidMount () { }
+  componentWillUnmount () {
+    event.off('CHAT_LIST_UPDATE', this.watchMessage.bind(this))
+  }
 
-  componentWillUnmount () { }
+  watchMessage = (value) => {
+    this.store.updateState({
+      ...this.params,
+      method: 'push',
+      value
+    })
+  }
 
   render () {
     const { user } = this.props

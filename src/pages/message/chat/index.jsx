@@ -21,10 +21,9 @@ export default class extends Component {
 
   componentDidMount() {
     const { channel } = this.$router.params
-    // TODO：append channel
-    // event.on(`socket-${channel}`, data => {
-    //   event.emit(flowEventKey('message-room', 'append', channel), data)
-    // })
+    event.on(`socket-${channel}`, msg => {
+      event.emit('CHAT_LIST_UPDATE', msg)
+    })
     this.updateMessageMenu(channel)
   }
 
@@ -66,8 +65,7 @@ export default class extends Component {
           value: '',
           loading: false
         })
-        // TODO：append message
-        // event.emit(flowEventKey('message-room', 'append', channel), msg)
+        event.emit('CHAT_LIST_UPDATE', msg)
       })
       .catch((err) => {
         toast.info(err.message)
@@ -98,6 +96,7 @@ export default class extends Component {
               value={value}
               disabled={loading}
               confirmHold
+              adjustPosition
               type='text'
               placeholder='输入新消息'
               confirmType='send'

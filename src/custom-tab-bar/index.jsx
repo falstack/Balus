@@ -31,10 +31,6 @@ class CustomBar extends Component {
     event.off('TAB_BAR_2_CHANGE')
   }
 
-  componentDidShow() {
-    this._updateTabCount(2)
-  }
-
   _updateTabCount(index) {
     const key = `tab_${index}_count`
     this.setState({

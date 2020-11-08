@@ -44,9 +44,7 @@ class UnreadRewardItem extends PureComponent {
         </View>
         <View className='body' onClick={this.clickBody.bind(this)}>
           {
-            item.pin.banner.length
-              ? <Image className='banner' src={utils.resize(item.pin.banner[0], { width: 100, height: 80 })} />
-              : ''
+            item.pin.banner.length && <Image className='banner' src={utils.resize(item.pin.banner[0], { width: 100, height: 80 })} />
           }
           <View className='text-wrap'>
             <View className='content'>{item.pin.title.text}</View>
@@ -69,6 +67,7 @@ UnreadRewardItem.defaultProps = {
   item: {
     user: {},
     pin: {
+      title: {},
       banner: []
     }
   }
