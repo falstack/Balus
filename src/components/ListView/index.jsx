@@ -41,7 +41,7 @@ class ListView extends PureComponent {
         scrollY={!this.props.scrollX}
         scrollAnchoring
         enhanced
-        showScrollbar={false}
+        show-scrollbar={false}
         enableBackToTop={this.props.enableBackToTop}
         onScrollToUpper={this.handleTop}
         onScrollToLower={this.handleBottom}
