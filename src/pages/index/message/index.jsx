@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Text } from '@tarojs/components'
 import Navbar from '~/components/Navbar/text'
-import MessageMenu from '~/components/FlowList/MessageMenu'
+import MessageMenu from '~/components/ListView/MessageMenu'
 import rewardIcon from '~/image/icon_reward.png'
 import agreeIcon from '~/image/icon_agree.png'
 import commentIcon from '~/image/icon_comment.png'

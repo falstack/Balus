@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
 import Navbar from '~/components/Navbar/text'
-import PinList from '~/components/FlowList/PinList'
-import IdolList from '~/components/FlowList/IdolList'
+import PinList from '~/components/ListView/PinList'
+import IdolList from '~/components/ListView/IdolList'
 import TabHeader from '~/components/TabHeader'
 import utils from '~/utils'
 import './index.scss'
@@ -74,7 +74,7 @@ class indexPage extends Component {
             onChange={this.handleTabClick}
           >
             {tabs.map(tab => (
-              <SwiperItem className='scroll-view' key={tab.sort}>
+              <SwiperItem key={tab.sort}>
                 {this.getFlowComponent(tab)}
               </SwiperItem>
             ))}

@@ -1,6 +1,6 @@
 import Taro, { PureComponent } from '@tarojs/taro'
-import { View, Image, Block } from '@tarojs/components'
-import { reactive, didMount, didUnmount, defaultProps, convertProps } from '@flowlist/taro2-react-mobx'
+import { ScrollView, View, Image, Block } from '@tarojs/components'
+import { reactive, didMount, didUnmount, defaultProps, convertProps, scrollBottomFn, scrollTopFn } from '@flowlist/taro2-react-mobx'
 import Loading from '~/image/loading.gif'
 import Nothing from '~/image/page_nothing.png'
 import Error from '~/image/page_error.png'
@@ -10,7 +10,8 @@ import './index.scss'
 class ListView extends PureComponent {
   componentDidMount () {
     didMount(this, {
-      className: 'list-view__shim'
+      className: 'list-view__shim',
+      scrollView: true
     })
   }
 
@@ -18,11 +19,33 @@ class ListView extends PureComponent {
     didUnmount(this)
   }
 
+  handleTop = () => {
+    if (this.props.append) {
+      scrollTopFn(this)
+    }
+  }
+
+  handleBottom = () => {
+    if (this.props.bottom) {
+      scrollBottomFn(this)
+    }
+  }
+
   render () {
     const { showError, showNoMore, showLaunch, showNothing, state } = convertProps(this)
 
     return (
-      <View className='list-view'>
+      <ScrollView
+        className='list-view'
+        scrollX={this.props.scrollX}
+        scrollY={!this.props.scrollX}
+        scrollAnchoring
+        enhanced
+        showScrollbar={false}
+        enableBackToTop={this.props.enableBackToTop}
+        onScrollToUpper={this.handleTop}
+        onScrollToLower={this.handleBottom}
+      >
         {
           showLaunch ? (
             <View className='list-view__state'>
@@ -50,7 +73,7 @@ class ListView extends PureComponent {
           </Block>
         }
         <View className='list-view__shim' />
-      </View>
+      </ScrollView>
     )
   }
 }

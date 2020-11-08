@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Swiper, Input, SwiperItem } from '@tarojs/components'
 import TabHeader from '~/components/TabHeader'
-import SearchBangumi from '~/components/FlowList/SearchBangumi'
-import SearchIdol from '~/components/FlowList/SearchIdol'
+import SearchBangumi from '~/components/ListView/SearchBangumi'
+import SearchIdol from '~/components/ListView/SearchIdol'
 import utils from '~/utils'
 import classNames from 'classnames'
 import './index.scss'
@@ -133,7 +133,7 @@ class SearchShow extends Component {
             onChange={this.handleTabClick}
           >
             {tabs.map(tab => (
-              <SwiperItem className='scroll-view' key={tab.type}>
+              <SwiperItem key={tab.type}>
                 {this.getFlowComponent(tab)}
               </SwiperItem>
             ))}

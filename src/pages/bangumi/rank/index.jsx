@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Navigator, ScrollView } from '@tarojs/components'
-import BangumiList from '~/components/FlowList/BangumiList'
+import BangumiList from '~/components/ListView/BangumiList'
 import BangumiTopImage from '~/image/bangumi-top.jpeg'
 import BangumiReleaseImage from '~/image/bangumi-release.jpeg'
 import './index.scss'
@@ -42,9 +42,7 @@ class BangumiRank extends Component {
         </View>
         <View className='flex-grow-1'>
           <View className='scroll-wrap'>
-            <View className='scroll-view'>
-              <BangumiList query={{ from: 'hot', sort: 'hottest' }} />
-            </View>
+            <BangumiList query={{ from: 'hot', sort: 'hottest' }} />
           </View>
         </View>
       </View>

@@ -21,12 +21,10 @@ export default class extends PureComponent {
   componentWillUnmount () { }
 
   render () {
-    const { store, store: { state } } = this
-
     return (
-      <ListView store={store} params={this.params}>
+      <ListView store={this.store} params={this.params}>
         {
-          state.result.map(item => (
+          this.store.state.result.map(item => (
             <BangumiItem
               key={item.slug}
               item={item}

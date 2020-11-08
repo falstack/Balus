@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Input } from '@tarojs/components'
-import ChatList from '~/components/FlowList/ChatList'
+import ChatList from '~/components/ListView/ChatList'
 import http from '~/utils/http'
 import event from '~/utils/event'
 import toast from '~/utils/toast'
@@ -88,7 +88,9 @@ export default class extends Component {
     return (
       <View className='message-chat scroll-page'>
         <View className='flex-grow-1'>
-          <ChatList slug={channel} />
+          <View className='scroll-wrap'>
+            <ChatList slug={channel} />
+          </View>
         </View>
         <View className='flex-shrink-0 input-wrap'>
           <View className='input-box'>

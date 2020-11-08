@@ -1201,17 +1201,17 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@flowlist/js-core@^1.4.0", "@flowlist/js-core@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@flowlist/js-core/-/js-core-1.4.1.tgz#077f5f7dcb49f368b067138c9e6eedaaaa203e20"
-  integrity sha512-/cNzsl8PEzvdYKd7Z/bIpPXs4A3u4T435TRCI0jXmXNl9/oaRqb8LqLHuDgPReLx3MRe4RYrr2z6vu+uuG35qg==
+"@flowlist/js-core@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@flowlist/js-core/-/js-core-1.4.2.tgz#31267328def2eefbbd454c1113ee50eedb89de19"
+  integrity sha512-4fskFCM7t6WwoNPZk91rdOkh+ugr672L3UU+ACkbyhQgNBpJSm66RHCTFC/1Yut/UjapZEAPvvVuBZALufYmWw==
 
-"@flowlist/taro2-react-mobx@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@flowlist/taro2-react-mobx/-/taro2-react-mobx-0.0.7.tgz#89b324a0022521e65fa6dc0753fea7c5ecf2de32"
-  integrity sha512-nrZT05p9pTDl056TK6zbsPlXjoutnMJ7/8JGiLHv6nzVWr5vXpaj7+5m9mf7M8g/6pIpkw2RuAiyjY0WMNNN4g==
+"@flowlist/taro2-react-mobx@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@flowlist/taro2-react-mobx/-/taro2-react-mobx-0.0.10.tgz#087a9372ede8059aff5e5f8694234d8c33a3aa47"
+  integrity sha512-ZQwdz4j5C7EcGOvwpp3uCUu3/m0mLwldHHo7c4eE16+2xrSDG7DwZ5iBHhnkthfn75zk5U41bnJjJYsgDVjPow==
   dependencies:
-    "@flowlist/js-core" "^1.4.0"
+    "@flowlist/js-core" "^1.4.2"
     "@tarojs/components" "2.2.15"
     "@tarojs/mobx" "^2.2.10"
     "@tarojs/taro" "2.2.15"

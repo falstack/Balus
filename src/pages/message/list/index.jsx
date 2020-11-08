@@ -1,9 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import UnreadCommentList from '~/components/FlowList/UnreadCommentList'
-import UnreadAgreeList from '~/components/FlowList/UnreadAgreeList'
-import UnreadRewardList from '~/components/FlowList/UnreadRewardList'
-import UnreadUserFollowList from '~/components/FlowList/UnreadUserFollowList'
+import UnreadCommentList from '~/components/ListView/UnreadCommentList'
+import UnreadAgreeList from '~/components/ListView/UnreadAgreeList'
+import UnreadRewardList from '~/components/ListView/UnreadRewardList'
+import UnreadUserFollowList from '~/components/ListView/UnreadUserFollowList'
 import './index.scss'
 
 export default class extends Component {
