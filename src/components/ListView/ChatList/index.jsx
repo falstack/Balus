@@ -42,7 +42,12 @@ export default class extends PureComponent {
     const { user } = this.props
 
     return (
-      <ListView store={this.store} append={true} bottom={false} params={this.params}>
+      <ListView
+        store={this.store}
+        append={true}
+        bottom={false}
+        params={this.params}
+      >
         {
           this.store.state.result.map(item => (
             <ChatItem
