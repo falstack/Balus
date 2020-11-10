@@ -1206,6 +1206,11 @@
   resolved "https://registry.yarnpkg.com/@flowlist/js-core/-/js-core-1.4.2.tgz#31267328def2eefbbd454c1113ee50eedb89de19"
   integrity sha512-4fskFCM7t6WwoNPZk91rdOkh+ugr672L3UU+ACkbyhQgNBpJSm66RHCTFC/1Yut/UjapZEAPvvVuBZALufYmWw==
 
+"@flowlist/js-core@^1.4.3":
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/@flowlist/js-core/-/js-core-1.4.3.tgz#25f564937b7bb2b693eaba694dca2e826c14f3c8"
+  integrity sha512-naKMbSBjapluFXnPAI4RBkpqTHnibcR+Omn5zxrDcwlcgCZFIR/UVRDXUBjfLmGNjg/CBHvl6fnmOLFkFiTqMg==
+
 "@flowlist/taro2-react-mobx@^0.0.14":
   version "0.0.14"
   resolved "https://registry.yarnpkg.com/@flowlist/taro2-react-mobx/-/taro2-react-mobx-0.0.14.tgz#fc5e9bad6113176c290aa5bdb034292f230aa094"
@@ -7604,10 +7609,10 @@ mobile-detect@^1.4.2:
   resolved "https://registry.yarnpkg.com/mobile-detect/-/mobile-detect-1.4.4.tgz#686c74e92d3cc06b09a9b3594b7b981494b137f6"
   integrity sha512-vTgEjKjS89C5yHL5qWPpT6BzKuOVqABp+A3Szpbx34pIy3sngxlGaFpgHhfj6fKze1w0QKeOSDbU7SKu7wDvRQ==
 
-mobx@4.8.0:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-4.8.0.tgz#6059feb9e0d3440acca5ae192daad63198b1180f"
-  integrity sha512-uR6FnrK50UEbV+zTXkOI+R0pAMb7xA5mkAWnKTMBcN6hAh57qAa9r0XMvsiPgpb8dS3Kw1x0sNhrrUNUcM+Pug==
+mobx@5.15.7:
+  version "5.15.7"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-5.15.7.tgz#b9a5f2b6251f5d96980d13c78e9b5d8d4ce22665"
+  integrity sha512-wyM3FghTkhmC+hQjyPGGFdpehrcX1KOXsDuERhfK2YbJemkUhEB+6wzEN639T21onxlfYBmriA1PFnvxTUhcKw==
 
 move-concurrently@^1.0.1:
   version "1.0.1"
