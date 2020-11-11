@@ -60,10 +60,22 @@
       flex: 1;
 
       .page_title {
+        position: relative;
         font-size: 40px;
         font-weight: bold;
         color: #000000;
-        padding-left: $container-padding * 2;
+        margin-left: $container-padding * 2;
+
+        &:after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: -1px;
+          right: 0;
+          height: 4PX;
+          border-radius: 4PX;
+          background-color: $color-red;
+        }
       }
     }
   }
