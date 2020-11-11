@@ -138,6 +138,10 @@
       height: 80%;
     }
 
+    &.use-blur {
+      @include filter-blur(20);
+    }
+
     &.has-blur {
       @include filter-blur(80);
     }

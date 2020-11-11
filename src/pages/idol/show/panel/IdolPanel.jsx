@@ -14,7 +14,7 @@ export default class IdolPanel extends Component {
     const { idol } = this.props
     return (
       <View className='idol-panel'>
-        <Navbar background={idol.avatar} title={idol.name}>
+        <Navbar blur background={idol.avatar} title={idol.name}>
           <View className='content'>
             <Image
               src={utils.resize(idol.avatar, { width: 170 })}

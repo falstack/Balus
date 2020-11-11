@@ -71,7 +71,7 @@ class Navbar extends Component {
             style={shimStyle(this.state)}
             className='navbar__shim has-bg'
           >
-            <View className={classNames('navbar__bg', { 'has-blur': this.state.blur })}>
+            <View className={classNames('navbar__bg', { 'has-blur': this.state.blur }, { 'use-blur': this.props.blur })}>
               <Image
                 className='image'
                 mode="aspectFill"
@@ -90,6 +90,7 @@ class Navbar extends Component {
 }
 
 Navbar.defaultProps = {
+  blur: false,
   title: '',
   background: ''
 }
