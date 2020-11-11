@@ -1,7 +1,7 @@
 import Taro, { PureComponent } from '@tarojs/taro'
 import { createStore, reactive } from '@flowlist/taro2-react-mobx'
+import { ScrollView } from '@tarojs/components'
 import { inject } from '@tarojs/mobx'
-import ListView from '~/components/ListView'
 import ChatItem from '~/components/ListItem/ChatItem'
 import event from '~/utils/event'
 import { getChatList } from '~/utils/api'
@@ -18,12 +18,17 @@ export default class extends PureComponent {
       type: 'sinceId',
       query: {
         channel: props.slug
-      }
+      },
+      callback: this.callback
+    }
+    this.state = {
+      lastId: ''
     }
   }
 
   componentDidMount () {
     event.on('CHAT_LIST_UPDATE', this.watchMessage.bind(this))
+    this.store.initData(this.params)
   }
 
   componentWillUnmount () {
@@ -38,15 +43,27 @@ export default class extends PureComponent {
     })
   }
 
+  handleTop = () => {
+    this.store.loadBefore(this.params)
+  }
+
+  callback = (res) => {
+    this.setState({
+      lastId: res.data.result.length ? `chat-${res.data.result[res.data.result.length - 1].id}` : ''
+    })
+  }
+
   render () {
     const { user } = this.props
 
     return (
-      <ListView
-        store={this.store}
-        append={true}
-        bottom={false}
-        params={this.params}
+      <ScrollView
+        className='chat-list'
+        scrollY={true}
+        scrollX={false}
+        scrollAnchoring
+        onScrollToUpper={this.handleTop}
+        scrollIntoView={this.state.lastId}
       >
         {
           this.store.state.result.map(item => (
@@ -58,7 +75,7 @@ export default class extends PureComponent {
             />
           ))
         }
-      </ListView>
+      </ScrollView>
     )
   }
 }
