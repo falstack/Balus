@@ -31,7 +31,7 @@
   "license": "MIT",
   "dependencies": {
     "@flowlist/js-core": "^1.4.3",
-    "@flowlist/taro2-react-mobx": "^0.0.14",
+    "@flowlist/taro2-react-mobx": "^0.0.16",
     "@tarojs/components": "2.2.15",
     "@tarojs/components-qa": "2.2.15",
     "@tarojs/mobx": "^2.2.15",

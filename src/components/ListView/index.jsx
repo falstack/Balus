@@ -10,8 +10,7 @@ import './index.scss'
 class ListView extends PureComponent {
   componentDidMount () {
     didMount(this, {
-      className: 'list-view__shim',
-      scrollView: true
+      className: 'list-view__shim'
     })
   }
 
@@ -32,48 +31,60 @@ class ListView extends PureComponent {
   }
 
   render () {
-    const { showError, showNoMore, showLaunch, showNothing, state } = convertProps(this)
+    const { showError, showNoMore, showLaunch, showNothing, state, useScrollView } = convertProps(this)
+
+    const coreView = <Block>
+      {
+        showLaunch ? (
+          <View className='list-view__state'>
+            <Image className='list-view__img' mode='aspectFit' src={Loading} />
+          </View>
+        ) : showNothing ? (
+          <View className='list-view__state'>
+            {
+              this.props.launch && <Block>
+                <Image className='list-view__img' mode='aspectFit' src={Nothing} />
+                <View className='list-view__txt'>这里什么都没有</View>
+              </Block>
+            }
+          </View>
+        ) : showError ? (
+          <View className='list-view__state'>
+            <Image className='list-view__img' mode='aspectFit' src={Error} />
+            <View className='list-view__txt'>{ state.error.message || '网络错误' }</View>
+          </View>
+        ) : <Block>
+          {this.props.children}
+          {
+            showNoMore && <View className='list-view__tip'>没有更多了</View>
+          }
+        </Block>
+      }
+      <View className='list-view__shim' />
+    </Block>
+
+    if (useScrollView) {
+      return (
+        <ScrollView
+          className='list-view__scroll'
+          scrollX={this.props.scrollX}
+          scrollY={!this.props.scrollX}
+          scrollAnchoring
+          enableBackToTop={this.props.enableBackToTop}
+          onScrollToUpper={this.handleTop}
+          onScrollToLower={this.handleBottom}
+        >
+          {coreView}
+        </ScrollView>
+      )
+    }
 
     return (
-      <ScrollView
-        className='list-view'
-        scrollX={this.props.scrollX}
-        scrollY={!this.props.scrollX}
-        scrollAnchoring
-        enhanced
-        show-scrollbar={false}
-        enableBackToTop={this.props.enableBackToTop}
-        onScrollToUpper={this.handleTop}
-        onScrollToLower={this.handleBottom}
-      >
-        {
-          showLaunch ? (
-            <View className='list-view__state'>
-              <Image className='list-view__img' mode='aspectFit' src={Loading} />
-            </View>
-          ) : showNothing ? (
-            <View className='list-view__state'>
-              {
-                this.props.launch && <Block>
-                  <Image className='list-view__img' mode='aspectFit' src={Nothing} />
-                  <View className='list-view__txt'>这里什么都没有</View>
-                </Block>
-              }
-            </View>
-          ) : showError ? (
-            <View className='list-view__state'>
-              <Image className='list-view__img' mode='aspectFit' src={Error} />
-              <View className='list-view__txt'>{ state.error.message || '网络错误' }</View>
-            </View>
-          ) : <Block>
-            {this.props.children}
-            {
-              showNoMore && <View className='list-view__tip'>没有更多了</View>
-            }
-          </Block>
-        }
-        <View className='list-view__shim' />
-      </ScrollView>
+      <View className='list-view__wrap'>
+        <View className='list-view__view'>
+          {coreView}
+        </View>
+      </View>
     )
   }
 }

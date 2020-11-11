@@ -1211,10 +1211,10 @@
   resolved "https://registry.yarnpkg.com/@flowlist/js-core/-/js-core-1.4.3.tgz#25f564937b7bb2b693eaba694dca2e826c14f3c8"
   integrity sha512-naKMbSBjapluFXnPAI4RBkpqTHnibcR+Omn5zxrDcwlcgCZFIR/UVRDXUBjfLmGNjg/CBHvl6fnmOLFkFiTqMg==
 
-"@flowlist/taro2-react-mobx@^0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@flowlist/taro2-react-mobx/-/taro2-react-mobx-0.0.14.tgz#fc5e9bad6113176c290aa5bdb034292f230aa094"
-  integrity sha512-nPpYOOKI6KgNaFhm7x3E8/B6xtz4wqEOqmKkPG4WeOV9KYxQYOCRkmBHOOFi54fyNNXUS3wLsfcoluXx60z+og==
+"@flowlist/taro2-react-mobx@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@flowlist/taro2-react-mobx/-/taro2-react-mobx-0.0.16.tgz#5d3eedd1bab6cb7c7b020341f6a45835d655c234"
+  integrity sha512-rxmg9TX/quRSQpW9aK5MU0peEwRR+EuEGnT+I0+CC99UfcGCRyqYj8+sf8jlEFcQXopeTpMURJUpL/L2ow32zA==
   dependencies:
     "@flowlist/js-core" "^1.4.2"
     "@tarojs/components" "2.2.15"

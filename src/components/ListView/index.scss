@@ -7,6 +7,36 @@ $minSize: 100PX;
   overscroll-behavior: contain;
 }
 
+.list-view__scroll {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overscroll-behavior: contain;
+
+  .list-view__shim {
+    top: 0;
+  }
+}
+
+.list-view__wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+  .list-view__shim {
+    bottom: 0;
+  }
+}
+
+.list-view__view {
+  position: relative;
+  min-width: $minSize;
+  min-height: $minSize;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
 .list-view__tip {
   color: #C0C0C0;
   font-size: 14PX;
@@ -22,7 +52,6 @@ $minSize: 100PX;
   z-index: -1;
   background-color: transparent;
   right: 0;
-  top: 0;
 }
 
 .list-view__state {
