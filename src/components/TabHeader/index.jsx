@@ -9,11 +9,19 @@ class TabHeader extends PureComponent {
   }
 
   render () {
-    const { list, active, line, pink, height } = this.props
+    const { list, active, line, pink, scale, height } = this.props
 
     return (
       <ScrollView
-        className={classNames('tab-header', `tab-header--${list.length}`, { 'tab-header--line': line }, { 'tab-header--pink': pink })}
+        className={
+          classNames(
+            'tab-header',
+            `tab-header--${list.length}`,
+            { 'tab-header--line': line },
+            { 'tab-header--pink': pink },
+            { 'tab-header--scale': scale },
+          )
+        }
         style={`height:${height}`}
         scrollX
         scrollWithAnimation
@@ -38,6 +46,7 @@ class TabHeader extends PureComponent {
 TabHeader.defaultProps = {
   line: false,
   pink: false,
+  scale: false,
   list: [],
   active: 0,
   height: '40px',

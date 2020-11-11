@@ -18,11 +18,11 @@
     padding: 0 32px;
     height: 100%;
     white-space: nowrap;
-    color: #505050;
+    color: #000000;
+    font-weight: 400;
 
     &.is-active {
       position: relative;
-      color: $color-red;
 
       &:after {
         content: '';
@@ -30,8 +30,8 @@
         left: 32px;
         right: 32px;
         bottom: 0;
-        height: 2PX;
-        border-radius: 2PX;
+        height: 3PX;
+        border-radius: 3PX;
         background-color: $color-red;
       }
     }
@@ -68,6 +68,22 @@
 
     .tab-anchor {
       background-color: #fff;
+    }
+  }
+
+  &--scale {
+    .tab-item {
+      transition: transform .2s;
+
+      &.is-active {
+        transform: scale(1.25);
+        transform-origin: center;
+        font-weight: 700;
+
+        &:after {
+          bottom: 8PX;
+        }
+      }
     }
   }
 

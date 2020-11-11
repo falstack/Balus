@@ -60,6 +60,7 @@ class indexPage extends Component {
           <Navbar>
             <TabHeader
               list={tabs.map(_ => _.title)}
+              scale
               active={current}
               onClick={this.handleTabClick.bind(this)}
             />
