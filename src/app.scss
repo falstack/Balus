@@ -94,3 +94,15 @@ text {
   position: relative;
   overflow: hidden;
 }
+
+.iphone-top-shim {
+  background-color: transparent;
+  height: constant(safe-area-inset-top);
+  height: env(safe-area-inset-top);
+}
+
+.iphone-bottom-shim {
+  background-color: transparent;
+  height: constant(safe-area-inset-bottom);
+  height: env(safe-area-inset-bottom);
+}

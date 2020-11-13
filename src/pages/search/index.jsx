@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Swiper, Input, SwiperItem } from '@tarojs/components'
-import TabHeader from '~/components/TabHeader'
+import TabHeader from '~/components/Tabbar'
 import SearchBangumi from '~/components/ListView/SearchBangumi'
 import SearchIdol from '~/components/ListView/SearchIdol'
 import utils from '~/utils'

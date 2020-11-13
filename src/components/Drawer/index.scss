@@ -1,0 +1,50 @@
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 999;
+  pointer-events: none;
+
+  &__mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    pointer-events: auto;
+  }
+
+  &__wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    animation: scroll-enter-bottom 300ms;
+    pointer-events: auto;
+
+    .drawer__close {
+      padding-top: 110px;
+      padding-left: $container-padding;
+
+      .iconfont {
+        font-size: 50px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  @keyframes scroll-enter-bottom {
+    0% {
+      transform: translateY(100%);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+}

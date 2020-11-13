@@ -15,11 +15,11 @@ class TabHeader extends PureComponent {
       <ScrollView
         className={
           classNames(
-            'tab-header',
-            `tab-header--${list.length}`,
-            { 'tab-header--line': line },
-            { 'tab-header--pink': pink },
-            { 'tab-header--scale': scale },
+            'tabbar',
+            `tabbar--${list.length}`,
+            { 'tabbar--line': line },
+            { 'tabbar--pink': pink },
+            { 'tabbar--scale': scale },
           )
         }
         style={`height:${height}`}

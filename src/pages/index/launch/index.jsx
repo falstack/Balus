@@ -3,7 +3,7 @@ import { View, Swiper, SwiperItem } from '@tarojs/components'
 import Navbar from '~/components/Navbar/text'
 import PinList from '~/components/ListView/PinList'
 import IdolList from '~/components/ListView/IdolList'
-import TabHeader from '~/components/TabHeader'
+import TabHeader from '~/components/Tabbar'
 import utils from '~/utils'
 import './index.scss'
 
