@@ -31,7 +31,7 @@
   "license": "MIT",
   "dependencies": {
     "@flowlist/js-core": "^1.4.3",
-    "@flowlist/taro2-react-mobx": "^0.0.16",
+    "@flowlist/taro2-react-mobx": "^0.0.17",
     "@tarojs/components": "2.2.15",
     "@tarojs/components-qa": "2.2.15",
     "@tarojs/mobx": "^2.2.15",
@@ -59,7 +59,7 @@
     "@tarojs/plugin-sass": "^2.2.15",
     "@tarojs/plugin-uglifyjs": "2.2.7",
     "@tarojs/webpack-runner": "2.2.15",
-    "@types/react": "^16.9.55",
+    "@types/react": "^16.9.56",
     "@types/webpack-env": "^1.15.3",
     "babel-eslint": "^10.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -67,7 +67,7 @@
     "babel-plugin-transform-jsx-stylesheet": "^1.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "eslint": "^7.12.1",
+    "eslint": "^7.13.0",
     "eslint-config-taro": "3.0.16",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-react": "^7.21.5",
@@ -77,6 +77,6 @@
     "stylelint": "13.7.2",
     "stylelint-config-taro-rn": "2.2.10",
     "stylelint-taro-rn": "2.2.10",
-    "webpack-bundle-analyzer": "^3.9.0"
+    "webpack-bundle-analyzer": "^4.1.0"
   }
 }
