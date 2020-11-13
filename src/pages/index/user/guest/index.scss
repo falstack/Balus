@@ -1,142 +1,48 @@
-.user-page {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+.guest-panel {
+  width: 420px;
+  margin: 0 auto;
+  padding-bottom: 120px;
 
-  .form-wrap {
-    width: 100%;
+  .login-tips {
+    font-size: 30px;
+    text-align: center;
+  }
 
-    .bg {
-      height: 300px;
-      background-color: $color-red;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      box-sizing: content-box;
-      padding-top: constant(safe-area-inset-top);
-      padding-top: env(safe-area-inset-top);
+  .btn-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
 
-      image {
-        width: 434px;
-        height: 148px;
-      }
-    }
-
-    .sign-form {
-      padding-left: 70px;
-      padding-right: 70px;
-      padding-top: 100px;
-
-      .title {
-        font-size: 40px;
-        color: #14171A;
-        margin-bottom: 30px;
-      }
-
-      .input-wrap {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        border-bottom: 1px solid #E1E8ED;
-        height: 113px;
-
-        text {
-          font-size: 32px;
-          width: 100px;
-          text-align: center;
-        }
-
-        .iconfont {
-          font-size: 50px;
-        }
-
-        input {
-          font-size: 32px;
-          flex: 1;
-          color: #14171A;
-        }
-      }
-
-      .submit-btn {
-        height: 90px;
-        line-height: 90px;
-        font-size: 32px;
-        border-radius: 90px;
-        margin-top: 60px;
-        color: #fff;
-        background-color: #CCD6DD;
-
-        &.is-active {
-          background-color: $color-red;
-        }
-      }
-
-      .footer {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        color: #657786;
-        font-size: 28px;
-        margin-top: 30px;
-
-        &.is-small {
-          margin: 50px auto;
-          width: 530px;
-        }
-
-        .is-active {
-          color: $color-red;
-        }
-      }
+    .primary-btn,
+    .primary-btn-plain {
+      border-radius: 10px;
+      padding: 0 50px;
+      height: 70px;
+      line-height: 70px;
+      font-size: 30px;
+      font-weight: 500;
     }
   }
 
-  .others {
-    width: 452px;
-    padding-bottom: 70px;
+  .login-drawer {
+    width: 500px;
+    margin: 0 auto;
 
-    .divider {
-      margin-bottom: 30px;
+    .title {
       text-align: center;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-
-      .line {
-        height: 1PX;
-        width: 151px;
-        background-color: #E1E8ED;
-      }
-
-      .text {
-        white-space: nowrap;
-        padding: 0 20px;
-        color: #657786;
-        font-size: 28px;
-      }
+      font-size: 44px;
+      margin-bottom: 60px;
     }
+  }
 
-    .auth-channel {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      align-items: center;
+  .bind-phone-dialog {
+    padding: $container-padding;
 
-      .auth-btn {
-        width: 80px;
-        height: 80px;
-
-        image {
-          display: block;
-          width: 100%;
-          height: 100%;
-        }
-      }
+    .tip {
+      text-align: center;
+      padding-bottom: $container-padding;
     }
   }
 }

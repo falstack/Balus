@@ -52,7 +52,7 @@ export default class extends Component {
 
   render() {
     const { user } = this.props
-    if (!user) {
+    if (user.isGuest) {
       return <View />
     }
 

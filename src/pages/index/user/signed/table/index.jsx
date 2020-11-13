@@ -16,7 +16,7 @@ export default class extends Component {
 
   render() {
     const { user } = this.props
-    if (!user.isLogin) {
+    if (user.isGuest) {
       return <View />
     }
 

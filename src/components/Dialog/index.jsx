@@ -3,6 +3,10 @@ import { View } from '@tarojs/components'
 import './index.scss'
 
 class Dialog extends PureComponent {
+  constructor(props) {
+    super(props)
+  }
+
   clickMask = () => {
     if (!this.props.maskClose) {
       return

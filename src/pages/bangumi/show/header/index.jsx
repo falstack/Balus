@@ -22,7 +22,7 @@ class BangumiHeader extends Component {
   }
 
   clickJoinBtn() {
-    if (!this.props.user.isLogin) {
+    if (this.props.user.isGuest) {
       toast.info('请先登录')
       return
     }

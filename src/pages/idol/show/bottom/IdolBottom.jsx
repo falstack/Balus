@@ -20,7 +20,7 @@ export default class IdolBottom extends Component {
   }
 
   handleClick() {
-    if (!this.props.user.isLogin) {
+    if (this.props.user.isGuest) {
       toast.info('请先登录')
       return
     }
@@ -92,7 +92,7 @@ export default class IdolBottom extends Component {
     if (value < 0) {
       value = 0
     }
-    if (!this.props.user.isLogin) {
+    if (this.props.user.isGuest) {
       value = 0
     }
     const max = parseInt(this.props.user.info.wallet_coin / this.props.idol.stock_price)

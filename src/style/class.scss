@@ -80,3 +80,14 @@
   height: constant(safe-area-inset-bottom);
   height: env(safe-area-inset-bottom);
 }
+
+.primary-btn {
+  border: 1PX solid #3D3D3D;
+  background-color: #3D3D3D;
+  color: #fff;
+
+  &-plain {
+    border: 1PX solid #3D3D3D;
+    color: #3D3D3D;
+  }
+}

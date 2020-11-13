@@ -35,7 +35,7 @@ export default class UserPanel extends Component {
     if (!info) {
       return
     }
-    const isMine = info.slug === this.props.user.info.slug
+    const isMine = info.slug === this.props.user.slug
     const badges = info.title.map(badge => {
       const key = Math.random()
         .toString(36)

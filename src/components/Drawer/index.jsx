@@ -49,7 +49,7 @@ class Drawer extends PureComponent {
   }
 }
 
-Dialog.defaultProps = {
+Drawer.defaultProps = {
   maskClose: true,
   showMask: true,
   visible: false,

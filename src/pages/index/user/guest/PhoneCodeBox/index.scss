@@ -1,0 +1,55 @@
+.phone-code-box {
+  .message-wrap {
+    padding: 12px 0 53px;
+  }
+
+  .input-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F5F5F5;
+    padding: 30px 20px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+
+    .area {
+      border-right: 1PX solid #3D3D3D;
+      padding-right: 10px;
+      margin-right: 10px;
+      font-size: 30px;
+      line-height: 30px;
+      height: 30px;
+    }
+
+    .input {
+      flex: 1;
+      font-size: 30px;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .btn {
+      flex: 1;
+    }
+
+    .divider {
+      flex-shrink: 0;
+      width: $container-padding;
+    }
+  }
+
+  .bind-auth-dialog {
+    padding: $container-padding;
+
+    .tip {
+      text-align: center;
+      padding-bottom: $container-padding * 2;
+    }
+  }
+}
