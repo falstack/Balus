@@ -2,14 +2,14 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import CustomBar from '~/custom-tab-bar'
 import event from '~/utils/event'
-import pageShare from '~/mixin/pageShare'
+import share from '~/mixin/share'
 import LaunchPage from './launch'
 import BangumiPage from './bangumi'
 import MessagePage from './message'
 import UserPage from './user'
 import './index.scss'
 
-@pageShare
+@share
 class indexPage extends Component {
   config = {
     navigationStyle: 'custom',

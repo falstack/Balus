@@ -1,4 +1,4 @@
-export default function pageShare(Comp) {
+export default function share(Comp) {
   return class extends Comp {
     constructor(props) {
       super(props)

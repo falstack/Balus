@@ -7,11 +7,11 @@ import BangumiHeader from './header'
 import PinList from '~/components/ListView/PinList'
 import IdolList from '~/components/ListView/IdolList'
 import http from '~/utils/http'
-import pageShare from '~/mixin/pageShare'
+import share from '~/mixin/share'
 import './index.scss'
 
 @navbar
-@pageShare
+@share
 class BangumiShow extends Component {
   config = {
     navigationStyle: 'custom',

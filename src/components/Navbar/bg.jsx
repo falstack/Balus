@@ -11,7 +11,7 @@ class Navbar extends Component {
     super(props)
     this.state = {
       ...(this.state || {}),
-      blur: false,
+      isBlur: false,
     }
   }
 
@@ -37,13 +37,13 @@ class Navbar extends Component {
     this.ob.relativeToViewport({ bottom: 0 }).observe('.navbar', utils.throttle((e) => {
       if (e.intersectionRatio > 0.9) {
         this.setState({
-          blur: false
+          isBlur: false
         })
         return
       }
-      const { blur } = this.state
+      const { isBlur } = this.state
       this.setState({
-        blur: !blur
+        isBlur: !isBlur
       })
     }, 100))
   }
@@ -61,7 +61,7 @@ class Navbar extends Component {
               className='navbar__core has-bg'
             >
               <Text className='iconfont ic-left' onClick={() => {utils.back()}} />
-              <View className={classNames('navbar__title', { 'has-blur': this.state.blur })}>
+              <View className={classNames('navbar__title', { 'has-blur': this.state.isBlur })}>
                 <Text className='line'>|</Text>
                 <Text className='title'>{this.props.title}</Text>
               </View>
@@ -71,7 +71,7 @@ class Navbar extends Component {
             style={shimStyle(this.state)}
             className='navbar__shim has-bg'
           >
-            <View className={classNames('navbar__bg', { 'has-blur': this.state.blur }, { 'use-blur': this.props.blur })}>
+            <View className={classNames('navbar__bg', { 'has-blur': this.state.isBlur }, { 'use-blur': this.props.blur })}>
               <Image
                 className='image'
                 mode="aspectFill"
@@ -79,7 +79,7 @@ class Navbar extends Component {
               />
             </View>
             <View className="navbar__mask" />
-            <View className={classNames('navbar__body', { 'has-blur': this.state.blur })}>
+            <View className={classNames('navbar__body', { 'has-blur': this.state.isBlur })}>
               {this.props.children}
             </View>
           </View>

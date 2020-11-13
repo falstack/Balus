@@ -8,11 +8,11 @@ import IdolList from '~/components/ListView/IdolList'
 import TabHeader from '~/components/Tabbar'
 import http from '~/utils/http'
 import navbar from '~/mixin/navbar'
-import pageShare from '~/mixin/pageShare'
+import share from '~/mixin/share'
 import './index.scss'
 
 @navbar
-@pageShare
+@share
 class UserShow extends Component {
   config = {
     navigationStyle: 'custom',

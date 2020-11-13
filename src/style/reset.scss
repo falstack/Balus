@@ -1,0 +1,21 @@
+button {
+  padding: 0;
+  font-size: 32px;
+  background-color: transparent;
+
+  &:after {
+    content: none;
+  }
+}
+
+view,
+image,
+button {
+  box-sizing: border-box;
+}
+
+button,
+image,
+text {
+  vertical-align: middle;
+}
