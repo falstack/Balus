@@ -27,29 +27,21 @@ class UserStore {
 
   @action.bound
   updateUserPocket(amount) {
+    if (!this.info) {
+      return
+    }
+
     this.info.wallet_coin = +parseFloat(
       +this.info.wallet_coin + Number(amount)
     ).toFixed(2)
   }
 
   @action.bound
-  updateUserInfo(info) {
+  updateUserInfo(user) {
     this.info = {
-      ...this.info,
-      ...info
+      ...(this.info || {}),
+      ...user
     }
-  }
-
-  @action.bound
-  delUserSign() {
-    const handler = () => {
-      cache.remove('JWT-TOKEN')
-      this.info = {}
-    }
-
-    http.post('door/logout')
-      .then(handler)
-      .catch(handler)
   }
 
   @action.bound
@@ -64,7 +56,7 @@ class UserStore {
     })
       .then(user => {
         this.info = {
-          ...this.info,
+          ...(this.info || {}),
           ...user
         }
       })
@@ -98,27 +90,6 @@ class UserStore {
     logoutAction()
     cache.remove('JWT-TOKEN')
     this.info = null
-  }
-
-  @action.bound
-  getUserInfo() {
-    http
-      .post('door/get_user_info')
-      .then(user => {
-        if (user && user.title.length) {
-          // http.get('user/roles')
-          //   .then(roles => {
-          //     cache.set('USER_ROLES', roles)
-          //   })
-          //   .catch(() => {})
-        }
-        this.info = user
-      })
-      .catch(err => {
-        if (err.code === 401) {
-          cache.remove('JWT-TOKEN')
-        }
-      })
   }
 }
 

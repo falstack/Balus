@@ -78,6 +78,7 @@ export default class extends Component {
         </View>
         <Drawer
           visible={this.state.showDrawer}
+          onClose={() => { this.setState({ showDrawer: false }) }}
           size="100%"
         >
           <View className="login-drawer">

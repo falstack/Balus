@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Text } from '@tarojs/components'
+import { inject, observer } from '@tarojs/mobx'
 import Navbar from '~/components/Navbar/text'
 import MessageMenu from '~/components/ListView/MessageMenu'
 import rewardIcon from '~/image/icon_reward.png'
@@ -10,6 +11,8 @@ import cache from '~/utils/cache'
 import http from '~/utils/http'
 import './index.scss'
 
+@inject('user')
+@observer
 class MessageEntry extends Component {
   constructor (props) {
     super(props)
@@ -61,6 +64,9 @@ class MessageEntry extends Component {
   }
 
   getUnreadData = () => {
+    if (this.props.user.isGuest) {
+      return
+    }
     http.get('message/total')
       .then(res => {
         this.setState(res)

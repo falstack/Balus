@@ -61,7 +61,7 @@ class App extends Component {
     if (!token) {
       return
     }
-    this.props.user.getUserInfo()
+    this.props.user.userLogin()
     this.connectSocket()
   }
 

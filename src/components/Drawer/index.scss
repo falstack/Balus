@@ -31,9 +31,11 @@
       padding-top: 110px;
       padding-left: $container-padding;
 
-      .iconfont {
+      &__btn {
         font-size: 50px;
         font-weight: bold;
+        color: #000000;
+        padding: 0 $container-padding;
       }
     }
   }

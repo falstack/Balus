@@ -30,7 +30,7 @@ export default class extends PureComponent {
   }
 
   refreshList = (index) => {
-    if (index !== 2) {
+    if (index === 2) {
       return
     }
     this.store.refresh(this.params)

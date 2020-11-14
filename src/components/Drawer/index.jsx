@@ -34,10 +34,7 @@ class Drawer extends PureComponent {
           {
             this.props.size === '100%' && <Block>
               <View class="drawer__close">
-                <Text
-                  class="iconfont ic-cancel"
-                  onClick={this.closeDrawer}
-                />
+                <Text className='drawer__close__btn' onClick={this.closeDrawer}>×</Text>
               </View>
               <View class="iphone-top-shim"/>
             </Block>
