@@ -24,14 +24,14 @@ class Dialog extends PureComponent {
     }
 
     return (
-      <View class="dialog">
+      <View className="dialog">
         {
           this.props.showMask && <View
-            class="dialog__mask"
+            className="dialog__mask"
             onClick={this.clickMask}
           />
         }
-        <View class="dialog__wrap">
+        <View className="dialog__wrap">
           {this.props.children}
         </View>
       </View>

@@ -16,6 +16,7 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.3);
     pointer-events: auto;
+    transition-duration: 300ms;
   }
 
   &__wrap {
@@ -26,6 +27,7 @@
     background-color: #fff;
     animation: scroll-enter-bottom 300ms;
     pointer-events: auto;
+    transition-duration: 300ms;
 
     .drawer__close {
       padding-top: 110px;
@@ -37,6 +39,16 @@
         color: #000000;
         padding: 0 $container-padding;
       }
+    }
+  }
+
+  &.is-closing {
+    .drawer__mask {
+      background-color: transparent;
+    }
+
+    .from-bottom {
+      transform: translateY(100%);
     }
   }
 
