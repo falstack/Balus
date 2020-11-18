@@ -133,19 +133,12 @@ class IdolShow extends Component {
             </Navigator>
             <View className='controls'>
               {
-                showEdit ? <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('idol/edit?slug=' + idol.slug)}`}>
+                showEdit && <Navigator hover-class='none' url={`/pages/webview/index?url=${encodeURIComponent('idol/edit?slug=' + idol.slug)}`}>
                   编辑
-                </Navigator> : ''
+                </Navigator>
               }
             </View>
           </View>
-          {
-            idol.intro ?
-              <View className='intro'>
-                <Text className='intro__title'>角色简介</Text>
-                <Text className='intro__text'>{idol.intro}</Text>
-              </View> : ''
-          }
           <View className='intro'>
             <Text className='intro__title'>所属番剧</Text>
             <BangumiItem item={idol.bangumi} />

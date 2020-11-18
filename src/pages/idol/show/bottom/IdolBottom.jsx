@@ -4,7 +4,7 @@ import { inject, observer } from '@tarojs/mobx'
 import utils from '~/utils'
 import http from '~/utils/http'
 import toast from '~/utils/toast'
-import classNames from 'classnames'
+import Dialog from '~/components/Dialog'
 import './index.scss'
 
 @inject('user')
@@ -24,18 +24,12 @@ export default class IdolBottom extends Component {
       toast.info('请先登录')
       return
     }
-    if (!+this.props.user.wallet_coin) {
+    if (!+this.props.user.info.wallet_coin) {
       toast.info('木有团子啊')
       return
     }
     this.setState({
       isOpen: true
-    })
-  }
-
-  handleClose() {
-    this.setState({
-      isOpen: false
     })
   }
 
@@ -69,7 +63,8 @@ export default class IdolBottom extends Component {
       .then(() => {
         this.props.user.updateUserPocket(-amount)
         this.setState({
-          isOpen: false
+          isOpen: false,
+          value: 0
         })
         this.props.onPayCallback({
           stock_count: value,
@@ -105,8 +100,8 @@ export default class IdolBottom extends Component {
   }
 
   render () {
-    const { idol, user } = this.props
-    const { isOpen } = this.state
+    const { idol, user: { info: { wallet_coin } } } = this.props
+
     return (
       <View className='idol-bottom'>
         <View className='idol-bottom__content'>
@@ -116,20 +111,23 @@ export default class IdolBottom extends Component {
           </Button>
         </View>
         <View className='idol-bottom__shim' />
-        <View className={classNames('dialog', { 'is-open': isOpen })}>
-          <View className='dialog__mask' onClick={() => { this.setState({ isOpen: false }) }} />
+        <Dialog visible={this.state.isOpen} onClose={() => { this.setState({ isOpen: false }) }}>
           <View className='dialog__wrap'>
             <View className='dialog__header'>投票窗口</View>
             <View className='dialog__body'>
               <View className='dialog__line'>
                 <View className='label'>剩余团子：</View>
-                <View>{user.info.wallet_coin}</View>
+                <View>{wallet_coin}个</View>
               </View>
               <View className='dialog__line'>
-                <View className='label'>购入份额：</View>
+                <View className='label'>最多买入：</View>
+                <View>{parseInt(wallet_coin / idol.stock_price)}股</View>
+              </View>
+              <View className='dialog__line'>
+                <View className='label'>购入股数：</View>
                 <Input
-                  value={this.state.value}
                   type='number'
+                  adjustPosition
                   onInput={this.handleInput}
                 />
               </View>
@@ -139,7 +137,7 @@ export default class IdolBottom extends Component {
               <Button hover-class='none' onClick={this.handleConfirm}>确定</Button>
             </View>
           </View>
-        </View>
+        </Dialog>
       </View>
     )
   }

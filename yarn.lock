@@ -1211,10 +1211,10 @@
   resolved "https://registry.yarnpkg.com/@flowlist/js-core/-/js-core-1.4.3.tgz#25f564937b7bb2b693eaba694dca2e826c14f3c8"
   integrity sha512-naKMbSBjapluFXnPAI4RBkpqTHnibcR+Omn5zxrDcwlcgCZFIR/UVRDXUBjfLmGNjg/CBHvl6fnmOLFkFiTqMg==
 
-"@flowlist/taro2-react-mobx@^0.0.17":
-  version "0.0.17"
-  resolved "https://registry.yarnpkg.com/@flowlist/taro2-react-mobx/-/taro2-react-mobx-0.0.17.tgz#18a6b533b47ad8c9319b0ca4d129ef687f787bd2"
-  integrity sha512-G4AQJmUkYbISFm1gN2qA792QP3q4az1pikHFzti1eqJD2TqP25bLLXfe4yuKwOsEvwp1d9v3tmQpT2eW+0MJWw==
+"@flowlist/taro2-react-mobx@^0.0.18":
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/@flowlist/taro2-react-mobx/-/taro2-react-mobx-0.0.18.tgz#ddf1870d1e66cdd975adf2f888b89003b9591eb6"
+  integrity sha512-r/ZHWqMJb0kQk/v46bwQb+fpe5Jr7412likFf2m2dkifQdGt2s2l69JkTUFGealv5kacKtMZmtDmUyfrKPZsWQ==
   dependencies:
     "@flowlist/js-core" "^1.4.2"
     "@tarojs/components" "2.2.15"
@@ -3033,10 +3033,10 @@ babel-plugin-transform-flow-strip-types@^6.22.0:
     babel-plugin-syntax-flow "^6.18.0"
     babel-runtime "^6.22.0"
 
-babel-plugin-transform-jsx-stylesheet@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-transform-jsx-stylesheet/-/babel-plugin-transform-jsx-stylesheet-1.0.0.tgz#c911cd12f9ce6f930f34191eca8ddec8df4c5675"
-  integrity sha512-fjldCbFTxj89IyyfIeqFc1HelZl25a89IHnooXVMLIP9x4AeaeuVk9VpzuUbrTjpaypW1XqwGsqhqgxMmEjgIw==
+babel-plugin-transform-jsx-stylesheet@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-jsx-stylesheet/-/babel-plugin-transform-jsx-stylesheet-1.0.1.tgz#a386c2384df7042be55253888020be9eb9cd3159"
+  integrity sha512-crbBhIT5rYJcvdc1Vxqo3jvR2qO2j4RA5cYGi2fmk1jFx9oBwtnYmEX0i7uddsa7V+FwxH6Kh27MoY4ZXHQ7RQ==
   dependencies:
     camelcase "^3.0.0"
 

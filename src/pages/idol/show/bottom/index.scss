@@ -2,6 +2,7 @@
   &__shim,
   &__content {
     height: 120px;
+    box-sizing: content-box;
     padding-bottom: constant(safe-area-inset-bottom);
     padding-bottom: env(safe-area-inset-bottom);
   }
@@ -42,40 +43,6 @@
   }
 
   .dialog {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0;
-    visibility: hidden;
-    font-size: 32px;
-
-    &.is-open {
-      visibility: visible;
-      opacity: 1;
-    }
-
-    &__mask {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    &__wrap {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 580px;
-      padding: 20px;
-      border-radius: 10px;
-      background-color: #fff;
-    }
-
     &__header {
       text-align: center;
       height: 80px;

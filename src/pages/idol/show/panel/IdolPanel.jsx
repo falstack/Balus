@@ -28,7 +28,7 @@ export default class IdolPanel extends Component {
             idol.buy_stock_count ?
               <View className='mine'>
                 <View>投入份额</View>
-                <View>{idol.buy_stock_count}票</View>
+                <View>{idol.buy_stock_count}股</View>
               </View>
               : ''
           }
