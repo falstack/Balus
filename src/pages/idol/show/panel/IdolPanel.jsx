@@ -25,15 +25,14 @@ export default class IdolPanel extends Component {
         </Navbar>
         <View className='footer'>
           {
-            idol.buy_stock_count ?
+            idol.buy_stock_count &&
               <View className='mine'>
-                <View>投入份额</View>
+                <View>持有份额</View>
                 <View>{idol.buy_stock_count}股</View>
               </View>
-              : ''
           }
           <View className='price'>
-            当前总分 {utils.calculate(idol.market_price)}
+            当前市值 {utils.calculate(idol.market_price)}
           </View>
         </View>
       </View>

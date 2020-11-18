@@ -22,12 +22,14 @@
   .price {
     height: 100%;
     padding: 10PX;
-    line-height: 15PX;
     font-size: 30px;
-    box-sizing: border-box;
     background: linear-gradient(45deg, $color-red, #9198e5);
     color: #fff;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
   }
 
   .mine {
@@ -40,5 +42,9 @@
     font-size: 26px;
     font-weight: bold;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @extend %spaceAround
   }
 }

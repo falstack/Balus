@@ -23,6 +23,11 @@
   word-break: break-all;
 }
 
+%spaceAround {
+  justify-content: space-evenly !important;
+  justify-content: space-around;
+}
+
 @mixin mutiline($line-height, $line: 2) {
   white-space: normal;
   line-height: $line-height;
