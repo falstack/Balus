@@ -64,6 +64,7 @@ export default class IdolBottom extends Component {
         this.props.user.updateUserPocket(-amount)
         this.setState({
           isOpen: false,
+          submitting: false,
           value: 0
         })
         this.props.onPayCallback({
@@ -74,8 +75,6 @@ export default class IdolBottom extends Component {
       })
       .catch(err => {
         toast.info(err.message)
-      })
-      .finally(() => {
         this.setState({
           submitting: false
         })
@@ -94,6 +93,7 @@ export default class IdolBottom extends Component {
     if (value > max) {
       value = max
     }
+    value = +value
     this.setState({
       value
     })
